@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{3A3070F8-6CCB-4F77-9B8C-E25A917E13FD}</ProjectGuid>
+    <ProjectGuid>{74FB125B-9FBF-4A63-BE74-A395653E2828}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BMS.DAO</RootNamespace>
-    <AssemblyName>BMS.DAO</AssemblyName>
+    <RootNamespace>BMS.MODEL</RootNamespace>
+    <AssemblyName>BMS.MODEL</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,30 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Common.Logging, Version=2.1.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\BMS.LIBRARIES\Common.Logging.dll</HintPath>
-    </Reference>
-    <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\BMS.LIBRARIES\Iesi.Collections.dll</HintPath>
-    </Reference>
-    <Reference Include="NHibernate, Version=3.3.1.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\BMS.LIBRARIES\NHibernate.dll</HintPath>
-    </Reference>
-    <Reference Include="Spring.Core, Version=2.0.0.35000, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\BMS.LIBRARIES\Spring.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Spring.Data, Version=2.0.0.35000, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\BMS.LIBRARIES\Spring.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="Spring.Data.NHibernate33, Version=2.0.0.35000, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\BMS.LIBRARIES\Spring.Data.NHibernate33.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -69,16 +45,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomSessionFactory.cs" />
-    <Compile Include="Dao.cs" />
-    <Compile Include="UsersDao.cs" />
+    <Compile Include="Entity\Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BMS.MODEL\BMS.MODEL.csproj">
-      <Project>{74FB125B-9FBF-4A63-BE74-A395653E2828}</Project>
-      <Name>BMS.MODEL</Name>
-    </ProjectReference>
+    <EmbeddedResource Include="Mapping\Users.hbm.xml">
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
