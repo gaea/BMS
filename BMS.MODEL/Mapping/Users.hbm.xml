@@ -9,6 +9,7 @@
     </id>
     <property name="Login" column="Login" type="string"/>
     <property name="Password" column="Password" type="string"/>
+	<property name="Id_Role" column="Id_Role" type="int"/>
   </class>
 
 </hibernate-mapping>

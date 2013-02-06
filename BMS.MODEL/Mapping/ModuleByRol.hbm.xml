@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="BMS.MODEL"
+                   namespace="BMS.MODEL.Entity">
+
+	<class name="ModuleByRol" table="BMS.ModulesByRol">
+		<property name="Id_Module" column="Id_Module" type="int"/>
+		<property name="Id_Rol" column="Id_Role" type="int"/>
+		<property name="Description" column="Description" type="string"/>
+	</class>
+
+</hibernate-mapping>

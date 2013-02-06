@@ -13,7 +13,7 @@
       <dictionary>
         <entry key="connection.provider" value="NHibernate.Connection.DriverConnectionProvider"/>
         <entry key="dialect" value="NHibernate.Dialect.MsSql2008Dialect"/>
-        <entry key="connection.connection_string" value="Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=BMS;Data Source=GAEA-NOTEBOOK\SQLEXPRESS" />
+        <entry key="connection.connection_string" value="Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=BMS;Data Source=LOCALHOST" />
         <entry key="connection.driver_class" value="NHibernate.Driver.SqlClientDriver"/>
         <entry key="use_proxy_validator" value="false" />
         <entry key="current_session_context_class" value="thread_static"/>

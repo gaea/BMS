@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using BMS.MODEL.Entity;
 using NHibernate;
 using NHibernate.Criterion;
 
-namespace BMS.DAO
+namespace BMS.DAO.EntityManager
 {
     public class UsersDao : Dao
     {

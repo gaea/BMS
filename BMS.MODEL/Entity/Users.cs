@@ -11,6 +11,7 @@ namespace BMS.MODEL.Entity
         private int id_User;
         private string login;
         private string password;
+        private int id_Role;
 
         public virtual int Id_User
         {
@@ -29,5 +30,12 @@ namespace BMS.MODEL.Entity
             get { return password; }
             set { password = value; }
         }
+
+        public virtual int Id_Role
+        {
+            get { return id_Role; }
+            set { id_Role = value; }
+        }
+
     }
 }
