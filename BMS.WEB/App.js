@@ -8,7 +8,8 @@ Ext.define('MyDesktop.App', {
         'MyDesktop.BogusMenuModule',
         'MyDesktop.BogusModule',
 		'MyDesktop.BiometricAuthorization',
-        'MyDesktop.Settings'
+        'MyDesktop.Settings',
+        'MyDesktop.MasterTables'
     ],
     init: function() {
         this.callParent();
@@ -20,10 +21,7 @@ Ext.define('MyDesktop.App', {
             //new MyDesktop.Blockalanche(),
             new MyDesktop.SystemStatus(),
             new MyDesktop.BiometricAuthorization(),
-			//new MyDesktop.GridWindow(),
-            //new MyDesktop.TabWindow(),
-            //new MyDesktop.AccordionWindow(),
-            //new MyDesktop.Notepad(),
+            new MyDesktop.MasterTables(),
             // Item de menu
 			//new MyDesktop.BogusMenuModule(),
             //new MyDesktop.BogusModule()
@@ -43,10 +41,8 @@ Ext.define('MyDesktop.App', {
             shortcuts: Ext.create('Ext.data.Store', {
                 model: 'Ext.ux.desktop.ShortcutModel',
                 data: [
-                    //{ name: 'Grilla', iconCls: 'grid-shortcut', module: 'grid-win' },
 					{ name: 'Registro Autorizaciones', iconCls: 'biometric-authorization-shortcut', module: 'authorization-win' },
-                    //{ name: 'Administraci&oacute;n de Usuarios', iconCls: 'accordion-shortcut', module: 'acc-win' },
-                    //{ name: 'Notepad', iconCls: 'notepad-shortcut', module: 'notepad' },
+                    { name: 'Tablas Maestras', iconCls: 'mastertables-shortcut', module: 'master-tables-win' },
                     { name: 'Sistema', iconCls: 'cpu-shortcut', module: 'systemstatus'}
                 ]
             }),
