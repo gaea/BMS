@@ -1,12 +1,14 @@
-# Microsoft Developer Studio Project File - Database Project
-Begin DataProject = "Database Project"
+# Archivo de proyecto de Microsoft Developer Studio - Proyecto de base de datos
+Begin DataProject = "TMA.DATABASE"
    MSDTVersion = "80"
    Begin Folder = "Change Scripts"
    End
    Begin Folder = "Create Scripts"
-   End
-   Begin Folder = "Queries"
+      Script = "TMA.DB.sql"
    End
    Begin DBRefFolder = "Database References"
+   End
+   Begin Folder = "Queries"
+      Script = "TMA.QUERY.sql"
    End
 End

@@ -20,13 +20,13 @@ namespace TMA.DAO.EntityManager
             return Headquarter;
         }
 
-        public static Headquarter find(int Id_User)
+        public static Headquarter find(short Id_User)
         {
-            Headquarter user = (Headquarter)Session.CreateCriteria<Headquarter>()
+            Headquarter headquarter = (Headquarter)Session.CreateCriteria<Headquarter>()
                 .Add(Restrictions.Eq("Id_Headquarter", Id_User))
                 .UniqueResult();
 
-            return user;
+            return headquarter;
         }
 
         public static List<Headquarter> findAll()
@@ -36,13 +36,13 @@ namespace TMA.DAO.EntityManager
             return (iHeadquarter != null) ? new List<Headquarter>(iHeadquarter) : new List<Headquarter>();
         }
 
-        public static void save(Headquarter user)
+        public static void save(Headquarter headquarter)
         {
             using (ITransaction transaction = Session.BeginTransaction())
             {
                 try
                 {
-                    Session.Save(user);
+                    Session.Save(headquarter);
 
                     transaction.Commit();
                     Session.Flush();
@@ -55,13 +55,13 @@ namespace TMA.DAO.EntityManager
             }
         }
 
-        public static void update(Headquarter user)
+        public static void update(Headquarter headquarter)
         {
             using (ITransaction transaction = Session.BeginTransaction())
             {
                 try
                 {
-                    Session.Update(user);
+                    Session.Update(headquarter);
 
                     transaction.Commit();
                     Session.Flush();
@@ -74,13 +74,13 @@ namespace TMA.DAO.EntityManager
             }
         }
 
-        public static void delete(Headquarter user)
+        public static void delete(Headquarter headquarter)
         {
             using (ITransaction transaction = Session.BeginTransaction())
             {
                 try
                 {
-                    Session.Delete(user);
+                    Session.Delete(headquarter);
 
                     transaction.Commit();
                     Session.Flush();

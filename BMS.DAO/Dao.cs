@@ -21,7 +21,7 @@ namespace BMS.DAO
                 if (sessionFactory == null)
                 {
                     IoC = ContextRegistry.GetContext();
-                    sessionFactory = (ISessionFactory)IoC.GetObject("sessionFactory");
+                    sessionFactory = (ISessionFactory)IoC.GetObject("BMS.SessionFactory");
 
                     session = sessionFactory.OpenSession();
                 }
