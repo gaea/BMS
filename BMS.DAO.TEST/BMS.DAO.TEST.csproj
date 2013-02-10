@@ -58,6 +58,14 @@
       <Project>{74FB125B-9FBF-4A63-BE74-A395653E2828}</Project>
       <Name>BMS.MODEL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TMA.DAO\TMA.DAO.csproj">
+      <Project>{37348338-9462-4145-82D8-8091AA923833}</Project>
+      <Name>TMA.DAO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TMA.MODEL\TMA.MODEL.csproj">
+      <Project>{A8249541-76EF-4BE1-8F30-0D1183428915}</Project>
+      <Name>TMA.MODEL</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

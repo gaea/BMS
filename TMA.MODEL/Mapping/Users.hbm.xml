@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="TMA.MODEL"
+                   namespace="TAM.MODEL.Entity">
+
+  <class name="Users" table="dbo.TBL_usuarios">
+    <id name="Id_User" column="IdUsuario" type ="int">
+      <generator class="identity"/>
+    </id>
+    <property name="Login" column="login" type="string"/>
+    <property name="Name" column="nombre" type="string"/>
+    <property name="Password" column="passwd" type="string"/>
+    <property name="Id_Role" column="perfil" type="int"/>
+    <property name="IsActive" column="activo" type="bit"/>
+    <property name="DocumentType" column="tpoDocumento" type="int"/>
+    <property name="Address" column="direccion" type="string"/>
+    <property name="TelephoneNumber" column="telefono" type="string"/>
+    <property name="EmailAddress" column="correo" type="string"/>
+    <property name="UserCreateRegistration" column="usrCrea" type="string"/>
+    <property name="DateCreateRegistration" column="fechaCrea" type="datetime"/>
+    <property name="UserModifyRegistration" column="usrMod" type="string"/>
+    <property name="DateModifyRegistration" column="fechaMod" type="datetime"/>
+
+  </class>
+
+</hibernate-mapping>

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="TMA.MODEL"
+                   namespace="TAM.MODEL.Entity">
+
+  <class name="Headquarter" table="dbo.TBL_Sedes">
+    <id name="Id_Headquarter" column="NumeroSede" type ="int">
+      <generator class="identity"/>
+    </id>
+    <property name="Description" column="Sede" type="string"/>
+
+  </class>
+
+</hibernate-mapping>
