@@ -237,7 +237,7 @@ namespace BMS.DAO.TEST
             //#endregion Modules By Rol
 
             #region Consulta Usuarios por Id
-            TMA.MODEL.Entity.Headquarter head = TMA.DAO.EntityManager.HeadquartersDao.find(3);
+            TMA.MODEL.Entity.Headquarter head = TMA.DAO.EntityManager.HeadquartersDao.find(1);
             TMA.MODEL.Entity.Users user = TMA.DAO.EntityManager.UsersDao.find(1);
             #endregion Consulta Usuarios por Id
 
@@ -250,7 +250,7 @@ namespace BMS.DAO.TEST
 
             if (head == null)
             {
-                head = new TMA.MODEL.Entity.Headquarter() { Id_Headquarter = 0,  Description= "Este" };
+                head = new TMA.MODEL.Entity.Headquarter() { Id_Headquarter = 3,  Description= "Este" };
                 TMA.DAO.EntityManager.HeadquartersDao.save(head);
             }
             #endregion Crear Registro Usuario

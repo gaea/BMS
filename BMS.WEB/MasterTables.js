@@ -61,7 +61,7 @@ Ext.define('MyDesktop.MasterTables', {
 		                                                            }
 										        },
 										        { 
-										            text: "Roles", 
+										            text: "Funcionarios", 
 										            leaf: true
 										        },
 										        { 
@@ -71,7 +71,19 @@ Ext.define('MyDesktop.MasterTables', {
 										        { 
 										            text: "Modulos por Rol", 
 										            leaf: true
-										        }
+										        },
+										        { 
+										            text: "Personas", 
+										            leaf: true
+										        },
+										        { 
+										            text: "Roles", 
+										            leaf: true
+										        },
+										        { 
+										            text: "Sedes", 
+										            leaf: true
+										        }										        
 									            ]     							               
 									         }
 							              ]
@@ -79,22 +91,28 @@ Ext.define('MyDesktop.MasterTables', {
 						})
 			});
 			
-			var myData = [
-                ['ahbarome', 'password'],
-                ['gaea', 'password']
-            ];
+			Ext.define('User', {
+			extend: 'Ext.data.Model',
+			fields: [
+				{name: 'login',  type: 'string'},
+				{name: 'password',  type: 'string'}
+				]
+			});
 			
-			// Creación del Store
-            var store = Ext.create('Ext.data.ArrayStore', {
-                fields: [
-                   {name: 'Login', type: 'string'},
-                   {name: 'Password', type: 'string'}
-                ],
-                data: myData
-            });
+			 var userStore = Ext.create('Ext.data.Store', {
+		     model: 'User',
+			 data : [
+				 {login: 'ahbarome',    password: 'password'},
+				 {login: 'gaea', password: 'password'},
+				 {login: 'jeal', password: 'password'},
+				 {login: 'dmateoc', password: 'password'},
+				 ]
+			});	
 			
-			// Creación del Panel
+			// Creación del Panel Usuarios
             var grid = Ext.create('Ext.grid.Panel', {
+				id: 'user_panel',
+                store: userStore, 
                 stateful: true,
                 stateId: 'stateGrid',
                 anchor:'100%',
@@ -117,7 +135,8 @@ Ext.define('MyDesktop.MasterTables', {
 			            text:'Adicionar',
 			            iconCls:'add',
 			            handler: function(){
-			                        Ext.Msg.confirm('Adicionar', '¿Desea adicionar al usuario?');                
+			                        Ext.Msg.confirm('Adicionar', '¿Desea adicionar al usuario?');
+			                        //sendMessage('masterPages/User.aspx','test');              
             			            }
 		            },
 		            {
@@ -168,4 +187,24 @@ Ext.define('MyDesktop.MasterTables', {
         }
         return win;
     }
+});
+Ext.onReady(function () { 
+function sendMessage(page, parameters){
+			Ext.Ajax.request({
+			method:'POST',
+			url:page,
+			params:parameters,
+			waitTitle:'Enviando',
+			waitMsg:'Enviando datos...',
+			timeout:180000, // tiempo de espera al servidor
+			success:function(response){
+				obj = Ext.JSON.decode(response.responseText);
+				mensajeConfirmacion('Mensaje', obj.mensaje, funcionSuccess());
+			},
+			failure:function(form, response){
+				obj = Ext.JSON.decode(response.responseText);
+				mensajeConfirmacion('Error', obj.mensaje, funcionFailure());
+			}
+			}); 
+		}	
 });

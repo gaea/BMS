@@ -10,7 +10,7 @@ namespace TMA.MODEL.Entity
     {
         #region Attributes
 
-        private short id_Headquarter;
+        private int id_Headquarter;
 
         private string description;
 
@@ -18,7 +18,7 @@ namespace TMA.MODEL.Entity
 
         #region Properties
 
-        public virtual short Id_Headquarter
+        public virtual int Id_Headquarter
         {
             get { return id_Headquarter; }
             set { id_Headquarter = value; }

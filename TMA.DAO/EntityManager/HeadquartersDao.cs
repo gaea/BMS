@@ -11,19 +11,19 @@ namespace TMA.DAO.EntityManager
 {
     public class HeadquartersDao : Dao
     {
-        public static List<Headquarter> findBy(string field, int Id_User)
+        public static List<Headquarter> findBy(string field, int Id_Headquarter)
         {
             List<Headquarter> Headquarter = (List<Headquarter>)Session.CreateCriteria<Headquarter>()
-                .Add(Restrictions.Eq(field, Id_User))
+                .Add(Restrictions.Eq(field, Id_Headquarter))
                 .List<Headquarter>();
 
             return Headquarter;
         }
 
-        public static Headquarter find(short Id_User)
+        public static Headquarter find(int Id_Headquarter)
         {
             Headquarter headquarter = (Headquarter)Session.CreateCriteria<Headquarter>()
-                .Add(Restrictions.Eq("Id_Headquarter", Id_User))
+                .Add(Restrictions.Eq("Id_Headquarter", Id_Headquarter))
                 .UniqueResult();
 
             return headquarter;
