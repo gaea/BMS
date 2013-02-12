@@ -5,7 +5,7 @@
 
   <class name="Users" table="dbo.TBL_usuarios">
     <id name="Id_User" column="IdUsuario" type ="int">
-      <generator class="identity"/>
+      <generator class="increment" />
     </id>
     <property name="Login" column="login" type="string"/>
     <property name="Name" column="nombre" type="string"/>

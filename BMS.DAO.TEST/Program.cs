@@ -238,13 +238,23 @@ namespace BMS.DAO.TEST
 
             #region Consulta Usuarios por Id
             TMA.MODEL.Entity.Headquarter head = TMA.DAO.EntityManager.HeadquartersDao.find(1);
-            TMA.MODEL.Entity.Users user = TMA.DAO.EntityManager.UsersDao.find(1);
+            TMA.MODEL.Entity.Users user = TMA.DAO.EntityManager.UsersDao.find(2);
             #endregion Consulta Usuarios por Id
 
             #region Crear Registro Usuario
             if (user == null)
             {
-                user = new TMA.MODEL.Entity.Users();
+                user = new TMA.MODEL.Entity.Users() { 
+                    Id_User = 2,
+                    IsActive = true,
+                    Id_Role = 1,
+                    DocumentType = 1,
+                    DateCreateRegistration = System.DateTime.Now,
+                    DateModifyRegistration = System.DateTime.Now,
+                    Name = "Agus",
+                    Login = "agus"
+                };
+
                 TMA.DAO.EntityManager.UsersDao.save(user);
             }
 

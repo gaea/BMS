@@ -28,7 +28,7 @@ namespace TMA.MODEL.Entity
 
         #endregion Attributes
 
-        #region Poperties
+        #region Properties
 
         public virtual int Id_User
         {

@@ -5,6 +5,10 @@
  * 
  */
 
+function aaa() {
+    Ext.Msg.confirm('kjkbhggdu', '?????');
+}
+
 Ext.define('MyDesktop.MasterTables', {
     extend: 'Ext.ux.desktop.Module',
 
@@ -19,147 +23,147 @@ Ext.define('MyDesktop.MasterTables', {
         'Ext.tip.QuickTipManager'
     ],
 
-    id:'master-tables-win',
+    id: 'master-tables-win',
 
-    init : function(){
+    init: function() {
         this.launcher = {
             text: 'Tablas Maestras',
-            iconCls:'icon-master-tables'
+            iconCls: 'icon-master-tables'
         }
     },
 
-    createWindow : function(){
+    createWindow: function() {
         var desktop = this.app.getDesktop();
         var win = desktop.getWindow('master-tables-win');
-        if(!win){
-                   
+        if (!win) {
+
             var tree = new Ext.tree.Panel({
-                        title: 'Tablas',
-						height:600,
-						width:180,
-						anchor:'100%',
-						useArrows:true,
-				        collapsible: true,
-                        useArrows: true,
-                        rootVisible: false,
-                        multiSelect: true,
-                        singleExpand: true,
-						store: new Ext.data.TreeStore({
-							root: {
-								expanded: true,
-								children: [
-									        { 
-									            text: "Maestras", 
-									            expanded: true, 
+                title: 'Tablas',
+                height: 600,
+                width: 180,
+                anchor: '100%',
+                useArrows: true,
+                collapsible: true,
+                useArrows: true,
+                rootVisible: false,
+                multiSelect: true,
+                singleExpand: true,
+                store: new Ext.data.TreeStore({
+                    root: {
+                        expanded: true,
+                        children: [
+									        {
+									            text: "Maestras",
+									            expanded: true,
 									            children: [
-										        { 
-										            text: "Usuarios", 
-										            leaf: true, 
-										            expanded:true,
-										            handler: function(){
-		                                                                Ext.Msg.confirm('Usuarios', '¿Desea abrir la tabla Usuarios?');
-		                                                            }
+										        {
+										            text: "Usuarios",
+										            leaf: true,
+										            expanded: true,
+										            handler: function() {
+										                //Ext.Msg.confirm('Usuarios', '¿Desea abrir la tabla Usuarios?');
+										            }
 										        },
-										        { 
-										            text: "Funcionarios", 
+										        {
+										            text: "Funcionarios",
 										            leaf: true
 										        },
-										        { 
-										            text: "Modulos", 
+										        {
+										            text: "Modulos",
 										            leaf: true
 										        },
-										        { 
-										            text: "Modulos por Rol", 
+										        {
+										            text: "Modulos por Rol",
 										            leaf: true
 										        },
-										        { 
-										            text: "Personas", 
+										        {
+										            text: "Personas",
 										            leaf: true
 										        },
-										        { 
-										            text: "Roles", 
+										        {
+										            text: "Roles",
 										            leaf: true
 										        },
-										        { 
-										            text: "Sedes", 
+										        {
+										            text: "Sedes",
 										            leaf: true
-										        }										        
-									            ]     							               
-									         }
+										        }
+									            ]
+									        }
 							              ]
-							       }
-						})
-			});
-			
-			Ext.define('User', {
-			extend: 'Ext.data.Model',
-			fields: [
-				{name: 'login',  type: 'string'},
-				{name: 'password',  type: 'string'}
+                    }
+                })
+            });
+
+            Ext.define('User', {
+                extend: 'Ext.data.Model',
+                fields: [
+				{ name: 'login', type: 'string' },
+				{ name: 'password', type: 'string' }
 				]
-			});
-			
-			 var userStore = Ext.create('Ext.data.Store', {
-		     model: 'User',
-			 data : [
-				 {login: 'ahbarome',    password: 'password'},
-				 {login: 'gaea', password: 'password'},
-				 {login: 'jeal', password: 'password'},
-				 {login: 'dmateoc', password: 'password'},
+            });
+
+            var userStore = Ext.create('Ext.data.Store', {
+                model: 'User',
+                data: [
+				 { login: 'ahbarome', password: 'password' },
+				 { login: 'gaea', password: 'password' },
+				 { login: 'jeal', password: 'password' },
+				 { login: 'dmateoc', password: 'password' },
 				 ]
-			});	
-			
-			// Creación del Panel Usuarios
+            });
+
+            // Creación del Panel Usuarios
             var grid = Ext.create('Ext.grid.Panel', {
-				id: 'user_panel',
-                store: userStore, 
+                id: 'user_panel',
+                store: userStore,
                 stateful: true,
                 stateId: 'stateGrid',
-                anchor:'100%',
+                anchor: '100%',
                 columns: [
                     {
-                        text     : 'Login',
-                        flex     : 1,
-                        sortable : false,
+                        text: 'Login',
+                        flex: 1,
+                        sortable: false,
                         dataIndex: 'login'
                     },
                     {
-                        text     : 'Password',
-                        width    : 75,
-                        sortable : true,
+                        text: 'Password',
+                        width: 75,
+                        sortable: true,
                         dataIndex: 'password'
                     }
                 ],
-                tbar:[
+                tbar: [
 		            {
-			            text:'Adicionar',
-			            iconCls:'add',
-			            handler: function(){
-			                        Ext.Msg.confirm('Adicionar', '¿Desea adicionar al usuario?');
-			                        //sendMessage('masterPages/User.aspx','test');              
-            			            }
+		                text: 'Adicionar',
+		                iconCls: 'add',
+		                handler: function() {
+		                    aaa(); //HolaAgus('hola'); //Ext.Msg.confirm('Adicionar', '¿Desea adicionar al usuario?');
+		                    //sendMessage('masterPages/User.aspx','test');              
+		                }
 		            },
 		            {
-			            text:'Eliminar',
-			            iconCls:'remove',
-			            handler: function(){
-			                        Ext.Msg.confirm('Eliminar', '¿Desea eliminar al usuario?');                
-            			            }
+		                text: 'Eliminar',
+		                iconCls: 'remove',
+		                handler: function() {
+		                    Ext.Msg.confirm('Eliminar', '¿Desea eliminar al usuario?');
+		                }
 		            },
 		            {
-			            text:'Buscar',
-			            iconCls:'search',
-			            handler: function(){
-			                        Ext.Msg.confirm('Buscar', '¿Desea buscar el usuario?');
-			                        }
+		                text: 'Buscar',
+		                iconCls: 'search',
+		                handler: function() {
+		                    Ext.Msg.confirm('Buscar', '¿Desea buscar el usuario?');
+		                }
 		            }
-		            
+
                 ],
                 width: 600,
                 height: 350,
                 title: 'Usuarios',
-                useArrows:true,
-	            collapsible: true,
+                useArrows: true,
+                collapsible: true,
                 useArrows: true,
                 rootVisible: false,
                 multiSelect: true,
@@ -168,17 +172,17 @@ Ext.define('MyDesktop.MasterTables', {
                     stripeRows: true
                 }
             });
-                    
+
             win = desktop.createWindow({
                 id: 'master-table-win',
-                title:'Tablas Maestras',
-                width:800,
-                height:600,
+                title: 'Tablas Maestras',
+                width: 800,
+                height: 600,
                 iconCls: 'icon-master-tables',
-                animCollapse:false,
+                animCollapse: false,
                 border: false,
                 hideMode: 'offsets',
-                layout:'column',
+                layout: 'column',
                 items: [
                            tree,
                            grid

@@ -1954,6 +1954,7 @@
     <Content Include="images\taskbar\sencha.gif" />
     <Content Include="images\taskbar\sencha.ico" />
     <Content Include="images\user.png" />
+    <Content Include="js\Functions.js" />
     <Content Include="masterPages\User.aspx" />
     <Content Include="MasterTables.js" />
     <Content Include="wallpapers\Blue-Sencha.jpg" />

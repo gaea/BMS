@@ -8,7 +8,8 @@
     <link rel="stylesheet" type="text/css" href="css/desktop.css" />
 
     <script type="text/javascript" src="lib/extjs/ext.js"></script>
-
+    <script type="text/javascript" src="js/Functions.js"></script>
+    
     <script type="text/javascript">
 			Ext.Loader.setPath({
 				'Ext.ux.desktop': 'js',

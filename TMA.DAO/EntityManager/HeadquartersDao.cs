@@ -50,7 +50,7 @@ namespace TMA.DAO.EntityManager
                 catch (Exception exception)
                 {
                     transaction.Rollback();
-                    throw exception;
+                        throw exception;
                 }
             }
         }

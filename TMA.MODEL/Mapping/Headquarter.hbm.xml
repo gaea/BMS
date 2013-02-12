@@ -4,9 +4,7 @@
                    namespace="TMA.MODEL.Entity">
 
   <class name="Headquarter" table="dbo.TBL_Sedes">
-    <id name="Id_Headquarter" column="NumeroSede" type="int" unsaved-value="0">
-      <generator class="identity"/>
-    </id>
+    <id name="Id_Headquarter" column="NumeroSede" type="int"/>
     <property name="Description" column="Sede" type="string" length="50" not-null="false"/>
 
   </class>
