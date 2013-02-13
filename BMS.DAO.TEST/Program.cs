@@ -239,12 +239,39 @@ namespace BMS.DAO.TEST
             #region Consulta Usuarios por Id
             TMA.MODEL.Entity.Headquarter head = TMA.DAO.EntityManager.HeadquartersDao.find(1);
             TMA.MODEL.Entity.Users user = TMA.DAO.EntityManager.UsersDao.find(2);
+            TMA.MODEL.Entity.Profile profile = TMA.DAO.EntityManager.ProfilesDao.find(8);
+            TMA.MODEL.Entity.Visit visit = TMA.DAO.EntityManager.VisitsDao.find(8);
             #endregion Consulta Usuarios por Id
 
             #region Crear Registro Usuario
+            if (visit == null)
+            {
+                visit = new TMA.MODEL.Entity.Visit()
+                {
+                    Id_Visit = 0,
+                    Id_Visitor = 1,
+                    DocumentNumberVisitor = 1,
+                    VisitDescription = "Capacitación",
+                    ElementsToGetIn = "Pc",
+                    DateCreateTransaction = DateTime.Now,
+                    DateCreateRegistration = DateTime.Now,
+                    DateModifyRegistration = DateTime.Now,
+                    FinalDate = DateTime.Now,
+                    FinalHour = DateTime.Now,
+                    InitialDate = DateTime.Now,
+                    InitialHour = DateTime.Now,
+                    Id_UserCreateRegistration = "1",
+                    Id_UserModifyRegistration = "1",
+                    Id_Area = 1
+                };
+
+                TMA.DAO.EntityManager.VisitsDao.save(visit);
+            }
+
             if (user == null)
             {
-                user = new TMA.MODEL.Entity.Users() { 
+                user = new TMA.MODEL.Entity.Users()
+                {
                     Id_User = 2,
                     IsActive = true,
                     Id_Role = 1,
@@ -260,8 +287,14 @@ namespace BMS.DAO.TEST
 
             if (head == null)
             {
-                head = new TMA.MODEL.Entity.Headquarter() { Id_Headquarter = 3,  Description= "Este" };
+                head = new TMA.MODEL.Entity.Headquarter() { Id_Headquarter = 3, Description = "Este" };
                 TMA.DAO.EntityManager.HeadquartersDao.save(head);
+            }
+
+            if (profile == null)
+            {
+                profile = new TMA.MODEL.Entity.Profile() { Id_Profile = 4, Description = "Administrador", DateCreateRegistration = DateTime.Now, Id_User = 1, DateModifyRegistration = DateTime.Now, Id_UserModifyRegistration = 1 };
+                TMA.DAO.EntityManager.ProfilesDao.save(profile);
             }
             #endregion Crear Registro Usuario
 
