@@ -16,6 +16,15 @@ private string userModifyRegistration;
 private DateTime dateModifyRegistration;
 */
 
+var Users = {
+    Id_User: null,
+    Login: null,
+    Name: null,
+    Password: null,
+    EmailAddress: null,
+    Address: null
+};
+
 Ext.onReady(function() {
     var MasterPanel = new Ext.FormPanel({
         title: 'Master Panel',
@@ -28,7 +37,7 @@ Ext.onReady(function() {
             { fieldLabel: 'Nombre', name: 'Name' },
             { fieldLabel: 'Password', name: 'Password' },
             { fieldLabel: 'Email', name: 'EmailAddress' },
-            { fieldLabel: 'Direcci&oacute;n', name: 'address' }
+            { fieldLabel: 'Direcci&oacute;n', name: 'Address' }
         ],
         buttons: [
             {
@@ -56,42 +65,69 @@ Ext.onReady(function() {
 
     var MasterRowEditor = new Ext.grid.plugin.RowEditing({
         listeners: {
+            validateedit: function(editor, e, eOpts) {
+                objectProperties(e.newValues);
 
+                upload(
+                    'Test.aspx',
+                    'Save',
+                    "{'userProperties':'" + Ext.JSON.encode(e.newValues) + "'}",
+                    function(data) {
+                        Ext.Msg.alert('Mensaje', data.Message, function() { }, this);
+                    },
+                    function() { }
+                );
+
+                //userProperties:Ext.JSON.e.record.getAssociatedData()
+            }
         }
     });
 
     var MasterGrid = new Ext.grid.GridPanel({
         title: 'Lista de usuarios',
         store: ({
-            fields: ['Name', 'Login', 'Password'],
+            fields: ['Id_User', 'Name', 'Login', 'Password'],
             data: [{}]
         }),
+        height: 300,
         tbar: [
-                {
-                    text: 'Adicionar',
-                    handler: function() {
-                        MasterGrid.getStore().insert(0, {
-                            Name: '',
-                            Login: '',
-                            Password: ''
-                        });
+        {
+            text: 'Adicionar',
+            handler: function() {
+                MasterRowEditor.cancelEdit();
+                MasterGrid.getStore().insert(0, {
+                    Id_User: '',
+                    Name: '',
+                    Login: '',
+                    Password: ''
+                });
 
-                        MasterRowEditor.startEdit(MasterGrid.getStore().getAt(0), 0);
-                    }
-                }, '-',
-                {
-                    text: 'Modificar',
-                    handler: function() {
+                MasterRowEditor.startEdit(MasterGrid.getStore().getAt(0), 0);
+            }
+        }, '-',
+        {
+            text: 'Modificar',
+            handler: function() {
 
-                    }
-                }, '-',
-                {
-                    text: 'Eliminar',
-                    handler: function() {
-
-                    }
-                }
-            ],
+            }
+        }, '-',
+        {
+            text: 'Eliminar',
+            handler: function() {
+                var records = MasterGrid.getSelectionModel().getSelection();
+                upload(
+                    'Test.aspx',
+                    'Delete',
+                    "{ 'Id_User': '" + records[0].get('Id_User') + "' }",
+                    function(data) {
+                        Ext.Msg.alert('Mensaje', data.Message, function() { }, this);
+                        loadData();
+                    },
+                    function() { }
+                );
+            }
+        }
+    ],
         plugins: [MasterRowEditor],
         columns: [
                 { text: 'Nombre', dataIndex: 'Name', editor: new Ext.form.TextField() },
@@ -101,7 +137,10 @@ Ext.onReady(function() {
         renderTo: Ext.getBody()
     });
 
-    upload(
+    loadData();
+
+    function loadData() {
+        upload(
         'Test.aspx',
         'List',
         "{'start':0,'limit':0}",
@@ -110,6 +149,7 @@ Ext.onReady(function() {
         },
         function() { }
     );
+    }
 
 });
 
@@ -132,4 +172,10 @@ function upload(url, webMethod, params, functionSuccess, functionFailure) {
             Ext.Msg.confirm('Error: ' + response.status, obj.Message, functionFailure());
         }
     });
+}
+
+function objectProperties(obj) {
+    for (inx in obj) {
+        console.log("PROPIEDAD: {" + inx + "} <------> VALOR: {" + obj[inx] + "}.");
+    }
 }

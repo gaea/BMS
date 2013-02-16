@@ -13,6 +13,7 @@ using System.Xml.Linq;
 using System.Web.Script.Serialization;
 using TMA.MODEL.Entity;
 using TMA.DAO.EntityManager;
+using System.IO;
 
 namespace BMS.WEB.TEST
 {
@@ -40,7 +41,8 @@ namespace BMS.WEB.TEST
             }
             catch (Exception ex) 
             {
-                msg.Message = ex.Message;
+                msg.Message = "Error al guardar el registro";
+                msg.Error = ex.ToString();
             }
 
             return serialize.Serialize(msg);
@@ -50,6 +52,30 @@ namespace BMS.WEB.TEST
         public static string List(string start, string limit) 
         {
             return serialize.Serialize(UsersDao.findAll());
+        }
+
+        [System.Web.Services.WebMethod]
+        public static string Delete(string Id_User)
+        {
+            MessageResponse msg = new MessageResponse();
+
+            try
+            {
+
+                Users user = UsersDao.find(Convert.ToInt32(Id_User));//serialize.Deserialize<Users>(jsonUser);
+                File.AppendAllText(@"d:\agus.txt", "----------------"+user.Login+"----"+user.DateCreateRegistration+"------"+user.DateModifyRegistration);
+                UsersDao.delete(user);
+
+                msg.Message = "Registro eliminado satisfactoriamente";
+            }
+            catch (Exception ex)
+            {
+                File.AppendAllText(@"d:\agus.txt", ex.ToString());
+                msg.Message = "Error al eliminar el registro";
+                msg.Error = ex.ToString();
+            }
+
+            return serialize.Serialize(msg);
         }
 
         [System.Web.Services.WebMethod]

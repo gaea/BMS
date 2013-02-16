@@ -22,9 +22,9 @@ namespace TMA.MODEL.Entity
         private string telephoneNumber;
         private string emailAddress;
         private string userCreateRegistration;
-        private DateTime dateCreateRegistration;
+        private DateTime? dateCreateRegistration;
         private string userModifyRegistration;
-        private DateTime dateModifyRegistration;
+        private DateTime? dateModifyRegistration;
 
         #endregion Attributes
 
@@ -102,7 +102,7 @@ namespace TMA.MODEL.Entity
             set { userCreateRegistration = value; }
         }
 
-        public virtual DateTime DateCreateRegistration
+        public virtual DateTime? DateCreateRegistration
         {
             get { return dateCreateRegistration; }
             set { dateCreateRegistration = value; }
@@ -114,7 +114,7 @@ namespace TMA.MODEL.Entity
             set { userModifyRegistration = value; }
         }
 
-        public virtual DateTime DateModifyRegistration
+        public virtual DateTime? DateModifyRegistration
         {
             get { return dateModifyRegistration; }
             set { dateModifyRegistration = value; }
