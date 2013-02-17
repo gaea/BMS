@@ -10,14 +10,16 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
+
 using System.Web.Script.Serialization;
+
 using TMA.MODEL.Entity;
 using TMA.DAO.EntityManager;
 using System.IO;
 
 namespace BMS.WEB.TEST
 {
-    public partial class Test : System.Web.UI.Page
+    public partial class User : System.Web.UI.Page
     {
         public static JavaScriptSerializer serialize = new JavaScriptSerializer();
 
@@ -29,6 +31,7 @@ namespace BMS.WEB.TEST
             try
             {
                 Users user = serialize.Deserialize<Users>(UserProperties);
+
                 user.IsActive = true;
                 user.Id_Role = 1;
                 user.DocumentType = 1;
@@ -39,7 +42,7 @@ namespace BMS.WEB.TEST
 
                 msg.Message = "Registro guardado exitosamente";
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 msg.Message = "Error al guardar el registro";
                 msg.Error = ex.ToString();
@@ -49,7 +52,7 @@ namespace BMS.WEB.TEST
         }
 
         [System.Web.Services.WebMethod]
-        public static string List(string start, string limit) 
+        public static string List(string start, string limit)
         {
             return serialize.Serialize(UsersDao.findAll());
         }
@@ -61,31 +64,19 @@ namespace BMS.WEB.TEST
 
             try
             {
-
-                Users user = UsersDao.find(Convert.ToInt32(Id_User));//serialize.Deserialize<Users>(jsonUser);
-                File.AppendAllText(@"d:\agus.txt", "----------------"+user.Login+"----"+user.DateCreateRegistration+"------"+user.DateModifyRegistration);
+                Users user = UsersDao.find(Convert.ToInt32(Id_User));
                 UsersDao.delete(user);
 
                 msg.Message = "Registro eliminado satisfactoriamente";
             }
             catch (Exception ex)
             {
-                File.AppendAllText(@"d:\agus.txt", ex.ToString());
+                File.AppendAllText(@"d:\log.txt", ex.ToString());
                 msg.Message = "Error al eliminar el registro";
                 msg.Error = ex.ToString();
             }
 
             return serialize.Serialize(msg);
         }
-
-        [System.Web.Services.WebMethod]
-        public static string TestWebMethod(string nombre) 
-        {
-            Users user = new Users() { Login = "agus", Id_Role = 1, Id_User = 1, Password = "aguspass" };
-
-            return serialize.Serialize(user);//"{mensaje:" + nombre + "}";
-        }
-
-
     }
 }

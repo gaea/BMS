@@ -1,10 +1,12 @@
 ﻿Ext.onReady(function() {
 
-    function User () {
+    var AspUserPage = 'User.aspx';
+
+    function User() {
         this.Id_User = null,
         this.Login = null,
         this.Name = null,
-        this.Password =  null,
+        this.Password = null,
         this.Id_Role = null,
         this.IsActive = null,
         this.DocumentType = null,
@@ -17,7 +19,8 @@
     var MasterRowEditor = new Ext.grid.plugin.RowEditing({
         listeners: {
             validateedit: function(editor, e, eOpts) {
-                saveData('Test.aspx', 'Save', 'UserProperties', e.newValues);
+                saveData(AspUserPage, 'Save', 'UserProperties', e.newValues);
+                loadData(AspUserPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
             }
         }
     });
@@ -31,16 +34,24 @@
             data: [{}]
         }),
         columns: [
-                { text: 'Nombre', dataIndex: 'Name', editor: new Ext.form.TextField() },
-                { text: 'Usuario', dataIndex: 'Login', editor: new Ext.form.TextField() },
-                { text: 'Password', dataIndex: 'Password', editor: new Ext.form.TextField() }
+                { text: 'Id Usuario', dataIndex: 'Id_User' },
+                { text: 'Nombre', dataIndex: 'Name', editor: new Ext.form.TextField({ allowBlank: false }) },
+                { text: 'No. Identificaci&oacute;n', dataIndex: 'DocumentNumber', editor: new Ext.form.TextField() },
+                { text: 'Usuario', dataIndex: 'Login', editor: new Ext.form.TextField({ allowBlank: false }) },
+                { text: 'Password', dataIndex: 'Password', editor: new Ext.form.TextField({ allowBlank: false }) },
+                { text: 'Tel&eacute;fono', dataIndex: 'TelephoneNumber', editor: new Ext.form.TextField({}) },
+                { text: 'Direcci&oacute;n', dataIndex: 'Address', editor: new Ext.form.TextField({}) },
+                { text: 'Role', dataIndex: 'Id_Role', editor: new Ext.form.TextField({}) },
+                { text: 'Tipo Documento', dataIndex: 'DocumentType', editor: new Ext.form.TextField({}) },
+                { text: 'Activo?', dataIndex: 'IsActive', editor: new Ext.form.field.Checkbox({}) }
         ],
         plugins: [MasterRowEditor],
         tbar: [
             {
                 text: 'Adicionar',
+                iconCls: 'adicionar',
                 handler: function() {
-                MasterRowEditor.cancelEdit();
+                    MasterRowEditor.cancelEdit();
                     MasterGrid.getStore().insert(0, new User());
                     MasterRowEditor.startEdit(MasterGrid.getStore().getAt(0), 0);
                     //Ext.Msg.alert('Mensaje', 'Por favor llene los campos obligatorios', function() { }, this);
@@ -48,29 +59,23 @@
             }, '-',
             {
                 text: 'Modificar',
+                iconCls: 'modificar',
                 handler: function() {
 
                 }
             }, '-',
             {
                 text: 'Eliminar',
+                iconCls: 'eliminar  ',
                 handler: function() {
                     var records = MasterGrid.getSelectionModel().getSelection();
-                    upload(
-                        'Test.aspx',
-                        'Delete',
-                        "{ 'Id_User': '" + records[0].get('Id_User') + "' }",
-                        function(data) {
-                            Ext.Msg.alert('Mensaje', data.Message, function() { }, this);
-                            loadData();
-                        },
-                        function() { }
-                    );
+                    deleteData(AspUserPage, 'Delete', 'Id_User', records[0].get('Id_User'));
+                    loadData(AspUserPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
                 }
             }
         ],
         renderTo: Ext.getBody()
     });
 
-    loadData('Test.aspx', 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+    loadData(AspUserPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
 });

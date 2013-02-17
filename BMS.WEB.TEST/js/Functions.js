@@ -65,3 +65,17 @@ function saveData(url, method, webParam, params) {
         }
     );
 }
+
+function deleteData(url, method, webParam, param) {
+    upload(
+        url,
+        method,
+        "{ " + webParam + ": '" + param + "' }",
+        function(data) {
+            Ext.Msg.alert('Mensaje', data.Message, function() { loadData(); }, this);
+        },
+        function(data) {
+            Ext.Msg.alert('Mensaje', data.Message, function() { loadData(); }, this);
+        }
+    );
+}

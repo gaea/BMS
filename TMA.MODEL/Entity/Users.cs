@@ -10,13 +10,13 @@ namespace TMA.MODEL.Entity
     {
         #region Attributes
 
-        private int id_User;
+        private int? id_User;
         private string login;
         private string name;
         private string password;
-        private int id_Role;
+        private int? id_Role;
         private bool isActive;
-        private int documentType;
+        private int? documentType;
         private int documentNumber;
         private string address;
         private string telephoneNumber;
@@ -30,7 +30,7 @@ namespace TMA.MODEL.Entity
 
         #region Properties
 
-        public virtual int Id_User
+        public virtual int? Id_User
         {
             get { return id_User; }
             set { id_User = value; }
@@ -54,7 +54,7 @@ namespace TMA.MODEL.Entity
             set { password = value; }
         }
 
-        public virtual int Id_Role
+        public virtual int? Id_Role
         {
             get { return id_Role; }
             set { id_Role = value; }
@@ -66,7 +66,7 @@ namespace TMA.MODEL.Entity
             set { isActive = value; }
         }
 
-        public virtual int DocumentType
+        public virtual int? DocumentType
         {
             get { return documentType; }
             set { documentType = value; }
