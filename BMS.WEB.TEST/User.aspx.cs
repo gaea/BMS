@@ -31,14 +31,20 @@ namespace BMS.WEB.TEST
             try
             {
                 Users user = serialize.Deserialize<Users>(UserProperties);
-
                 user.IsActive = true;
                 user.Id_Role = 1;
                 user.DocumentType = 1;
                 user.DateCreateRegistration = System.DateTime.Now;
                 user.DateModifyRegistration = System.DateTime.Now;
 
-                UsersDao.save(user);
+                if (user.Id_User == null)
+                {
+                    UsersDao.save(user);
+                }
+                else
+                {
+                    UsersDao.update(user);
+                }
 
                 msg.Message = "Registro guardado exitosamente";
             }

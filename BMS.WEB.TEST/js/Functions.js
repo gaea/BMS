@@ -45,37 +45,44 @@ function loadData(url, method, params, store, funcSucces, funcFailure) {
                 funcSucces(data);
         },
         function(data) {
-            if (funcFailure != null) {
+            if (funcFailure != null) 
                 funcFailure(data);
-            }
         }
     );
 }
 
-function saveData(url, method, webParam, params) {
+function saveData(url, method, webParam, params, funcSucces, funcFailure) {
     upload(
         url,
         method,
         "{" + webParam + ":'" + Ext.JSON.encode(params) + "'}",
         function(data) {
             Ext.Msg.alert('Mensaje', data.Message, function() { }, this);
+            if (funcSucces != null)
+                funcSucces(data);
         },
         function(data) {
             Ext.Msg.confirm('Error: ', data.Message, function() { }, this);
+            if (funcFailure != null)
+                funcFailure(data);
         }
     );
 }
 
-function deleteData(url, method, webParam, param) {
+function deleteData(url, method, webParam, param, funcSucces, funcFailure) {
     upload(
         url,
         method,
         "{ " + webParam + ": '" + param + "' }",
         function(data) {
-            Ext.Msg.alert('Mensaje', data.Message, function() { loadData(); }, this);
+            Ext.Msg.alert('Mensaje', data.Message, function() { }, this);
+            if (funcSucces != null)
+                funcSucces(data);
         },
         function(data) {
-            Ext.Msg.alert('Mensaje', data.Message, function() { loadData(); }, this);
+            Ext.Msg.confirm('Error: ', data.Message, function() { }, this);
+            if (funcFailure != null)
+                funcFailure(data);
         }
     );
 }

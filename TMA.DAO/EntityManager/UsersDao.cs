@@ -61,6 +61,9 @@ namespace TMA.DAO.EntityManager
             {
                 try
                 {
+                    //Session.Evict(user);
+                    //Session.Merge(user);
+                    Session.Clear();
                     Session.Update(user);
 
                     transaction.Commit();

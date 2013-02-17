@@ -19,8 +19,16 @@
     var MasterRowEditor = new Ext.grid.plugin.RowEditing({
         listeners: {
             validateedit: function(editor, e, eOpts) {
-                saveData(AspUserPage, 'Save', 'UserProperties', e.newValues);
-                loadData(AspUserPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+                saveData(
+                    AspUserPage,
+                    'Save',
+                    'UserProperties',
+                    e.newValues,
+                    function(data) {
+                        loadData(AspUserPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+                    },
+                    null
+                );
             }
         }
     });
@@ -61,7 +69,9 @@
                 text: 'Modificar',
                 iconCls: 'modificar',
                 handler: function() {
-
+                    var records = MasterGrid.getSelectionModel().getSelection();
+                    MasterRowEditor.cancelEdit();
+                    MasterRowEditor.startEdit(records[0], 1);
                 }
             }, '-',
             {
@@ -69,8 +79,16 @@
                 iconCls: 'eliminar  ',
                 handler: function() {
                     var records = MasterGrid.getSelectionModel().getSelection();
-                    deleteData(AspUserPage, 'Delete', 'Id_User', records[0].get('Id_User'));
-                    loadData(AspUserPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+                    deleteData(
+                        AspUserPage,
+                        'Delete',
+                        'Id_User', 
+                        records[0].get('Id_User'),
+                        function(data) {
+                            loadData(AspUserPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+                        },
+                        null
+                    );
                 }
             }
         ],

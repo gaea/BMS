@@ -13,6 +13,7 @@
     <property name="Id_Role" column="perfil" type="int"/>
     <property name="IsActive" column="activo" type="boolean"/>
     <property name="DocumentType" column="tpoDocumento" type="int"/>
+    <property name="DocumentNumber" column="documento" type="int"/>
     <property name="Address" column="direccion" type="string"/>
     <property name="TelephoneNumber" column="telefono" type="string"/>
     <property name="EmailAddress" column="correo" type="string"/>
