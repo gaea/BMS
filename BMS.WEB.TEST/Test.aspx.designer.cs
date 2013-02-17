@@ -14,21 +14,21 @@ namespace BMS.WEB.TEST {
     public partial class Test {
         
         /// <summary>
-        /// form1 control.
+        /// UserForm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.HtmlControls.HtmlForm UserForm;
         
         /// <summary>
-        /// MainSM control.
+        /// MainUserSM control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManager MainSM;
+        protected global::System.Web.UI.ScriptManager MainUserSM;
     }
 }

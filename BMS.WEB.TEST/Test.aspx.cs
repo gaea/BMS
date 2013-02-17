@@ -22,13 +22,13 @@ namespace BMS.WEB.TEST
         public static JavaScriptSerializer serialize = new JavaScriptSerializer();
 
         [System.Web.Services.WebMethod]
-        public static string Save(string userProperties)
+        public static string Save(string UserProperties)
         {
             MessageResponse msg = new MessageResponse();
 
             try
             {
-                Users user = serialize.Deserialize<Users>(userProperties);
+                Users user = serialize.Deserialize<Users>(UserProperties);
                 user.IsActive = true;
                 user.Id_Role = 1;
                 user.DocumentType = 1;
