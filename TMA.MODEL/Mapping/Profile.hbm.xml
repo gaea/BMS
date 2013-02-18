@@ -7,11 +7,11 @@
     <id name="Id_Profile" column="idPerfil" type="int">
       <generator class="identity"/>
     </id>
-    <property name="Description" column="nmb" type="string" length="250" not-null="true"/>
+    <property name="Description" column="nmb" type="string" length="250"/>
     <property name="Id_User" column="usr" type="int" not-null="true"/>
-    <property name="DateCreateRegistration" column="fcre" type="datetime" not-null="true"/>
-    <property name="Id_UserModifyRegistration" column="usrm" type="int" not-null="true"/>
-    <property name="DateModifyRegistration" column="fmod" type="datetime" not-null="true"/>
+    <property name="DateCreateRegistration" column="fcre" type="datetime"/>
+    <property name="Id_UserModifyRegistration" column="usrm" type="int"/>
+    <property name="DateModifyRegistration" column="fmod" type="datetime"/>
   </class>
 
-</hibernate-mapping>
+</hibernate-mapping>  

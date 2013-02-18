@@ -20,31 +20,26 @@ using BMS.CONFIGURATION;
 
 namespace BMS.WEB.TEST
 {
-    public partial class User : System.Web.UI.Page
+    public partial class Headquarter : System.Web.UI.Page
     {
         public static JavaScriptSerializer serialize = new JavaScriptSerializer();
 
         [System.Web.Services.WebMethod]
-        public static string Save(string UserProperties)
+        public static string Save(string HeadquarterProperties)
         {
             MessageResponse msg = new MessageResponse();
 
             try
             {
-                Users user = serialize.Deserialize<Users>(UserProperties);
-                user.IsActive = true;
-                user.Id_Role = 1;
-                user.DocumentType = 1;
-                user.DateCreateRegistration = System.DateTime.Now;
-                user.DateModifyRegistration = System.DateTime.Now;
+                TMA.MODEL.Entity.Headquarter headquarter = serialize.Deserialize<TMA.MODEL.Entity.Headquarter>(HeadquarterProperties);
 
-                if (user.Id_User == null)
+                if (headquarter == null)
                 {
-                    UsersDao.save(user);
+                    HeadquartersDao.save(headquarter);
                 }
                 else
                 {
-                    UsersDao.update(user);
+                    HeadquartersDao.update(headquarter);
                 }
 
                 msg.Message = ConfigManager.SaveSuccessMessage;
@@ -52,7 +47,9 @@ namespace BMS.WEB.TEST
             catch (Exception ex)
             {
                 msg.Message = ConfigManager.SaveErrorMessage;
+                
                 msg.Error = ex.ToString();
+                
                 File.AppendAllText(ConfigManager.LogPath, msg.ToString());
             }
 
@@ -66,35 +63,39 @@ namespace BMS.WEB.TEST
 
             try
             {
-                return serialize.Serialize(UsersDao.findAll());
+                return serialize.Serialize(HeadquartersDao.findAll());
             }
             catch (Exception ex)
             {
                 msg.Message = ConfigManager.DeleteErrorMessage;
+
                 msg.Error = ex.ToString();
+
                 File.AppendAllText(ConfigManager.LogPath, msg.ToString());
             }
 
             return serialize.Serialize(msg);
-
         }
 
         [System.Web.Services.WebMethod]
-        public static string Delete(string Id_User)
+        public static string Delete(string Id_Headquarter)
         {
             MessageResponse msg = new MessageResponse();
 
             try
             {
-                Users user = UsersDao.find(Convert.ToInt32(Id_User));
-                UsersDao.delete(user);
+                TMA.MODEL.Entity.Headquarter headquarter = HeadquartersDao.find(Convert.ToInt32(Id_Headquarter));
+            
+                HeadquartersDao.delete(headquarter);
 
                 msg.Message = ConfigManager.DeleteSuccessMessage;
             }
             catch (Exception ex)
             {
                 msg.Message = ConfigManager.DeleteErrorMessage;
+                
                 msg.Error = ex.ToString();
+
                 File.AppendAllText(ConfigManager.LogPath, msg.ToString());
             }
 

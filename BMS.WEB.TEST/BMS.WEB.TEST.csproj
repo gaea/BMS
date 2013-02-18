@@ -53,6 +53,11 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Authorization.aspx" />
+    <Content Include="js\User.js" />
+    <Content Include="Profile.aspx" />
+    <Content Include="js\Profile.js" />
+    <Content Include="Headquarter.aspx" />
     <Content Include="css\icons.css" />
     <Content Include="images\icons\adicionar.png" />
     <Content Include="images\icons\ayuda.png" />
@@ -69,10 +74,11 @@
     <Content Include="images\icons\recargar.png" />
     <Content Include="images\icons\reporte.png" />
     <Content Include="js\Functions.js" />
+    <Content Include="js\Headquarter.js" />
     <Content Include="Resources\SpringContext.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="js\User.js" />
+    <Content Include="js\Authorization.js" />
     <Content Include="lib\extjs\ext-all-debug.js" />
     <Content Include="lib\extjs\ext-all.js" />
     <Content Include="lib\extjs\ext.js" />
@@ -1337,6 +1343,27 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class\MessageResponse.cs" />
+    <Compile Include="Authorization.aspx.cs">
+      <DependentUpon>Authorization.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Authorization.aspx.designer.cs">
+      <DependentUpon>Authorization.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Profile.aspx.cs">
+      <DependentUpon>Profile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Profile.aspx.designer.cs">
+      <DependentUpon>Profile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Headquarter.aspx.cs">
+      <DependentUpon>Headquarter.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Headquarter.aspx.designer.cs">
+      <DependentUpon>Headquarter.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -1528,6 +1555,10 @@
     <ProjectReference Include="..\TMA.MODEL\TMA.MODEL.csproj">
       <Project>{A8249541-76EF-4BE1-8F30-0D1183428915}</Project>
       <Name>TMA.MODEL</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\PERSONAL\Downloads\BMS\BMS\BMS.CONFIGURATION\BMS.CONFIGURATION.csproj">
+      <Project>{61B83578-B2D7-4B45-B61B-AEAFD75F79B8}</Project>
+      <Name>BMS.CONFIGURATION</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

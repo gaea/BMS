@@ -11,7 +11,7 @@
 namespace BMS.WEB.TEST {
     
     
-    public partial class User {
+    public partial class Profile {
         
         /// <summary>
         /// Head1 control.

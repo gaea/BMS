@@ -1,10 +1,10 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="User.aspx.cs" Inherits="BMS.WEB.TEST.User" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Headquarter.aspx.cs" Inherits="BMS.WEB.TEST.Headquarter" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" >
     <head id="Head1" runat="server">
-        <title>Administraci&oacuten de Usuarios</title>
+        <title>Administraci&oacuten de Sedes</title>
         <link rel="stylesheet" type="text/css"  href="lib/extjs/resources/css/ext-all.css" />
         <link rel="stylesheet" type="text/css"  href="css/icons.css" />
         <script type="text/javascript" src="lib/extjs/ext-all.js"></script>
@@ -20,7 +20,7 @@
                 LoadScriptsBeforeUI="true">
                 <Scripts>
                     <asp:ScriptReference Path="~/js/Functions.js" />
-                    <asp:ScriptReference Path="~/js/User.js" />
+                    <asp:ScriptReference Path="~/js/Headquarter.js" />
                 </Scripts>
             </asp:ScriptManager>
         </form>

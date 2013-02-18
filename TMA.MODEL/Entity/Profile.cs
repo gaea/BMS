@@ -10,23 +10,23 @@ namespace TMA.MODEL.Entity
     {
         #region Attributes
 
-        private int id_Profile;
+        private int? id_Profile;
 
         private string description;
 
         private int id_User;
 
-        private DateTime dateCreateRegistration;
+        private DateTime? dateCreateRegistration;
 
         private int id_UserModifyRegistration;
 
-        private DateTime dateModifyRegistration;
+        private DateTime? dateModifyRegistration;
 
         #endregion
 
         #region Properties
 
-        public virtual int Id_Profile
+        public virtual int? Id_Profile
         {
             get { return id_Profile; }
             set { id_Profile = value; }
@@ -44,7 +44,7 @@ namespace TMA.MODEL.Entity
             set { id_User = value; }
         }
 
-        public virtual DateTime DateCreateRegistration
+        public virtual DateTime? DateCreateRegistration
         {
             get { return dateCreateRegistration; }
             set { dateCreateRegistration = value; }
@@ -56,7 +56,7 @@ namespace TMA.MODEL.Entity
             set { id_UserModifyRegistration = value; }
         }
 
-        public virtual DateTime DateModifyRegistration
+        public virtual DateTime? DateModifyRegistration
         {
             get { return dateModifyRegistration; }
             set { dateModifyRegistration = value; }

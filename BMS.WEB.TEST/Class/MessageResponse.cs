@@ -26,6 +26,14 @@ namespace BMS.WEB.TEST
         {
             get { return error; }
             set { error = value; }
-        } 
+        }
+
+        public override string ToString()
+        {
+            return string.Format("Fecha Ejecución: {1}{0}Mensaje Sistema: {2}{0}"
+                , Environment.NewLine
+                , DateTime.Now.ToString()
+                , this.error);
+        }
     }
 }
