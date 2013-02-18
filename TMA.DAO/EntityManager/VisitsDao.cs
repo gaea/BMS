@@ -61,9 +61,12 @@ namespace TMA.DAO.EntityManager
             {
                 try
                 {
+                    Session.Clear();
+
                     Session.Update(visit);
 
                     transaction.Commit();
+                    
                     Session.Flush();
                 }
                 catch (Exception exception)
@@ -83,6 +86,7 @@ namespace TMA.DAO.EntityManager
                     Session.Delete(visit);
 
                     transaction.Commit();
+
                     Session.Flush();
                 }
                 catch (Exception exception)

@@ -1,34 +1,31 @@
 ﻿Ext.onReady(function() {
 
     var AspPage = 'Authorization.aspx';
-
-    function Authorization() {
-        this.Id_User = null,
-        this.Login = null,
-        this.Name = null,
-        this.Password = null,
-        this.Id_Role = null,
-        this.IsActive = null,
-        this.DocumentType = null,
-        this.DocumentNumber = null,
-        this.Address = null,
-        this.TelephoneNumber = null,
-        this.EmailAddress = null
-    };
-    
-    
+  
     function Visit() {
-        this.Id_User = null,
-        this.Login = null,
-        this.Name = null,
-        this.Password = null,
-        this.Id_Role = null,
-        this.IsActive = null,
-        this.DocumentType = null,
-        this.DocumentNumber = null,
-        this.Address = null,
-        this.TelephoneNumber = null,
-        this.EmailAddress = null
+		  this.Id_Visit = null,
+		  this.Id_Visitor = null,
+		  this.DateCreateTransaction = null,
+		  this.DocumentNumberVisitor = null,
+		  this.VisitDescription = null,
+		  this.ElementsToGetIn = null,
+		  this.Activity = null,
+		  this.InitialDate = null,
+		  this.InitialHour = null,
+		  this.FinalDate = null,
+		  this.FinalHour = null,
+		  this.VisitDuration = null,
+		  this.Id_Usuario = null,
+		  this.Id_Area = null,
+		  this.Tracing = null,
+		  this.OutEquipment = null,
+		  this.ScheduledVisit = null,
+		  this.BarCode = null,
+		  this.Provider = null,
+		  this.DateCreateRegistration = null,
+		  this.DateModifyRegistration = null,
+		  this.Id_UserCreateRegistration = null,
+		  this.Id_UserModifyRegistration = null
     };
 
     var ingreso_funcionarios_datastore = new Ext.data.Store({
@@ -41,6 +38,7 @@
 			});
 			
 			var ingreso_funcionarios_tipo_ingreso_combo = Ext.create('Ext.form.field.ComboBox',{
+				id: 'id_ingreso_funcionarios_tipo_ingreso_combo',
 				mode:'local',
 				triggerAction:'all',
 				fieldLabel:'Tipo de ingreso',
@@ -115,6 +113,7 @@
 				}
 			});
 			
+			/*
 			var arbolPrincipal = new Ext.tree.Panel({
 						columnWidth:0.2,
 						height:562,
@@ -132,7 +131,7 @@
 						}),
 						rootVisible: false
 						
-					});
+					});*/
 					
 			var forma = new Ext.form.Panel({
 				bodyStyle:'padding:5px',
@@ -140,8 +139,7 @@
 						columnWidth:0.5,
 						columns: 2,
 						items:[
-							arbolPrincipal
-							,
+							
 							{
 								xtype:'fieldset',
 								title:'Datos para la Autorizaci&oacute;n',
@@ -150,6 +148,7 @@
 								items:[
 									{
 										xtype:'fieldset',
+										id: 'id_fieldset1',
 										border:false,
 										columnWidth:0.75,
 										items:[
@@ -264,6 +263,7 @@
 								text:'Guardar',
 								handler:function(){
 									Ext.Msg.confirm('Impresi&oacute;n Autorizaci&oacute;n', '¿Desea realizar la impresión del tiquete?');
+									alert('Mensaje', forma.getForm().getValues());
 								}
 							},
 							{
@@ -272,6 +272,6 @@
 						],
 						renderTo: Ext.getBody()
 			});
-
+	
     //loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
 });

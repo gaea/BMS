@@ -61,9 +61,12 @@ namespace TMA.DAO.EntityManager
             {
                 try
                 {
+                    Session.Clear();
+
                     Session.Update(profile);
 
                     transaction.Commit();
+                    
                     Session.Flush();
                 }
                 catch (Exception exception)

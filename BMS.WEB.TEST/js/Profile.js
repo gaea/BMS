@@ -31,7 +31,10 @@
     var MasterGrid = new Ext.grid.GridPanel({
         title: 'Perfiles',
         columnLines: true,
-        height: Ext.getBody().getViewSize().height,
+		frame: true,
+		width: 500,
+		height: 300,
+        //height: Ext.getBody().getViewSize().height,
         store: ({
             fields: getProperties(new Profile()),
             data: [{}]

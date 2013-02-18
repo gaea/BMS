@@ -27,14 +27,17 @@
     var MasterGrid = new Ext.grid.GridPanel({
         title: 'Sedes',
         columnLines: true,
-        height: Ext.getBody().getViewSize().height,
+		frame: true,
+		width: 500,
+		height: 300,
+        //height: Ext.getBody().getViewSize().height,
         store: ({
             fields: getProperties(new Headquarter()),
             data: [{}]
         }),
         columns: [
-                { text: 'Identificador', dataIndex: 'Id_Headquarter', editor: new Ext.form.TextField({ allowBlank: false }) },
-                { text: 'Descripci&oacute;n', dataIndex: 'Description', editor: new Ext.form.TextField({ allowBlank: false }) }
+                { text: 'Identificador', dataIndex: 'Id_Headquarter' },
+                { text: 'Descripci&oacute;n', dataIndex: 'Description', editor: new Ext.form.TextField({ msgTarget: 'none', allowBlank: false,  labelWidth: 75, minText: 'Texto de ejemplo' }) }
         ],
         plugins: [MasterRowEditor],
         tbar: [

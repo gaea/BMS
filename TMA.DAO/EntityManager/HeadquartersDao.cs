@@ -45,12 +45,14 @@ namespace TMA.DAO.EntityManager
                     Session.Save(headquarter);
 
                     transaction.Commit();
+
                     Session.Flush();
+
                 }
                 catch (Exception exception)
                 {
                     transaction.Rollback();
-                        throw exception;
+                    throw exception;
                 }
             }
         }
@@ -61,14 +63,18 @@ namespace TMA.DAO.EntityManager
             {
                 try
                 {
+                    Session.Clear();
+
                     Session.Update(headquarter);
 
                     transaction.Commit();
+
                     Session.Flush();
                 }
                 catch (Exception exception)
                 {
                     transaction.Rollback();
+                    
                     throw exception;
                 }
             }

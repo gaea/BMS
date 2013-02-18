@@ -33,7 +33,7 @@ namespace BMS.WEB.TEST
             {
                 TMA.MODEL.Entity.Headquarter headquarter = serialize.Deserialize<TMA.MODEL.Entity.Headquarter>(HeadquarterProperties);
 
-                if (headquarter == null)
+                if (headquarter.Id_Headquarter == null)
                 {
                     HeadquartersDao.save(headquarter);
                 }

@@ -52,7 +52,9 @@ namespace BMS.WEB.TEST
             catch (Exception ex)
             {
                 msg.Message = ConfigManager.SaveErrorMessage;
+                
                 msg.Error = ex.ToString();
+                
                 File.AppendAllText(ConfigManager.LogPath, msg.ToString());
             }
 
