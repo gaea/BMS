@@ -219,6 +219,10 @@
     background-image: url(../images/statusLarge.png);
 }
 
+.biometric-authorization-shortcut {
+    background-image: url(../images/biometric-authorization48x48.png);
+}
+
 .grid-shortcut {
     background-image: url(../images/grid48x48.png);
 }
@@ -227,6 +231,10 @@
     background-image: url(../images/notepadLarge.png);
     width: 46px;
     height: 46px;
+}
+
+.mastertables-shortcut {
+    background-image: url(../images/mastertable48x48.png);
 }
 
 .x-ie6 .accordion-shortcut {
@@ -244,9 +252,19 @@
     filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/grid48x48.png', sizingMethod='scale');
 }
 
+.x-ie6 .biometric-authorization-shortcut {
+    background-image: none;
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/biometric-authorization48x48.png', sizingMethod='scale');
+}
+
 .x-ie6 .notepad-shortcut {
     background-image: none;
     filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/notepadLarge.png', sizingMethod='scale');
+}
+
+.x-ie6 .mastertables-shortcut {
+    background-image: none;
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/mastertable48x48.png', sizingMethod='scale');
 }
 
 .video {
@@ -269,21 +287,23 @@
     background-image: url( ../images/gears.gif ) !important;
 }
 
-
 .icon-grid {
     background-image:url( ../images/grid.png ) !important;
 }
 .add {
-    background-image:url(../../shared/icons/fam/add.gif) !important;
+    background-image:url(../images/icons/add.png) !important;
 }
 .option {
-    background-image:url(../../shared/icons/fam/plugin.gif) !important;
+    background-image:url(../images/icons/plugin.gif) !important;
 }
 .remove {
-    background-image:url(../../shared/icons/fam/delete.gif) !important;
+    background-image:url(../images/icons/remove.png) !important;
 }
 .save {
-    background-image:url(../../shared/icons/save.gif) !important;
+    background-image:url(../images/icons/save.png) !important;
+}
+.search {
+    background-image:url(../images/icons/search.png) !important;
 }
 .accordion {
     background-image:url(../images/accordian.gif) !important;
