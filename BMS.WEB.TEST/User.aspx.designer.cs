@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BMS.WEB.TEST {
+namespace BMS.WEB.pages {
     
     
     public partial class User {

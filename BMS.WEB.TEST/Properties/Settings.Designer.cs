@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BMS.WEB.TEST.Properties {
+namespace BMS.WEB.pages.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

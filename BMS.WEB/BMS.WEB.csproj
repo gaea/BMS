@@ -56,6 +56,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="cls\MessageResponse.cs" />
     <Compile Include="Desktop.aspx.cs">
       <DependentUpon>Desktop.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -63,12 +64,51 @@
     <Compile Include="Desktop.aspx.designer.cs">
       <DependentUpon>Desktop.aspx</DependentUpon>
     </Compile>
+    <Compile Include="pages\Authorization.aspx.cs">
+      <DependentUpon>Authorization.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\Authorization.aspx.designer.cs">
+      <DependentUpon>Authorization.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\Headquarter.aspx.cs">
+      <DependentUpon>Headquarter.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\Headquarter.aspx.designer.cs">
+      <DependentUpon>Headquarter.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\Profile.aspx.cs">
+      <DependentUpon>Profile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\Profile.aspx.designer.cs">
+      <DependentUpon>Profile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\User.aspx.cs">
+      <DependentUpon>User.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\User.aspx.designer.cs">
+      <DependentUpon>User.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="css\icons.css" />
     <Content Include="Desktop.aspx" />
-    <Content Include="js\BiometricAuthorization.js" />
+    <Content Include="js\modules\Authorization.js" />
+    <Content Include="js\modules\BiometricAuthorization.js" />
+    <Content Include="js\modules\Headquarter.js" />
+    <Content Include="js\modules\Profile.js" />
+    <Content Include="js\modules\User.js" />
+    <Content Include="pages\Authorization.aspx" />
+    <Content Include="pages\Headquarter.aspx" />
+    <Content Include="pages\Profile.aspx" />
+    <Content Include="pages\User.aspx" />
+    <Content Include="resources\SpringContext.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="ux\desktop\css\desktop.css" />
     <Content Include="images\accordian.gif" />
     <Content Include="images\accordionLarge.png" />
@@ -122,7 +162,7 @@
     <Content Include="images\taskbar\sencha.ico" />
     <Content Include="images\user.png" />
     <Content Include="js\Functions.js" />
-    <Content Include="js\MasterTables.js" />
+    <Content Include="js\modules\MasterTables.js" />
     <Content Include="lib\extjs\ext-all.js" />
     <Content Include="ux\desktop\js\Desktop.js" />
     <Content Include="ux\desktop\images\accordian.gif" />
@@ -176,7 +216,7 @@
     <Content Include="ux\desktop\images\winbar-bg.gif" />
     <Content Include="ux\desktop\images\winbar-btn.gif" />
     <Content Include="ux\desktop\images\windows-bg.gif" />
-    <Content Include="js\Modules.js" />
+    <Content Include="js\modules\Modules.js" />
     <Content Include="js\Desktop.js" />
     <Content Include="ux\desktop\wallpapers\Blue-Sencha.jpg" />
     <Content Include="ux\desktop\wallpapers\blue.jpg" />
@@ -1612,6 +1652,20 @@
     <None Include="lib\extjs\resources\themes\stylesheets\neptune\default\_widgets.scss" />
     <None Include="lib\extjs\resources\themes\templates\resources\sass\config.rb" />
     <None Include="lib\extjs\resources\themes\templates\resources\sass\my-ext-theme.scss" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BMS.CONFIGURATION\BMS.CONFIGURATION.csproj">
+      <Project>{61B83578-B2D7-4B45-B61B-AEAFD75F79B8}</Project>
+      <Name>BMS.CONFIGURATION</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TMA.DAO\TMA.DAO.csproj">
+      <Project>{37348338-9462-4145-82D8-8091AA923833}</Project>
+      <Name>TMA.DAO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TMA.MODEL\TMA.MODEL.csproj">
+      <Project>{A8249541-76EF-4BE1-8F30-0D1183428915}</Project>
+      <Name>TMA.MODEL</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="images\icons\" />

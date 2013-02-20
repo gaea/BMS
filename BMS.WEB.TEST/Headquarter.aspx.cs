@@ -18,7 +18,7 @@ using TMA.DAO.EntityManager;
 using System.IO;
 using BMS.CONFIGURATION;
 
-namespace BMS.WEB.TEST
+namespace BMS.WEB.pages
 {
     public partial class Headquarter : System.Web.UI.Page
     {
