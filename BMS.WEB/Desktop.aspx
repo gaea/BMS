@@ -5,16 +5,30 @@
 <head runat="server">
     <title>Intelisoft</title>
     <link rel="stylesheet" type="text/css" href="lib/extjs/resources/css/ext-all.css" />
-    <link rel="stylesheet" type="text/css" href="css/icons.css" />
-    <link rel="stylesheet" type="text/css" href="ux/desktop/css/desktop.css" /> 
+    <link rel="stylesheet" type="text/css" href="css/desktop.css" />
 
-    <script type="text/javascript" src="lib/extjs/ext-all.js"></script>
+    <script type="text/javascript" src="lib/extjs/ext.js"></script>
     <script type="text/javascript" src="js/Functions.js"></script>
-    <script type="text/javascript" src="ux/desktop/js/Desktop.js"></script>
-    <script type="text/javascript" src="js/modules/Modules.js"></script>
-    <script type="text/javascript" src="js/modules/BiometricAuthorization.js"></script>
-    <script type="text/javascript" src="js/Desktop.js"></script>
+    
+    <script type="text/javascript">
+			Ext.Loader.setPath({
+				'Ext.ux.desktop': 'js',
+				MyDesktop: ''
+			});
+
+			Ext.require('MyDesktop.App');
+
+			var myDesktopApp;
+			Ext.onReady(function () {
+				myDesktopApp = new MyDesktop.App();
+			});
+		</script>
+
 </head>
 <body>
+    <form id="form1" runat="server">
+    <div>
+    </div>
+    </form>
 </body>
 </html>
