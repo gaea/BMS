@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{3A3070F8-6CCB-4F77-9B8C-E25A917E13FD}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -72,6 +72,7 @@
     <Compile Include="EntityManager\AuthorizationsDao.cs" />
     <Compile Include="EntityManager\ModulesByRolDao.cs" />
     <Compile Include="EntityManager\ModulesDao.cs" />
+    <Compile Include="EntityManager\PersonsDao.cs" />
     <Compile Include="EntityManager\RolesDao.cs" />
     <Compile Include="CustomSessionFactory.cs" />
     <Compile Include="Dao.cs" />

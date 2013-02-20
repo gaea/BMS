@@ -13,7 +13,7 @@ Ext.define('MyDesktop.BiometricAuthorization', {
     init : function(){
         this.launcher = {
             text: 'Registro Autorizaciones',
-            iconCls:'icon-biometric-authorization'
+            iconCls:'icon-biometric-authorization16'
         };
     },
 
@@ -108,7 +108,7 @@ Ext.define('MyDesktop.BiometricAuthorization', {
             win = desktop.createWindow({
                 title:'Registro Autorizaciones',
 				id: 'authorization-win',
-				iconCls: 'icon-biometric-authorization',
+				iconCls: 'icon-biometric-authorization16',
 				animCollapse:false,
 				constrainHeader:true,
 				border:false,

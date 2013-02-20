@@ -53,7 +53,8 @@ Ext.define("MyDesktop.App", { extend: "Ext.ux.desktop.App",
                         { name: "Accordion Window", iconCls: "accordion-shortcut", module: "acc-win" },
                         { name: "Notepad", iconCls: "notepad-shortcut", module: "notepad" },
                         { name: "System Status", iconCls: "cpu-shortcut", module: "systemstatus" },
-                        { name: "Biometric Autori...", iconCls: "cpu-shortcut", module: "authorization-win" }
+                        { name: "Biometric Autori...", iconCls: "icon-biometric-authorization48", module: "authorization-win" },
+                        { name: "Master Tables...", iconCls: "icon-master-table48", module: "authorization-win" }
                     ]
                 }),
                 wallpaper: "../ux/desktop/wallpapers/Blue-Sencha.jpg",

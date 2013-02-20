@@ -43,7 +43,7 @@
         tbar: [
             {
                 text: 'Adicionar',
-                iconCls: 'adicionar',
+                iconCls: 'add',
                 handler: function() {
                     MasterRowEditor.cancelEdit();
                     MasterGrid.getStore().insert(0, new Headquarter());
@@ -52,7 +52,7 @@
             }, '-',
             {
                 text: 'Modificar',
-                iconCls: 'modificar',
+                iconCls: 'modify',
                 handler: function() {
                     var records = MasterGrid.getSelectionModel().getSelection();
                     MasterRowEditor.cancelEdit();
@@ -61,7 +61,7 @@
             }, '-',
             {
                 text: 'Eliminar',
-                iconCls: 'eliminar  ',
+                iconCls: 'remove',
                 handler: function() {
                     var records = MasterGrid.getSelectionModel().getSelection();
                     deleteData(
