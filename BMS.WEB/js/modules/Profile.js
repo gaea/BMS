@@ -29,12 +29,15 @@
     });
 
     var MasterGrid = new Ext.grid.GridPanel({
-        title: 'Perfiles',
+        frame: false,
+        border: true,
+        width: Ext.getBody().getViewSize().width,
+        height: Ext.getBody().getViewSize().height,
+        monitorResize: true,
+        stripeRows: true,
         columnLines: true,
-		frame: true,
-		width: 500,
-		height: 300,
-        //height: Ext.getBody().getViewSize().height,
+        stateful: true,
+        stateId: 'grid',
         store: ({
             fields: getProperties(new Profile()),
             data: [{}]

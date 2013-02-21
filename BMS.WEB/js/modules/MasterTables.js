@@ -32,11 +32,7 @@
 					            {
 					                text: "Usuarios",
 					                id: "User",
-					                leaf: true,
-					                expanded: true,
-					                handler: function() {
-					                    //Ext.Msg.confirm('Usuarios', '¿Desea abrir la tabla Usuarios?');
-					                }
+					                leaf: true
 					            },
 					            {
 					                text: "Funcionarios",
@@ -71,15 +67,14 @@
 
             var tree = new Ext.tree.Panel({
                 title: 'Tablas',
-                height: 600,
+                region:'west',
+                split: true,
                 width: 180,
-                anchor: '100%',
-                useArrows: true,
-                collapsible: true,
-                useArrows: true,
+                collapseMode: 'mini',
                 rootVisible: false,
-                multiSelect: true,
-                singleExpand: true,
+                useArrows: true,
+                lines: false,
+                autoScroll: true,
                 store: masterTableTreeStore
             });
 
@@ -89,10 +84,10 @@
                 width: 800,
                 height: 600,
                 iconCls: 'icon-master-tables',
-                animCollapse: false,
-                border: false,
+                animCollapse: true,
+                border: true,
                 hideMode: 'offsets',
-                layout: 'column',
+                layout: 'border',
                 items: [
                             tree,
                             {
@@ -100,7 +95,7 @@
                                 id: 'master_panel_tabpanel_id',
                                 activeTab: 0,
                                 region: 'center',
-                                margins: '0 5 5 0',
+                                margins: '0 0 0 0',
                                 enableTabScroll: true
                             }
                        ]
@@ -110,7 +105,7 @@
             sm.on('beforeselect', function(sm, node) { return node.isLeaf(); });
             sm.on('selectionchange', function(sm, node) {
                 objectProperties(node[0].data);
-                if (Ext.getCmp(node[0].data.id) != null) { Ext.getCmp(node[0].data.id).show(); }
+                if (Ext.getCmp(node[0].data.id) != null ) { Ext.getCmp(node[0].data.id).show(); }
                 else { add_master_panel(node[0].data); }
             });
 

@@ -34,9 +34,15 @@
     });
 
     var MasterGrid = new Ext.grid.GridPanel({
-        title: 'Usuarios',
-        columnLines: true,
+        frame: false,
+        border: true,
+        width: Ext.getBody().getViewSize().width,
         height: Ext.getBody().getViewSize().height,
+        monitorResize: true,
+        stripeRows: true,
+        columnLines: true,
+        stateful: true,
+        stateId: 'grid',
         store: ({
             fields: getProperties(new User()),
             data: [{}]
