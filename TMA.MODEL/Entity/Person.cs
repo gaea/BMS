@@ -84,16 +84,16 @@ namespace TMA.MODEL.Entity
 
         private string id_UserCreateRegistration;
 
-        private Nullable<DateTime> dateCreateRegistration;
+        private DateTime dateCreateRegistration;
 
         private string id_UserModifyRegistration;
 
-        private Nullable<DateTime> dateModifyRegistration;
+        private DateTime dateModifyRegistration;
 
         private int contractor;
-
+      
         private string dateValidityARP;
-
+       
         #endregion Attributes
 
         #region Properties
@@ -320,7 +320,7 @@ namespace TMA.MODEL.Entity
             set { id_UserCreateRegistration = value; }
         }
 
-        public virtual Nullable<DateTime> DateCreateRegistration
+        public virtual DateTime DateCreateRegistration
         {
             get { return dateCreateRegistration; }
             set { dateCreateRegistration = value; }
@@ -332,7 +332,7 @@ namespace TMA.MODEL.Entity
             set { id_UserModifyRegistration = value; }
         }
 
-        public virtual Nullable<DateTime> DateModifyRegistration
+        public virtual DateTime DateModifyRegistration
         {
             get { return dateModifyRegistration; }
             set { dateModifyRegistration = value; }

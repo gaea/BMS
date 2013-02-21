@@ -50,7 +50,7 @@ namespace TMA.DAO.EntityManager
                 catch (Exception exception)
                 {
                     transaction.Rollback();
-                    throw exception;
+                        throw exception;
                 }
             }
         }
@@ -66,7 +66,7 @@ namespace TMA.DAO.EntityManager
                     Session.Update(person);
 
                     transaction.Commit();
-
+                    
                     Session.Flush();
                 }
                 catch (Exception exception)

@@ -241,8 +241,8 @@ namespace BMS.DAO.TEST
             TMA.MODEL.Entity.Users user = TMA.DAO.EntityManager.UsersDao.find(2);
             TMA.MODEL.Entity.Profile profile = TMA.DAO.EntityManager.ProfilesDao.find(8);
             TMA.MODEL.Entity.Visit visit = TMA.DAO.EntityManager.VisitsDao.find(8);
-            //TMA.MODEL.Entity.Person person = TMA.DAO.EntityManager.PersonsDao.find(1);
-            TMA.MODEL.Entity.Diary diary = TMA.DAO.EntityManager.DiariesDao.find(1);
+            TMA.MODEL.Entity.Person person = TMA.DAO.EntityManager.PersonsDao.find(1);
+            TMA.MODEL.Entity.Diary diary = TMA.DAO.EntityManager.DiarysDao.find(1);
             #endregion Consulta Usuarios por Id
 
             #region Crear Registro Usuario
@@ -259,24 +259,24 @@ namespace BMS.DAO.TEST
 
                 };
 
-                TMA.DAO.EntityManager.DiariesDao.save(diary);
+                TMA.DAO.EntityManager.DiarysDao.save(diary);
             }
 
 
-            //if (person == null)
-            //{
-            //    person = new TMA.MODEL.Entity.Person()
-            //    {
-            //        Id_BiometricReader = 500003,
-            //        Name = "Agustín",
-            //        LastName = "Mejía",
-            //        DateCreateRegistration = DateTime.Now,
-            //        DateModifyRegistration = DateTime.Now,
+            if (person == null)
+            {
+                person = new TMA.MODEL.Entity.Person()
+                {
+                    Id_BiometricReader = 500003,
+                    Name = "Agustín",
+                    LastName = "Mejía",
+                    DateCreateRegistration = DateTime.Now,
+                    DateModifyRegistration = DateTime.Now,
 
-            //    };
+                };
 
-            //    TMA.DAO.EntityManager.PersonsDao.save(person);
-            //}
+                TMA.DAO.EntityManager.PersonsDao.save(person);
+            }
 
             if (visit == null)
             {

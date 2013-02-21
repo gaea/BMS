@@ -8,7 +8,7 @@ using NHibernate.Criterion;
 
 namespace TMA.DAO.EntityManager
 {
-    public class DiariesDao : Dao
+    public class DiarysDao : Dao
     {
         public static List<Diary> findBy(string field, int Id_Diary)
         {
@@ -44,7 +44,7 @@ namespace TMA.DAO.EntityManager
                     Session.Save(diary);
 
                     transaction.Commit();
-
+                    
                     Session.Flush();
                 }
                 catch (Exception exception)
