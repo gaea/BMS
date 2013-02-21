@@ -3,71 +3,48 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TMA.MODEL.Entity;
-using NHibernate.Criterion;
 using NHibernate;
-using BMS.DAO;
+using NHibernate.Criterion;
 
 namespace TMA.DAO.EntityManager
 {
-    public class PersonsDao : Dao
+    public class DiariesDao : Dao
     {
-        public static List<Person> findBy(string field, int Id_Person)
+        public static List<Diary> findBy(string field, int Id_Diary)
         {
-            List<Person> person = (List<Person>)Session.CreateCriteria<Person>()
-                .Add(Restrictions.Eq(field, Id_Person))
-                .List<Person>();
+            List<Diary> diary = (List<Diary>)Session.CreateCriteria<Diary>()
+                .Add(Restrictions.Eq(field, Id_Diary))
+                .List<Diary>();
 
-            return person;
+            return diary;
         }
 
-        public static Person find(int Id_Person)
+        public static Diary find(int Id_Diary)
         {
-            Person person = (Person)Session.CreateCriteria<Person>()
-                .Add(Restrictions.Eq("Id_Person", Id_Person))
+            Diary diary = (Diary)Session.CreateCriteria<Diary>()
+                .Add(Restrictions.Eq("Id_Diary", Id_Diary))
                 .UniqueResult();
 
-            return person;
+            return diary;
         }
 
-        public static List<Person> findAll()
+        public static List<Diary> findAll()
         {
-            IList<Person> iHeadquarter = Session.CreateCriteria<Person>().List<Person>();
+            IList<Diary> iHeadquarter = Session.CreateCriteria<Diary>().List<Diary>();
 
-            return (iHeadquarter != null) ? new List<Person>(iHeadquarter) : new List<Person>();
+            return (iHeadquarter != null) ? new List<Diary>(iHeadquarter) : new List<Diary>();
         }
 
-        public static void save(Person person)
-        {
-            using (ITransaction transaction = Session.BeginTransaction())
-            {
-                try
-                {
-                    Session.Save(person);
-
-                    transaction.Commit();
-
-                    Session.Flush();
-                }
-                catch (Exception exception)
-                {
-                    transaction.Rollback();
-                        throw exception;
-                }
-            }
-        }
-
-        public static void update(Person person)
+        public static void save(Diary diary)
         {
             using (ITransaction transaction = Session.BeginTransaction())
             {
                 try
                 {
-                    Session.Clear();
-
-                    Session.Update(person);
+                    Session.Save(diary);
 
                     transaction.Commit();
-                    
+
                     Session.Flush();
                 }
                 catch (Exception exception)
@@ -78,13 +55,35 @@ namespace TMA.DAO.EntityManager
             }
         }
 
-        public static void delete(Person person)
+        public static void update(Diary diary)
         {
             using (ITransaction transaction = Session.BeginTransaction())
             {
                 try
                 {
-                    Session.Delete(person);
+                    Session.Clear();
+
+                    Session.Update(diary);
+
+                    transaction.Commit();
+
+                    Session.Flush();
+                }
+                catch (Exception exception)
+                {
+                    transaction.Rollback();
+                    throw exception;
+                }
+            }
+        }
+
+        public static void delete(Diary diary)
+        {
+            using (ITransaction transaction = Session.BeginTransaction())
+            {
+                try
+                {
+                    Session.Delete(diary);
 
                     transaction.Commit();
 

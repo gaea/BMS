@@ -48,7 +48,6 @@
     <Compile Include="Entity\Authorization.cs" />
     <Compile Include="Entity\Module.cs" />
     <Compile Include="Entity\ModuleByRol.cs" />
-    <Compile Include="Entity\Person.cs" />
     <Compile Include="Entity\Rol.cs" />
     <Compile Include="Entity\Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -66,7 +65,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Mapping\Authorization.hbm.xml" />
     <Content Include="Mapping\ModuleByRol.hbm.xml" />
-    <Content Include="Mapping\Person.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Schema\nhibernate-configuration.xsd" />

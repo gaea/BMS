@@ -5,6 +5,7 @@ using System.Text;
 
 namespace TMA.MODEL.Entity
 {
+    [Serializable]
     public class Person
     {
         #region Attributes
@@ -77,22 +78,22 @@ namespace TMA.MODEL.Entity
 
         private int indexOther;
 
-        private byte fingerPrint;
+        private byte[] fingerPrint;
 
-        private byte photo;
+        private byte[] photo;
 
         private string id_UserCreateRegistration;
 
-        private DateTime dateCreateRegistration;
+        private Nullable<DateTime> dateCreateRegistration;
 
         private string id_UserModifyRegistration;
 
-        private DateTime dateModifyRegistration;
+        private Nullable<DateTime> dateModifyRegistration;
 
         private int contractor;
-      
+
         private string dateValidityARP;
-       
+
         #endregion Attributes
 
         #region Properties
@@ -301,13 +302,13 @@ namespace TMA.MODEL.Entity
             set { indexOther = value; }
         }
 
-        public virtual byte FingerPrint
+        public virtual byte[] FingerPrint
         {
             get { return fingerPrint; }
             set { fingerPrint = value; }
         }
 
-        public virtual byte Photo
+        public virtual byte[] Photo
         {
             get { return photo; }
             set { photo = value; }
@@ -319,7 +320,7 @@ namespace TMA.MODEL.Entity
             set { id_UserCreateRegistration = value; }
         }
 
-        public virtual DateTime DateCreateRegistration
+        public virtual Nullable<DateTime> DateCreateRegistration
         {
             get { return dateCreateRegistration; }
             set { dateCreateRegistration = value; }
@@ -331,7 +332,7 @@ namespace TMA.MODEL.Entity
             set { id_UserModifyRegistration = value; }
         }
 
-        public virtual DateTime DateModifyRegistration
+        public virtual Nullable<DateTime> DateModifyRegistration
         {
             get { return dateModifyRegistration; }
             set { dateModifyRegistration = value; }

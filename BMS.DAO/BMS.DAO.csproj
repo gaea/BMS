@@ -72,7 +72,6 @@
     <Compile Include="EntityManager\AuthorizationsDao.cs" />
     <Compile Include="EntityManager\ModulesByRolDao.cs" />
     <Compile Include="EntityManager\ModulesDao.cs" />
-    <Compile Include="EntityManager\PersonsDao.cs" />
     <Compile Include="EntityManager\RolesDao.cs" />
     <Compile Include="CustomSessionFactory.cs" />
     <Compile Include="Dao.cs" />

@@ -10,7 +10,7 @@ namespace TMA.DAO.EntityManager
 {
     public class PersonsDao : Dao
     {
-        public static List<Person> findBy(string field, int Id_Person)
+        public static List<Person> findBy(string field, float Id_Person)
         {
             List<Person> person = (List<Person>)Session.CreateCriteria<Person>()
                 .Add(Restrictions.Eq(field, Id_Person))
@@ -19,7 +19,7 @@ namespace TMA.DAO.EntityManager
             return person;
         }
 
-        public static Person find(int Id_Person)
+        public static Person find(float Id_Person)
         {
             Person person = (Person)Session.CreateCriteria<Person>()
                 .Add(Restrictions.Eq("Id_Person", Id_Person))
@@ -50,7 +50,7 @@ namespace TMA.DAO.EntityManager
                 catch (Exception exception)
                 {
                     transaction.Rollback();
-                        throw exception;
+                    throw exception;
                 }
             }
         }
@@ -66,7 +66,7 @@ namespace TMA.DAO.EntityManager
                     Session.Update(person);
 
                     transaction.Commit();
-                    
+
                     Session.Flush();
                 }
                 catch (Exception exception)

@@ -241,23 +241,42 @@ namespace BMS.DAO.TEST
             TMA.MODEL.Entity.Users user = TMA.DAO.EntityManager.UsersDao.find(2);
             TMA.MODEL.Entity.Profile profile = TMA.DAO.EntityManager.ProfilesDao.find(8);
             TMA.MODEL.Entity.Visit visit = TMA.DAO.EntityManager.VisitsDao.find(8);
-            TMA.MODEL.Entity.Person person = TMA.DAO.EntityManager.PersonsDao.find(8);
+            //TMA.MODEL.Entity.Person person = TMA.DAO.EntityManager.PersonsDao.find(1);
+            TMA.MODEL.Entity.Diary diary = TMA.DAO.EntityManager.DiariesDao.find(1);
             #endregion Consulta Usuarios por Id
 
             #region Crear Registro Usuario
 
-            if (person == null)
+            if (diary == null)
             {
-                person = new TMA.MODEL.Entity.Person()
+                diary = new TMA.MODEL.Entity.Diary()
                 {
-                    Id_Person = 0,
-                    DateCreateRegistration = DateTime.Now,
-                    DateModifyRegistration = DateTime.Now,
-                    
+                    DateCreateTransaction = "0",
+                    HourCreateTransaction = "0",
+                    DateCreateRegistration = DateTime.Now.ToLocalTime(),
+                    DateModifyRegistration = DateTime.Now.ToLocalTime(),
+                    CenterCost = 1
+
                 };
 
-                TMA.DAO.EntityManager.PersonsDao.save(person);
+                TMA.DAO.EntityManager.DiariesDao.save(diary);
             }
+
+
+            //if (person == null)
+            //{
+            //    person = new TMA.MODEL.Entity.Person()
+            //    {
+            //        Id_BiometricReader = 500003,
+            //        Name = "Agustín",
+            //        LastName = "Mejía",
+            //        DateCreateRegistration = DateTime.Now,
+            //        DateModifyRegistration = DateTime.Now,
+
+            //    };
+
+            //    TMA.DAO.EntityManager.PersonsDao.save(person);
+            //}
 
             if (visit == null)
             {

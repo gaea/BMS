@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="TMA.MODEL"
+                   namespace="TMA.MODEL.Entity">
+
+  <class name="Diary" table="dbo.Tbl_AgendaVisitasFuncionario">
+    <id name="Id_Diary" column="IdFuncionario" type="int">
+      <generator class="increment"/>
+    </id>
+    <property name="DateCreateTransaction" column="Fecha" type="string" />
+    <property name="HourCreateTransaction" column="Hora" type="string" />
+    <property name="Id_Visitor" column="IdVisitante" type="float" />
+    <property name="Description" column="Motivo" type="string" />
+    <property name="DateCreateRegistration" column="FechaCrea" type="datetime" />
+    <property name="DateModifyRegistration" column="FechaModifica" type="datetime" />
+    <property name="Id_UserCreateRegistration" column="UsuarioCrea" type="string" />
+    <property name="Id_UserModifyRegistration" column="UsuarioModifica" type="string" />
+    <property name="CenterCost" column="csc" type="int" />
+    <property name="State" column="Estado" type="string" />
+    <property name="Id_User" column="IdUsuario" type="int" />
+  </class>
+
+</hibernate-mapping>
