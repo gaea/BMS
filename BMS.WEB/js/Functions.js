@@ -1,6 +1,11 @@
 ﻿function objectProperties(obj) {
     for (inx in obj) {
-        console.log("PROPIEDAD: {" + inx + "} <------> VALOR: {" + obj[inx] + "}.");
+        /*if (typeof obj[inx] === 'object') {
+            objectProperties(obj[inx])
+        }
+        else {*/
+            console.log("PROPIEDAD: {" + inx + "} <------> VALOR: {" + obj[inx] + "}.");
+        //}
     }
 }
 

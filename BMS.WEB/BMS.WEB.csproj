@@ -97,6 +97,7 @@
   <ItemGroup>
     <Content Include="css\icons.css" />
     <Content Include="Desktop.aspx" />
+    <Content Include="js\DesktopConfig.js" />
     <Content Include="js\modules\Authorization.js" />
     <Content Include="js\modules\BiometricAuthorization.js" />
     <Content Include="js\modules\Headquarter.js" />

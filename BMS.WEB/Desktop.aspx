@@ -12,7 +12,9 @@
     <script type="text/javascript" src="js/Functions.js"></script>
     <script type="text/javascript" src="ux/desktop/js/Desktop.js"></script>
     <script type="text/javascript" src="js/modules/Modules.js"></script>
+    <script type="text/javascript" src="js/modules/MasterTables.js"></script>
     <script type="text/javascript" src="js/modules/BiometricAuthorization.js"></script>
+    <script type="text/javascript" src="js/DesktopConfig.js"></script>
     <script type="text/javascript" src="js/Desktop.js"></script>
 </head>
 <body>
