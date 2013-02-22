@@ -11,9 +11,9 @@ Ext.define("MyDesktop.App", { extend: "Ext.ux.desktop.App",
         "MyDesktop.BogusMenuModule",
         "MyDesktop.BogusModule",
         "MyDesktop.Settings",
-//        "MyDesktop.BiometricAuthorization",
         "MyDesktop.Authorization",
-        "MyDesktop.MasterTables"
+        "MyDesktop.MasterTables",
+		"MyDesktop.Help"
     ],
     init: function() {
         this.callParent()
@@ -28,9 +28,9 @@ Ext.define("MyDesktop.App", { extend: "Ext.ux.desktop.App",
             new MyDesktop.Notepad(),
             new MyDesktop.BogusMenuModule(),
             new MyDesktop.BogusModule(),
-//            new MyDesktop.BiometricAuthorization(),
             new MyDesktop.Authorization(),
-            new MyDesktop.MasterTables()
+            new MyDesktop.MasterTables(),
+			new MyDesktop.Help()
         ]
     },
     getDesktopConfig: function() {
@@ -52,9 +52,9 @@ Ext.define("MyDesktop.App", { extend: "Ext.ux.desktop.App",
                         { name: "Accordion Window", iconCls: "accordion-shortcut", module: "acc-win" },
                         { name: "Notepad", iconCls: "notepad-shortcut", module: "notepad" },
                         { name: "System Status", iconCls: "cpu-shortcut", module: "systemstatus" },
-//                        { name: "Biometric Autorization", iconCls: "icon-biometric-authorization48", module: "authorization-win" },
                         { name: "Master Autorization", iconCls: "icon-biometric-authorization48", module: "master-authorization-win" },
-                        { name: "Master Tables", iconCls: "icon-master-table48", module: "master-table-win" }
+                        { name: "Master Tables", iconCls: "icon-master-table48", module: "master-table-win" },
+						{ name: "Help", iconCls: "help48", module: "help-win" }
                     ]
                 }),
                 wallpaper: "../ux/desktop/wallpapers/Blue-Sencha.jpg",

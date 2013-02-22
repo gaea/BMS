@@ -15,6 +15,7 @@
     <script type="text/javascript" src="js/modules/MasterTables.js"></script>
     <script type="text/javascript" src="js/modules/BiometricAuthorization.js"></script>
     <script type="text/javascript" src="js/modules/Authorization.js"></script>
+    <script type="text/javascript" src="js/modules/Help.js"></script>
     <script type="text/javascript" src="js/DesktopConfig.js"></script>
     <script type="text/javascript" src="js/Desktop.js"></script>
 </head>

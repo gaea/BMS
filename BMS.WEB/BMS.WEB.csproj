@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{BFBB778E-05DD-45F7-872A-7E6733415690}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -64,6 +64,13 @@
     <Compile Include="Desktop.aspx.designer.cs">
       <DependentUpon>Desktop.aspx</DependentUpon>
     </Compile>
+    <Compile Include="pages\RegisterRequest.aspx.cs">
+      <DependentUpon>RegisterRequest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\RegisterRequest.aspx.designer.cs">
+      <DependentUpon>RegisterRequest.aspx</DependentUpon>
+    </Compile>
     <Compile Include="pages\RegisterAuthorization.aspx.cs">
       <DependentUpon>RegisterAuthorization.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -107,11 +114,14 @@
     <Content Include="js\DesktopConfig.js" />
     <Content Include="js\modules\Authorization.js" />
     <Content Include="js\modules\BiometricAuthorization.js" />
+    <Content Include="js\modules\Help.js" />
+    <Content Include="js\modules\RegisterRequest.js" />
     <Content Include="js\modules\RegisterAuthorization.js" />
     <Content Include="js\modules\Person.js" />
     <Content Include="js\modules\Headquarter.js" />
     <Content Include="js\modules\Profile.js" />
     <Content Include="js\modules\User.js" />
+    <Content Include="pages\RegisterRequest.aspx" />
     <Content Include="pages\RegisterAuthorization.aspx" />
     <Content Include="pages\Headquarter.aspx" />
     <Content Include="pages\Person.aspx" />
@@ -1701,6 +1711,9 @@
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

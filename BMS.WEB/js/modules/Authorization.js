@@ -36,6 +36,7 @@
 					            },
 					            {
 					                text: "Aprobaciones",
+					                id: "RegisterRequest",
 					                leaf: true
 					            }
 				            ]
