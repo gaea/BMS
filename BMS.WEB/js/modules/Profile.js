@@ -43,7 +43,7 @@
             data: [{}]
         }),
         columns: [
-                { text: 'Identificador', dataIndex: 'Id_Profile', editor: new Ext.form.TextField({ allowBlank: false }) },
+                { text: 'Identificador', dataIndex: 'Id_Profile' },
                 { text: 'Nombre', dataIndex: 'Description', editor: new Ext.form.TextField({ allowBlank: false }) },
                 { text: 'Identificador Usuario', dataIndex: 'Id_User', editor: new Ext.form.TextField({ allowBlank: false }) }
         ],

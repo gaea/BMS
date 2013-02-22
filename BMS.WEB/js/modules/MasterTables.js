@@ -10,16 +10,16 @@
         'Ext.ModelManager',
         'Ext.tip.QuickTipManager'
     ],
-    id: 'master-tables-win',
+    id: 'master-table-win',
     init: function() {
         this.launcher = {
             text: 'Tablas Maestras',
-            iconCls: 'icon-master-tables'
+            iconCls: 'icon-master-table16'
         }
     },
     createWindow: function() {
         var desktop = this.app.getDesktop();
-        var win = desktop.getWindow('master-tables-win');
+        var win = desktop.getWindow('master-table-win');
         if (!win) {
             var masterTableTreeStore = new Ext.data.TreeStore({
                 root: {
@@ -35,19 +35,8 @@
 					                leaf: true
 					            },
 					            {
-					                text: "Funcionarios",
-					                leaf: true
-					            },
-					            {
-					                text: "Modulos",
-					                leaf: true
-					            },
-					            {
-					                text: "Modulos por Rol",
-					                leaf: true
-					            },
-					            {
 					                text: "Personas",
+					                id: "Person",
 					                leaf: true
 					            },
 					            {
@@ -57,6 +46,7 @@
 					            },
 					            {
 					                text: "Sedes",
+					                id: "Headquarter",
 					                leaf: true
 					            }
 				            ]
@@ -83,7 +73,7 @@
                 title: 'Tablas Maestras',
                 width: 800,
                 height: 600,
-                iconCls: 'icon-master-tables',
+                iconCls: 'icon-master-table16',
                 animCollapse: true,
                 border: true,
                 hideMode: 'offsets',
@@ -132,24 +122,4 @@
         }
         return win;
     }
-});
-Ext.onReady(function () { 
-function sendMessage(page, parameters){
-			Ext.Ajax.request({
-			method:'POST',
-			url:page,
-			params:parameters,
-			waitTitle:'Enviando',
-			waitMsg:'Enviando datos...',
-			timeout:180000, // tiempo de espera al servidor
-			success:function(response){
-				obj = Ext.JSON.decode(response.responseText);
-				mensajeConfirmacion('Mensaje', obj.mensaje, funcionSuccess());
-			},
-			failure:function(form, response){
-				obj = Ext.JSON.decode(response.responseText);
-				mensajeConfirmacion('Error', obj.mensaje, funcionFailure());
-			}
-			}); 
-		}	
 });
