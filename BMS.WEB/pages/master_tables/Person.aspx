@@ -5,10 +5,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head id="Head1" runat="server">
         <title>Administraci&oacuten de Personas</title>
-            <link rel="stylesheet" type="text/css"  href="../lib/extjs/resources/css/ext-all.css" />
-        <link rel="stylesheet" type="text/css"  href="../css/icons.css" />
-        <script type="text/javascript" src="../lib/extjs/ext-all.js"></script>
-        <script type="text/javascript" src="../lib/extjs/locale/ext-lang-es.js"></script>
+            <link rel="stylesheet" type="text/css"  href="../../lib/extjs/resources/css/ext-all.css" />
+        <link rel="stylesheet" type="text/css"  href="../../css/icons.css" />
+        <script type="text/javascript" src="../../lib/extjs/ext-all.js"></script>
+        <script type="text/javascript" src="../../lib/extjs/locale/ext-lang-es.js"></script>
     </head>
     <body>
         <form id="UserForm" runat="server">
@@ -20,7 +20,7 @@
                 LoadScriptsBeforeUI="true">
                 <Scripts>
                     <asp:ScriptReference Path="~/js/Functions.js" />
-                    <asp:ScriptReference Path="~/js/modules/Person.js" />
+                    <asp:ScriptReference Path="~/js/modules/master_tables/Person.js" />
                 </Scripts>
             </asp:ScriptManager>
         </form>

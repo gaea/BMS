@@ -1,4 +1,4 @@
-﻿Ext.define('MyDesktop.MasterTables', {
+﻿Ext.define('MyDesktop.Diary', {
     extend: 'Ext.ux.desktop.Module',
     requires: [
         'Ext.form.field.HtmlEditor',
@@ -10,18 +10,18 @@
         'Ext.ModelManager',
         'Ext.tip.QuickTipManager'
     ],
-    id: 'master-table-win',
+    id: 'master-diary-win',
     init: function() {
         this.launcher = {
-            text: 'Tablas Maestras',
-            iconCls: 'icon-master-table16'
+            text: 'Agenda',
+            iconCls: 'diary16'
         }
     },
     createWindow: function() {
         var desktop = this.app.getDesktop();
-        var win = desktop.getWindow('master-table-win');
+        var win = desktop.getWindow('master-diary-win');
         if (!win) {
-            var masterTableTreeStore = new Ext.data.TreeStore({
+            var masterDiaryTreeStore = new Ext.data.TreeStore({
                 root: {
                     expanded: true,
                     children: [
@@ -30,23 +30,8 @@
 				            expanded: true,
 				            children: [
 					            {
-					                text: "Usuarios",
-					                id: "User",
-					                leaf: true
-					            },
-					            {
-					                text: "Personas",
-					                id: "Person",
-					                leaf: true
-					            },
-					            {
-					                text: "Roles",
-					                id: "Profile",
-					                leaf: true
-					            },
-					            {
-					                text: "Sedes",
-					                id: "Headquarter",
+					                text: "Registro",
+					                id: "RegisterDiary",
 					                leaf: true
 					            }
 				            ]
@@ -65,15 +50,15 @@
                 useArrows: true,
                 lines: false,
                 autoScroll: true,
-                store: masterTableTreeStore
+                store: masterDiaryTreeStore
             });
 
             win = desktop.createWindow({
-                id: 'master-table-win',
-                title: 'Tablas Maestras',
+                id: 'master-diary-win',
+                title: 'Agenda',
                 width: 800,
-                height: 600,
-                iconCls: 'icon-master-table16',
+                height: 670,
+                iconCls: 'diary16',
                 animCollapse: true,
                 border: true,
                 hideMode: 'offsets',
@@ -82,7 +67,7 @@
                             tree,
                             {
                                 xtype: 'tabpanel',
-                                id: 'master_panel_tabpanel_id',
+                                id: 'master_diary_panel_tabpanel_id',
                                 activeTab: 0,
                                 region: 'center',
                                 margins: '0 0 0 0',
@@ -110,14 +95,14 @@
                     layout: 'fit',
                     autoScroll: true,
                     html: '<iframe style="overflow:auto;width:100%;height:100%;" frameborder="0"  src="' +
-				        'pages/' + node.id + '.aspx"></iframe>'
+				        'pages/diary/' + node.id + '.aspx"></iframe>'
                 });
 
-                Ext.getCmp('master_panel_tabpanel_id').add(panel);
+                Ext.getCmp('master_diary_panel_tabpanel_id').add(panel);
                 panel.show();
             }
 
-            var user_node = masterTableTreeStore.getNodeById('User');
+            var user_node = masterDiaryTreeStore.getNodeById('RegisterDiary');
             add_master_panel(user_node.data);
         }
         return win;

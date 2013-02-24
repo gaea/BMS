@@ -12,8 +12,8 @@ Ext.define('MyDesktop.Help', {
 
     init : function(){
         this.launcher = {
-            text: 'Registro Autorizaciones',
-            iconCls:'icon-biometric-authorization16'
+            text: 'Ayuda',
+            iconCls:'help16'
         };
     },
 
@@ -106,9 +106,9 @@ Ext.define('MyDesktop.Help', {
 			});
 		
             win = desktop.createWindow({
-                title:'Registro Autorizaciones',
+                title:'Ayuda',
 				id: 'help-win',
-				iconCls: 'icon-biometric-authorization16',
+				iconCls: 'help16',
 				animCollapse:false,
 				constrainHeader:true,
 				border:false,

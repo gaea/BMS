@@ -1,6 +1,6 @@
 ﻿Ext.onReady(function() {
 
-    var AspPage = 'RegisterRequest.aspx';
+    var AspPage = 'authorization/RegisterRequest.aspx';
 
     function Request() {
         this.Id_Request = null,

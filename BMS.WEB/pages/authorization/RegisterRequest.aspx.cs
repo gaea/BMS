@@ -16,7 +16,7 @@ using TMA.DAO.EntityManager;
 using System.IO;
 using BMS.CONFIGURATION;
 
-namespace BMS.WEB.pages
+namespace BMS.WEB.pages.authorization
 {
     public partial class RegisterRequest : System.Web.UI.Page
     {

@@ -64,46 +64,53 @@
     <Compile Include="Desktop.aspx.designer.cs">
       <DependentUpon>Desktop.aspx</DependentUpon>
     </Compile>
-    <Compile Include="pages\RegisterRequest.aspx.cs">
+    <Compile Include="pages\diary\RegisterDiary.aspx.cs">
+      <DependentUpon>RegisterDiary.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\diary\RegisterDiary.aspx.designer.cs">
+      <DependentUpon>RegisterDiary.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\authorization\RegisterRequest.aspx.cs">
       <DependentUpon>RegisterRequest.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\RegisterRequest.aspx.designer.cs">
+    <Compile Include="pages\authorization\RegisterRequest.aspx.designer.cs">
       <DependentUpon>RegisterRequest.aspx</DependentUpon>
     </Compile>
-    <Compile Include="pages\RegisterAuthorization.aspx.cs">
+    <Compile Include="pages\authorization\RegisterAuthorization.aspx.cs">
       <DependentUpon>RegisterAuthorization.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\RegisterAuthorization.aspx.designer.cs">
+    <Compile Include="pages\authorization\RegisterAuthorization.aspx.designer.cs">
       <DependentUpon>RegisterAuthorization.aspx</DependentUpon>
     </Compile>
-    <Compile Include="pages\Headquarter.aspx.cs">
+    <Compile Include="pages\master_tables\Headquarter.aspx.cs">
       <DependentUpon>Headquarter.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\Headquarter.aspx.designer.cs">
+    <Compile Include="pages\master_tables\Headquarter.aspx.designer.cs">
       <DependentUpon>Headquarter.aspx</DependentUpon>
     </Compile>
-    <Compile Include="pages\Person.aspx.cs">
+    <Compile Include="pages\master_tables\Person.aspx.cs">
       <DependentUpon>Person.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\Person.aspx.designer.cs">
+    <Compile Include="pages\master_tables\Person.aspx.designer.cs">
       <DependentUpon>Person.aspx</DependentUpon>
     </Compile>
-    <Compile Include="pages\Profile.aspx.cs">
+    <Compile Include="pages\master_tables\Profile.aspx.cs">
       <DependentUpon>Profile.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\Profile.aspx.designer.cs">
+    <Compile Include="pages\master_tables\Profile.aspx.designer.cs">
       <DependentUpon>Profile.aspx</DependentUpon>
     </Compile>
-    <Compile Include="pages\User.aspx.cs">
+    <Compile Include="pages\master_tables\User.aspx.cs">
       <DependentUpon>User.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\User.aspx.designer.cs">
+    <Compile Include="pages\master_tables\User.aspx.designer.cs">
       <DependentUpon>User.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -112,21 +119,24 @@
     <Content Include="css\icons.css" />
     <Content Include="Desktop.aspx" />
     <Content Include="js\DesktopConfig.js" />
-    <Content Include="js\modules\Authorization.js" />
-    <Content Include="js\modules\BiometricAuthorization.js" />
-    <Content Include="js\modules\Help.js" />
-    <Content Include="js\modules\RegisterRequest.js" />
-    <Content Include="js\modules\RegisterAuthorization.js" />
-    <Content Include="js\modules\Person.js" />
-    <Content Include="js\modules\Headquarter.js" />
-    <Content Include="js\modules\Profile.js" />
-    <Content Include="js\modules\User.js" />
-    <Content Include="pages\RegisterRequest.aspx" />
-    <Content Include="pages\RegisterAuthorization.aspx" />
-    <Content Include="pages\Headquarter.aspx" />
-    <Content Include="pages\Person.aspx" />
-    <Content Include="pages\Profile.aspx" />
-    <Content Include="pages\User.aspx" />
+    <Content Include="js\modules\authorization\Authorization.js" />
+    <Content Include="js\modules\diary\ConsultDiary.js" />
+    <Content Include="js\modules\diary\RegisterDiary.js" />
+    <Content Include="js\modules\help\Help.js" />
+    <Content Include="js\modules\authorization\RegisterRequest.js" />
+    <Content Include="js\modules\authorization\RegisterAuthorization.js" />
+    <Content Include="js\modules\master_tables\Person.js" />
+    <Content Include="js\modules\master_tables\Headquarter.js" />
+    <Content Include="js\modules\master_tables\Profile.js" />
+    <Content Include="js\modules\master_tables\User.js" />
+    <Content Include="js\modules\diary\Diary.js" />
+    <Content Include="pages\diary\RegisterDiary.aspx" />
+    <Content Include="pages\authorization\RegisterRequest.aspx" />
+    <Content Include="pages\authorization\RegisterAuthorization.aspx" />
+    <Content Include="pages\master_tables\Headquarter.aspx" />
+    <Content Include="pages\master_tables\Person.aspx" />
+    <Content Include="pages\master_tables\Profile.aspx" />
+    <Content Include="pages\master_tables\User.aspx" />
     <Content Include="resources\SpringContext.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -183,7 +193,7 @@
     <Content Include="images\taskbar\sencha.ico" />
     <Content Include="images\user.png" />
     <Content Include="js\Functions.js" />
-    <Content Include="js\modules\MasterTables.js" />
+    <Content Include="js\modules\master_tables\MasterTables.js" />
     <Content Include="lib\extjs\ext-all.js" />
     <Content Include="ux\desktop\js\Desktop.js" />
     <Content Include="ux\desktop\images\accordian.gif" />
@@ -1690,6 +1700,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="images\icons\" />
+    <Folder Include="js\modules\notepad\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />

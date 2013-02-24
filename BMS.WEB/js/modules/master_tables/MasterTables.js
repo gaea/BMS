@@ -1,4 +1,4 @@
-﻿Ext.define('MyDesktop.Authorization', {
+﻿Ext.define('MyDesktop.MasterTables', {
     extend: 'Ext.ux.desktop.Module',
     requires: [
         'Ext.form.field.HtmlEditor',
@@ -10,18 +10,18 @@
         'Ext.ModelManager',
         'Ext.tip.QuickTipManager'
     ],
-    id: 'master-authorization-win',
+    id: 'master-table-win',
     init: function() {
         this.launcher = {
-            text: 'Autorizaciones',
-            iconCls: 'icon-biometric-authorization16'
+            text: 'Tablas Maestras',
+            iconCls: 'icon-master-table16'
         }
     },
     createWindow: function() {
         var desktop = this.app.getDesktop();
-        var win = desktop.getWindow('master-authorization-win');
+        var win = desktop.getWindow('master-table-win');
         if (!win) {
-            var masterAuthorizationTreeStore = new Ext.data.TreeStore({
+            var masterTableTreeStore = new Ext.data.TreeStore({
                 root: {
                     expanded: true,
                     children: [
@@ -30,13 +30,23 @@
 				            expanded: true,
 				            children: [
 					            {
-					                text: "Registro",
-					                id: "RegisterAuthorization",
+					                text: "Usuarios",
+					                id: "User",
 					                leaf: true
 					            },
 					            {
-					                text: "Aprobaciones",
-					                id: "RegisterRequest",
+					                text: "Personas",
+					                id: "Person",
+					                leaf: true
+					            },
+					            {
+					                text: "Roles",
+					                id: "Profile",
+					                leaf: true
+					            },
+					            {
+					                text: "Sedes",
+					                id: "Headquarter",
 					                leaf: true
 					            }
 				            ]
@@ -55,15 +65,15 @@
                 useArrows: true,
                 lines: false,
                 autoScroll: true,
-                store: masterAuthorizationTreeStore
+                store: masterTableTreeStore
             });
 
             win = desktop.createWindow({
-                id: 'master-authorization-win',
-                title: 'Autorizaciones',
+                id: 'master-table-win',
+                title: 'Tablas Maestras',
                 width: 800,
-                height: 670,
-                iconCls: 'icon-biometric-authorization16',
+                height: 600,
+                iconCls: 'icon-master-table16',
                 animCollapse: true,
                 border: true,
                 hideMode: 'offsets',
@@ -72,7 +82,7 @@
                             tree,
                             {
                                 xtype: 'tabpanel',
-                                id: 'master_authorization_panel_tabpanel_id',
+                                id: 'master_panel_tabpanel_id',
                                 activeTab: 0,
                                 region: 'center',
                                 margins: '0 0 0 0',
@@ -100,14 +110,14 @@
                     layout: 'fit',
                     autoScroll: true,
                     html: '<iframe style="overflow:auto;width:100%;height:100%;" frameborder="0"  src="' +
-				        'pages/' + node.id + '.aspx"></iframe>'
+				        'pages/master_tables/' + node.id + '.aspx"></iframe>'
                 });
 
-                Ext.getCmp('master_authorization_panel_tabpanel_id').add(panel);
+                Ext.getCmp('master_panel_tabpanel_id').add(panel);
                 panel.show();
             }
 
-            var user_node = masterAuthorizationTreeStore.getNodeById('RegisterAuthorization');
+            var user_node = masterTableTreeStore.getNodeById('User');
             add_master_panel(user_node.data);
         }
         return win;

@@ -8,10 +8,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BMS.WEB.pages {
+namespace BMS.WEB.pages.authorization
+{
     
     
-    public partial class RegisterRequest {
+    public partial class RegisterAuthorization {
         
         /// <summary>
         /// Head1 control.

@@ -17,9 +17,9 @@ using System.IO;
 using BMS.CONFIGURATION;
 using BMS.WEB.cls;
 
-namespace BMS.WEB.pages
+namespace BMS.WEB.pages.diary
 {
-    public partial class RegisterAuthorization : System.Web.UI.Page
+    public partial class RegisterDiary : System.Web.UI.Page
     {
         public static JavaScriptSerializer serialize = new JavaScriptSerializer();
 
@@ -34,9 +34,7 @@ namespace BMS.WEB.pages
                 
                 diary.DateCreateRegistration = System.DateTime.Now;
                 diary.DateModifyRegistration = System.DateTime.Now;
-                //diary.Id_UserCreateRegistration = "1";
-                //diary.Id_UserModifyRegistration = "1";
-                diary.Id_User = 4;
+                diary.Id_User = 1;
                 diary.HourCreateTransaction = System.DateTime.Now.ToString();
 
                 if(diary.Id_Visitor == null)
