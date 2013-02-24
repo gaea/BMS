@@ -1,6 +1,6 @@
 ﻿Ext.onReady(function() {
 
-    var AspPage = 'authorization/RegisterAuthorization.aspx';
+    var AspPage = 'RegisterAuthorization.aspx';
 
     function Visit() {
         this.Id_Visit = null,
@@ -28,6 +28,11 @@
 		  this.Id_UserModifyRegistration = null
     };
 
+    var ingreso_funcionarios_tipo_ingreso_store = new Ext.data.Store({
+        fields: ['Id_EntryType', 'EntryTypeName'],
+        data: []
+    });
+
     var ingreso_funcionarios_tipo_ingreso_combo = Ext.create('Ext.form.field.ComboBox', {
         id: 'id_ingreso_funcionarios_tipo_ingreso_combo',
         mode: 'local',
@@ -38,25 +43,27 @@
         name: 'Id_EntryType',
         displayField: 'EntryTypeName',
         valueField: 'Id_EntryType',
+        queryMode: 'local',
         //hiddenName: 'Id_EntryType',
         store: {
             fields: ['Id_EntryType', 'EntryTypeName'],
-            data: [
-                { Id_EntryType: '1', EntryTypeName: 'Funcionario' },
-                { Id_EntryType: '2', EntryTypeName: 'Contratista' },
-                { Id_EntryType: '3', EntryTypeName: 'Estudiante' }
-            ]
+            data: []
         },
         listeners: {
             select: function(combo, arrRec, obj) { }
         }
     });
 
-    /*loadData(AspPage, 'GetEntryType', "{'start':0,'limit':0}", ingreso_funcionarios_tipo_ingreso_combo.getStore(),
+    loadData(AspPage, 'GetEntryType', "{'start':0,'limit':0}", ingreso_funcionarios_tipo_ingreso_store,
         function(data) {
-            console.log(ingreso_funcionarios_tipo_ingreso_combo.getStore());
+            ingreso_funcionarios_tipo_ingreso_combo.bindStore(ingreso_funcionarios_tipo_ingreso_store);
         }
-    , null);*/
+    , null);
+
+    var ingreso_funcionarios_estado_store = new Ext.data.Store({
+        fields: ['Id_State', 'StateName'],
+        data: []
+    });
 
     var ingreso_funcionarios_estado_combo = Ext.create('Ext.form.field.ComboBox', {
         mode: 'local',
@@ -64,20 +71,24 @@
         fieldLabel: 'Estado',
         forceSelection: true,
         editable: false,
-        name: 'est_codigo',
-        displayField: 'est_nombre',
-        valueField: 'est_codigo',
+        name: 'Id_State',
+        displayField: 'StateName',
+        valueField: 'Id_State',
+        queryMode: 'local',
         store: {
-            fields: ['est_codigo', 'est_nombre'],
-            data: [
-				{ est_codigo: 0, est_nombre: 'Inactivo' },
-				{ est_codigo: 1, est_nombre: 'Activo' }
-			]
+            fields: ['Id_State', 'StateName'],
+            data: []
         },
         listeners: {
             select: function(combo, arrRec, obj) { }
         }
     });
+
+    loadData(AspPage, 'GetState', "{'start':0,'limit':0}", ingreso_funcionarios_estado_store,
+        function(data) {
+            ingreso_funcionarios_estado_combo.bindStore(ingreso_funcionarios_estado_store);
+        }
+    , null);
 
     var ingreso_funcionarios_funcionario_combo = Ext.create('Ext.form.field.ComboBox', {
         mode: 'local',
@@ -254,15 +265,15 @@
 			        //alert('Mensaje', forma.getForm().getValues());
 
 			        /*saveData(
-                        AspPage,
-                        'Save',
-                        'DiaryProperties',
-                        forma.getForm().getValues(),
-                        function(data) {
-                            //loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
-                        },
-                        null
-                    );*/
+			        AspPage,
+			        'Save',
+			        'DiaryProperties',
+			        forma.getForm().getValues(),
+			        function(data) {
+			        //loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+			        },
+			        null
+			        );*/
 			    }
 			},
 			{
