@@ -5,13 +5,15 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{4772A80D-F454-4BE4-B376-0350FD114F43}</ProjectGuid>
+    <ProjectGuid>{7D6C0CE0-F45A-480C-908C-2FDA053D3057}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BMS.DAO.TEST</RootNamespace>
-    <AssemblyName>BMS.DAO.TEST</AssemblyName>
+    <RootNamespace>TMA.DAO.TEST</RootNamespace>
+    <AssemblyName>TMA.DAO.TEST</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <StartupObject>
+    </StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,7 +34,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -50,22 +51,22 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BMS.DAO\BMS.DAO.csproj">
-      <Project>{3A3070F8-6CCB-4F77-9B8C-E25A917E13FD}</Project>
-      <Name>BMS.DAO</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BMS.MODEL\BMS.MODEL.csproj">
-      <Project>{74FB125B-9FBF-4A63-BE74-A395653E2828}</Project>
-      <Name>BMS.MODEL</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\SpringContext.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TMA.DAO\TMA.DAO.csproj">
+      <Project>{37348338-9462-4145-82D8-8091AA923833}</Project>
+      <Name>TMA.DAO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TMA.MODEL\TMA.MODEL.csproj">
+      <Project>{A8249541-76EF-4BE1-8F30-0D1183428915}</Project>
+      <Name>TMA.MODEL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

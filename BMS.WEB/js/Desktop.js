@@ -49,7 +49,7 @@ Ext.define("MyDesktop.App", { extend: "Ext.ux.desktop.App",
                     ]
                 }),
                 wallpaper: "../ux/desktop/wallpapers/Blue-Sencha.jpg",
-                wallpaperStretch: true
+                wallpaperStretch: false
             }
         )
     },

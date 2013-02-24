@@ -45,6 +45,7 @@ namespace TMA.DAO.EntityManager
                     Session.Save(visit);
 
                     transaction.Commit();
+
                     Session.Flush();
                 }
                 catch (Exception exception)

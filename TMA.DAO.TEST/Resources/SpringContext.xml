@@ -3,11 +3,13 @@
          xmlns:db="http://www.springframework.net/database">
 
   <!-- ************************ CONFIGURACION DE NHIBERNATE PARA SPRING *********************************** -->
-  <!-- *********************** PROPIEDADES BIOMETRIC MANAGER SYSTEM (BMS) ********************************* -->
-  <object id="BMS.SessionFactory" type="BMS.DAO.CustomSessionFactory, BMS.DAO">
+
+  <!-- *********************** PROPIEDADES TIMEACCESS (TMA) ********************************* -->
+  
+  <object id="TMA.SessionFactory" type="TMA.DAO.CustomSessionFactory, TMA.DAO">
     <property name="MappingAssemblies">
       <list>
-        <value>BMS.MODEL</value>
+        <value>TMA.MODEL</value>
       </list>
     </property>
     <property name="HibernateProperties">
@@ -23,8 +25,8 @@
     </property>
   </object>
 
-  <object id="BMS.TransactionManager" type="Spring.Data.NHibernate.HibernateTransactionManager, Spring.Data.NHibernate33">
-    <property name="SessionFactory" ref="BMS.SessionFactory"/>
-  </object>
+  <object id="TMA.TransactionManager" type="Spring.Data.NHibernate.HibernateTransactionManager, Spring.Data.NHibernate33">
+    <property name="SessionFactory" ref="TMA.SessionFactory"/>
+  </object>  
 
 </objects>
