@@ -48,13 +48,11 @@ Ext.define("MyDesktop.App", { extend: "Ext.ux.desktop.App",
                 shortcuts: Ext.create("Ext.data.Store", {
                     model: "Ext.ux.desktop.ShortcutModel",
                     data: [
-                        { name: "Grid Window", iconCls: "grid-shortcut", module: "grid-win" },
-                        { name: "Accordion Window", iconCls: "accordion-shortcut", module: "acc-win" },
-                        { name: "Notepad", iconCls: "notepad-shortcut", module: "notepad" },
-                        { name: "System Status", iconCls: "cpu-shortcut", module: "systemstatus" },
-                        { name: "Master Autorization", iconCls: "icon-biometric-authorization48", module: "master-authorization-win" },
-                        { name: "Master Tables", iconCls: "icon-master-table48", module: "master-table-win" },
-						{ name: "Help", iconCls: "help48", module: "help-win" }
+						{ name: "Agenda", iconCls: "diary48", module: "notepad" },
+                        { name: "Maestro Autorizaciones", iconCls: "icon-biometric-authorization48", module: "master-authorization-win" },
+                        { name: "Tablas Maestras", iconCls: "icon-master-table48", module: "master-table-win" },
+						{ name: "Notas", iconCls: "notepad-shortcut", module: "notepad" },
+						{ name: "Ayuda", iconCls: "help48", module: "help-win" }
                     ]
                 }),
                 wallpaper: "../ux/desktop/wallpapers/Blue-Sencha.jpg",

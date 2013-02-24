@@ -15,10 +15,70 @@ using TMA.MODEL.Entity;
 using TMA.DAO.EntityManager;
 using System.IO;
 using BMS.CONFIGURATION;
+using BMS.WEB.cls;
 
 namespace BMS.WEB.pages
 {
     public partial class RegisterAuthorization : System.Web.UI.Page
     {
+        public static JavaScriptSerializer serialize = new JavaScriptSerializer();
+
+        [System.Web.Services.WebMethod]
+        public static string Save(string DiaryProperties)
+        {
+            MessageResponse msg = new MessageResponse();
+
+            try
+            {
+                Diary diary = serialize.Deserialize<Diary>(DiaryProperties);
+                
+                diary.DateCreateRegistration = System.DateTime.Now;
+                diary.DateModifyRegistration = System.DateTime.Now;
+                //diary.Id_UserCreateRegistration = "1";
+                //diary.Id_UserModifyRegistration = "1";
+                diary.Id_User = 4;
+                diary.HourCreateTransaction = System.DateTime.Now.ToString();
+
+                if(diary.Id_Visitor == null)
+                {
+                    TMA.MODEL.Entity.Person person = new TMA.MODEL.Entity.Person();
+                    person.Name = "";
+                }
+
+                diary.State = "State";
+
+                if (diary.Id_Diary == null)
+                {
+                    DiarysDao.save(diary);
+                }
+                else
+                {
+                    DiarysDao.update(diary);
+                }
+
+                msg.Message = ConfigManager.SaveSuccessMessage;
+            }
+            catch (Exception ex)
+            {
+                msg.Message = ConfigManager.SaveErrorMessage;
+
+                msg.Error = ex.ToString();
+
+                File.AppendAllText(ConfigManager.LogPath, msg.ToString());
+            }
+
+            return serialize.Serialize(msg);
+        }
+
+        [System.Web.Services.WebMethod]
+        public static string GetEntryType() {
+            return serialize.Serialize(EntryTypeDao.findAll());
+        }
+
+        [System.Web.Services.WebMethod]
+        public static string GetState()
+        {
+            return serialize.Serialize(StateDao.findAll());
+        }
     }
 }

@@ -50,7 +50,7 @@ function loadData(url, method, params, store, funcSucces, funcFailure) {
                 funcSucces(data);
         },
         function(data) {
-            if (funcFailure != null) 
+            if (funcFailure != null)
                 funcFailure(data);
         }
     );
@@ -62,7 +62,7 @@ function saveData(url, method, webParam, params, funcSucces, funcFailure) {
         method,
         "{" + webParam + ":'" + Ext.JSON.encode(params) + "'}",
         function(data) {
-            Ext.Msg.alert('Mensaje', data.Message, function() { }, this);
+            //Ext.Msg.alert('Mensaje', data.Message, function() { }, this);
             if (funcSucces != null)
                 funcSucces(data);
         },
@@ -80,7 +80,7 @@ function deleteData(url, method, webParam, param, funcSucces, funcFailure) {
         method,
         "{ " + webParam + ": '" + param + "' }",
         function(data) {
-            Ext.Msg.alert('Mensaje', data.Message, function() { }, this);
+            //Ext.Msg.alert('Mensaje', data.Message, function() { }, this);
             if (funcSucces != null)
                 funcSucces(data);
         },

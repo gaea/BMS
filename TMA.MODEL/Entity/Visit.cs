@@ -14,7 +14,7 @@ namespace TMA.MODEL.Entity
 
         private int id_Visitor;
 
-        private DateTime dateCreateTransaction;
+        private DateTime? dateCreateTransaction;
 
         private float documentNumberVisitor;
 
@@ -24,13 +24,13 @@ namespace TMA.MODEL.Entity
 
         private char activity;
 
-        private DateTime initialDate;
+        private DateTime? initialDate;
 
-        private DateTime initialHour;
+        private DateTime? initialHour;
 
-        private DateTime finalDate;
+        private DateTime? finalDate;
 
-        private DateTime finalHour;
+        private DateTime? finalHour;
 
         private string visitDuration;
 
@@ -48,9 +48,9 @@ namespace TMA.MODEL.Entity
 
         private string provider;
 
-        private DateTime dateCreateRegistration;
+        private DateTime? dateCreateRegistration;
 
-        private DateTime dateModifyRegistration;
+        private DateTime? dateModifyRegistration;
 
         private string id_UserCreateRegistration;
 
@@ -73,7 +73,7 @@ namespace TMA.MODEL.Entity
             set { id_Visitor = value; }
         }
 
-        public virtual DateTime DateCreateTransaction
+        public virtual DateTime? DateCreateTransaction
         {
             get { return dateCreateTransaction; }
             set { dateCreateTransaction = value; }
@@ -103,25 +103,25 @@ namespace TMA.MODEL.Entity
             set { elementsToGetIn = value; }
         }
 
-        public virtual DateTime InitialDate
+        public virtual DateTime? InitialDate
         {
             get { return initialDate; }
             set { initialDate = value; }
         }
 
-        public virtual DateTime InitialHour
+        public virtual DateTime? InitialHour
         {
             get { return initialHour; }
             set { initialHour = value; }
         }
 
-        public virtual DateTime FinalDate
+        public virtual DateTime? FinalDate
         {
             get { return finalDate; }
             set { finalDate = value; }
         }
 
-        public virtual DateTime FinalHour
+        public virtual DateTime? FinalHour
         {
             get { return finalHour; }
             set { finalHour = value; }
@@ -175,13 +175,13 @@ namespace TMA.MODEL.Entity
             set { provider = value; }
         }
 
-        public virtual DateTime DateCreateRegistration
+        public virtual DateTime? DateCreateRegistration
         {
             get { return dateCreateRegistration; }
             set { dateCreateRegistration = value; }
         }
 
-        public virtual DateTime DateModifyRegistration
+        public virtual DateTime? DateModifyRegistration
         {
             get { return dateModifyRegistration; }
             set { dateModifyRegistration = value; }

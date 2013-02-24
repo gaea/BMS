@@ -44,13 +44,20 @@
             data: [{}]
         }),
         columns: [
-                { text: 'Identificador Solicitud', dataIndex: 'Id_Request' },
-                { text: 'Identificador Lector', dataIndex: 'Id_BiometricReader' },
-                { text: 'Aprobado?', dataIndex: 'State', editor: new Ext.form.field.Checkbox({}) },
+                { text: 'Identificador Solicitud', width: 120, dataIndex: 'Id_Request' },
+                { text: 'Identificador Lector', width: 110, dataIndex: 'Id_BiometricReader' },
+                { text: 'Identificaci&oacute;n', width: 90, dataIndex: 'DocumentNumber' },
+                { text: 'Nombre', width: 170, dataIndex: 'Name', id:'nombre_column_id'},
+                { text: 'Desde', width:90, dataIndex: 'DateFrom', editor: new Ext.form.DateField({ allowBlank: false }) },
+                { text: '', width: 80, dataIndex: 'TimeFrom', editor: new Ext.form.TimeField({ allowBlank: false }) },
+                { text: 'Hasta', width: 90, dataIndex: 'DateTo', editor: new Ext.form.DateField({ allowBlank: false }) },
+                { text: '', width: 80, dataIndex: 'TimeTo', editor: new Ext.form.TimeField({ allowBlank: false }) },
                 { text: 'Motivo Aprobaci&oacute;n', dataIndex: 'DescriptionResponse', editor: new Ext.form.TextField({ allowBlank: false }) },
-                { text: 'Persona Aprueba', dataIndex: 'ResponsibleAnswer', editor: new Ext.form.ComboBox({}) }		
+                { text: 'Persona Aprueba', dataIndex: 'ResponsibleAnswer', editor: new Ext.form.ComboBox({ allowBlank: false }) },
+                { text: 'Aprobado?', width: 60, dataIndex: 'State', editor: new Ext.form.field.Checkbox({}) },
         ],
-        plugins: [MasterRowEditor],
+                plugins: [MasterRowEditor],
+                autoExpandColumn: 'nombre_column_id',
         tbar: [
             {
                 text: 'Adicionar',

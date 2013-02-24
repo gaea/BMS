@@ -13,6 +13,12 @@
 .help48 {
     background-image: url( ../images/help48x48.png ) !important;
 }
+.diary16 {
+    background-image: url( ../images/icons/diary16x16.png ) !important;
+}
+.diary48 {
+    background-image: url( ../images/diary48x48.png ) !important;
+}
 .icon-master-table48 {
     background-image: url( ../images/mastertable48x48.png ) !important;
 }

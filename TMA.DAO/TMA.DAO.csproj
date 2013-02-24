@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{37348338-9462-4145-82D8-8091AA923833}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -59,6 +59,8 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -72,7 +74,9 @@
     <Compile Include="CustomSessionFactory.cs" />
     <Compile Include="Dao.cs" />
     <Compile Include="EntityManager\DiarysDao.cs" />
+    <Compile Include="EntityManager\EntryTypeDao.cs" />
     <Compile Include="EntityManager\PersonsDao.cs" />
+    <Compile Include="EntityManager\StateDao.cs" />
     <Compile Include="EntityManager\VisitsDao.cs" />
     <Compile Include="EntityManager\ProfilesDao.cs" />
     <Compile Include="EntityManager\HeadquartersDao.cs" />

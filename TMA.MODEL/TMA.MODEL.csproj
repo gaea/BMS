@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{A8249541-76EF-4BE1-8F30-0D1183428915}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -46,7 +46,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entity\Diary.cs" />
+    <Compile Include="Entity\EntryType.cs" />
     <Compile Include="Entity\Person.cs" />
+    <Compile Include="Entity\State.cs" />
     <Compile Include="Entity\Visit.cs" />
     <Compile Include="Entity\Headquarter.cs" />
     <Compile Include="Entity\Profile.cs" />
@@ -75,6 +77,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mapping\Diary.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapping\State.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapping\EntryType.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

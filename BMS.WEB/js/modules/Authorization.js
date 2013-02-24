@@ -62,7 +62,7 @@
                 id: 'master-authorization-win',
                 title: 'Autorizaciones',
                 width: 800,
-                height: 700,
+                height: 670,
                 iconCls: 'icon-biometric-authorization16',
                 animCollapse: true,
                 border: true,

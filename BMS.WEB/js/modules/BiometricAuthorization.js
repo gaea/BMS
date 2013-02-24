@@ -259,7 +259,8 @@ Ext.define('MyDesktop.BiometricAuthorization', {
 							{
 								text:'Guardar',
 								handler:function(){
-									Ext.Msg.confirm('Impresi&oacute;n Autorizaci&oacute;n', '¿Desea realizar la impresión del tiquete?');
+								    //Ext.Msg.confirm('Impresi&oacute;n Autorizaci&oacute;n', '¿Desea realizar la impresión del tiquete?');
+								    
 								}
 							},
 							{
