@@ -12,11 +12,11 @@ namespace TMA.MODEL.Entity
 
         private float? id_Person;
 
-        private int id_BiometricReader;
+        private int? id_BiometricReader;
 
-        private string company;
+        private float company;
 
-        private int id_Headquarter;
+        private int? id_Headquarter;
 
         private string name;
 
@@ -58,7 +58,7 @@ namespace TMA.MODEL.Entity
 
         private int contractClass;
 
-        private int isActive;
+        private bool isActive;
 
         private int dependencyCode;
 
@@ -84,11 +84,11 @@ namespace TMA.MODEL.Entity
 
         private string id_UserCreateRegistration;
 
-        private DateTime dateCreateRegistration;
+        private DateTime? dateCreateRegistration;
 
         private string id_UserModifyRegistration;
 
-        private DateTime dateModifyRegistration;
+        private DateTime? dateModifyRegistration;
 
         private int contractor;
       
@@ -104,19 +104,19 @@ namespace TMA.MODEL.Entity
             set { id_Person = value; }
         }
 
-        public virtual int Id_BiometricReader
+        public virtual int? Id_BiometricReader
         {
             get { return id_BiometricReader; }
             set { id_BiometricReader = value; }
         }
 
-        public virtual string Company
+        public virtual float Company
         {
             get { return company; }
             set { company = value; }
         }
 
-        public virtual int Id_Headquarter
+        public virtual int? Id_Headquarter
         {
             get { return id_Headquarter; }
             set { id_Headquarter = value; }
@@ -242,7 +242,7 @@ namespace TMA.MODEL.Entity
             set { contractClass = value; }
         }
 
-        public virtual int IsActive
+        public virtual bool IsActive
         {
             get { return isActive; }
             set { isActive = value; }
@@ -320,7 +320,7 @@ namespace TMA.MODEL.Entity
             set { id_UserCreateRegistration = value; }
         }
 
-        public virtual DateTime DateCreateRegistration
+        public virtual DateTime? DateCreateRegistration
         {
             get { return dateCreateRegistration; }
             set { dateCreateRegistration = value; }
@@ -332,7 +332,7 @@ namespace TMA.MODEL.Entity
             set { id_UserModifyRegistration = value; }
         }
 
-        public virtual DateTime DateModifyRegistration
+        public virtual DateTime? DateModifyRegistration
         {
             get { return dateModifyRegistration; }
             set { dateModifyRegistration = value; }

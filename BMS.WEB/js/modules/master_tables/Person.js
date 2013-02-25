@@ -90,12 +90,12 @@
                 { text: 'Ciudad', dataIndex: 'City', editor: new Ext.form.TextField({}) },
                 { text: 'Tel&eacute;fono', dataIndex: 'TelephoneNumber', editor: new Ext.form.TextField({}) },
                 { text: 'Celular', dataIndex: 'CelphoneNumber', editor: new Ext.form.TextField({}) },
-                { text: 'N&uacute;mero Beeper', dataIndex: 'BeeperNumber', editor: new Ext.form.TextField({}) },
-                { text: 'C&oacute;digo Beeper', dataIndex: 'BeeperCode', editor: new Ext.form.TextField({}) },
-                { text: 'Fax', dataIndex: 'FaxNumber', editor: new Ext.form.TextField({}) },
+                //{ text: 'N&uacute;mero Beeper', dataIndex: 'BeeperNumber', editor: new Ext.form.TextField({}) },
+                //{ text: 'C&oacute;digo Beeper', dataIndex: 'BeeperCode', editor: new Ext.form.TextField({}) },
+                //{ text: 'Fax', dataIndex: 'FaxNumber', editor: new Ext.form.TextField({}) },
                 { text: 'Email', dataIndex: 'Email', editor: new Ext.form.TextField({}) },
-                { text: 'Activo?', dataIndex: 'IsActive', editor: new Ext.form.field.Checkbox({}) },
-                { text: 'Extensi&oacute;n', dataIndex: 'ExtensionNumber', editor: new Ext.form.TextField({}) }
+                { text: 'Activo?', dataIndex: 'IsActive', editor: new Ext.form.field.Checkbox({}) }
+                //{ text: 'Extensi&oacute;n', dataIndex: 'ExtensionNumber', editor: new Ext.form.TextField({}) }
         ],
         plugins: [MasterRowEditor],
         tbar: [

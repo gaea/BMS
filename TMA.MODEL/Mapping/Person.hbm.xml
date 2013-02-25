@@ -9,7 +9,7 @@
 			<generator class="increment"/>
 		</id>
 		<property name="Id_BiometricReader" column="CodPersona" type="int"/>
-		<property name="Company" column="Empresa" type="string"/>
+		<property name="Company" column="Empresa" type="float"/>
 		<!--<property name="Id_Headquarter" column="NumeroSede" type="int"/>-->
 		<property name="Name" column="NomPersona" type="string"/>
 		<property name="LastName" column="ApePersona" type="string"/>
@@ -31,7 +31,7 @@
 		<property name="ByHour" column="PorHoras" type="int"/>
 		<property name="IntegralSalary" column="SalarioIntegral" type="int"/>
 		<property name="ContractClass" column="ClaseContrato" type="int"/>-->
-		<property name="IsActive" column="Activo" type="int"/>
+		<property name="IsActive" column="Activo" type="boolean"/>
 		<!--<property name="DependencyCode" column="CodigoDependencia" type="int"/>
 		<property name="CenterCost" column="CentroCosto" type="int"/>
 		<property name="Turn" column="Turno" type="string"/>

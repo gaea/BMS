@@ -7,6 +7,9 @@
 .modify {
     background-image: url( ../images/icons/modify.png ) !important;
 }
+.save {
+    background-image: url( ../images/icons/save.png ) !important;
+}
 .help16 {
     background-image: url( ../images/icons/help16x16.png ) !important;
 }

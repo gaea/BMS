@@ -33,7 +33,12 @@
 					                text: "Registro",
 					                id: "RegisterDiary",
 					                leaf: true
-					            }
+					            },
+								{
+									text: "Consulta",
+									id: "ConsultDiary",
+									leaf: true
+								}
 				            ]
 				        }
 		            ]
@@ -57,7 +62,7 @@
                 id: 'master-diary-win',
                 title: 'Agenda',
                 width: 800,
-                height: 670,
+                height: 450,
                 iconCls: 'diary16',
                 animCollapse: true,
                 border: true,

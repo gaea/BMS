@@ -21,46 +21,11 @@ namespace TMA.DAO.TEST
 
         static void Main(string[] args)
         {
-            #region Consulta Usuarios por Id
-            //Headquarter head = HeadquartersDao.find(1);
-            //Users user = TMA.DAO.EntityManager.UsersDao.find(2);
-            //Profile profile = ProfilesDao.find(8);
-
-            #endregion Consulta Usuarios por Id
-
+            
             #region Crear Registro Usuario
 
-            Test(TypeTest.Visit);
+            Test(TypeTest.Person);
 
-
-            //if (user == null)
-            //{
-            //    user = new TMA.MODEL.Entity.Users()
-            //    {
-            //        Id_User = 2,
-            //        IsActive = true,
-            //        Id_Role = 1,
-            //        DocumentType = 1,
-            //        DateCreateRegistration = System.DateTime.Now,
-            //        DateModifyRegistration = System.DateTime.Now,
-            //        Name = "Agus",
-            //        Login = "agus"
-            //    };
-
-            //    TMA.DAO.EntityManager.UsersDao.save(user);
-            //}
-
-            //if (head == null)
-            //{
-            //    head = new TMA.MODEL.Entity.Headquarter() { Id_Headquarter = 3, Description = "Este" };
-            //    TMA.DAO.EntityManager.HeadquartersDao.save(head);
-            //}
-
-            //if (profile == null)
-            //{
-            //    profile = new TMA.MODEL.Entity.Profile() { Id_Profile = 4, Description = "Administrador", DateCreateRegistration = DateTime.Now, Id_User = 1, DateModifyRegistration = DateTime.Now, Id_UserModifyRegistration = 1 };
-            //    TMA.DAO.EntityManager.ProfilesDao.save(profile);
-            //}
             #endregion Crear Registro Usuario
 
         }
@@ -92,7 +57,7 @@ namespace TMA.DAO.TEST
                     }
                 case TypeTest.Person:
                     {
-                        Person person = PersonsDao.find(1);
+                        Person person = PersonsDao.find(2);
 
                         if (person == null)
                         {
@@ -102,11 +67,15 @@ namespace TMA.DAO.TEST
                                 Name = "Agustín",
                                 LastName = "Mejía",
                                 DateCreateRegistration = DateTime.Now,
-                                DateModifyRegistration = DateTime.Now,
+                            
 
                             };
 
                             TMA.DAO.EntityManager.PersonsDao.save(person);
+                        }
+                        else {
+                            person.DateModifyRegistration = DateTime.Now;
+                            TMA.DAO.EntityManager.PersonsDao.update(person);
                         }
 
                         break;
@@ -138,6 +107,54 @@ namespace TMA.DAO.TEST
                             };
 
                             TMA.DAO.EntityManager.VisitsDao.save(visit);
+                        }
+
+                        break;
+                    }
+
+                case TypeTest.User:
+                    {
+                        Users user = TMA.DAO.EntityManager.UsersDao.find(2);
+
+                        if (user == null)
+                        {
+                            user = new TMA.MODEL.Entity.Users()
+                            {
+                                Id_User = 2,
+                                IsActive = true,
+                                Id_Role = 1,
+                                DocumentType = 1,
+                                DateCreateRegistration = System.DateTime.Now,
+                                DateModifyRegistration = System.DateTime.Now,
+                                Name = "Agus",
+                                Login = "agus"
+                            };
+
+                            TMA.DAO.EntityManager.UsersDao.save(user);
+                        }
+                        break;
+                    }
+                case TypeTest.Profile: {
+
+                    Profile profile = ProfilesDao.find(8);
+
+                    if (profile == null)
+                    {
+                        profile = new TMA.MODEL.Entity.Profile() { Id_Profile = 4, Description = "Administrador", DateCreateRegistration = DateTime.Now, Id_User = 1, DateModifyRegistration = DateTime.Now, Id_UserModifyRegistration = 1 };
+                        TMA.DAO.EntityManager.ProfilesDao.save(profile);
+                    }
+
+                    break;
+                }
+
+                case TypeTest.Headquarter:
+                    {
+                        Headquarter head = HeadquartersDao.find(1);
+                        
+                        if (head == null)
+                        {
+                            head = new TMA.MODEL.Entity.Headquarter() { Id_Headquarter = 3, Description = "Este" };
+                            TMA.DAO.EntityManager.HeadquartersDao.save(head);
                         }
 
                         break;

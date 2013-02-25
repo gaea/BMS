@@ -32,10 +32,10 @@ namespace BMS.WEB.pages
             {
                 TMA.MODEL.Entity.Person person = serialize.Deserialize<TMA.MODEL.Entity.Person>(personProperties);
 
-                person.DateCreateRegistration = System.DateTime.Now;
-
                 if (person.Id_Person == null)
                 {
+                    person.DateCreateRegistration = System.DateTime.Now;
+
                     PersonsDao.save(person);
                 }
                 else
@@ -70,7 +70,7 @@ namespace BMS.WEB.pages
             }
             catch (Exception ex)
             {
-                msg.Message = ConfigManager.DeleteErrorMessage;
+                msg.Message = ConfigManager.ListErrorMessage;
 
                 msg.Error = ex.ToString();
 
