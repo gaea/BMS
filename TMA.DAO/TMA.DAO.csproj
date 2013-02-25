@@ -74,9 +74,9 @@
     <Compile Include="CustomSessionFactory.cs" />
     <Compile Include="Dao.cs" />
     <Compile Include="EntityManager\DiarysDao.cs" />
-    <Compile Include="EntityManager\EntryTypeDao.cs" />
+    <Compile Include="EntityManager\EntryTypesDao.cs" />
     <Compile Include="EntityManager\PersonsDao.cs" />
-    <Compile Include="EntityManager\StateDao.cs" />
+    <Compile Include="EntityManager\StatesDao.cs" />
     <Compile Include="EntityManager\VisitsDao.cs" />
     <Compile Include="EntityManager\ProfilesDao.cs" />
     <Compile Include="EntityManager\HeadquartersDao.cs" />

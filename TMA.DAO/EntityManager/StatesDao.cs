@@ -8,7 +8,7 @@ using NHibernate.Criterion;
 
 namespace TMA.DAO.EntityManager
 {
-    public class StateDao : Dao
+    public class StatesDao : Dao
     {
         public static State find(int Id_State)
         {

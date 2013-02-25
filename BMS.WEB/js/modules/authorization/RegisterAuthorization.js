@@ -29,7 +29,7 @@
     };
 
     var ingreso_funcionarios_tipo_ingreso_store = new Ext.data.Store({
-        fields: ['Id_EntryType', 'EntryTypeName'],
+        fields: [{ name: 'Id_EntryType' }, { name: 'EntryTypeName'}],
         data: []
     });
 
@@ -45,23 +45,16 @@
         valueField: 'Id_EntryType',
         queryMode: 'local',
         //hiddenName: 'Id_EntryType',
-        store: {
-            fields: ['Id_EntryType', 'EntryTypeName'],
-            data: []
-        },
+        store: ingreso_funcionarios_tipo_ingreso_store,
         listeners: {
             select: function(combo, arrRec, obj) { }
         }
     });
 
-    loadData(AspPage, 'GetEntryType', "{'start':0,'limit':0}", ingreso_funcionarios_tipo_ingreso_store,
-        function(data) {
-            ingreso_funcionarios_tipo_ingreso_combo.bindStore(ingreso_funcionarios_tipo_ingreso_store);
-        }
-    , null);
+    loadCombo(AspPage, 'GetEntryType', "{'start':0,'limit':0}", ingreso_funcionarios_tipo_ingreso_store, ingreso_funcionarios_tipo_ingreso_combo);
 
     var ingreso_funcionarios_estado_store = new Ext.data.Store({
-        fields: ['Id_State', 'StateName'],
+        fields: [{ name: 'Id_State' }, { name: 'StateName'}],
         data: []
     });
 
@@ -75,52 +68,85 @@
         displayField: 'StateName',
         valueField: 'Id_State',
         queryMode: 'local',
-        store: {
-            fields: ['Id_State', 'StateName'],
-            data: []
-        },
+        store: ingreso_funcionarios_estado_store,
         listeners: {
             select: function(combo, arrRec, obj) { }
         }
     });
 
-    loadData(AspPage, 'GetState', "{'start':0,'limit':0}", ingreso_funcionarios_estado_store,
-        function(data) {
-            ingreso_funcionarios_estado_combo.bindStore(ingreso_funcionarios_estado_store);
-        }
-    , null);
+    loadCombo(AspPage, 'GetState', "{'start':0,'limit':0}", ingreso_funcionarios_estado_store, ingreso_funcionarios_estado_combo);
+
+    var ingreso_funcionarios_funcionario_store = new Ext.data.Store({
+        fields: [
+            { name: 'Id_Person' },
+            { name: 'Name' },
+            { name: 'LastName' },
+            { name: 'FullName',
+                convert: function(v, record) {
+                    return record.data.Id_Person + ' - ' + record.data.Name + ' ' + record.data.LastName;
+                }
+            },
+            { name: 'Id_Visitor',
+                convert: function(v, record) {
+                    return record.data.id_Person;
+                }
+            }
+        ],
+        data: []
+    });
 
     var ingreso_funcionarios_funcionario_combo = Ext.create('Ext.form.field.ComboBox', {
         mode: 'local',
         triggerAction: 'all',
         anchor: '100%',
-        pageSize: 10,
+        //pageSize: 10,
         fieldLabel: 'Nombre',
         forceSelection: true,
-        name: 'func_codigo',
-        displayField: 'func_nombre',
-        valueField: 'func_codigo',
-        store: { fields: ['func_codigo', 'func_nombre'], data: [{ func_codigo: 0, func_nombre: 'Agustin Barona'}] },
+        name: 'Id_Person',
+        displayField: 'FullName',
+        valueField: 'Id_Person',
+        queryMode: 'local',
+        hiddenValue: 'Id_Visitor',
+        store: ingreso_funcionarios_funcionario_store,
         listeners: {
             select: function(combo, arrRec, obj) { }
         }
+    });
+
+    loadCombo(AspPage, 'GetPerson', "{'start':0,'limit':0}", ingreso_funcionarios_funcionario_store, ingreso_funcionarios_funcionario_combo);
+
+    var ingreso_funcionarios_persona_autoriza_store = new Ext.data.Store({
+        fields: [
+            { name: 'Id_Person' },
+            { name: 'Name' },
+            { name: 'LastName' },
+            { name: 'FullName',
+                convert: function(v, record) {
+                    return record.data.Name + ' ' + record.data.LastName;
+                }
+            }
+        ],
+        data: []
     });
 
     var ingreso_funcionarios_persona_autoriza_combo = Ext.create('Ext.form.field.ComboBox', {
         mode: 'local',
         triggerAction: 'all',
         anchor: '100%',
-        pageSize: 10,
+        //pageSize: 10,
         fieldLabel: 'Autorizado por',
         forceSelection: true,
-        name: 'per_codigo',
-        displayField: 'per_nombre',
-        valueField: 'per_codigo',
-        store: { fields: ['per_codigo', 'per_nombre'], data: [{ per_codigo: 0, per_nombre: 'Avis Fernando'}] },
+        name: 'Id_Person',
+        displayField: 'FullName',
+        valueField: 'Id_Person',
+        queryMode: 'local',
+        store: ingreso_funcionarios_persona_autoriza_store,
         listeners: {
             select: function(combo, arrRec, obj) { }
         }
     });
+
+    loadCombo(AspPage, 'GetAprobatorPerson', "{'start':0,'limit':0}", ingreso_funcionarios_persona_autoriza_store, ingreso_funcionarios_persona_autoriza_combo);
 
     var forma = new Ext.form.Panel({
         frame: false,
@@ -160,46 +186,50 @@
 							    items: [
 									{
 									    xtype: 'datefield',
-									    name: 'fecha_ingreso',
+									    dateFormat: 'd/m/Y',
+									    submitFormat: 'd/m/Y g:i:s A',
+									    name: 'InitialDate',
 									    width: 130
-									},
+}/*,
 									{
 									    xtype: 'timefield',
-									    name: 'hora_ingreso',
+									    name: 'InitialHour',
+									    dateFormat: 'H:i:s',
+									    submitFormat: 'H:i:s',
 									    width: 130
-									}
+									}*/
 								]
 							},
+					    /*{
+					    xtype: 'fieldcontainer',
+					    fieldLabel: 'Fecha de salida',
+					    layout: 'hbox',
+					    defaults: {
+					    hideLabel: true
+					    },
+					    items: [
+					    {
+					    xtype: 'datefield',
+					    dateFormat: 'd/m/Y',
+					    submitFormat: 'd/m/Y g:i:s A',
+					    name: 'FinalDate',
+					    width: 130
+					    },
+					    {
+					    xtype: 'timefield',
+					    name: 'FinalHour',
+					    dateFormat: 'H:i:s',
+					    submitFormat: 'H:i:s',
+					    width: 130
+					    }
+					    ]
+					    },*/
 							{
-							    xtype: 'fieldcontainer',
-							    fieldLabel: 'Fecha de salida',
-							    layout: 'hbox',
-							    defaults: {
-							        hideLabel: true
-							    },
-							    items: [
-									{
-									    xtype: 'datefield',
-									    name: 'fecha_salida',
-									    width: 130
-									},
-									{
-									    xtype: 'timefield',
-									    name: 'hora_salida',
-									    width: 130
-									}
-								]
-							},
-							{
-							    xtype: 'textfield',
-							    anchor: '100%',
-							    fieldLabel: 'Vehiculo'
-							},
-							{
-							    xtype: 'textfield',
-							    anchor: '100%',
-							    fieldLabel: 'Equipos'
-							},
+							xtype: 'textfield',
+							anchor: '100%',
+							fieldLabel: 'Equipos',
+							name: 'ElementsToGetIn'
+}/*,
 							{
 							    xtype: 'textarea',
 							    anchor: '100%',
@@ -216,7 +246,7 @@
 									{ boxLabel: 'Si', name: 'rb', inputValue: '1', checked: true },
 									{ boxLabel: 'No', name: 'rb', inputValue: '0' }
 								]
-							}
+							}*/
 						]
 					},
 					{
@@ -230,7 +260,7 @@
 							    width: 120,
 							    height: 120,
 							    html: '<img src="../../images/user.png" height="110" width="110" />'
-							},
+}/*,
 							{
 							    xtype: 'filefield',
 							    name: 'pinta',
@@ -238,7 +268,7 @@
 							    labelWidth: 30,
 							    width: 120,
 							    fieldLabel: 'Foto'
-							}
+							}*/
 						]
 					}
 				]
@@ -250,8 +280,8 @@
 			    anchor: '100%',
 			    items: [
 					{
-					    xtype: 'htmleditor',
-					    name: 'algo',
+					    xtype: 'textarea',
+					    name: 'VisitDescription',
 					    anchor: '100%'
 					}
 				]
@@ -262,18 +292,18 @@
 			    text: 'Guardar',
 			    handler: function() {
 			        Ext.Msg.confirm('Impresi&oacute;n Autorizaci&oacute;n', '¿Desea realizar la impresión del tiquete?');
-			        //alert('Mensaje', forma.getForm().getValues());
 
-			        /*saveData(
-			        AspPage,
-			        'Save',
-			        'DiaryProperties',
-			        forma.getForm().getValues(),
-			        function(data) {
-			        //loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
-			        },
+
+			        saveData(
+			            AspPage,
+			            'SaveVisit',
+			            'VisitProperties',
+			            forma.getForm().getValues(),
+			            function(data) {
+			                //loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+			            },
 			        null
-			        );*/
+			        );
 			    }
 			},
 			{

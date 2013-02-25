@@ -16,6 +16,7 @@ using TMA.DAO.EntityManager;
 using System.IO;
 using BMS.CONFIGURATION;
 using BMS.WEB.cls;
+using System.Collections.Generic;
 
 namespace BMS.WEB.pages.authorization
 {
@@ -72,13 +73,51 @@ namespace BMS.WEB.pages.authorization
 
         [System.Web.Services.WebMethod]
         public static string GetEntryType() {
-            return serialize.Serialize(EntryTypeDao.findAll());
+            return serialize.Serialize(EntryTypesDao.findAll());
         }
 
         [System.Web.Services.WebMethod]
         public static string GetState()
         {
-            return serialize.Serialize(StateDao.findAll());
+            return serialize.Serialize(StatesDao.findAll());
+        }
+
+        [System.Web.Services.WebMethod]
+        public static string GetPerson()
+        {
+            return serialize.Serialize(PersonsDao.findAll());
+        }
+
+        [System.Web.Services.WebMethod]
+        public static string GetAprobatorPerson()
+        {
+            return serialize.Serialize(PersonsDao.findAll());
+        }
+
+        [System.Web.Services.WebMethod]
+        public static string SaveVisit(string VisitProperties)
+        {
+            MessageResponse msg = new MessageResponse();
+            try
+            {
+                Visit visit = serialize.Deserialize<Visit>(VisitProperties);
+
+                //TMA.MODEL.Entity.Person person = PersonsDao.find(visit.Id_Visitor);
+
+                visit.DateCreateTransaction = System.DateTime.Now;
+                visit.DateModifyRegistration = System.DateTime.Now;
+                visit.DateCreateRegistration = System.DateTime.Now;
+                VisitsDao.save(visit);
+
+                msg.Message = ConfigManager.SaveSuccessMessage;
+            }
+            catch (Exception exception)
+            {
+                msg.Message = ConfigManager.SaveErrorMessage;
+                msg.Error = exception.ToString();
+            }
+
+            return serialize.Serialize(msg);
         }
     }
 }

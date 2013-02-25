@@ -26,6 +26,38 @@ namespace TMA.DAO.TEST
 
             Test(TypeTest.Person);
 
+<<<<<<< HEAD
+=======
+
+            //if (user == null)
+            //{
+            //    user = new TMA.MODEL.Entity.Users()
+            //    {
+            //        Id_User = 2,
+            //        IsActive = true,
+            //        Id_Role = 1,
+            //        DocumentType = 1,
+            //        DateCreateRegistration = System.DateTime.Now,
+            //        DateModifyRegistration = System.DateTime.Now,
+            //        Name = "Agus",
+            //        Login = "agus"
+            //    };
+
+            //    TMA.DAO.EntityManager.UsersDao.save(user);
+            //}
+
+            //if (head == null)
+            //{
+            //    head = new TMA.MODEL.Entity.Headquarter() { Id_Headquarter = 3, Description = "Este" };
+            //    TMA.DAO.EntityManager.HeadquartersDao.save(head);
+            //}
+
+            //if (profile == null)
+            //{
+            //    profile = new TMA.MODEL.Entity.Profile() { Id_Profile = 4, Description = "Administrador", DateCreateRegistration = DateTime.Now, Id_User = 1, DateModifyRegistration = DateTime.Now, Id_UserModifyRegistration = 1 };
+            //    TMA.DAO.EntityManager.ProfilesDao.save(profile);
+            //}
+>>>>>>> c88d2a3c1f985d2c57227861456fdb92e9f5b1cb
             #endregion Crear Registro Usuario
 
         }

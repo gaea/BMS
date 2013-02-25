@@ -70,13 +70,13 @@ namespace BMS.WEB.pages.diary
 
         [System.Web.Services.WebMethod]
         public static string GetEntryType() {
-            return serialize.Serialize(EntryTypeDao.findAll());
+            return serialize.Serialize(EntryTypesDao.findAll());
         }
 
         [System.Web.Services.WebMethod]
         public static string GetState()
         {
-            return serialize.Serialize(StateDao.findAll());
+            return serialize.Serialize(StatesDao.findAll());
         }
     }
 }
