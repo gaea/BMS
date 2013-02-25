@@ -17,6 +17,7 @@ using System.IO;
 using BMS.CONFIGURATION;
 using BMS.WEB.cls;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace BMS.WEB.pages.authorization
 {
@@ -100,10 +101,17 @@ namespace BMS.WEB.pages.authorization
             MessageResponse msg = new MessageResponse();
             try
             {
-                Visit visit = serialize.Deserialize<Visit>(VisitProperties);
-
-                //TMA.MODEL.Entity.Person person = PersonsDao.find(visit.Id_Visitor);
-
+                Dictionary<string, string> dicProperties = JsonConvert.DeserializeObject<Dictionary<string, string>>(VisitProperties);
+                
+                Visit visit = new Visit();
+                visit.Id_Visitor = Convert.ToInt32(dicProperties["Id_Person"]);
+                visit.InitialDate = Convert.ToDateTime(dicProperties["InitialDate"]);
+                visit.InitialHour = Convert.ToDateTime(dicProperties["InitialHour"]);
+                visit.FinalDate = Convert.ToDateTime(dicProperties["FinalDate"]);
+                visit.FinalHour = Convert.ToDateTime(dicProperties["FinalHour"]);
+                visit.DocumentNumberVisitor = Convert.ToInt32(dicProperties["Id_Person"]);
+                visit.ElementsToGetIn = dicProperties["ElementsToGetIn"];
+                visit.VisitDescription = dicProperties["VisitDescription"];
                 visit.DateCreateTransaction = System.DateTime.Now;
                 visit.DateModifyRegistration = System.DateTime.Now;
                 visit.DateCreateRegistration = System.DateTime.Now;

@@ -80,15 +80,10 @@
         fields: [
             { name: 'Id_Person' },
             { name: 'Name' },
-            { name: 'LastName' },
+            { name: 'LastName'},
             { name: 'FullName',
                 convert: function(v, record) {
                     return record.data.Id_Person + ' - ' + record.data.Name + ' ' + record.data.LastName;
-                }
-            },
-            { name: 'Id_Visitor',
-                convert: function(v, record) {
-                    return record.data.id_Person;
                 }
             }
         ],
@@ -99,14 +94,15 @@
         mode: 'local',
         triggerAction: 'all',
         anchor: '100%',
-        //pageSize: 10,
         fieldLabel: 'Nombre',
         forceSelection: true,
         name: 'Id_Person',
         displayField: 'FullName',
         valueField: 'Id_Person',
         queryMode: 'local',
-        hiddenValue: 'Id_Visitor',
+        hiddenName: 'Id_Person',
+        allowBlank: false,
+        typeAhead:true,
         store: ingreso_funcionarios_funcionario_store,
         listeners: {
             select: function(combo, arrRec, obj) { }
@@ -119,7 +115,7 @@
         fields: [
             { name: 'Id_Person' },
             { name: 'Name' },
-            { name: 'LastName' },
+            { name: 'LastName'},
             { name: 'FullName',
                 convert: function(v, record) {
                     return record.data.Name + ' ' + record.data.LastName;
@@ -133,13 +129,13 @@
         mode: 'local',
         triggerAction: 'all',
         anchor: '100%',
-        //pageSize: 10,
         fieldLabel: 'Autorizado por',
         forceSelection: true,
         name: 'Id_Person',
         displayField: 'FullName',
         valueField: 'Id_Person',
         queryMode: 'local',
+        typeAhead: true,
         store: ingreso_funcionarios_persona_autoriza_store,
         listeners: {
             select: function(combo, arrRec, obj) { }
@@ -190,46 +186,46 @@
 									    submitFormat: 'd/m/Y g:i:s A',
 									    name: 'InitialDate',
 									    width: 130
-}/*,
+                                    },
 									{
 									    xtype: 'timefield',
 									    name: 'InitialHour',
 									    dateFormat: 'H:i:s',
 									    submitFormat: 'H:i:s',
 									    width: 130
-									}*/
+									}
 								]
 							},
-					    /*{
-					    xtype: 'fieldcontainer',
-					    fieldLabel: 'Fecha de salida',
-					    layout: 'hbox',
-					    defaults: {
-					    hideLabel: true
-					    },
-					    items: [
 					    {
-					    xtype: 'datefield',
-					    dateFormat: 'd/m/Y',
-					    submitFormat: 'd/m/Y g:i:s A',
-					    name: 'FinalDate',
-					    width: 130
-					    },
-					    {
-					    xtype: 'timefield',
-					    name: 'FinalHour',
-					    dateFormat: 'H:i:s',
-					    submitFormat: 'H:i:s',
-					    width: 130
-					    }
-					    ]
-					    },*/
-							{
-							xtype: 'textfield',
-							anchor: '100%',
-							fieldLabel: 'Equipos',
-							name: 'ElementsToGetIn'
-}/*,
+					        xtype: 'fieldcontainer',
+					        fieldLabel: 'Fecha de salida',
+					        layout: 'hbox',
+					        defaults: {
+					        hideLabel: true
+					        },
+					        items: [
+					            {
+					                xtype: 'datefield',
+					                dateFormat: 'd/m/Y',
+					                submitFormat: 'd/m/Y g:i:s A',
+					                name: 'FinalDate',
+					                width: 130
+					            },
+					            {
+					                xtype: 'timefield',
+					                name: 'FinalHour',
+					                dateFormat: 'H:i:s',
+					                submitFormat: 'H:i:s',
+					                width: 130
+					            }
+					        ]
+					        },
+							    {
+							    xtype: 'textfield',
+							    anchor: '100%',
+							    fieldLabel: 'Equipos',
+							    name: 'ElementsToGetIn'
+                            },
 							{
 							    xtype: 'textarea',
 							    anchor: '100%',
@@ -246,7 +242,7 @@
 									{ boxLabel: 'Si', name: 'rb', inputValue: '1', checked: true },
 									{ boxLabel: 'No', name: 'rb', inputValue: '0' }
 								]
-							}*/
+							}
 						]
 					},
 					{
@@ -260,15 +256,7 @@
 							    width: 120,
 							    height: 120,
 							    html: '<img src="../../images/user.png" height="110" width="110" />'
-}/*,
-							{
-							    xtype: 'filefield',
-							    name: 'pinta',
-							    buttonText: '...',
-							    labelWidth: 30,
-							    width: 120,
-							    fieldLabel: 'Foto'
-							}*/
+                            }
 						]
 					}
 				]
@@ -293,12 +281,14 @@
 			    handler: function() {
 			        Ext.Msg.confirm('Impresi&oacute;n Autorizaci&oacute;n', '¿Desea realizar la impresión del tiquete?');
 
-
+			        var submitFields = forma.getForm().getValues();
+			        submitFields.Id_Person = ingreso_funcionarios_funcionario_combo.getValue();
+			        
 			        saveData(
 			            AspPage,
 			            'SaveVisit',
 			            'VisitProperties',
-			            forma.getForm().getValues(),
+			            submitFields,
 			            function(data) {
 			                //loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
 			            },
