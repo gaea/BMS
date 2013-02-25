@@ -1,10 +1,15 @@
 ﻿Ext.onReady(function() {
 
-    var AspPage = 'diary/RegisterDiary.aspx';
+    var AspPage = 'RegisterDiary.aspx';
 
     function Diary() {
         this.Id_Diary = null
     };
+
+	var ingreso_agenda_tipo_ingreso_store = new Ext.data.Store({
+        fields: [{ name: 'Id_EntryType' }, { name: 'EntryTypeName'}],
+        data: []
+    });
 
     var ingreso_agenda_tipo_ingreso_combo = Ext.create('Ext.form.field.ComboBox', {
         id: 'id_ingreso_agenda_tipo_ingreso_combo',
@@ -16,17 +21,19 @@
         name: 'Id_EntryType',
         displayField: 'EntryTypeName',
         valueField: 'Id_EntryType',
-        store: {
-            fields: ['Id_EntryType', 'EntryTypeName'],
-            data: [
-                { Id_EntryType: '1', EntryTypeName: 'Funcionario' },
-                { Id_EntryType: '2', EntryTypeName: 'Contratista' },
-                { Id_EntryType: '3', EntryTypeName: 'Estudiante' }
-            ]
-        },
+        queryMode: 'local',
+        //hiddenName: 'Id_EntryType',
+        store: ingreso_agenda_tipo_ingreso_store,
         listeners: {
             select: function(combo, arrRec, obj) { }
         }
+    });
+
+    loadCombo(AspPage, 'GetEntryType', "{'start':0,'limit':0}", ingreso_agenda_tipo_ingreso_store, ingreso_agenda_tipo_ingreso_combo);
+
+    var ingreso_agenda_estado_store = new Ext.data.Store({
+        fields: [{ name: 'Id_State' }, { name: 'StateName'}],
+        data: []
     });
 
     var ingreso_agenda_estado_combo = Ext.create('Ext.form.field.ComboBox', {
@@ -35,37 +42,58 @@
         fieldLabel: 'Estado',
         forceSelection: true,
         editable: false,
-        name: 'est_codigo',
-        displayField: 'est_nombre',
-        valueField: 'est_codigo',
-        store: {
-            fields: ['est_codigo', 'est_nombre'],
-            data: [
-				{ est_codigo: 0, est_nombre: 'Inactivo' },
-				{ est_codigo: 1, est_nombre: 'Activo' }
-			]
-        },
+        name: 'Id_State',
+        displayField: 'StateName',
+        valueField: 'Id_State',
+        queryMode: 'local',
+        store: ingreso_agenda_estado_store,
         listeners: {
             select: function(combo, arrRec, obj) { }
         }
+    });
+
+    loadCombo(AspPage, 'GetState', "{'start':0,'limit':0}", ingreso_agenda_estado_store, ingreso_agenda_estado_combo);
+
+    var ingreso_agenda_funcionario_store = new Ext.data.Store({
+        fields: [
+            { name: 'Id_Person' },
+            { name: 'Name' },
+            { name: 'LastName' },
+            { name: 'FullName',
+                convert: function(v, record) {
+                    return record.data.Id_Person + ' - ' + record.data.Name + ' ' + record.data.LastName;
+                }
+            },
+            { name: 'Id_Visitor',
+                convert: function(v, record) {
+                    return record.data.id_Person;
+                }
+            }
+        ],
+        data: []
     });
 
     var ingreso_agenda_funcionario_combo = Ext.create('Ext.form.field.ComboBox', {
         mode: 'local',
         triggerAction: 'all',
         anchor: '100%',
-        pageSize: 10,
+        //pageSize: 10,
         fieldLabel: 'Nombre',
         forceSelection: true,
-        name: 'func_codigo',
-        displayField: 'func_nombre',
-        valueField: 'func_codigo',
-        store: { fields: ['func_codigo', 'func_nombre'], data: [{ func_codigo: 0, func_nombre: 'Agustin Barona'}] },
+        name: 'Id_Person',
+        displayField: 'FullName',
+        valueField: 'Id_Person',
+        queryMode: 'local',
+        hiddenValue: 'Id_Visitor',
+        store: ingreso_agenda_funcionario_store,
         listeners: {
             select: function(combo, arrRec, obj) { }
         }
     });
 
+    loadCombo(AspPage, 'GetPerson', "{'start':0,'limit':0}", ingreso_agenda_funcionario_store, ingreso_agenda_funcionario_combo);
+	
+	
     var forma = new Ext.form.Panel({
         frame: false,
         border: false,

@@ -16,7 +16,9 @@ namespace TMA.DAO.TEST
             Headquarter,
             User,
             Visit,
-            Profile
+            Profile,
+            City,
+            Department
         }
 
         static void Main(string[] args)
@@ -24,10 +26,7 @@ namespace TMA.DAO.TEST
             
             #region Crear Registro Usuario
 
-            Test(TypeTest.Person);
-
-<<<<<<< HEAD
-=======
+            Test(TypeTest.City);
 
             //if (user == null)
             //{
@@ -57,7 +56,7 @@ namespace TMA.DAO.TEST
             //    profile = new TMA.MODEL.Entity.Profile() { Id_Profile = 4, Description = "Administrador", DateCreateRegistration = DateTime.Now, Id_User = 1, DateModifyRegistration = DateTime.Now, Id_UserModifyRegistration = 1 };
             //    TMA.DAO.EntityManager.ProfilesDao.save(profile);
             //}
->>>>>>> c88d2a3c1f985d2c57227861456fdb92e9f5b1cb
+
             #endregion Crear Registro Usuario
 
         }
@@ -191,6 +190,34 @@ namespace TMA.DAO.TEST
 
                         break;
                     }
+                
+                case TypeTest.Department:
+                    {
+                        Department department = DepartmentsDao.find(1);
+
+                        if (department == null)
+                        {
+                            department = new TMA.MODEL.Entity.Department() { Name = "Valle" };
+                            TMA.DAO.EntityManager.DepartmentsDao.save(department);
+                        }
+
+                        break;
+                    }
+
+                case TypeTest.City:
+                    {
+                        City city = CitiesDao.find(1);
+
+                        if (city == null)
+                        {
+                            city = new TMA.MODEL.Entity.City() {  Name = "Cali", Id_Department = 1 };
+                            TMA.DAO.EntityManager.CitiesDao.save(city);
+                        }
+
+                        break;
+                    }
+
+
             }
         }
     }

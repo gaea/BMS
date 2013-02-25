@@ -69,7 +69,8 @@ namespace BMS.WEB.pages.diary
         }
 
         [System.Web.Services.WebMethod]
-        public static string GetEntryType() {
+        public static string GetEntryType()
+        {
             return serialize.Serialize(EntryTypesDao.findAll());
         }
 
@@ -77,6 +78,12 @@ namespace BMS.WEB.pages.diary
         public static string GetState()
         {
             return serialize.Serialize(StatesDao.findAll());
+        }
+
+        [System.Web.Services.WebMethod]
+        public static string GetPerson()
+        {
+            return serialize.Serialize(PersonsDao.findAll());
         }
     }
 }

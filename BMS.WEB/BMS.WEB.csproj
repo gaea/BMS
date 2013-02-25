@@ -92,6 +92,20 @@
     <Compile Include="pages\authorization\RegisterAuthorization.aspx.designer.cs">
       <DependentUpon>RegisterAuthorization.aspx</DependentUpon>
     </Compile>
+    <Compile Include="pages\master_tables\City.aspx.cs">
+      <DependentUpon>City.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\master_tables\City.aspx.designer.cs">
+      <DependentUpon>City.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\master_tables\Department.aspx.cs">
+      <DependentUpon>Department.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\master_tables\Department.aspx.designer.cs">
+      <DependentUpon>Department.aspx</DependentUpon>
+    </Compile>
     <Compile Include="pages\master_tables\Headquarter.aspx.cs">
       <DependentUpon>Headquarter.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -132,6 +146,8 @@
     <Content Include="js\modules\help\Help.js" />
     <Content Include="js\modules\authorization\RegisterRequest.js" />
     <Content Include="js\modules\authorization\RegisterAuthorization.js" />
+    <Content Include="js\modules\master_tables\City.js" />
+    <Content Include="js\modules\master_tables\Department.js" />
     <Content Include="js\modules\master_tables\Person.js" />
     <Content Include="js\modules\master_tables\Headquarter.js" />
     <Content Include="js\modules\master_tables\Profile.js" />
@@ -141,6 +157,8 @@
     <Content Include="pages\diary\RegisterDiary.aspx" />
     <Content Include="pages\authorization\RegisterRequest.aspx" />
     <Content Include="pages\authorization\RegisterAuthorization.aspx" />
+    <Content Include="pages\master_tables\City.aspx" />
+    <Content Include="pages\master_tables\Department.aspx" />
     <Content Include="pages\master_tables\Headquarter.aspx" />
     <Content Include="pages\master_tables\Person.aspx" />
     <Content Include="pages\master_tables\Profile.aspx" />

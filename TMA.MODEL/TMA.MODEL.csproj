@@ -45,6 +45,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entity\City.cs" />
+    <Compile Include="Entity\Department.cs" />
     <Compile Include="Entity\Diary.cs" />
     <Compile Include="Entity\EntryType.cs" />
     <Compile Include="Entity\Person.cs" />
@@ -86,6 +88,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="TMA.MODEL.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapping\City.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapping\Department.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

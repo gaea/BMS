@@ -30,6 +30,16 @@
 				            expanded: true,
 				            children: [
 					            {
+					                text: "Ciudades",
+					                id: "City",
+					                leaf: true
+					            },
+					            {
+					                text: "Departamentos",
+					                id: "Department",
+					                leaf: true
+					            },
+					            {
 					                text: "Usuarios",
 					                id: "User",
 					                leaf: true
