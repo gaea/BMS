@@ -30,7 +30,7 @@ namespace TMA.DAO.TEST
 
             #region Crear Registro Usuario
 
-            Test(TypeTest.Visit);
+            Test(TypeTest.Person);
 
 
             //if (user == null)

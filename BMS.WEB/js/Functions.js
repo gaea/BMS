@@ -56,6 +56,14 @@ function loadData(url, method, params, store, funcSucces, funcFailure) {
     );
 }
 
+function loadCombo(page, module, params, store, combo) {
+    loadData(page, module, params, store,
+        function(data) {
+            combo.bindStore(store);
+        }
+    , null);
+}
+
 function saveData(url, method, webParam, params, funcSucces, funcFailure) {
     upload(
         url,

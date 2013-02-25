@@ -8,7 +8,7 @@ using NHibernate.Criterion;
 
 namespace TMA.DAO.EntityManager
 {
-    public class EntryTypeDao: Dao
+    public class EntryTypesDao: Dao
     {
         public static EntryType find(int Id_EntryType)
         {
