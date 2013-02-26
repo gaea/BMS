@@ -183,7 +183,7 @@
 									{
 									    xtype: 'datefield',
 									    dateFormat: 'd/m/Y',
-									    submitFormat: 'd/m/Y g:i:s A',
+									    submitFormat: 'd/m/Y',
 									    name: 'InitialDate',
 									    width: 130
                                     },
@@ -207,7 +207,7 @@
 					            {
 					                xtype: 'datefield',
 					                dateFormat: 'd/m/Y',
-					                submitFormat: 'd/m/Y g:i:s A',
+					                submitFormat: 'd/m/Y',
 					                name: 'FinalDate',
 					                width: 130
 					            },
@@ -279,7 +279,7 @@
 			{
 			    text: 'Guardar',
 			    handler: function() {
-			        Ext.Msg.confirm('Impresi&oacute;n Autorizaci&oacute;n', '¿Desea realizar la impresión del tiquete?');
+			        //Ext.Msg.confirm('Impresi&oacute;n Autorizaci&oacute;n', '¿Desea realizar la impresión del tiquete?');
 
 			        var submitFields = forma.getForm().getValues();
 			        submitFields.Id_Person = ingreso_funcionarios_funcionario_combo.getValue();

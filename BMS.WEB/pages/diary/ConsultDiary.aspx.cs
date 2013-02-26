@@ -35,7 +35,7 @@ namespace BMS.WEB.pages.diary
                 diary.DateCreateRegistration = System.DateTime.Now;
                 diary.DateModifyRegistration = System.DateTime.Now;
                 diary.Id_User = 1;
-                diary.HourCreateTransaction = System.DateTime.Now.ToString();
+                diary.HourDiary = System.DateTime.Now.ToString();
 
                 if(diary.Id_Visitor == null)
                 {

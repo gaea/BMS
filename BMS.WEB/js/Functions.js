@@ -70,7 +70,7 @@ function saveData(url, method, webParam, params, funcSucces, funcFailure) {
         method,
         "{" + webParam + ":'" + Ext.JSON.encode(params) + "'}",
         function(data) {
-            //Ext.Msg.alert('Mensaje', data.Message, function() { }, this);
+            Ext.Msg.alert('Mensaje', data.Message, function() { }, this);
             if (funcSucces != null)
                 funcSucces(data);
         },

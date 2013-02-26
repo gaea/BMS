@@ -73,8 +73,8 @@ namespace TMA.DAO.TEST
                         {
                             diary = new TMA.MODEL.Entity.Diary()
                             {
-                                DateCreateTransaction = "0",
-                                HourCreateTransaction = "0",
+                                DateDiary = "0",
+                                HourDiary = "0",
                                 DateCreateRegistration = DateTime.Now.ToLocalTime(),
                                 DateModifyRegistration = DateTime.Now.ToLocalTime(),
                                 CenterCost = 1

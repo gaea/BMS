@@ -11,9 +11,9 @@ namespace TMA.MODEL.Entity
 
         private int? id_Diary;
 
-        private string dateCreateTransaction;
+        private string dateDiary;
 
-        private string hourCreateTransaction;
+        private string hourDiary;
 
         private float id_Visitor;
 
@@ -49,16 +49,16 @@ namespace TMA.MODEL.Entity
             set { id_Visitor = value; }
         }
 
-        public virtual string DateCreateTransaction
+        public virtual string DateDiary
         {
-            get { return dateCreateTransaction; }
-            set { dateCreateTransaction = value; }
+            get { return dateDiary; }
+            set { dateDiary = value; }
         }
 
-        public virtual string HourCreateTransaction
+        public virtual string HourDiary
         {
-            get { return hourCreateTransaction; }
-            set { hourCreateTransaction = value; }
+            get { return hourDiary; }
+            set { hourDiary = value; }
         }
 
         public virtual string Description

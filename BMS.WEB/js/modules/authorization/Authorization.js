@@ -35,6 +35,11 @@
 					                leaf: true
 					            },
 					            {
+					                text: "Consulta Registro",
+					                id: "ConsultAuthorization",
+					                leaf: true
+					            },
+					            {
 					                text: "Aprobaciones",
 					                id: "RegisterRequest",
 					                leaf: true

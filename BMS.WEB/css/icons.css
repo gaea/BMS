@@ -4,6 +4,9 @@
 .remove {
     background-image: url( ../images/icons/remove.png ) !important;
 }
+.reload {
+    background-image: url( ../images/icons/reload.png ) !important;
+}
 .modify {
     background-image: url( ../images/icons/modify.png ) !important;
 }

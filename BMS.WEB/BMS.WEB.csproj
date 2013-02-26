@@ -68,6 +68,13 @@
     <Compile Include="Desktop.aspx.designer.cs">
       <DependentUpon>Desktop.aspx</DependentUpon>
     </Compile>
+    <Compile Include="pages\authorization\ConsultAuthorization.aspx.cs">
+      <DependentUpon>ConsultAuthorization.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\authorization\ConsultAuthorization.aspx.designer.cs">
+      <DependentUpon>ConsultAuthorization.aspx</DependentUpon>
+    </Compile>
     <Compile Include="pages\diary\ConsultDiary.aspx.cs">
       <DependentUpon>ConsultDiary.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -157,6 +164,7 @@
     <Content Include="js\modules\master_tables\Profile.js" />
     <Content Include="js\modules\master_tables\User.js" />
     <Content Include="js\modules\diary\Diary.js" />
+    <Content Include="pages\authorization\ConsultAuthorization.aspx" />
     <Content Include="pages\diary\ConsultDiary.aspx" />
     <Content Include="pages\diary\RegisterDiary.aspx" />
     <Content Include="pages\authorization\RegisterRequest.aspx" />

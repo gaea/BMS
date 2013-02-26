@@ -38,8 +38,6 @@ namespace BMS.WEB.pages.authorization
                 diary.DateModifyRegistration = System.DateTime.Now;
                 //diary.Id_UserCreateRegistration = "1";
                 //diary.Id_UserModifyRegistration = "1";
-                diary.Id_User = 4;
-                diary.HourCreateTransaction = System.DateTime.Now.ToString();
 
                 if(diary.Id_Visitor == null)
                 {
@@ -105,10 +103,19 @@ namespace BMS.WEB.pages.authorization
                 
                 Visit visit = new Visit();
                 visit.Id_Visitor = Convert.ToInt32(dicProperties["Id_Person"]);
-                visit.InitialDate = Convert.ToDateTime(dicProperties["InitialDate"]);
-                visit.InitialHour = Convert.ToDateTime(dicProperties["InitialHour"]);
-                visit.FinalDate = Convert.ToDateTime(dicProperties["FinalDate"]);
-                visit.FinalHour = Convert.ToDateTime(dicProperties["FinalHour"]);
+
+                DateTime InitialDate = Convert.ToDateTime(dicProperties["InitialDate"] + " " + dicProperties["InitialHour"]);
+                DateTime FinalDate = Convert.ToDateTime(dicProperties["FinalDate"] + " " + dicProperties["FinalHour"]);
+
+                //visit.InitialDate = Convert.ToDateTime(dicProperties["InitialDate"]);
+                //visit.InitialHour = Convert.ToDateTime(dicProperties["InitialHour"]);
+                //visit.FinalDate = Convert.ToDateTime(dicProperties["FinalDate"]);
+                //visit.FinalHour = Convert.ToDateTime(dicProperties["FinalHour"]);
+
+                visit.InitialDate = InitialDate;
+                visit.InitialHour = InitialDate;
+                visit.FinalDate = FinalDate;
+                visit.FinalHour = FinalDate;
                 visit.DocumentNumberVisitor = Convert.ToInt32(dicProperties["Id_Person"]);
                 visit.ElementsToGetIn = dicProperties["ElementsToGetIn"];
                 visit.VisitDescription = dicProperties["VisitDescription"];

@@ -3,7 +3,19 @@
     var AspPage = 'RegisterDiary.aspx';
 
     function Diary() {
-        this.Id_Diary = null
+        this.Id_Diary = null,
+		this.Id_Visitor = null,
+		this.DateDiary = null,
+		this.HourDiary = null,
+		this.Description = null,
+		this.DateCreateRegistration = null,
+		this.DateModifyRegistration = null,
+		this.Id_UserCreateRegistration = null,
+		this.Id_UserModifyRegistration = null,
+		this.CenterCost = null,
+        this.State = null,
+        this.Id_User = null
+        
     };
 
 	var ingreso_agenda_tipo_ingreso_store = new Ext.data.Store({
@@ -130,11 +142,13 @@
 							    },
 							    items: [
 									{
+										id: 'id_fecha_ingreso',
 									    xtype: 'datefield',
 									    name: 'fecha_ingreso',
 									    width: 130
 									},
 									{
+										id: 'id_hora_ingreso',
 									    xtype: 'timefield',
 									    name: 'hora_ingreso',
 									    width: 130
@@ -146,7 +160,7 @@
 							    anchor: '100%',
 							    fieldLabel: 'Motivo',
 							    height: 50,
-							    name: '123'
+							    name: 'Description'
 							}
 						]
 					}//,
@@ -173,8 +187,9 @@
 			    anchor: '100%',
 			    items: [
 					{
+						id: 'id_forma_observaciones',
 					    xtype: 'textarea',
-					    name: 'algo',
+					    name: 'Observations',
 					    anchor: '100%'
 					}
 				]
@@ -185,7 +200,19 @@
 			    text: 'Guardar',
 				iconCls: 'save',
 			    handler: function() {
-			        
+			        var submitFields = forma.getForm().getValues();
+			        submitFields.DateDiary = Ext.getCmp('id_fecha_ingreso').getValue();
+			        submitFields.HourDiary = Ext.getCmp('id_hora_ingreso').getValue();
+			        saveData(
+			            AspPage,
+			            'Save',
+			            'DiaryProperties',
+			            submitFields,
+			            function(data) {
+			                //loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+			            },
+			        null
+			        );
 			    }
 			},
 			{

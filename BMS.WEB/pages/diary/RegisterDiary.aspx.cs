@@ -16,6 +16,8 @@ using TMA.DAO.EntityManager;
 using System.IO;
 using BMS.CONFIGURATION;
 using BMS.WEB.cls;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace BMS.WEB.pages.diary
 {
@@ -30,27 +32,27 @@ namespace BMS.WEB.pages.diary
 
             try
             {
-                Diary diary = serialize.Deserialize<Diary>(DiaryProperties);
+
+                Dictionary<string, string> dicProperties = JsonConvert.DeserializeObject<Dictionary<string, string>>(DiaryProperties);
                 
-                diary.DateCreateRegistration = System.DateTime.Now;
-                diary.DateModifyRegistration = System.DateTime.Now;
-                diary.Id_User = 1;
-                diary.HourCreateTransaction = System.DateTime.Now.ToString();
-
-                if(diary.Id_Visitor == null)
+                Diary diary = new Diary()
                 {
-                    TMA.MODEL.Entity.Person person = new TMA.MODEL.Entity.Person();
-                    person.Name = "";
-                }
-
-                diary.State = "State";
+                    Description = dicProperties["Description"],
+                    DateDiary = Convert.ToDateTime(dicProperties["DateDiary"]).ToString(ConfigManager.FieldsTypeDateFormat),
+                    HourDiary = Convert.ToDateTime(dicProperties["HourDiary"]).ToString(ConfigManager.FieldsTypeTimeFormat),
+                    Id_User = 1
+                };
 
                 if (diary.Id_Diary == null)
                 {
+                    diary.DateCreateRegistration = System.DateTime.Now;
+
                     DiarysDao.save(diary);
                 }
                 else
                 {
+                    diary.DateModifyRegistration = System.DateTime.Now;
+
                     DiarysDao.update(diary);
                 }
 
