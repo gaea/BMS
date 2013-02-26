@@ -151,7 +151,9 @@
     <Content Include="css\icons.css" />
     <Content Include="Desktop.aspx" />
     <Content Include="js\DesktopConfig.js" />
+    <Content Include="js\entities\DiaryEntity.js" />
     <Content Include="js\modules\authorization\Authorization.js" />
+    <Content Include="js\modules\authorization\ConsultAuthorization.js" />
     <Content Include="js\modules\diary\ConsultDiary.js" />
     <Content Include="js\modules\diary\RegisterDiary.js" />
     <Content Include="js\modules\help\Help.js" />

@@ -20,7 +20,8 @@
                 LoadScriptsBeforeUI="true">
                 <Scripts>
                     <asp:ScriptReference Path="~/js/Functions.js" />
-                    <asp:ScriptReference Path="~/js/modules/diary/RegisterDiary.js" />
+                    <asp:ScriptReference Path="~/js/entities/DiaryEntity.js" />
+                    <asp:ScriptReference Path="~/js/modules/diary/ConsultDiary.js" />
                 </Scripts>
             </asp:ScriptManager>
         </form>

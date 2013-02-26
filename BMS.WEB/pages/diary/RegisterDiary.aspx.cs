@@ -37,6 +37,7 @@ namespace BMS.WEB.pages.diary
                 
                 Diary diary = new Diary()
                 {
+                    Id_Visitor = int.Parse(dicProperties["Id_Visitor"]),
                     Description = dicProperties["Description"],
                     DateDiary = Convert.ToDateTime(dicProperties["DateDiary"]).ToString(ConfigManager.FieldsTypeDateFormat),
                     HourDiary = Convert.ToDateTime(dicProperties["HourDiary"]).ToString(ConfigManager.FieldsTypeTimeFormat),
@@ -47,13 +48,13 @@ namespace BMS.WEB.pages.diary
                 {
                     diary.DateCreateRegistration = System.DateTime.Now;
 
-                    DiarysDao.save(diary);
+                    DiariesDao.save(diary);
                 }
                 else
                 {
                     diary.DateModifyRegistration = System.DateTime.Now;
 
-                    DiarysDao.update(diary);
+                    DiariesDao.update(diary);
                 }
 
                 msg.Message = ConfigManager.SaveSuccessMessage;

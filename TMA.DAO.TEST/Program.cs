@@ -67,7 +67,7 @@ namespace TMA.DAO.TEST
             {
                 case TypeTest.Diary:
                     {
-                        Diary diary = DiarysDao.find(1);
+                        Diary diary = DiariesDao.find(1);
 
                         if (diary == null)
                         {
@@ -81,7 +81,7 @@ namespace TMA.DAO.TEST
 
                             };
 
-                            TMA.DAO.EntityManager.DiarysDao.save(diary);
+                            TMA.DAO.EntityManager.DiariesDao.save(diary);
                         }
 
                         break;

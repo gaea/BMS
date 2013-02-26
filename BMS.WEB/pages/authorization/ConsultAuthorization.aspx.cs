@@ -36,7 +36,7 @@ namespace BMS.WEB.pages.authorization
             }
             catch (Exception ex)
             {
-                msg.Message = ConfigManager.DeleteErrorMessage;
+                msg.Message = ConfigManager.ListErrorMessage;
 
                 msg.Error = ex.ToString();
 

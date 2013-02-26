@@ -11,6 +11,7 @@
     <script type="text/javascript" src="lib/extjs/ext-all.js"></script>
     <script type="text/javascript" src="js/Functions.js"></script>
     <script type="text/javascript" src="ux/desktop/js/Desktop.js"></script>
+    <script type="text/javascript" src="js/entities/DiaryEntity.js"></script>
     <script type="text/javascript" src="js/modules/Modules.js"></script>
     <script type="text/javascript" src="js/modules/master_tables/MasterTables.js"></script>
     <script type="text/javascript" src="js/modules/diary/Diary.js"></script>

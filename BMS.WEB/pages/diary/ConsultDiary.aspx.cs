@@ -24,41 +24,17 @@ namespace BMS.WEB.pages.diary
         public static JavaScriptSerializer serialize = new JavaScriptSerializer();
 
         [System.Web.Services.WebMethod]
-        public static string Save(string DiaryProperties)
+        public static string List(string start, string limit)
         {
             MessageResponse msg = new MessageResponse();
 
             try
             {
-                Diary diary = serialize.Deserialize<Diary>(DiaryProperties);
-                
-                diary.DateCreateRegistration = System.DateTime.Now;
-                diary.DateModifyRegistration = System.DateTime.Now;
-                diary.Id_User = 1;
-                diary.HourDiary = System.DateTime.Now.ToString();
-
-                if(diary.Id_Visitor == null)
-                {
-                    TMA.MODEL.Entity.Person person = new TMA.MODEL.Entity.Person();
-                    person.Name = "";
-                }
-
-                diary.State = "State";
-
-                if (diary.Id_Diary == null)
-                {
-                    DiarysDao.save(diary);
-                }
-                else
-                {
-                    DiarysDao.update(diary);
-                }
-
-                msg.Message = ConfigManager.SaveSuccessMessage;
+                return serialize.Serialize(DiariesDao.findAll());
             }
             catch (Exception ex)
             {
-                msg.Message = ConfigManager.SaveErrorMessage;
+                msg.Message = ConfigManager.ListErrorMessage;
 
                 msg.Error = ex.ToString();
 
@@ -66,17 +42,6 @@ namespace BMS.WEB.pages.diary
             }
 
             return serialize.Serialize(msg);
-        }
-
-        [System.Web.Services.WebMethod]
-        public static string GetEntryType() {
-            return serialize.Serialize(EntryTypesDao.findAll());
-        }
-
-        [System.Web.Services.WebMethod]
-        public static string GetState()
-        {
-            return serialize.Serialize(StatesDao.findAll());
         }
     }
 }

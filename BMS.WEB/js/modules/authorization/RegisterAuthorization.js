@@ -278,6 +278,7 @@
         buttons: [
 			{
 			    text: 'Guardar',
+				iconCls: 'save',
 			    handler: function() {
 			        //Ext.Msg.confirm('Impresi&oacute;n Autorizaci&oacute;n', '¿Desea realizar la impresión del tiquete?');
 

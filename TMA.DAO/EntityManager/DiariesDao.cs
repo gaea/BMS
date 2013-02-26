@@ -8,7 +8,7 @@ using NHibernate.Criterion;
 
 namespace TMA.DAO.EntityManager
 {
-    public class DiarysDao : Dao
+    public class DiariesDao : Dao
     {
         public static List<Diary> findBy(string field, int Id_Diary)
         {

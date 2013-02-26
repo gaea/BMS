@@ -89,7 +89,6 @@
             var sm = tree.getSelectionModel();
             sm.on('beforeselect', function(sm, node) { return node.isLeaf(); });
             sm.on('selectionchange', function(sm, node) {
-                objectProperties(node[0].data);
                 if (Ext.getCmp(node[0].data.id) != null ) { Ext.getCmp(node[0].data.id).show(); }
                 else { add_master_panel(node[0].data); }
             });

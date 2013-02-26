@@ -49,11 +49,11 @@ namespace BMS.WEB.pages.authorization
 
                 if (diary.Id_Diary == null)
                 {
-                    DiarysDao.save(diary);
+                    DiariesDao.save(diary);
                 }
                 else
                 {
-                    DiarysDao.update(diary);
+                    DiariesDao.update(diary);
                 }
 
                 msg.Message = ConfigManager.SaveSuccessMessage;
