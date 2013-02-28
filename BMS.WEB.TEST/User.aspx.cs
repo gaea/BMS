@@ -17,8 +17,9 @@ using TMA.MODEL.Entity;
 using TMA.DAO.EntityManager;
 using System.IO;
 using BMS.CONFIGURATION;
+using BMS.WEB.Test;
 
-namespace BMS.WEB.pages
+namespace BMS.WEB.Test
 {
     public partial class User : System.Web.UI.Page
     {

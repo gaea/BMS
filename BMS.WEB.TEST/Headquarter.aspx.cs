@@ -17,6 +17,7 @@ using TMA.MODEL.Entity;
 using TMA.DAO.EntityManager;
 using System.IO;
 using BMS.CONFIGURATION;
+using BMS.WEB.Test;
 
 namespace BMS.WEB.pages
 {

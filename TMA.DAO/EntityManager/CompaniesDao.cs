@@ -8,47 +8,40 @@ using NHibernate;
 
 namespace TMA.DAO.EntityManager
 {
-    public class PersonsDao : Dao
+    public class CompaniesDao : Dao
     {
-        public static List<Person> findBy(string field, float Id_Person)
+        public static List<Company> findBy(string field, int val)
         {
-            List<Person> person = (List<Person>)Session.CreateCriteria<Person>()
-                .Add(Restrictions.Eq(field, Id_Person))
-                .List<Person>();
+            List<Company> company = (List<Company>)Session.CreateCriteria<Company>()
+                .Add(Restrictions.Eq(field, val))
+                .List<Company>();
 
-            return person;
+            return company;
         }
 
-        public static Person find(float Id_Person)
+        public static Company find(int Id_Third)
         {
-            Person person = (Person)Session.CreateCriteria<Person>()
-                .Add(Restrictions.Eq("Id_Person", Id_Person))
+            Company company = (Company)Session.CreateCriteria<Company>()
+                .Add(Restrictions.Eq("Id_Third", Id_Third))
                 .UniqueResult();
 
-            return person;
+            return company;
         }
 
-        public static List<Person> findByAll()
+        public static List<Company> findAll()
         {
-            IList<Person> iPerson = Session.CreateCriteria<Person>().List<Person>();
+            IList<Company> iCompany = Session.CreateCriteria<Company>().List<Company>();
 
-            return (iPerson != null) ? new List<Person>(iPerson) : new List<Person>();
+            return (iCompany != null) ? new List<Company>(iCompany) : new List<Company>();
         }
 
-        public static List<Person> findAll()
-        {
-            IList<Person> iPerson = Session.CreateCriteria<Person>().List<Person>();
-
-            return (iPerson != null) ? new List<Person>(iPerson) : new List<Person>();
-        }
-
-        public static void save(Person person)
+        public static void save(Company company)
         {
             using (ITransaction transaction = Session.BeginTransaction())
             {
                 try
                 {
-                    Session.Save(person);
+                    Session.Save(company);
 
                     transaction.Commit();
 
@@ -57,12 +50,12 @@ namespace TMA.DAO.EntityManager
                 catch (Exception exception)
                 {
                     transaction.Rollback();
-                        throw exception;
+                    throw exception;
                 }
             }
         }
 
-        public static void update(Person person)
+        public static void update(Company company)
         {
             using (ITransaction transaction = Session.BeginTransaction())
             {
@@ -70,10 +63,10 @@ namespace TMA.DAO.EntityManager
                 {
                     Session.Clear();
 
-                    Session.Update(person);
+                    Session.Update(company);
 
                     transaction.Commit();
-                    
+
                     Session.Flush();
                 }
                 catch (Exception exception)
@@ -84,13 +77,13 @@ namespace TMA.DAO.EntityManager
             }
         }
 
-        public static void delete(Person person)
+        public static void delete(Company company)
         {
             using (ITransaction transaction = Session.BeginTransaction())
             {
                 try
                 {
-                    Session.Delete(person);
+                    Session.Delete(company);
 
                     transaction.Commit();
 
@@ -103,5 +96,6 @@ namespace TMA.DAO.EntityManager
                 }
             }
         }
+
     }
 }

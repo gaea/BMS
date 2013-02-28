@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="TMA.MODEL"
+                   namespace="TMA.MODEL.Entity">
+
+	<class name="Company" table="dbo.Tbl_Empresa">
+		<property name="Id_Third" column="Id_Tercero" type="int" />
+		<property name="Id_Subsidiary" column="Departamento" type="int" />
+		<property name="Name" column="NombreEmresa" type="string" />
+	</class>
+
+</hibernate-mapping>

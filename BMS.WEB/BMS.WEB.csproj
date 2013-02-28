@@ -145,6 +145,20 @@
     <Compile Include="pages\master_tables\User.aspx.designer.cs">
       <DependentUpon>User.aspx</DependentUpon>
     </Compile>
+    <Compile Include="pages\person\ConsultPerson.aspx.cs">
+      <DependentUpon>ConsultPerson.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\person\ConsultPerson.aspx.designer.cs">
+      <DependentUpon>ConsultPerson.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\person\RegisterPerson.aspx.cs">
+      <DependentUpon>RegisterPerson.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\person\RegisterPerson.aspx.designer.cs">
+      <DependentUpon>RegisterPerson.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -166,6 +180,8 @@
     <Content Include="js\modules\master_tables\Profile.js" />
     <Content Include="js\modules\master_tables\User.js" />
     <Content Include="js\modules\diary\Diary.js" />
+    <Content Include="js\modules\person\ConsultPerson.js" />
+    <Content Include="js\modules\person\RegisterPerson.js" />
     <Content Include="pages\authorization\ConsultAuthorization.aspx" />
     <Content Include="pages\diary\ConsultDiary.aspx" />
     <Content Include="pages\diary\RegisterDiary.aspx" />
@@ -177,6 +193,8 @@
     <Content Include="pages\master_tables\Person.aspx" />
     <Content Include="pages\master_tables\Profile.aspx" />
     <Content Include="pages\master_tables\User.aspx" />
+    <Content Include="pages\person\ConsultPerson.aspx" />
+    <Content Include="pages\person\RegisterPerson.aspx" />
     <Content Include="resources\SpringContext.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
