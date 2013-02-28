@@ -28,6 +28,13 @@ namespace TMA.DAO.EntityManager
             return person;
         }
 
+        public static List<Person> findByAll()
+        {
+            IList<Person> iHeadquarter = Session.CreateCriteria<Person>().List<Person>();
+
+            return (iHeadquarter != null) ? new List<Person>(iHeadquarter) : new List<Person>();
+        }
+
         public static List<Person> findAll()
         {
             IList<Person> iHeadquarter = Session.CreateCriteria<Person>().List<Person>();
