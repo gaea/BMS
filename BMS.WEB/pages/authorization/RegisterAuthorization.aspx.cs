@@ -39,7 +39,7 @@ namespace BMS.WEB.pages.authorization
                 //diary.Id_UserCreateRegistration = "1";
                 //diary.Id_UserModifyRegistration = "1";
 
-                if(diary.Id_Visitor == null)
+                if(diary.Id_Visitor == 0)
                 {
                     TMA.MODEL.Entity.Person person = new TMA.MODEL.Entity.Person();
                     person.Name = "";

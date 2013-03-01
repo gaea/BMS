@@ -27,36 +27,87 @@
         this.DateValidityARP = null
     };
 
-    var persona_empresa_store = new Ext.data.Store({
-        fields: [
-            { name: 'Id_Company' },
-            { name: 'CompanyName' }
-        ],
-        data: []
-    });
-
     var persona_empresa_combo = Ext.create('Ext.form.field.ComboBox', {
         mode: 'local',
         triggerAction: 'all',
-        anchor: '100%',
-        fieldLabel: 'Autorizado por',
+        anchor: '50%',
+        fieldLabel: 'Empresa',
         forceSelection: true,
         name: 'Id_Company',
         displayField: 'CompanyName',
         valueField: 'Id_Company',
         queryMode: 'local',
         typeAhead: true,
-        store: persona_empresa_store,
+        store: {
+            fields: [
+                { name: 'Id_Company' },
+                { name: 'CompanyName' }
+            ],
+            data: []
+        },
         listeners: {
             select: function(combo, arrRec, obj) { }
         }
     });
 
-    loadCombo(AspPage, 'GetCompany', "{'start':0,'limit':0}", persona_empresa_store, persona_empresa_combo);
+    loadCombo(AspPage, 'GetCompany', "{'start':0,'limit':0}", persona_empresa_combo.getStore(), persona_empresa_combo);
+
+    var persona_ciudad_combo = Ext.create('Ext.form.field.ComboBox', {
+        mode: 'local',
+        triggerAction: 'all',
+        //allowBlank: false,
+        anchor: '50%',
+        fieldLabel: 'Ciudad',
+        forceSelection: true,
+        name: 'Id_City',
+        displayField: 'Name',
+        valueField: 'Id_City',
+        queryMode: 'local',
+        typeAhead: true,
+        store: {
+            fields: [
+                { name: 'Id_City' },
+                { name: 'Name' },
+                { name: 'Id_Department' }
+            ],
+            data: []
+        },
+        listeners: {
+            select: function(combo, arrRec, obj) { }
+        }
+    });
+
+    loadCombo(AspPage, 'GetCity', "{'start':0,'limit':0}", persona_ciudad_combo.getStore(), persona_ciudad_combo);
+
+    var persona_departamento_combo = Ext.create('Ext.form.field.ComboBox', {
+        mode: 'local',
+        triggerAction: 'all',
+        anchor: '50%',
+        fieldLabel: 'Departamento',
+        forceSelection: true,
+        name: 'Id_Department',
+        displayField: 'Name',
+        valueField: 'Id_Department',
+        queryMode: 'local',
+        typeAhead: true,
+        store: {
+            fields: [
+                { name: 'Id_Department' },
+                { name: 'Name' }
+            ],
+            data: []
+        },
+        listeners: {
+            select: function(combo, arrRec, obj) { }
+        }
+    });
+
+    loadCombo(AspPage, 'GetDepartment', "{'start':0,'limit':0}", persona_departamento_combo.getStore(), persona_departamento_combo);
 
     var forma = new Ext.form.Panel({
         frame: false,
         border: false,
+        autoScroll:true,
         width: Ext.getBody().getViewSize().width,
         height: Ext.getBody().getViewSize().height,
         monitorResize: true,
@@ -67,10 +118,9 @@
         items: [
 			{
 			    xtype: 'fieldset',
-			    title: 'Datos para la Autorizaci&oacute;n',
+			    title: 'Informaci&oacute;n Personal',
 			    columnWidth: 1,
 			    layout: 'column',
-			    //height: Ext.getBody().getViewSize().height - 500,
 			    items: [
 					{
 					    xtype: 'fieldset',
@@ -79,76 +129,83 @@
 					    columnWidth: 0.75,
 					    items: [
 							{
-							    xtype: 'fieldcontainer',
-							    fieldLabel: 'Fecha de ingreso',
-							    layout: 'hbox',
-							    defaults: {
-							        hideLabel: true
-							    },
-							    items: [
-									{
-									    xtype: 'datefield',
-									    dateFormat: 'd/m/Y',
-									    submitFormat: 'd/m/Y',
-									    name: 'InitialDate',
-									    width: 130
-                                    },
-									{
-									    xtype: 'timefield',
-									    name: 'InitialHour',
-									    dateFormat: 'H:i:s',
-									    submitFormat: 'H:i:s',
-									    width: 130
-									}
-								]
+							    xtype: 'textfield',
+							    fieldLabel: 'Nombre',
+							    anchor: '100%',
+							    name:'Name',
+							    allowBlank: false
 							},
-					    {
-					        xtype: 'fieldcontainer',
-					        fieldLabel: 'Fecha de salida',
-					        layout: 'hbox',
-					        defaults: {
-					        hideLabel: true
-					        },
-					        items: [
-					            {
-					                xtype: 'datefield',
-					                dateFormat: 'd/m/Y',
-					                submitFormat: 'd/m/Y',
-					                name: 'FinalDate',
-					                width: 130
-					            },
-					            {
-					                xtype: 'timefield',
-					                name: 'FinalHour',
-					                dateFormat: 'H:i:s',
-					                submitFormat: 'H:i:s',
-					                width: 130
-					            }
-					        ]
-					        },
-							    {
+							{
+							    xtype: 'textfield',
+							    fieldLabel: 'Apellidos',
+							    anchor: '100%',
+							    name: 'LastName',
+							    allowBlank: false
+							},
+				            {
+				                xtype: 'datefield',
+				                fieldLabel: 'Fecha de Nacimiento',
+				                name: 'Birthday',
+				                dateFormat: 'd/m/Y',
+				                submitFormat: 'd/m/Y',
+				                allowBlank: false
+				            },
+					            persona_empresa_combo,
+					            persona_departamento_combo,
+					            persona_ciudad_combo,
+							{
 							    xtype: 'textfield',
 							    anchor: '100%',
-							    fieldLabel: 'Equipos',
-							    name: 'ElementsToGetIn'
+							    fieldLabel: 'Direcci&oacute;n',
+							    name: 'Address'
                             },
 							{
-							    xtype: 'textarea',
-							    anchor: '100%',
-							    fieldLabel: 'Motivo',
-							    height: 50,
-							    name: '123'
+							    xtype: 'textfield',
+							    fieldLabel: 'Telefono',
+							    name: 'TelephoneNumber'
+							},
+							{
+							    xtype: 'textfield',
+							    fieldLabel: 'Celular',
+							    name: 'CelphoneNumber'
+			                },
+							{
+							    xtype: 'textfield',
+							    fieldLabel: 'Fax',
+							    name: 'FaxNumber'
+							},
+							{
+							    xtype: 'textfield',
+							    fieldLabel: 'E-mail',
+							    name: 'Email'
 							},
 							{
 							    xtype: 'radiogroup',
-							    fieldLabel: 'ARP Vigente',
+							    fieldLabel: 'Activo?',
 							    vertical: true,
 							    width: 200,
 							    items: [
-									{ boxLabel: 'Si', name: 'rb', inputValue: '1', checked: true },
-									{ boxLabel: 'No', name: 'rb', inputValue: '0' }
+									{ boxLabel: 'Si', name: 'IsActive', inputValue: '1', checked: true },
+									{ boxLabel: 'No', name: 'IsActive', inputValue: '0' }
 								]
-							}
+					        },
+							{
+							    xtype: 'radiogroup',
+							    fieldLabel: 'Es contratista?',
+							    vertical: true,
+							    width: 200,
+							    items: [
+									{ boxLabel: 'Si', name: 'Contractor', inputValue: '1', checked: true },
+									{ boxLabel: 'No', name: 'Contractor', inputValue: '0' }
+								]
+					        }, //DateValidityARP
+					        {
+					            xtype: 'datefield',
+					            fieldLabel: 'Fecha de Vigencia de ARP',
+					            name: 'DateValidityARP',
+					            dateFormat: 'd/m/Y',
+					            submitFormat: 'd/m/Y'
+					        }
 						]
 					},
 					{
@@ -162,6 +219,15 @@
 							    width: 120,
 							    height: 120,
 							    html: '<img src="../../images/user.png" height="110" width="110" />'
+							},
+                            {
+                                xtype: 'filefield',
+                                name: 'Photo',
+                                width: 120,
+                                fieldLabel: 'Foto',
+                                labelWidth: 30,
+                                msgTarget: 'side',
+                                buttonText: '...'
                             }
 						]
 					}
@@ -175,7 +241,7 @@
 			    items: [
 					{
 					    xtype: 'textarea',
-					    name: 'VisitDescription',
+					    name: 'Observations',
 					    anchor: '100%'
 					}
 				]
@@ -190,8 +256,8 @@
 			        
 			        saveData(
 			            AspPage,
-			            'SaveVisit',
-			            'VisitProperties',
+			            'Save',
+			            'UserProperties',
 			            submitFields,
 			            function(data) {
 			                //loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);

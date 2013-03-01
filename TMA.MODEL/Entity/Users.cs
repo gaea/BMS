@@ -121,5 +121,25 @@ namespace TMA.MODEL.Entity
         }
 
         #endregion Properties
+    
+        #region methods
+        public string ToString() 
+        {
+            string strUser = string.Empty;
+
+            strUser += "Id_User: " + this.Id_User + System.Environment.NewLine;
+            strUser += "Name: " + this.Name + System.Environment.NewLine;
+            strUser += "DocumentNumber: " + this.DocumentNumber + System.Environment.NewLine;
+            strUser += "Login: " + this.Login + System.Environment.NewLine;
+            strUser += "Password: " + this.Password + System.Environment.NewLine;
+            strUser += "Address: " + this.Address + System.Environment.NewLine;
+            strUser += "EmailAddress: " + this.EmailAddress + System.Environment.NewLine;
+            strUser += "TelephoneNumber: " + this.TelephoneNumber + System.Environment.NewLine;
+            //strUser += "UserCreateRegistration: " + this.UserCreateRegistration.ToString() + System.Environment.NewLine;
+            //strUser += "UserModifyRegistration: " + this.UserModifyRegistration.ToString() + System.Environment.NewLine;
+
+            return strUser;
+        }
+        #endregion
     }
 }

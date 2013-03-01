@@ -26,24 +26,46 @@ namespace TMA.DAO.TEST
             
             #region Crear Registro Usuario
 
-            Test(TypeTest.City);
+            List<Users> users = UsersDao.findAll();
 
-            //if (user == null)
-            //{
-            //    user = new TMA.MODEL.Entity.Users()
-            //    {
-            //        Id_User = 2,
-            //        IsActive = true,
-            //        Id_Role = 1,
-            //        DocumentType = 1,
-            //        DateCreateRegistration = System.DateTime.Now,
-            //        DateModifyRegistration = System.DateTime.Now,
-            //        Name = "Agus",
-            //        Login = "agus"
-            //    };
+            foreach(Users uniqueuser in users)
+            {
+                System.Console.WriteLine(uniqueuser.ToString());
+            }
 
-            //    TMA.DAO.EntityManager.UsersDao.save(user);
-            //}
+            Users user = UsersDao.findBy("Name", "Agustin Barona");
+
+            if (user == null)
+            {
+                user = new Users()
+                {
+                    IsActive = true,
+                    Id_Role = 1,
+                    DocumentType = 1,
+                    DocumentNumber = 1130876428,
+                    DateCreateRegistration = System.DateTime.Now,
+                    DateModifyRegistration = System.DateTime.Now,
+                    Name = "Agustin Barona",
+                    Login = "agus",
+                    Password = "AgusPass",
+                    Address = "Calle falsa # 123",
+                    TelephoneNumber = "3303030",
+                    EmailAddress = "agus@gmail.com"
+                };
+
+                UsersDao.save(user);
+            }
+            else
+            {
+                user.EmailAddress = "cambiocorreo@gmail.com";
+
+                UsersDao.update(user);
+            }
+
+            foreach (Users uniqueuser in users)
+            {
+                System.Console.WriteLine(uniqueuser.ToString());
+            }
 
             //if (head == null)
             //{
@@ -56,6 +78,8 @@ namespace TMA.DAO.TEST
             //    profile = new TMA.MODEL.Entity.Profile() { Id_Profile = 4, Description = "Administrador", DateCreateRegistration = DateTime.Now, Id_User = 1, DateModifyRegistration = DateTime.Now, Id_UserModifyRegistration = 1 };
             //    TMA.DAO.EntityManager.ProfilesDao.save(profile);
             //}
+
+            //Test(TypeTest.City);
 
             #endregion Crear Registro Usuario
 

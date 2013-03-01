@@ -20,6 +20,15 @@ namespace TMA.DAO.EntityManager
             return users;
         }
 
+        public static Users findBy(string field, string val)
+        {
+            Users users = (Users)Session.CreateCriteria<Users>()
+                .Add(Restrictions.Eq(field, val))
+                .UniqueResult();
+
+            return users;
+        }
+
         public static Users find(int Id_User)
         {
             Users user = (Users)Session.CreateCriteria<Users>()
@@ -42,6 +51,9 @@ namespace TMA.DAO.EntityManager
             {
                 try
                 {
+                    user.DateCreateRegistration = System.DateTime.Now;
+                    user.DateModifyRegistration = System.DateTime.Now;
+
                     Session.Save(user);
 
                     transaction.Commit();
@@ -61,6 +73,7 @@ namespace TMA.DAO.EntityManager
             {
                 try
                 {
+                    user.DateModifyRegistration = System.DateTime.Now;
                     //Session.Evict(user);
                     //Session.Merge(user);
                     Session.Clear();
