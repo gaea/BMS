@@ -33,15 +33,15 @@
         anchor: '50%',
         fieldLabel: 'Empresa',
         forceSelection: true,
-        name: 'Id_Company',
-        displayField: 'CompanyName',
-        valueField: 'Id_Company',
+        name: 'Id_Third',
+        displayField: 'Name',
+        valueField: 'Id_Third',
         queryMode: 'local',
         typeAhead: true,
         store: {
             fields: [
-                { name: 'Id_Company' },
-                { name: 'CompanyName' }
+                { name: 'Id_Third' },
+                { name: 'Name' }
             ],
             data: []
         },
@@ -107,7 +107,8 @@
     var forma = new Ext.form.Panel({
         frame: false,
         border: false,
-        autoScroll:true,
+        autoScroll: true,
+        hidden: true,
         width: Ext.getBody().getViewSize().width,
         height: Ext.getBody().getViewSize().height,
         monitorResize: true,
@@ -115,6 +116,7 @@
         layout: 'column',
         columnWidth: 0.5,
         columns: 2,
+        fileUpload: true,
         items: [
 			{
 			    xtype: 'fieldset',
@@ -132,7 +134,7 @@
 							    xtype: 'textfield',
 							    fieldLabel: 'Nombre',
 							    anchor: '100%',
-							    name:'Name',
+							    name: 'Name',
 							    allowBlank: false
 							},
 							{
@@ -158,19 +160,19 @@
 							    anchor: '100%',
 							    fieldLabel: 'Direcci&oacute;n',
 							    name: 'Address'
-                            },
+							},
 							{
-							    xtype: 'textfield',
+							    xtype: 'numberfield',
 							    fieldLabel: 'Telefono',
 							    name: 'TelephoneNumber'
 							},
 							{
-							    xtype: 'textfield',
+							    xtype: 'numberfield',
 							    fieldLabel: 'Celular',
 							    name: 'CelphoneNumber'
-			                },
+							},
 							{
-							    xtype: 'textfield',
+							    xtype: 'numberfield',
 							    fieldLabel: 'Fax',
 							    name: 'FaxNumber'
 							},
@@ -185,10 +187,10 @@
 							    vertical: true,
 							    width: 200,
 							    items: [
-									{ boxLabel: 'Si', name: 'IsActive', inputValue: '1', checked: true },
-									{ boxLabel: 'No', name: 'IsActive', inputValue: '0' }
+									{ boxLabel: 'Si', name: 'IsActive', inputValue: true, checked: true },
+									{ boxLabel: 'No', name: 'IsActive', inputValue: false }
 								]
-					        },
+							},
 							{
 							    xtype: 'radiogroup',
 							    fieldLabel: 'Es contratista?',
@@ -198,7 +200,7 @@
 									{ boxLabel: 'Si', name: 'Contractor', inputValue: '1', checked: true },
 									{ boxLabel: 'No', name: 'Contractor', inputValue: '0' }
 								]
-					        }, //DateValidityARP
+							},
 					        {
 					            xtype: 'datefield',
 					            fieldLabel: 'Fecha de Vigencia de ARP',
@@ -250,26 +252,162 @@
         buttons: [
 			{
 			    text: 'Guardar',
-				iconCls: 'save',
+			    iconCls: 'save',
 			    handler: function() {
 			        var submitFields = forma.getForm().getValues();
-			        
+
 			        saveData(
 			            AspPage,
 			            'Save',
 			            'UserProperties',
 			            submitFields,
 			            function(data) {
-			                //loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+		                    forma.getForm().reset();
+		                    forma.hide();
+		                    MasterGrid.show();
 			            },
-			        null
+			            null
 			        );
 			    }
 			},
 			{
-			    text: 'Cancelar'
+			    text: 'Cancelar',
+			    iconCls: 'cancel',
+			    handler: function() {
+			        forma.getForm().reset();
+			        forma.hide();
+			        MasterGrid.show();
+			    }
 			}
 		],
+        renderTo: Ext.getBody()
+    });
+
+    var master_buscar_array = [
+        ['Name', 'Nombre'],
+        ['LastName', 'Apellidos'],
+        ['Email', 'Email']/*,
+        ['todos', 'Todos']*/
+    ];
+
+    var master_buscar_store = new Ext.data.ArrayStore({
+        fields: ['campo', 'display_campo'],
+        data: master_buscar_array
+    });
+
+    var master_buscar_combo = new Ext.form.ComboBox({
+        store: master_buscar_store,
+        hiddenName: 'campo',
+        valueField: 'campo',
+        displayField: 'display_campo',
+        typeAhead: true,
+        width: 150,
+        mode: 'local',
+        forceSelection: true,
+        triggerAction: 'all',
+        emptyText: 'Seleccione un campo',
+        selectOnFocus: true
+    });
+
+    var MasterGrid = new Ext.grid.GridPanel({
+        frame: false,
+        border: true,
+        width: Ext.getBody().getViewSize().width,
+        height: Ext.getBody().getViewSize().height,
+        monitorResize: true,
+        stripeRows: true,
+        columnLines: true,
+        stateful: true,
+        stateId: 'grid',
+        store: ({
+            fields: getProperties(new Person()),
+            data: [{}]
+        }),
+        columns: [
+                { text: 'Identificador', dataIndex: 'Id_Person' },
+                { text: 'Identificador Lector', dataIndex: 'Id_BiometricReader' },
+                { text: 'Empresa', dataIndex: 'Company' },
+                { text: 'Nombre', dataIndex: 'Name' },
+                { text: 'Apellido', dataIndex: 'LastName' },
+                { text: 'Mes Nacimiento', dataIndex: 'BirthdayMonth' },
+                { text: 'D&iacute;a Nacimiento', dataIndex: 'BirthdayDay' },
+                { text: 'Direcci&oacute;n', dataIndex: 'Address' },
+                { text: 'Ciudad', dataIndex: 'City' },
+                { text: 'Tel&eacute;fono', dataIndex: 'TelephoneNumber' },
+                { text: 'Celular', dataIndex: 'CelphoneNumber' },
+                { text: 'Email', dataIndex: 'Email' },
+                { text: 'Activo?', dataIndex: 'IsActive' }
+        ],
+        tbar: [
+            {
+                text: 'Adicionar',
+                iconCls: 'add',
+                handler: function() {
+                    forma.show();
+                    MasterGrid.hide();
+                }
+            }, '-',
+            {
+                text: 'Modificar',
+                iconCls: 'modify',
+                handler: function() {
+                    var records = MasterGrid.getSelectionModel().getSelection();
+                }
+            }, '-',
+            {
+                text: 'Eliminar',
+                iconCls: 'remove',
+                handler: function() {
+                    var records = MasterGrid.getSelectionModel().getSelection();
+                    deleteData(
+                        AspPage,
+                        'Delete',
+                        'Id_Person',
+                        records[0].get('Id_Person'),
+                        function(data) {
+                            loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+                        },
+                        null
+                    );
+                }
+            }, '->',
+            {
+                xtype: 'label',
+                text: 'Busqueda:'
+            },
+                master_buscar_combo,
+            {
+                xtype: 'textfield',
+                id: 'master_buscar_text_id',
+                width: 140,
+                listeners: {
+                    scope: this,
+                    specialkey: function(f, e) {
+                        if (e.getKey() == e.ENTER) {
+                            loadData(AspPage, 'Find', "{'field':'" + master_buscar_combo.getValue() + "','value':'" + Ext.getCmp('master_buscar_text_id').getValue() + "'}", MasterGrid.getStore(), null, null);
+                        }
+                    }
+                }
+            },
+            {
+                text: 'Buscar',
+                iconCls: 'search',
+                handler: function() {
+                loadData(AspPage, 'Find', "{'field':'" + master_buscar_combo.getValue() + "','value':'" + Ext.getCmp('master_buscar_text_id').getValue() + "'}", MasterGrid.getStore(), null, null);
+                }
+            }
+        ]
+    });
+
+    loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+
+    var masterForm = new Ext.Panel({
+        width: Ext.getBody().getViewSize().width,
+        height: Ext.getBody().getViewSize().height,
+        items: [
+            forma,
+            MasterGrid
+        ],
         renderTo: Ext.getBody()
     });
 });

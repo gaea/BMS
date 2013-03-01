@@ -1,4 +1,10 @@
-﻿.add {
+﻿.cancel {
+    background-image: url( ../images/icons/cancelar.png ) !important;
+}
+.search {
+    background-image: url( ../images/icons/search.png ) !important;
+}
+.add {
     background-image: url( ../images/icons/add.png ) !important;
 }
 .remove {

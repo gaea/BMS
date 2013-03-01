@@ -19,6 +19,15 @@ namespace TMA.DAO.EntityManager
             return person;
         }
 
+        public static List<Person> findBy(string field, string value)
+        {
+            List<Person> person = (List<Person>)Session.CreateCriteria<Person>()
+                .Add(Restrictions.Eq(field, value))
+                .List<Person>();
+
+            return person;
+        }
+
         public static Person find(float Id_Person)
         {
             Person person = (Person)Session.CreateCriteria<Person>()

@@ -23,6 +23,9 @@ namespace TMA.DAO.TEST
 
         static void Main(string[] args)
         {
+
+            List<Company> companies = CompaniesDao.findAll();
+
             
             #region Crear Registro Usuario
 

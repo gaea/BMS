@@ -5,8 +5,8 @@
 
 	<class name="Company" table="dbo.Tbl_Empresa">
     <id name="Id_Third" column="Id_Tercero" type="int"></id>
-		<property name="Id_Subsidiary" column="Departamento" type="int" />
-		<property name="Name" column="NombreEmresa" type="string" />
+		<property name="Id_Subsidiary" column="Sucursal" type="int" />
+		<property name="Name" column="NombreEmpresa" type="string" />
 	</class>
 
 </hibernate-mapping>
