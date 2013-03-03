@@ -24,7 +24,42 @@ namespace BMS.WEB.pages.person
     {
         public static JavaScriptSerializer serialize = new JavaScriptSerializer();
 
-        [System.Web.Services.WebMethod]
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!Page.IsPostBack)
+            {
+                string accion = Request.Params["accion"];
+                if (!string.IsNullOrEmpty(accion))
+                {
+                    switch (accion)
+                    {
+                        case "List":
+                            Response.Write("({success: true, data:" + RegisterPerson.List("", "") + "})");
+                            break;
+                        case "Save":
+                            Response.Write("({success: true, data:" + RegisterPerson.Save(Request.Params["objProperties"]) + "})");
+                            break;
+                        case "Delete":
+                            Response.Write("({success: true, data:" + RegisterPerson.Delete(Request.Params["objProperties"]) + "})");
+                            break;
+                        case "GetCompany":
+                            Response.Write("({success: true, data:" + RegisterPerson.GetCompany() + "})");
+                            break;
+                        case "GetCity":
+                            Response.Write("({success: true, data:" + RegisterPerson.GetCity() + "})");
+                            break;
+                        case "GetDepartment":
+                            Response.Write("({success: true, data:" + RegisterPerson.GetDepartment() + "})");
+                            break;
+                        default:
+                            return;
+                    }
+
+                    Response.End();
+                }
+            }
+        }
+
         public static string Save(string UserProperties)
         {
             MessageResponse msg = new MessageResponse();
@@ -69,7 +104,6 @@ namespace BMS.WEB.pages.person
             return serialize.Serialize(msg);
         }
 
-        [System.Web.Services.WebMethod]
         public static string Find(string field, string value)
         {
             MessageResponse msg = new MessageResponse();
@@ -91,7 +125,6 @@ namespace BMS.WEB.pages.person
 
         }
 
-        [System.Web.Services.WebMethod]
         public static string List(string start, string limit)
         {
             MessageResponse msg = new MessageResponse();
@@ -113,7 +146,6 @@ namespace BMS.WEB.pages.person
 
         }
 
-        [System.Web.Services.WebMethod]
         public static string Delete(string Id_Person)
         {
             MessageResponse msg = new MessageResponse();
@@ -138,19 +170,16 @@ namespace BMS.WEB.pages.person
             return serialize.Serialize(msg);
         }
 
-        [System.Web.Services.WebMethod]
         public static string GetCompany()
         {
             return serialize.Serialize(CompaniesDao.findAll());
         }
 
-        [System.Web.Services.WebMethod]
         public static string GetCity()
         {
             return serialize.Serialize(CitiesDao.findAll());
         }
 
-        [System.Web.Services.WebMethod]
         public static string GetDepartment()
         {
             return serialize.Serialize(DepartmentsDao.findAll());
