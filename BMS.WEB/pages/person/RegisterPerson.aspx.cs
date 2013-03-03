@@ -36,6 +36,9 @@ namespace BMS.WEB.pages.person
                         case "List":
                             Response.Write("({success: true, data:" + this.List("", "") + "})");
                             break;
+                        case "Find":
+                            Response.Write("({success: true, data:" + this.Find(Request.Params["objProperties"]) + "})");
+                            break;
                         case "Save":
                             Response.Write("({success: true, data:" + this.Save(Request.Params["objProperties"]) + "})");
                             break;
@@ -60,13 +63,13 @@ namespace BMS.WEB.pages.person
             }
         }
 
-        public string Save(string UserProperties)
+        public string Save(string objProperties)
         {
             MessageResponse msg = new MessageResponse();
 
             try
             {
-                Dictionary<string, string> dicProperties = JsonConvert.DeserializeObject<Dictionary<string, string>>(UserProperties);
+                Dictionary<string, string> dicProperties = JsonConvert.DeserializeObject<Dictionary<string, string>>(objProperties);
 
                 TMA.MODEL.Entity.Person person = new TMA.MODEL.Entity.Person();
 
@@ -104,13 +107,15 @@ namespace BMS.WEB.pages.person
             return serialize.Serialize(msg);
         }
 
-        public string Find(string field, string value)
+        public string Find(string objProperties)
         {
             MessageResponse msg = new MessageResponse();
 
+            Dictionary<string, string> dicProperties = JsonConvert.DeserializeObject<Dictionary<string, string>>(objProperties);
+
             try
             {
-                return serialize.Serialize(PersonsDao.findBy(field, value));
+                return serialize.Serialize(PersonsDao.findBy(dicProperties["field"], dicProperties["value"]));
             }
             catch (Exception ex)
             {

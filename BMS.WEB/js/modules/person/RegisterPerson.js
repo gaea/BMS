@@ -151,7 +151,7 @@
 				                dateFormat: 'd/m/Y',
 				                submitFormat: 'd/m/Y',
 				                allowBlank: false,
-								value: new Date()
+				                value: new Date()
 				            },
 					            persona_empresa_combo,
 					            persona_departamento_combo,
@@ -166,32 +166,32 @@
 							    xtype: 'numberfield',
 							    fieldLabel: 'Telefono',
 							    name: 'TelephoneNumber',
-								regex: /^\d{7}$/i,
-								maskRe: /\d/i,
-								regexText: "El n&uacute;mero de tel&eacute;lefono es inv&aacute;lido, el valor debe ser num&eacute;rico de 7 d&iacute;gitos."
+							    regex: /^\d{7}$/i,
+							    maskRe: /\d/i,
+							    regexText: "El n&uacute;mero de tel&eacute;lefono es inv&aacute;lido, el valor debe ser num&eacute;rico de 7 d&iacute;gitos."
 							},
 							{
 							    xtype: 'numberfield',
 							    fieldLabel: 'Celular',
 							    name: 'CelphoneNumber',
-								regex: /^\d{10}$/i,
-								maskRe: /\d/i,
-								regexText: "El n&uacute;mero de celular es inv&aacute;lido, el valor debe ser num&eacute;rico de 10 d&iacute;gitos."
+							    regex: /^\d{10}$/i,
+							    maskRe: /\d/i,
+							    regexText: "El n&uacute;mero de celular es inv&aacute;lido, el valor debe ser num&eacute;rico de 10 d&iacute;gitos."
 							},
 							{
 							    xtype: 'numberfield',
 							    fieldLabel: 'Fax',
 							    name: 'FaxNumber',
-								regex: /^\d{7}$/i,
-								maskRe: /\d/i,
-								regexText: "El n&uacute;mero de fax es inv&aacute;lido, el valor debe ser num&eacute;rico de 7 d&iacute;gitos."
+							    regex: /^\d{7}$/i,
+							    maskRe: /\d/i,
+							    regexText: "El n&uacute;mero de fax es inv&aacute;lido, el valor debe ser num&eacute;rico de 7 d&iacute;gitos."
 							},
 							{
 							    xtype: 'textfield',
 							    fieldLabel: 'E-mail',
 							    name: 'Email',
-								regex: /^([\w\-\'\-]+)(\.[\w-\'\-]+)*@([\w\-]+\.){1,5}([A-Za-z]){2,4}$/,
-								regexText: "El email es inv&aacute;lido, debe tener la estructura user@domain.com."
+							    regex: /^([\w\-\'\-]+)(\.[\w-\'\-]+)*@([\w\-]+\.){1,5}([A-Za-z]){2,4}$/,
+							    regexText: "El email es inv&aacute;lido, debe tener la estructura user@domain.com."
 							},
 							{
 							    xtype: 'radiogroup',
@@ -219,7 +219,7 @@
 					            name: 'DateValidityARP',
 					            dateFormat: 'd/m/Y',
 					            submitFormat: 'd/m/Y',
-								value: new Date()
+					            value: new Date()
 					        }
 						]
 					},
@@ -278,6 +278,7 @@
 			                forma.getForm().reset();
 			                forma.hide();
 			                MasterGrid.show();
+			                loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
 			            },
 			            null
 			        );
@@ -299,8 +300,7 @@
     var master_buscar_array = [
         ['Name', 'Nombre'],
         ['LastName', 'Apellidos'],
-        ['Email', 'Email']/*,
-        ['todos', 'Todos']*/
+        ['Email', 'Email']
     ];
 
     var master_buscar_store = new Ext.data.ArrayStore({
@@ -365,6 +365,10 @@
                 iconCls: 'modify',
                 handler: function() {
                     var records = MasterGrid.getSelectionModel().getSelection();
+
+                    forma.getForm().loadRecord(records[0]);
+                    forma.show();
+                    MasterGrid.hide();
                 }
             }, '-',
             {
@@ -386,7 +390,7 @@
             },
             {
                 text: 'Recargar',
-				iconCls: 'reload',
+                iconCls: 'reload',
                 handler: function() {
                     loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
                 }
@@ -404,7 +408,7 @@
                     scope: this,
                     specialkey: function(f, e) {
                         if (e.getKey() == e.ENTER) {
-                            loadData(AspPage, 'Find', "{'field':'" + master_buscar_combo.getValue() + "','value':'" + Ext.getCmp('master_buscar_text_id').getValue() + "'}", MasterGrid.getStore(), null, null);
+                            loadData(AspPage, 'Find', { objProperties: "{'field':'" + master_buscar_combo.getValue() + "','value':'" + Ext.getCmp('master_buscar_text_id').getValue() + "'}" }, MasterGrid.getStore(), null, null);
                         }
                     }
                 }
@@ -413,7 +417,7 @@
                 text: 'Buscar',
                 iconCls: 'search',
                 handler: function() {
-                    loadData(AspPage, 'Find', "{'field':'" + master_buscar_combo.getValue() + "','value':'" + Ext.getCmp('master_buscar_text_id').getValue() + "'}", MasterGrid.getStore(), null, null);
+                loadData(AspPage, 'Find', { objProperties: "{'field':'" + master_buscar_combo.getValue() + "','value':'" + Ext.getCmp('master_buscar_text_id').getValue() + "'}" }, MasterGrid.getStore(), null, null);
                 }
             }
         ]
