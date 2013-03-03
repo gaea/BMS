@@ -22,8 +22,8 @@ namespace BMS.WEB.pages.diary
     public partial class ConsultDiary : System.Web.UI.Page
     {
         public JavaScriptSerializer serialize = new JavaScriptSerializer();
-		
-		protected void Page_Load(object sender, EventArgs e)
+
+        protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
@@ -33,7 +33,7 @@ namespace BMS.WEB.pages.diary
                     switch (action)
                     {
                         case "List":
-                            Response.Write("({success: true, data:" + this.List("","") + "})");
+                            Response.Write("({success: true, data:" + this.List("", "") + "})");
                             break;
                         default:
                             return;

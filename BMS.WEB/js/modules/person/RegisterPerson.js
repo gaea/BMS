@@ -393,7 +393,7 @@
             }, '->',
             {
                 xtype: 'label',
-                text: 'Busqueda:'
+                html: 'B&uacute;squeda:'
             },
                 master_buscar_combo,
             {

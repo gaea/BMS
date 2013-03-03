@@ -34,6 +34,32 @@
 
     loadData(AspPageRegisterDiary, 'GetPerson', "{'start':0,'limit':0}", persona_store, null, null);
 
+	var master_buscar_array = [
+        ['Name', 'Nombre'],
+        ['LastName', 'Apellidos'],
+        ['Email', 'Email']/*,
+        ['todos', 'Todos']*/
+    ];
+
+    var master_buscar_store = new Ext.data.ArrayStore({
+        fields: ['campo', 'display_campo'],
+        data: master_buscar_array
+    });
+
+    var master_buscar_combo = new Ext.form.ComboBox({
+        store: master_buscar_store,
+        hiddenName: 'campo',
+        valueField: 'campo',
+        displayField: 'display_campo',
+        typeAhead: true,
+        width: 150,
+        mode: 'local',
+        forceSelection: true,
+        triggerAction: 'all',
+        emptyText: 'Seleccione un campo',
+        selectOnFocus: true
+    });
+	
     var MasterGrid = new Ext.grid.GridPanel({
         frame: false,
         border: true,
@@ -82,7 +108,33 @@
                             loadData(AspPageConsultDiary, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
                         }, null);
                 }
+            }, '-',
+            {
+                xtype: 'label',
+                html: 'B&uacute;squeda:'
+            },
+                master_buscar_combo,
+            {
+                xtype: 'textfield',
+                id: 'master_buscar_text_id',
+                width: 140/*,
+                listeners: {
+                    scope: this,
+                    specialkey: function(f, e) {
+                        if (e.getKey() == e.ENTER) {
+                            loadData(AspPage, 'Find', "{'field':'" + master_buscar_combo.getValue() + "','value':'" + Ext.getCmp('master_buscar_text_id').getValue() + "'}", MasterGrid.getStore(), null, null);
+                        }
+                    }
+                }*/
+            },
+            {
+                text: 'Buscar',
+                iconCls: 'search',
+                handler: function() {
+                    loadData(AspPage, 'Find', "{'field':'" + master_buscar_combo.getValue() + "','value':'" + Ext.getCmp('master_buscar_text_id').getValue() + "'}", MasterGrid.getStore(), null, null);
+                }
             }
+
         ],
         renderTo: Ext.getBody()
     });

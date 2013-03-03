@@ -1741,6 +1741,10 @@
       <Project>{61B83578-B2D7-4B45-B61B-AEAFD75F79B8}</Project>
       <Name>BMS.CONFIGURATION</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BMS.UTILITY\BMS.UTILITY.csproj">
+      <Project>{765DF50B-3E42-423F-89FD-92C916DBE252}</Project>
+      <Name>BMS.UTILITY</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TMA.DAO\TMA.DAO.csproj">
       <Project>{37348338-9462-4145-82D8-8091AA923833}</Project>
       <Name>TMA.DAO</Name>

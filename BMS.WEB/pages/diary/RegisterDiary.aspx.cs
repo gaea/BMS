@@ -102,16 +102,22 @@ namespace BMS.WEB.pages.diary
 
         public string GetEntryType()
         {
+            System.Threading.Thread.Sleep(1000);
+
             return serialize.Serialize(EntryTypesDao.findAll());
         }
 
         public string GetState()
         {
+            System.Threading.Thread.Sleep(1000);
+
             return serialize.Serialize(StatesDao.findAll());
         }
 
         public string GetPerson()
         {
+            System.Threading.Thread.Sleep(1000);
+
             return serialize.Serialize(PersonsDao.findAll());
         }
     }
