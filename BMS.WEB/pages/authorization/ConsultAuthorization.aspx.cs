@@ -25,8 +25,28 @@ namespace BMS.WEB.pages.authorization
     {
         public static JavaScriptSerializer serialize = new JavaScriptSerializer();
 
-        [System.Web.Services.WebMethod]
-        public static string List(string start, string limit)
+		protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!Page.IsPostBack)
+            {
+                string action = Request.Params["accion"];
+                if (!string.IsNullOrEmpty(action))
+                {
+                    switch (action)
+                    {
+                        case "List":
+                            Response.Write("({success: true, data:" + this.List("","") + "})");
+                            break;
+                        default:
+                            return;
+                    }
+
+                    Response.End();
+                }
+            }
+        }
+		
+        public string List(string start, string limit)
         {
             MessageResponse msg = new MessageResponse();
 

@@ -287,7 +287,7 @@
 			        
 			        saveData(
 			            AspPage,
-			            'SaveVisit',
+			            'Save',
 			            'VisitProperties',
 			            submitFields,
 			            function(data) {

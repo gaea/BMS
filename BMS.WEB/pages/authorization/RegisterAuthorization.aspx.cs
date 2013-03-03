@@ -25,92 +25,51 @@ namespace BMS.WEB.pages.authorization
     {
         public static JavaScriptSerializer serialize = new JavaScriptSerializer();
 
-        [System.Web.Services.WebMethod]
-        public static string Save(string DiaryProperties)
+        protected void Page_Load(object sender, EventArgs e)
         {
-            MessageResponse msg = new MessageResponse();
-
-            try
+            if (!Page.IsPostBack)
             {
-                Diary diary = serialize.Deserialize<Diary>(DiaryProperties);
-                
-                diary.DateCreateRegistration = System.DateTime.Now;
-                diary.DateModifyRegistration = System.DateTime.Now;
-                //diary.Id_UserCreateRegistration = "1";
-                //diary.Id_UserModifyRegistration = "1";
-
-                if(diary.Id_Visitor == 0)
+                string action = Request.Params["accion"];
+                if (!string.IsNullOrEmpty(action))
                 {
-                    TMA.MODEL.Entity.Person person = new TMA.MODEL.Entity.Person();
-                    person.Name = "";
-                }
+                    switch (action)
+                    {
+                        case "Save":
+                            Response.Write("({success: true, data:" + this.Save(Request.Params["objProperties"]) + "})");
+                            break;
+						case "GetEntryType":
+                            Response.Write("({success: true, data:" + this.GetEntryType() + "})");
+                            break;
+						case "GetState":
+                            Response.Write("({success: true, data:" + this.GetState() + "})");
+                            break;
+						case "GetPerson":
+                            Response.Write("({success: true, data:" + this.GetPerson() + "})");
+                            break;
+						case "GetAprobatorPerson":
+                            Response.Write("({success: true, data:" + this.GetAprobatorPerson() + "})");
+                            break;
+                        default:
+                            return;
+                    }
 
-                diary.State = "State";
-
-                if (diary.Id_Diary == null)
-                {
-                    DiariesDao.save(diary);
+                    Response.End();
                 }
-                else
-                {
-                    DiariesDao.update(diary);
-                }
-
-                msg.Message = ConfigManager.SaveSuccessMessage;
             }
-            catch (Exception ex)
-            {
-                msg.Message = ConfigManager.SaveErrorMessage;
-
-                msg.Error = ex.ToString();
-
-                File.AppendAllText(ConfigManager.LogPath, msg.ToString());
-            }
-
-            return serialize.Serialize(msg);
         }
 
-        [System.Web.Services.WebMethod]
-        public static string GetEntryType() {
-            return serialize.Serialize(EntryTypesDao.findAll());
-        }
-
-        [System.Web.Services.WebMethod]
-        public static string GetState()
-        {
-            return serialize.Serialize(StatesDao.findAll());
-        }
-
-        [System.Web.Services.WebMethod]
-        public static string GetPerson()
-        {
-            return serialize.Serialize(PersonsDao.findAll());
-        }
-
-        [System.Web.Services.WebMethod]
-        public static string GetAprobatorPerson()
-        {
-            return serialize.Serialize(PersonsDao.findAll());
-        }
-
-        [System.Web.Services.WebMethod]
-        public static string SaveVisit(string VisitProperties)
+        public string Save(string VisitProperties)
         {
             MessageResponse msg = new MessageResponse();
             try
             {
                 Dictionary<string, string> dicProperties = JsonConvert.DeserializeObject<Dictionary<string, string>>(VisitProperties);
-                
+
                 Visit visit = new Visit();
                 visit.Id_Visitor = Convert.ToInt32(dicProperties["Id_Person"]);
 
                 DateTime InitialDate = Convert.ToDateTime(dicProperties["InitialDate"] + " " + dicProperties["InitialHour"]);
                 DateTime FinalDate = Convert.ToDateTime(dicProperties["FinalDate"] + " " + dicProperties["FinalHour"]);
-
-                //visit.InitialDate = Convert.ToDateTime(dicProperties["InitialDate"]);
-                //visit.InitialHour = Convert.ToDateTime(dicProperties["InitialHour"]);
-                //visit.FinalDate = Convert.ToDateTime(dicProperties["FinalDate"]);
-                //visit.FinalHour = Convert.ToDateTime(dicProperties["FinalHour"]);
 
                 visit.InitialDate = InitialDate;
                 visit.InitialHour = InitialDate;
@@ -134,5 +93,25 @@ namespace BMS.WEB.pages.authorization
 
             return serialize.Serialize(msg);
         }
+
+        public string GetEntryType() {
+            return serialize.Serialize(EntryTypesDao.findAll());
+        }
+
+        public string GetState()
+        {
+            return serialize.Serialize(StatesDao.findAll());
+        }
+
+        public string GetPerson()
+        {
+            return serialize.Serialize(PersonsDao.findAll());
+        }
+
+        public string GetAprobatorPerson()
+        {
+            return serialize.Serialize(PersonsDao.findAll());
+        }
+
     }
 }

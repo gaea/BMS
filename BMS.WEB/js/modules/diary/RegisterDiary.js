@@ -187,7 +187,8 @@
 			    }
 			},
 			{
-			    text: 'Cancelar'
+			    text: 'Cancelar',
+				iconCls: 'cancel'
 
 			}
 		],

@@ -24,9 +24,38 @@ namespace BMS.WEB.pages.diary
     public partial class RegisterDiary : System.Web.UI.Page
     {
         public static JavaScriptSerializer serialize = new JavaScriptSerializer();
+		
+		protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!Page.IsPostBack)
+            {
+                string action = Request.Params["accion"];
+                if (!string.IsNullOrEmpty(action))
+                {
+                    switch (action)
+                    {
+                        case "Save":
+                            Response.Write("({success: true, data:" + this.Save(Request.Params["objProperties"]) + "})");
+                            break;
+                        case "GetEntryType":
+                            Response.Write("({success: true, data:" + this.GetEntryType() + "})");
+                            break;
+                        case "GetState":
+                            Response.Write("({success: true, data:" + this.GetState() + "})");
+                            break;
+                        case "GetPerson":
+                            Response.Write("({success: true, data:" + this.GetPerson() + "})");
+                            break;
+                        default:
+                            return;
+                    }
 
-        [System.Web.Services.WebMethod]
-        public static string Save(string DiaryProperties)
+                    Response.End();
+                }
+            }
+        }
+		
+        public string Save(string DiaryProperties)
         {
             MessageResponse msg = new MessageResponse();
 
@@ -71,20 +100,17 @@ namespace BMS.WEB.pages.diary
             return serialize.Serialize(msg);
         }
 
-        [System.Web.Services.WebMethod]
-        public static string GetEntryType()
+        public string GetEntryType()
         {
             return serialize.Serialize(EntryTypesDao.findAll());
         }
 
-        [System.Web.Services.WebMethod]
-        public static string GetState()
+        public string GetState()
         {
             return serialize.Serialize(StatesDao.findAll());
         }
 
-        [System.Web.Services.WebMethod]
-        public static string GetPerson()
+        public string GetPerson()
         {
             return serialize.Serialize(PersonsDao.findAll());
         }

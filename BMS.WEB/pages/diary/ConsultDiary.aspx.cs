@@ -22,9 +22,29 @@ namespace BMS.WEB.pages.diary
     public partial class ConsultDiary : System.Web.UI.Page
     {
         public static JavaScriptSerializer serialize = new JavaScriptSerializer();
+		
+		protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!Page.IsPostBack)
+            {
+                string action = Request.Params["accion"];
+                if (!string.IsNullOrEmpty(action))
+                {
+                    switch (action)
+                    {
+                        case "List":
+                            Response.Write("({success: true, data:" + this.List("","") + "})");
+                            break;
+                        default:
+                            return;
+                    }
 
-        [System.Web.Services.WebMethod]
-        public static string List(string start, string limit)
+                    Response.End();
+                }
+            }
+        }
+
+        public string List(string start, string limit)
         {
             MessageResponse msg = new MessageResponse();
 

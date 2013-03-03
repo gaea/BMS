@@ -62,7 +62,7 @@
                             }
                         }
                     );
-					alert(persona_store.Name);
+					
                     return render_value;
                 }
 				}
