@@ -19,6 +19,12 @@
 .save {
     background-image: url( ../images/icons/save.png ) !important;
 }
+.persons16 {
+    background-image: url( ../images/icons/persons16x16.png ) !important;
+}
+.persons48{
+    background-image: url( ../images/persons48x48.png ) !important;
+}
 .help16 {
     background-image: url( ../images/icons/help16x16.png ) !important;
 }

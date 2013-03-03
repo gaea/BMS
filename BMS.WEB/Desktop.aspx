@@ -13,6 +13,7 @@
     <script type="text/javascript" src="ux/desktop/js/Desktop.js"></script>
     <script type="text/javascript" src="js/entities/DiaryEntity.js"></script>
     <script type="text/javascript" src="js/modules/Modules.js"></script>
+    <script type="text/javascript" src="js/modules/person/ManagePerson.js"></script>
     <script type="text/javascript" src="js/modules/master_tables/MasterTables.js"></script>
     <script type="text/javascript" src="js/modules/diary/Diary.js"></script>
     <script type="text/javascript" src="js/modules/authorization/Authorization.js"></script>

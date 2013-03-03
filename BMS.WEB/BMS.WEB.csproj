@@ -174,6 +174,7 @@
     <Content Include="js\modules\master_tables\User.js" />
     <Content Include="js\modules\diary\Diary.js" />
     <Content Include="js\modules\person\ConsultPerson.js" />
+    <Content Include="js\modules\person\ManagePerson.js" />
     <Content Include="js\modules\person\RegisterPerson.js" />
     <Content Include="pages\authorization\ConsultAuthorization.aspx" />
     <Content Include="pages\diary\ConsultDiary.aspx" />

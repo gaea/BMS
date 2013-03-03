@@ -9,7 +9,8 @@ Ext.define("MyDesktop.App", { extend: "Ext.ux.desktop.App",
         "MyDesktop.Diary",
         "MyDesktop.Authorization",
         "MyDesktop.MasterTables",
-		"MyDesktop.Help"
+		"MyDesktop.Help",
+		"MyDesktop.ManagePerson"
     ],
     init: function() {
         this.callParent()
@@ -23,7 +24,8 @@ Ext.define("MyDesktop.App", { extend: "Ext.ux.desktop.App",
             new MyDesktop.Diary(),
             new MyDesktop.Authorization(),
             new MyDesktop.MasterTables(),
-			new MyDesktop.Help()
+			new MyDesktop.Help(),
+			new MyDesktop.ManagePerson()
         ]
     },
     getDesktopConfig: function() {
@@ -43,6 +45,7 @@ Ext.define("MyDesktop.App", { extend: "Ext.ux.desktop.App",
                     data: [
 						{ name: "Agenda", iconCls: "diary48", module: "master-diary-win" },
                         { name: "Maestro Autorizaciones", iconCls: "icon-biometric-authorization48", module: "master-authorization-win" },
+						{ name: "Personas", iconCls: "persons48", module: "master-manage-person-win" },
                         { name: "Tablas Maestras", iconCls: "icon-master-table48", module: "master-table-win" },
 						{ name: "Notas", iconCls: "notepad-shortcut", module: "notepad" },
 						{ name: "Ayuda", iconCls: "help48", module: "help-win" }
