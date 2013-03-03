@@ -150,7 +150,8 @@
 				                name: 'Birthday',
 				                dateFormat: 'd/m/Y',
 				                submitFormat: 'd/m/Y',
-				                allowBlank: false
+				                allowBlank: false,
+								value: new Date()
 				            },
 					            persona_empresa_combo,
 					            persona_departamento_combo,
@@ -164,22 +165,33 @@
 							{
 							    xtype: 'numberfield',
 							    fieldLabel: 'Telefono',
-							    name: 'TelephoneNumber'
+							    name: 'TelephoneNumber',
+								regex: /^\d{7}$/i,
+								maskRe: /\d/i,
+								regexText: "El n&uacute;mero de tel&eacute;lefono es inv&aacute;lido, el valor debe ser num&eacute;rico de 7 d&iacute;gitos."
 							},
 							{
 							    xtype: 'numberfield',
 							    fieldLabel: 'Celular',
-							    name: 'CelphoneNumber'
+							    name: 'CelphoneNumber',
+								regex: /^\d{10}$/i,
+								maskRe: /\d/i,
+								regexText: "El n&uacute;mero de celular es inv&aacute;lido, el valor debe ser num&eacute;rico de 10 d&iacute;gitos."
 							},
 							{
 							    xtype: 'numberfield',
 							    fieldLabel: 'Fax',
-							    name: 'FaxNumber'
+							    name: 'FaxNumber',
+								regex: /^\d{7}$/i,
+								maskRe: /\d/i,
+								regexText: "El n&uacute;mero de fax es inv&aacute;lido, el valor debe ser num&eacute;rico de 7 d&iacute;gitos."
 							},
 							{
 							    xtype: 'textfield',
 							    fieldLabel: 'E-mail',
-							    name: 'Email'
+							    name: 'Email',
+								regex: /^([\w\-\'\-]+)(\.[\w-\'\-]+)*@([\w\-]+\.){1,5}([A-Za-z]){2,4}$/,
+								regexText: "El email es inv&aacute;lido, debe tener la estructura user@domain.com."
 							},
 							{
 							    xtype: 'radiogroup',
@@ -206,7 +218,8 @@
 					            fieldLabel: 'Fecha de Vigencia de ARP',
 					            name: 'DateValidityARP',
 					            dateFormat: 'd/m/Y',
-					            submitFormat: 'd/m/Y'
+					            submitFormat: 'd/m/Y',
+								value: new Date()
 					        }
 						]
 					},
@@ -373,6 +386,7 @@
             },
             {
                 text: 'Recargar',
+				iconCls: 'reload',
                 handler: function() {
                     loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
                 }

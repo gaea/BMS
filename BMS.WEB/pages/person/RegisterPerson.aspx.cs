@@ -22,7 +22,7 @@ namespace BMS.WEB.pages.person
 {
     public partial class RegisterPerson : System.Web.UI.Page
     {
-        public static JavaScriptSerializer serialize = new JavaScriptSerializer();
+        public JavaScriptSerializer serialize = new JavaScriptSerializer();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -34,22 +34,22 @@ namespace BMS.WEB.pages.person
                     switch (accion)
                     {
                         case "List":
-                            Response.Write("({success: true, data:" + RegisterPerson.List("", "") + "})");
+                            Response.Write("({success: true, data:" + this.List("", "") + "})");
                             break;
                         case "Save":
-                            Response.Write("({success: true, data:" + RegisterPerson.Save(Request.Params["objProperties"]) + "})");
+                            Response.Write("({success: true, data:" + this.Save(Request.Params["objProperties"]) + "})");
                             break;
                         case "Delete":
-                            Response.Write("({success: true, data:" + RegisterPerson.Delete(Request.Params["objProperties"]) + "})");
+                            Response.Write("({success: true, data:" + this.Delete(Request.Params["objProperties"]) + "})");
                             break;
                         case "GetCompany":
-                            Response.Write("({success: true, data:" + RegisterPerson.GetCompany() + "})");
+                            Response.Write("({success: true, data:" + this.GetCompany() + "})");
                             break;
                         case "GetCity":
-                            Response.Write("({success: true, data:" + RegisterPerson.GetCity() + "})");
+                            Response.Write("({success: true, data:" + this.GetCity() + "})");
                             break;
                         case "GetDepartment":
-                            Response.Write("({success: true, data:" + RegisterPerson.GetDepartment() + "})");
+                            Response.Write("({success: true, data:" + this.GetDepartment() + "})");
                             break;
                         default:
                             return;
@@ -60,7 +60,7 @@ namespace BMS.WEB.pages.person
             }
         }
 
-        public static string Save(string UserProperties)
+        public string Save(string UserProperties)
         {
             MessageResponse msg = new MessageResponse();
 
@@ -104,7 +104,7 @@ namespace BMS.WEB.pages.person
             return serialize.Serialize(msg);
         }
 
-        public static string Find(string field, string value)
+        public string Find(string field, string value)
         {
             MessageResponse msg = new MessageResponse();
 
@@ -125,7 +125,7 @@ namespace BMS.WEB.pages.person
 
         }
 
-        public static string List(string start, string limit)
+        public string List(string start, string limit)
         {
             MessageResponse msg = new MessageResponse();
 
@@ -146,7 +146,7 @@ namespace BMS.WEB.pages.person
 
         }
 
-        public static string Delete(string Id_Person)
+        public string Delete(string Id_Person)
         {
             MessageResponse msg = new MessageResponse();
 
@@ -170,17 +170,17 @@ namespace BMS.WEB.pages.person
             return serialize.Serialize(msg);
         }
 
-        public static string GetCompany()
+        public string GetCompany()
         {
             return serialize.Serialize(CompaniesDao.findAll());
         }
 
-        public static string GetCity()
+        public string GetCity()
         {
             return serialize.Serialize(CitiesDao.findAll());
         }
 
-        public static string GetDepartment()
+        public string GetDepartment()
         {
             return serialize.Serialize(DepartmentsDao.findAll());
         }
