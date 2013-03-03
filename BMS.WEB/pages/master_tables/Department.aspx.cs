@@ -25,7 +25,6 @@ namespace BMS.WEB.pages
     {
         public static JavaScriptSerializer serialize = new JavaScriptSerializer();
 
-        [System.Web.Services.WebMethod]
         public static string Save(string departmentProperties)
         {
             MessageResponse msg = new MessageResponse();
@@ -48,18 +47,15 @@ namespace BMS.WEB.pages
             catch (Exception ex)
             {
                 msg.Message = ConfigManager.SaveErrorMessage;
-                
                 msg.Error = ex.ToString();
-                
-                File.AppendAllText(ConfigManager.LogPath, msg.ToString());
             }
 
             return serialize.Serialize(msg);
         }
 
-        [System.Web.Services.WebMethod]
         public static string List(string start, string limit)
         {
+
             MessageResponse msg = new MessageResponse();
 
             try
@@ -69,16 +65,12 @@ namespace BMS.WEB.pages
             catch (Exception ex)
             {
                 msg.Message = ConfigManager.DeleteErrorMessage;
-
                 msg.Error = ex.ToString();
-
-                File.AppendAllText(ConfigManager.LogPath, msg.ToString());
             }
 
             return serialize.Serialize(msg);
         }
 
-        [System.Web.Services.WebMethod]
         public static string Delete(string Id_Department)
         {
             MessageResponse msg = new MessageResponse();
@@ -86,7 +78,7 @@ namespace BMS.WEB.pages
             try
             {
                 TMA.MODEL.Entity.Department department = DepartmentsDao.find(Convert.ToInt32(Id_Department));
-            
+
                 DepartmentsDao.delete(department);
 
                 msg.Message = ConfigManager.DeleteSuccessMessage;
@@ -94,13 +86,38 @@ namespace BMS.WEB.pages
             catch (Exception ex)
             {
                 msg.Message = ConfigManager.DeleteErrorMessage;
-                
-                msg.Error = ex.ToString();
 
-                File.AppendAllText(ConfigManager.LogPath, msg.ToString());
+                msg.Error = ex.ToString();
             }
 
             return serialize.Serialize(msg);
+        }
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!Page.IsPostBack)
+            {
+                string accion = Request.Params["accion"];
+                if (!string.IsNullOrEmpty(accion))
+                {
+                    switch (accion)
+                    {
+                        case "List":
+                            Response.Write("({success: true, data:" + Department.List("", "") + "})");
+                            break;
+                        case "Save":
+                            Response.Write("({success: true, data:" + Department.Save(Request.Params["objProperties"]) + "})");
+                            break;
+                        case "Delete":
+                            Response.Write("({success: true, data:" + Department.Delete(Request.Params["objProperties"]) + "})");
+                            break;
+                        default:
+                            return;
+                    }
+
+                    Response.End();
+                }
+            }
         }
     }
 }

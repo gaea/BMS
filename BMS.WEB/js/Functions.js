@@ -1,11 +1,6 @@
 ﻿function objectProperties(obj) {
     for (inx in obj) {
-        /*if (typeof obj[inx] === 'object') {
-            objectProperties(obj[inx])
-        }
-        else {*/
-            console.log("PROPIEDAD: {" + inx + "} <------> VALOR: {" + obj[inx] + "}.");
-        //}
+        console.log("PROPIEDAD: {" + inx + "} <------> VALOR: {" + obj[inx] + "}.");
     }
 }
 
@@ -17,24 +12,21 @@ function getProperties(obj) {
     return keys;
 }
 
-function upload(url, webMethod, params, functionSuccess, functionFailure) {
+function upload(url, webMethod, extraparams, functionSuccess, functionFailure) {
     Ext.Ajax.request({
         method: 'POST',
-        url: url + '/' + webMethod,
-        jsonData: params,
-        headers: { 'Content-Type': 'application/json;charset=utf-8' },
+        url: url + '?accion=' + webMethod,
+        params: extraparams,
         waitTitle: 'Enviando',
         waitMsg: 'Enviando datos...',
         timeout: 180000,
         success: function(response) {
             obj = Ext.JSON.decode(response.responseText);
-            data = Ext.JSON.decode(obj.d);
-            functionSuccess(data);
+            functionSuccess(obj.data);
         },
         failure: function(response, opts) {
             obj = Ext.JSON.decode(response.responseText);
-            data = Ext.JSON.decode(obj.d);
-            functionFailure(data);
+            functionFailure(obj);
         }
     });
 }
@@ -68,7 +60,7 @@ function saveData(url, method, webParam, params, funcSucces, funcFailure) {
     upload(
         url,
         method,
-        "{" + webParam + ":'" + Ext.JSON.encode(params) + "'}",
+        { objProperties: Ext.JSON.encode(params) },
         function(data) {
             Ext.Msg.alert('Mensaje', data.Message, function() { }, this);
             if (funcSucces != null)
@@ -86,9 +78,9 @@ function deleteData(url, method, webParam, param, funcSucces, funcFailure) {
     upload(
         url,
         method,
-        "{ " + webParam + ": '" + param + "' }",
+        { objProperties: Ext.JSON.encode(param) },
         function(data) {
-            //Ext.Msg.alert('Mensaje', data.Message, function() { }, this);
+            Ext.Msg.alert('Mensaje', data.Message, function() { }, this);
             if (funcSucces != null)
                 funcSucces(data);
         },

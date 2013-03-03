@@ -262,9 +262,9 @@
 			            'UserProperties',
 			            submitFields,
 			            function(data) {
-		                    forma.getForm().reset();
-		                    forma.hide();
-		                    MasterGrid.show();
+			                forma.getForm().reset();
+			                forma.hide();
+			                MasterGrid.show();
 			            },
 			            null
 			        );
@@ -370,6 +370,12 @@
                         null
                     );
                 }
+            },
+            {
+                text: 'Recargar',
+                handler: function() {
+                    loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+                }
             }, '->',
             {
                 xtype: 'label',
@@ -393,7 +399,7 @@
                 text: 'Buscar',
                 iconCls: 'search',
                 handler: function() {
-                loadData(AspPage, 'Find', "{'field':'" + master_buscar_combo.getValue() + "','value':'" + Ext.getCmp('master_buscar_text_id').getValue() + "'}", MasterGrid.getStore(), null, null);
+                    loadData(AspPage, 'Find', "{'field':'" + master_buscar_combo.getValue() + "','value':'" + Ext.getCmp('master_buscar_text_id').getValue() + "'}", MasterGrid.getStore(), null, null);
                 }
             }
         ]

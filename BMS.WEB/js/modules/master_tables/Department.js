@@ -40,7 +40,7 @@
         }),
         columns: [
                 { text: 'Identificador', dataIndex: 'Id_Department' },
-                { text: 'Nombre', dataIndex: 'Name', editor: new Ext.form.TextField({ msgTarget: 'none', allowBlank: false,  labelWidth: 75, minText: 'Texto de ejemplo' }) }
+                { text: 'Nombre', dataIndex: 'Name', editor: new Ext.form.TextField({ msgTarget: 'none', allowBlank: false, labelWidth: 75, minText: 'Texto de ejemplo' }) }
         ],
         plugins: [MasterRowEditor],
         tbar: [
@@ -50,7 +50,7 @@
                 handler: function() {
                     MasterRowEditor.cancelEdit();
                     MasterGrid.getStore().insert(0, new Department());
-                    MasterRowEditor.startEdit(MasterGrid.getStore().getAt(0), 0);                   
+                    MasterRowEditor.startEdit(MasterGrid.getStore().getAt(0), 0);
                 }
             }, '-',
             {
@@ -70,7 +70,7 @@
                     deleteData(
                         AspPage,
                         'Delete',
-                        'Id_Department', 
+                        'Id_Department',
                         records[0].get('Id_Department'),
                         function(data) {
                             loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
