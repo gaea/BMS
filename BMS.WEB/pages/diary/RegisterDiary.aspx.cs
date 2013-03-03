@@ -23,7 +23,7 @@ namespace BMS.WEB.pages.diary
 {
     public partial class RegisterDiary : System.Web.UI.Page
     {
-        public static JavaScriptSerializer serialize = new JavaScriptSerializer();
+        public JavaScriptSerializer serialize = new JavaScriptSerializer();
 		
 		protected void Page_Load(object sender, EventArgs e)
         {

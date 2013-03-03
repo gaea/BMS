@@ -185,14 +185,16 @@
 									    dateFormat: 'd/m/Y',
 									    submitFormat: 'd/m/Y',
 									    name: 'InitialDate',
-									    width: 130
+									    width: 130,
+									    value: new Date()
                                     },
 									{
 									    xtype: 'timefield',
 									    name: 'InitialHour',
 									    dateFormat: 'H:i:s',
 									    submitFormat: 'H:i:s',
-									    width: 130
+									    width: 130,
+									    value: new Date()
 									}
 								]
 							},
@@ -209,7 +211,8 @@
 					                dateFormat: 'd/m/Y',
 					                submitFormat: 'd/m/Y',
 					                name: 'FinalDate',
-					                width: 130
+					                width: 130,
+					                value: new Date()
 					            },
 					            {
 					                xtype: 'timefield',
@@ -298,7 +301,9 @@
 			    }
 			},
 			{
-			    text: 'Cancelar'
+			    text: 'Cancelar',
+			    iconCls: 'cancel'
+			    
 			}
 		],
         renderTo: Ext.getBody()

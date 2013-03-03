@@ -23,7 +23,7 @@ namespace BMS.WEB.pages.authorization
 {
     public partial class RegisterAuthorization : System.Web.UI.Page
     {
-        public static JavaScriptSerializer serialize = new JavaScriptSerializer();
+        public JavaScriptSerializer serialize = new JavaScriptSerializer();
 
         protected void Page_Load(object sender, EventArgs e)
         {

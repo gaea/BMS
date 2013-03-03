@@ -129,13 +129,15 @@
 										id: 'id_fecha_ingreso',
 									    xtype: 'datefield',
 									    name: 'fecha_ingreso',
-									    width: 130
+									    width: 130,
+										value: new Date()
 									},
 									{
 										id: 'id_hora_ingreso',
 									    xtype: 'timefield',
 									    name: 'hora_ingreso',
-									    width: 130
+									    width: 130,
+										value: new Date()
 									}
 								]
 							},
