@@ -1,4 +1,15 @@
-﻿Ext.define('MyDesktop.Authorization', {
+﻿var moduleId = 'master-authorization-win';
+var moduleName = 'Autorizaciones';
+var moduleIcon = 'icon-biometric-authorization16';
+var moduleWidth = null;
+var moduleHeight = null;
+
+Ext.onReady(function() {
+	moduleWidth = Ext.getBody().getViewSize().width * 0.9;
+	moduleHeight = Ext.getBody().getViewSize().height * 0.9;
+});
+
+Ext.define('MyDesktop.Authorization', {
     extend: 'Ext.ux.desktop.Module',
     requires: [
         'Ext.form.field.HtmlEditor',
@@ -10,16 +21,16 @@
         'Ext.ModelManager',
         'Ext.tip.QuickTipManager'
     ],
-    id: 'master-authorization-win',
+    id: moduleId,
     init: function() {
         this.launcher = {
-            text: 'Autorizaciones',
-            iconCls: 'icon-biometric-authorization16'
+            text: moduleName,
+            iconCls: moduleIcon
         }
     },
     createWindow: function() {
         var desktop = this.app.getDesktop();
-        var win = desktop.getWindow('master-authorization-win');
+        var win = desktop.getWindow(moduleId);
         if (!win) {
             var masterAuthorizationTreeStore = new Ext.data.TreeStore({
                 root: {
@@ -64,11 +75,11 @@
             });
 
             win = desktop.createWindow({
-                id: 'master-authorization-win',
-                title: 'Autorizaciones',
-                width: 800,
-                height: 670,
-                iconCls: 'icon-biometric-authorization16',
+                id: moduleId,
+                title: moduleName,
+                width: moduleWidth,
+                height: moduleHeight,
+                iconCls: moduleIcon,
                 animCollapse: true,
                 border: true,
                 hideMode: 'offsets',

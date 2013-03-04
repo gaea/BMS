@@ -337,6 +337,7 @@
             data: [{}]
         }),
         columns: [
+				Ext.create('Ext.grid.RowNumberer'),
                 { text: 'Identificador', dataIndex: 'Id_Person' },
                 { text: 'Identificador Lector', dataIndex: 'Id_BiometricReader' },
                 { text: 'Empresa', dataIndex: 'Company' },

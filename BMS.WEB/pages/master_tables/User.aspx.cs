@@ -23,10 +23,36 @@ namespace BMS.WEB.pages
 {
     public partial class User : System.Web.UI.Page
     {
-        public static JavaScriptSerializer serialize = new JavaScriptSerializer();
+        public JavaScriptSerializer serialize = new JavaScriptSerializer();
 
-        [System.Web.Services.WebMethod]
-        public static string Save(string UserProperties)
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!Page.IsPostBack)
+            {
+                string action = Request.Params["accion"];
+                if (!string.IsNullOrEmpty(action))
+                {
+                    switch (action)
+                    {
+                        case "Save":
+                            Response.Write("({success: true, data:" + this.Save(Request.Params["objProperties"]) + "})");
+                            break;
+                        case "List":
+                            Response.Write("({success: true, data:" + this.List("", "") + "})");
+                            break;
+                        case "Delete":
+                            Response.Write("({success: true, data:" + this.Delete(Request.Params["objProperties"]) + "})");
+                            break;
+                        default:
+                            return;
+                    }
+
+                    Response.End();
+                }
+            }
+        }
+
+        public string Save(string UserProperties)
         {
             MessageResponse msg = new MessageResponse();
 
@@ -62,8 +88,7 @@ namespace BMS.WEB.pages
             return serialize.Serialize(msg);
         }
 
-        [System.Web.Services.WebMethod]
-        public static string List(string start, string limit)
+        public string List(string start, string limit)
         {
             MessageResponse msg = new MessageResponse();
 
@@ -82,8 +107,7 @@ namespace BMS.WEB.pages
 
         }
 
-        [System.Web.Services.WebMethod]
-        public static string Delete(string Id_User)
+        public string Delete(string Id_User)
         {
             MessageResponse msg = new MessageResponse();
 

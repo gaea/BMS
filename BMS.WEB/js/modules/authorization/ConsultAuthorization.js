@@ -88,7 +88,7 @@
             data: [{}]
         }),
         columns: [
-
+				Ext.create('Ext.grid.RowNumberer'),
                 { text: 'Identificaci&oacute;n', width: 150, dataIndex: 'Id_Visitor' },
                 { text: 'Nombre', width: 150, dataIndex: 'Id_Visitor', renderer: function(val, meta, rec) {
                     var render_value = '';

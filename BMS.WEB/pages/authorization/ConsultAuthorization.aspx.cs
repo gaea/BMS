@@ -63,6 +63,8 @@ namespace BMS.WEB.pages.authorization
                 File.AppendAllText(ConfigManager.LogPath, msg.ToString());
             }
 
+            System.Threading.Thread.Sleep(int.Parse(ConfigManager.TimeForResponseRequest));
+
             return serialize.Serialize(msg);
         }
     }

@@ -1,4 +1,15 @@
-﻿Ext.define('MyDesktop.Diary', {
+﻿var moduleId = 'master-diary-win';
+var moduleName = 'Agenda';
+var moduleIcon = 'diary16';
+var moduleWidth = null;
+var moduleHeight = null;
+
+Ext.onReady(function() {
+	moduleWidth = Ext.getBody().getViewSize().width * 0.9;
+	moduleHeight = Ext.getBody().getViewSize().height * 0.9;
+});
+
+Ext.define('MyDesktop.Diary', {
     extend: 'Ext.ux.desktop.Module',
     requires: [
         'Ext.form.field.HtmlEditor',
@@ -10,16 +21,16 @@
         'Ext.ModelManager',
         'Ext.tip.QuickTipManager'
     ],
-    id: 'master-diary-win',
+    id: moduleId,
     init: function() {
         this.launcher = {
-            text: 'Agenda',
-            iconCls: 'diary16'
+            text: moduleName,
+            iconCls: moduleIcon
         }
     },
     createWindow: function() {
         var desktop = this.app.getDesktop();
-        var win = desktop.getWindow('master-diary-win');
+        var win = desktop.getWindow(moduleId);
         if (!win) {
             var masterDiaryTreeStore = new Ext.data.TreeStore({
                 root: {
@@ -59,11 +70,11 @@
             });
 
             win = desktop.createWindow({
-                id: 'master-diary-win',
-                title: 'Agenda',
-                width: 800,
-                height: 450,
-                iconCls: 'diary16',
+                id: moduleId,
+                title: moduleName,
+                width: moduleWidth,
+                height: moduleHeight,
+                iconCls: moduleIcon,
                 animCollapse: true,
                 border: true,
                 hideMode: 'offsets',

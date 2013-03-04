@@ -1,4 +1,15 @@
-﻿Ext.define('MyDesktop.MasterTables', {
+﻿var moduleId = 'master-table-win';
+var moduleName = 'Tablas Maestras';
+var moduleIcon = 'icon-master-table16';
+var moduleWidth = null;
+var moduleHeight = null;
+
+Ext.onReady(function() {
+	moduleWidth = Ext.getBody().getViewSize().width * 0.9;
+	moduleHeight = Ext.getBody().getViewSize().height * 0.9;
+});
+
+Ext.define('MyDesktop.MasterTables', {
     extend: 'Ext.ux.desktop.Module',
     requires: [
         'Ext.form.field.HtmlEditor',
@@ -10,16 +21,16 @@
         'Ext.ModelManager',
         'Ext.tip.QuickTipManager'
     ],
-    id: 'master-table-win',
+    id: moduleId,
     init: function() {
         this.launcher = {
-            text: 'Tablas Maestras',
-            iconCls: 'icon-master-table16'
+            text: moduleName,
+            iconCls: moduleIcon
         }
     },
     createWindow: function() {
         var desktop = this.app.getDesktop();
-        var win = desktop.getWindow('master-table-win');
+        var win = desktop.getWindow(moduleId);
         if (!win) {
             var masterTableTreeStore = new Ext.data.TreeStore({
                 root: {
@@ -79,11 +90,11 @@
             });
 
             win = desktop.createWindow({
-                id: 'master-table-win',
-                title: 'Tablas Maestras',
-                width: 800,
-                height: 600,
-                iconCls: 'icon-master-table16',
+                id: moduleId,
+                title: moduleName,
+                width: moduleWidth,
+                height: moduleHeight,
+                iconCls: moduleIcon,
                 animCollapse: true,
                 border: true,
                 hideMode: 'offsets',

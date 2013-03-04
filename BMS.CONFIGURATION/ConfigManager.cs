@@ -135,6 +135,18 @@ namespace BMS.CONFIGURATION
             }
         }
 
+        /// <summary>
+        /// Tiempo de espera para petición
+        /// </summary>
+        public static string TimeForResponseRequest
+        {
+            get
+            {
+                return getKey("TimeForResponseRequest");
+            }
+        }
+        
+
         #endregion Properties
 
         #region Methods

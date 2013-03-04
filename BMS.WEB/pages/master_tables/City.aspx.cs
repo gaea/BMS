@@ -23,10 +23,36 @@ namespace BMS.WEB.pages
 {
     public partial class City : System.Web.UI.Page
     {
-        public static JavaScriptSerializer serialize = new JavaScriptSerializer();
+        public JavaScriptSerializer serialize = new JavaScriptSerializer();
 
-        [System.Web.Services.WebMethod]
-        public static string Save(string cityProperties)
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!Page.IsPostBack)
+            {
+                string action = Request.Params["accion"];
+                if (!string.IsNullOrEmpty(action))
+                {
+                    switch (action)
+                    {
+                        case "Save":
+                            Response.Write("({success: true, data:" + this.Save(Request.Params["objProperties"]) + "})");
+                            break;
+                        case "List":
+                            Response.Write("({success: true, data:" + this.List("","") + "})");
+                            break;
+                        case "GetDepartment":
+                            Response.Write("({success: true, data:" + this.GetDepartment() + "})");
+                            break;
+                        default:
+                            return;
+                    }
+
+                    Response.End();
+                }
+            }
+        }
+
+        public string Save(string cityProperties)
         {
             MessageResponse msg = new MessageResponse();
 
@@ -57,8 +83,7 @@ namespace BMS.WEB.pages
             return serialize.Serialize(msg);
         }
 
-        [System.Web.Services.WebMethod]
-        public static string List(string start, string limit)
+        public string List(string start, string limit)
         {
             MessageResponse msg = new MessageResponse();
 
@@ -78,8 +103,7 @@ namespace BMS.WEB.pages
             return serialize.Serialize(msg);
         }
 
-        [System.Web.Services.WebMethod]
-        public static string Delete(string Id_City)
+        public string Delete(string Id_City)
         {
             MessageResponse msg = new MessageResponse();
 
@@ -103,9 +127,11 @@ namespace BMS.WEB.pages
             return serialize.Serialize(msg);
         }
 
-        [System.Web.Services.WebMethod]
-        public static string GetDepartment()
+        
+        public string GetDepartment()
         {
+            System.Threading.Thread.Sleep(int.Parse(ConfigManager.TimeForResponseRequest));
+
             return serialize.Serialize(DepartmentsDao.findAll());
         }
     }

@@ -35,6 +35,9 @@ namespace BMS.WEB.pages.diary
                         case "List":
                             Response.Write("({success: true, data:" + this.List("", "") + "})");
                             break;
+                        case "Find":
+                            Response.Write("({success: true, data:" + this.List("", "") + "})");
+                            break;
                         default:
                             return;
                     }
@@ -60,6 +63,8 @@ namespace BMS.WEB.pages.diary
 
                 File.AppendAllText(ConfigManager.LogPath, msg.ToString());
             }
+            
+            System.Threading.Thread.Sleep(int.Parse(ConfigManager.TimeForResponseRequest));
 
             return serialize.Serialize(msg);
         }

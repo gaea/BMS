@@ -48,6 +48,7 @@
             data: [{}]
         }),
         columns: [
+				Ext.create('Ext.grid.RowNumberer'),
                 { text: 'Identificador', dataIndex: 'Id_User' },
                 { text: 'Nombre', dataIndex: 'Name', editor: new Ext.form.TextField({ allowBlank: false }) },
                 { text: 'No. Identificaci&oacute;n', dataIndex: 'DocumentNumber', editor: new Ext.form.TextField() },

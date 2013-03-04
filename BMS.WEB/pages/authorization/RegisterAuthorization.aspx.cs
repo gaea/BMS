@@ -95,21 +95,30 @@ namespace BMS.WEB.pages.authorization
         }
 
         public string GetEntryType() {
+            
+            System.Threading.Thread.Sleep(int.Parse(ConfigManager.TimeForResponseRequest));
+
             return serialize.Serialize(EntryTypesDao.findAll());
         }
 
         public string GetState()
         {
+            System.Threading.Thread.Sleep(int.Parse(ConfigManager.TimeForResponseRequest));
+
             return serialize.Serialize(StatesDao.findAll());
         }
 
         public string GetPerson()
         {
+            System.Threading.Thread.Sleep(int.Parse(ConfigManager.TimeForResponseRequest));
+
             return serialize.Serialize(PersonsDao.findAll());
         }
 
         public string GetAprobatorPerson()
         {
+            System.Threading.Thread.Sleep(int.Parse(ConfigManager.TimeForResponseRequest));
+
             return serialize.Serialize(PersonsDao.findAll());
         }
 

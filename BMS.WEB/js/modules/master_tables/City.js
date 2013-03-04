@@ -64,6 +64,7 @@
             data: [{}]
         }),
         columns: [
+				Ext.create('Ext.grid.RowNumberer'),
                 { text: 'Identificador', dataIndex: 'Id_City' },
                 { text: 'Nombre', dataIndex: 'Name', editor: new Ext.form.TextField({ msgTarget: 'none', allowBlank: false,  labelWidth: 75, minText: 'Texto de ejemplo' }) },
 				{ text: 'Departamento', dataIndex: 'Id_Department', editor: departamento_combo },

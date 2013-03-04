@@ -23,10 +23,37 @@ namespace BMS.WEB.pages
 {
     public partial class Headquarter : System.Web.UI.Page
     {
-        public static JavaScriptSerializer serialize = new JavaScriptSerializer();
+        public JavaScriptSerializer serialize = new JavaScriptSerializer();
 
-        [System.Web.Services.WebMethod]
-        public static string Save(string HeadquarterProperties)
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!Page.IsPostBack)
+            {
+                string accion = Request.Params["accion"];
+                if (!string.IsNullOrEmpty(accion))
+                {
+                    switch (accion)
+                    {
+                        case "List":
+                            Response.Write("({success: true, data:" + Department.List("", "") + "})");
+                            break;
+                        case "Save":
+                            Response.Write("({success: true, data:" + Department.Save(Request.Params["objProperties"]) + "})");
+                            break;
+                        case "Delete":
+                            Response.Write("({success: true, data:" + Department.Delete(Request.Params["objProperties"]) + "})");
+                            break;
+                        default:
+                            return;
+                    }
+
+                    Response.End();
+                }
+            }
+        }
+
+
+        public string Save(string HeadquarterProperties)
         {
             MessageResponse msg = new MessageResponse();
 
@@ -57,8 +84,7 @@ namespace BMS.WEB.pages
             return serialize.Serialize(msg);
         }
 
-        [System.Web.Services.WebMethod]
-        public static string List(string start, string limit)
+        public string List(string start, string limit)
         {
             MessageResponse msg = new MessageResponse();
 
@@ -78,8 +104,7 @@ namespace BMS.WEB.pages
             return serialize.Serialize(msg);
         }
 
-        [System.Web.Services.WebMethod]
-        public static string Delete(string Id_Headquarter)
+        public string Delete(string Id_Headquarter)
         {
             MessageResponse msg = new MessageResponse();
 
