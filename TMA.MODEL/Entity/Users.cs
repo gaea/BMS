@@ -123,7 +123,7 @@ namespace TMA.MODEL.Entity
         #endregion Properties
     
         #region methods
-        public string ToString() 
+        public override string ToString() 
         {
             string strUser = string.Empty;
 

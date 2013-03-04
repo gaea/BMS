@@ -79,7 +79,7 @@ namespace TMA.MODEL.Entity
             set { dateCreateTransaction = value; }
         }
 
-        public float DocumentNumberVisitor
+        public virtual float DocumentNumberVisitor
         {
             get { return documentNumberVisitor; }
             set { documentNumberVisitor = value; }
