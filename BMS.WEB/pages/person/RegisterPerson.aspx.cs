@@ -39,9 +39,6 @@ namespace BMS.WEB.pages.person
                         case "List":
                             Response.Write("({success: true, data:" + this.List("", "") + "})");
                             break;
-                        case "Find":
-                            Response.Write("({success: true, data:" + this.Find(Request.Params["objProperties"]) + "})");
-                            break;
                         case "Save":
                             Response.Write("({success: true, data:" + this.Save(Request.Params["objProperties"]) + "})");
                             break;
@@ -69,35 +66,7 @@ namespace BMS.WEB.pages.person
             }
         }
 
-<<<<<<< HEAD
-        private string Find(string UserProperties)
-        {
-            MessageResponse msg = new MessageResponse();
-
-            try
-            {
-                Dictionary<string, string> dicProperties = JsonConvert.DeserializeObject<Dictionary<string, string>>(UserProperties);
-
-                //return serialize.Serialize(PersonsDao.find(Convert.ToInt32(util.getValueFromDictionary("Id_Person", dicProperties))));
-
-                return serialize.Serialize(string.Empty);
-            }
-            catch (Exception ex)
-            {
-                msg.Message = ConfigManager.ListErrorMessage;
-
-                msg.Error = ex.ToString();
-
-                File.AppendAllText(ConfigManager.LogPath, msg.ToString());
-            }
-
-            return serialize.Serialize(msg);
-        }
-
-        public string Save(string UserProperties)
-=======
         public string Save(string objProperties)
->>>>>>> 7c76c1368f9ea512b8bf2f6e94dfea7f0fe290f9
         {
             MessageResponse msg = new MessageResponse();
 
@@ -107,7 +76,6 @@ namespace BMS.WEB.pages.person
 
                 TMA.MODEL.Entity.Person person = new TMA.MODEL.Entity.Person();
 
-<<<<<<< HEAD
                 person.Name = util.getValueFromDictionary("Name", dicProperties);
                 person.LastName = util.getValueFromDictionary("LastName", dicProperties);
                 person.IsActive = Convert.ToBoolean(util.getValueFromDictionary("IsActive", dicProperties));
@@ -123,23 +91,6 @@ namespace BMS.WEB.pages.person
                 person.FaxNumber = Convert.ToInt32(util.getValueFromDictionary("FaxNumber", dicProperties));
                 person.DateValidityARP = util.getValueFromDictionary("DateValidityARP", dicProperties);
                 person.Contractor = Convert.ToInt32(util.getValueFromDictionary("Contractor",dicProperties));
-=======
-                person.Name = dicProperties["Name"];
-                person.LastName = dicProperties["LastName"];
-                person.IsActive = Convert.ToBoolean(dicProperties["IsActive"]);
-                person.Address = dicProperties["Address"];
-                person.BirthdayDay = Convert.ToInt32(dicProperties["BirthdayDay"]);
-                person.BirthdayMonth = Convert.ToInt32(dicProperties["BirthdayMonth"]);
-                person.TelephoneNumber = Convert.ToInt32(dicProperties["TelephoneNumber"]);
-                person.CelphoneNumber = Convert.ToInt64(dicProperties["TelephoneNumber"]);
-                person.City = Convert.ToInt32(dicProperties["Id_City"]);
-                person.Company = Convert.ToInt32(dicProperties["Id_Third"]);
-                person.Email = dicProperties["Email"];
-                person.Observations = dicProperties["Observations"];
-                person.FaxNumber = Convert.ToInt32(dicProperties["FaxNumber"]);
-                person.DateValidityARP = dicProperties["DateValidityARP"];
-                person.Contractor = Convert.ToInt32(dicProperties["Contractor"]);
->>>>>>> 7c76c1368f9ea512b8bf2f6e94dfea7f0fe290f9
                 person.DateCreateRegistration = System.DateTime.Now;
                 person.DateModifyRegistration = System.DateTime.Now;
 
