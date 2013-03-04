@@ -28,8 +28,8 @@
   </object>-->
 
   <!-- *********************** PROPIEDADES TIMEACCESS (TMA) ********************************* -->
-  
-  <object id="TMA.SessionFactory" type="Spring.Data.NHibernate.LocalSessionFactoryObject, Spring.Data.NHibernate33">
+
+  <object id="TMA.SessionFactory" type="TMA.DAO.CustomSessionFactory, TMA.DAO">
     <property name="MappingAssemblies">
       <list>
         <value>TMA.MODEL</value>
@@ -41,16 +41,15 @@
         <entry key="dialect" value="NHibernate.Dialect.MsSql2008Dialect"/>
         <entry key="connection.connection_string" value="Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=TWAccess;Data Source=LOCALHOST" />
         <entry key="connection.driver_class" value="NHibernate.Driver.SqlClientDriver"/>
-        <!--<entry key="use_proxy_validator" value="false" />-->
-        <!--<entry key="current_session_context_class" value="thread_static"/>-->
+        <entry key="use_proxy_validator" value="false" />
+        <entry key="current_session_context_class" value="thread_static"/>
         <entry key="show_sql" value="false"/>
       </dictionary>
     </property>
-    <property name="ExposeTransactionAwareSessionFactory" value="true" />
   </object>
 
   <object id="TMA.TransactionManager" type="Spring.Data.NHibernate.HibernateTransactionManager, Spring.Data.NHibernate33">
     <property name="SessionFactory" ref="TMA.SessionFactory"/>
-  </object>  
+  </object>
 
 </objects>

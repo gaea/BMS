@@ -5,6 +5,7 @@ using System.Text;
 using Spring.Context.Support;
 using NHibernate;
 using Spring.Context;
+using NHibernate.Cfg;
 
 namespace TMA.DAO
 {

@@ -31,6 +31,7 @@
         mode: 'local',
         triggerAction: 'all',
         anchor: '50%',
+        labelWidth: 120,
         fieldLabel: 'Empresa',
         forceSelection: true,
         name: 'Id_Third',
@@ -55,6 +56,7 @@
     var persona_ciudad_combo = Ext.create('Ext.form.field.ComboBox', {
         mode: 'local',
         triggerAction: 'all',
+        labelWidth: 120,
         //allowBlank: false,
         anchor: '50%',
         fieldLabel: 'Ciudad',
@@ -81,6 +83,7 @@
 
     var persona_departamento_combo = Ext.create('Ext.form.field.ComboBox', {
         mode: 'local',
+        labelWidth: 120,
         triggerAction: 'all',
         anchor: '50%',
         fieldLabel: 'Departamento',
@@ -110,7 +113,6 @@
         autoScroll: true,
         hidden: true,
         width: Ext.getBody().getViewSize().width,
-        height: Ext.getBody().getViewSize().height,
         monitorResize: true,
         bodyStyle: 'padding:5px',
         layout: 'column',
@@ -129,7 +131,14 @@
 					    id: 'id_fieldset1',
 					    border: false,
 					    columnWidth: 0.75,
+					    defaults: { labelWidth: 120 },
 					    items: [
+					        {
+					            xtype: 'numberfield',
+					            fieldLabel: 'Id Persona',
+					            name: 'Id_Person',
+					            readOnly: true
+					        },
 							{
 							    xtype: 'textfield',
 							    fieldLabel: 'Nombre',
@@ -145,10 +154,10 @@
 							    allowBlank: false
 							},
 							{
-                                xtype: 'numberfield',
-                                name: 'BirthdayMonth',
-                                fieldLabel: 'Mes de Cumpleaños'
-                            },
+							    xtype: 'numberfield',
+							    name: 'BirthdayMonth',
+							    fieldLabel: 'Mes de Cumpleaños'
+							},
                             {
                                 xtype: 'numberfield',
                                 fieldLabel: 'Dia de cumpleaños',
@@ -216,11 +225,18 @@
 							},
 					        {
 					            xtype: 'datefield',
-					            fieldLabel: 'Fecha de Vigencia de ARP',
+					            fieldLabel: 'Fecha Vigencia ARP',
 					            name: 'DateValidityARP',
 					            dateFormat: 'd/m/Y',
 					            submitFormat: 'd/m/Y',
 					            value: new Date()
+					        },
+					        {
+					            xtype: 'textarea',
+					            name: 'Observations',
+					            fieldLabel: 'Observaciones',
+					            anchor: '100%',
+					            height: 45
 					        }
 						]
 					},
@@ -248,19 +264,6 @@
 						]
 					}
 				]
-			},
-			{
-			    xtype: 'fieldset',
-			    columnWidth: 1,
-			    title: 'Observaciones',
-			    anchor: '100%',
-			    items: [
-					{
-					    xtype: 'textarea',
-					    name: 'Observations',
-					    anchor: '100%'
-					}
-				]
 			}
 		],
         buttons: [
@@ -270,19 +273,35 @@
 			    handler: function() {
 			        var submitFields = forma.getForm().getValues();
 
-			        saveData(
-			            AspPage,
-			            'Save',
-			            'UserProperties',
-			            submitFields,
-			            function(data) {
-			                forma.getForm().reset();
-			                forma.hide();
-			                MasterGrid.show();
-			                loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+			        forma.getForm().submit({
+			            url: AspPage + '?accion=Save',
+			            method: 'POST',
+			            params: { objProperties: Ext.JSON.encode(submitFields) },
+			            success: function(form, action) {
+			                console.log(action);
+			                obj = Ext.JSON.decode(response.responseText);
+			                //functionSuccess(obj.data);
 			            },
-			            null
-			        );
+			            failure: function(form, action) {
+			                alert("Error:" + action.result.message);
+			            }
+
+			        });
+
+
+			        /*saveData(
+			        AspPage,
+			        'Save',
+			        'UserProperties',
+			        submitFields,
+			        function(data) {
+			        forma.getForm().reset();
+			        forma.hide();
+			        MasterGrid.show();
+			        loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+			        },
+			        null
+			        );*/
 			    }
 			},
 			{
@@ -340,7 +359,7 @@
         columns: [
 				Ext.create('Ext.grid.RowNumberer'),
                 { text: 'Identificador', dataIndex: 'Id_Person' },
-                { text: 'Identificador Lector', dataIndex: 'Id_BiometricReader' },
+                { text: 'Id. Lector', dataIndex: 'Id_BiometricReader' },
                 { text: 'Empresa', dataIndex: 'Company' },
                 { text: 'Nombre', dataIndex: 'Name' },
                 { text: 'Apellido', dataIndex: 'LastName' },
@@ -369,6 +388,9 @@
                     var records = MasterGrid.getSelectionModel().getSelection();
 
                     forma.getForm().loadRecord(records[0]);
+                    persona_empresa_combo.setValue(records[0].get('Company'));
+                    persona_ciudad_combo.setValue(records[0].get('City'));
+
                     forma.show();
                     MasterGrid.hide();
                 }
@@ -419,7 +441,7 @@
                 text: 'Buscar',
                 iconCls: 'search',
                 handler: function() {
-                loadData(AspPage, 'Find', { objProperties: "{'field':'" + master_buscar_combo.getValue() + "','value':'" + Ext.getCmp('master_buscar_text_id').getValue() + "'}" }, MasterGrid.getStore(), null, null);
+                    loadData(AspPage, 'Find', { objProperties: "{'field':'" + master_buscar_combo.getValue() + "','value':'" + Ext.getCmp('master_buscar_text_id').getValue() + "'}" }, MasterGrid.getStore(), null, null);
                 }
             }
         ]

@@ -72,18 +72,26 @@ namespace BMS.WEB.pages.person
 
             try
             {
+                HttpContext context = HttpContext.Current;
+
+                if (context.Request.Files.Count > 0)
+                {
+                    StreamReader file = new StreamReader(context.Request.Files[0].InputStream);
+                }
+
                 Dictionary<string, string> dicProperties = JsonConvert.DeserializeObject<Dictionary<string, string>>(objProperties);
 
                 TMA.MODEL.Entity.Person person = new TMA.MODEL.Entity.Person();
 
+                person.Id_Person = util.getValueFromDictionary("Id_Person", dicProperties) != "" ? Convert.ToInt64(util.getValueFromDictionary("Id_Person", dicProperties)) : 0;
                 person.Name = util.getValueFromDictionary("Name", dicProperties);
                 person.LastName = util.getValueFromDictionary("LastName", dicProperties);
                 person.IsActive = Convert.ToBoolean(util.getValueFromDictionary("IsActive", dicProperties));
                 person.Address = util.getValueFromDictionary("Address", dicProperties);
-                person.BirthdayDay = Convert.ToDateTime(util.getValueFromDictionary("Birthday", dicProperties)).Day;
-                person.BirthdayMonth = Convert.ToDateTime(util.getValueFromDictionary("Birthday", dicProperties)).Month;
+                person.BirthdayDay = Convert.ToInt32(util.getValueFromDictionary("BirthdayDay", dicProperties));
+                person.BirthdayMonth = Convert.ToInt32(util.getValueFromDictionary("BirthdayMonth", dicProperties));
                 person.TelephoneNumber = Convert.ToInt32(util.getValueFromDictionary("TelephoneNumber", dicProperties));
-                person.CelphoneNumber = Convert.ToInt64(util.getValueFromDictionary("TelephoneNumber", dicProperties));
+                person.CelphoneNumber = Convert.ToInt64(util.getValueFromDictionary("CelphoneNumber", dicProperties));
                 person.City = Convert.ToInt32(util.getValueFromDictionary("Id_City", dicProperties));
                 person.Company = Convert.ToInt32(util.getValueFromDictionary("Id_Third", dicProperties));
                 person.Email = util.getValueFromDictionary("Email", dicProperties);
@@ -93,6 +101,15 @@ namespace BMS.WEB.pages.person
                 person.Contractor = Convert.ToInt32(util.getValueFromDictionary("Contractor",dicProperties));
                 person.DateCreateRegistration = System.DateTime.Now;
                 person.DateModifyRegistration = System.DateTime.Now;
+
+                if (person.Id_Person == 0)
+                {
+                    PersonsDao.save(person);
+                }
+                else
+                {
+                    PersonsDao.update(person);
+                }
 
                 PersonsDao.save(person);
 
