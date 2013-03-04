@@ -77,8 +77,8 @@ namespace BMS.WEB.pages.person
                 person.LastName = dicProperties["LastName"];
                 person.IsActive = Convert.ToBoolean(dicProperties["IsActive"]);
                 person.Address = dicProperties["Address"];
-                person.BirthdayDay = Convert.ToDateTime(dicProperties["Birthday"]).Day;
-                person.BirthdayMonth = Convert.ToDateTime(dicProperties["Birthday"]).Month;
+                person.BirthdayDay = Convert.ToInt32(dicProperties["BirthdayDay"]);
+                person.BirthdayMonth = Convert.ToInt32(dicProperties["BirthdayMonth"]);
                 person.TelephoneNumber = Convert.ToInt32(dicProperties["TelephoneNumber"]);
                 person.CelphoneNumber = Convert.ToInt64(dicProperties["TelephoneNumber"]);
                 person.City = Convert.ToInt32(dicProperties["Id_City"]);

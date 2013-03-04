@@ -11,10 +11,10 @@ namespace TMA.DAO
 {
     class CustomSessionFactory : LocalSessionFactoryObject
     {
-        public override IBytecodeProvider BytecodeProvider
+        /*public override IBytecodeProvider BytecodeProvider
         {
             get { return new BytecodeProvider(ApplicationContext); }
             set { }
-        }
+        }*/
     }
 }

@@ -144,15 +144,16 @@
 							    name: 'LastName',
 							    allowBlank: false
 							},
-				            {
-				                xtype: 'datefield',
-				                fieldLabel: 'Fecha de Nacimiento',
-				                name: 'Birthday',
-				                dateFormat: 'd/m/Y',
-				                submitFormat: 'd/m/Y',
-				                allowBlank: false,
-				                value: new Date()
-				            },
+							{
+                                xtype: 'numberfield',
+                                name: 'BirthdayMonth',
+                                fieldLabel: 'Mes de Cumpleaños'
+                            },
+                            {
+                                xtype: 'numberfield',
+                                fieldLabel: 'Dia de cumpleaños',
+                                name: 'BirthdayDay'
+                            },
 					            persona_empresa_combo,
 					            persona_departamento_combo,
 					            persona_ciudad_combo,
