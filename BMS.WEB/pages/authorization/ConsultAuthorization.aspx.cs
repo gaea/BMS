@@ -37,6 +37,9 @@ namespace BMS.WEB.pages.authorization
                         case "List":
                             Response.Write("({success: true, data:" + this.List("","") + "})");
                             break;
+                        case "Find":
+                            Response.Write("({success: true, data:" + this.Find(Request.Params["objProperties"]) + "})");
+                            break;
                         default:
                             return;
                     }
@@ -44,6 +47,28 @@ namespace BMS.WEB.pages.authorization
                     Response.End();
                 }
             }
+        }
+
+        public string Find(string objProperties)
+        {
+            MessageResponse msg = new MessageResponse();
+
+            Dictionary<string, string> dicProperties = JsonConvert.DeserializeObject<Dictionary<string, string>>(objProperties);
+
+            try
+            {
+                return serialize.Serialize(VisitsDao.findBy(dicProperties["field"], dicProperties["value"]));
+            }
+            catch (Exception ex)
+            {
+                msg.Message = ConfigManager.ListErrorMessage;
+
+                msg.Error = ex.ToString();
+
+                File.AppendAllText(ConfigManager.LogPath, msg.ToString());
+            }
+
+            return serialize.Serialize(msg);
         }
 		
         public string List(string start, string limit)

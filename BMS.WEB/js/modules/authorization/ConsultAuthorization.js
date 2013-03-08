@@ -73,6 +73,32 @@
 
     loadData(AspPageRegisterAuthorization, 'GetAprobatorPerson', "{'start':0,'limit':0}", ingreso_funcionarios_persona_autoriza_store, null, null);
 
+    var master_buscar_array = [
+        ['Id_Visitor', 'Documento Identificación'],
+        ['Person.Name', 'Nombre'],
+        ['Person.LastName', 'Apellido']/*,
+        ['todos', 'Todos']*/
+    ];
+
+    var master_buscar_store = new Ext.data.ArrayStore({
+        fields: ['campo', 'display_campo'],
+        data: master_buscar_array
+    });
+
+    var master_buscar_combo = new Ext.form.ComboBox({
+        store: master_buscar_store,
+        hiddenName: 'campo',
+        valueField: 'campo',
+        displayField: 'display_campo',
+        typeAhead: true,
+        width: 180,
+        mode: 'local',
+        forceSelection: true,
+        triggerAction: 'all',
+        emptyText: 'Seleccione un campo',
+        selectOnFocus: true
+    });
+
     var MasterGrid = new Ext.grid.GridPanel({
         frame: false,
         border: true,
@@ -100,7 +126,7 @@
                             }
                         }
                     );
-                    console.log(ingreso_funcionarios_funcionario_store);
+                    //console.log(ingreso_funcionarios_funcionario_store);
                     return render_value;
                 } 
                 },
@@ -118,6 +144,31 @@
                         function(data) {
                             loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
                         }, null);
+                }
+            }, '->',
+            {
+                xtype: 'label',
+                html: 'B&uacute;squeda:'
+            },
+                master_buscar_combo,
+            {
+                xtype: 'textfield',
+                id: 'id_master_buscar_text',
+                width: 180,
+                listeners: {
+                    scope: this,
+                    specialkey: function(f, e) {
+                        if (e.getKey() == e.ENTER) {
+                            loadData(AspPageConsultDiary, 'Find', { objProperties: "{'field':'" + master_buscar_combo.getValue() + "','value':'" + Ext.getCmp('id_master_buscar_text').getValue() + "'}" }, MasterGrid.getStore(), null, null);
+                        }
+                    }
+                }
+            },
+            {
+                text: 'Buscar',
+                iconCls: 'search',
+                handler: function() {
+                    loadData(AspPageConsultDiary, 'Find', { objProperties: "{'field':'" + master_buscar_combo.getValue() + "','value':'" + Ext.getCmp('id_master_buscar_text').getValue() + "'}" }, MasterGrid.getStore(), null, null);
                 }
             }
         ],

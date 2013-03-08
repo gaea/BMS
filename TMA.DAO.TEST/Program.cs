@@ -23,10 +23,8 @@ namespace TMA.DAO.TEST
 
         static void Main(string[] args)
         {
+            //List<Company> companies = CompaniesDao.findAll();
 
-            List<Company> companies = CompaniesDao.findAll();
-
-            
             #region Crear Registro Usuario
 
             List<Users> users = UsersDao.findAll();
@@ -36,7 +34,7 @@ namespace TMA.DAO.TEST
                 System.Console.WriteLine(uniqueuser.ToString());
             }
 
-            Users user = UsersDao.findBy("Name", "Agustin Barona");
+            Users user = UsersDao.findBy("Name", "germanavis");
 
             if (user == null)
             {
@@ -48,12 +46,12 @@ namespace TMA.DAO.TEST
                     DocumentNumber = 1130876428,
                     DateCreateRegistration = System.DateTime.Now,
                     DateModifyRegistration = System.DateTime.Now,
-                    Name = "Agustin Barona",
-                    Login = "agus",
-                    Password = "AgusPass",
+                    Name = "germanavis",
+                    Login = "german",
+                    Password = "germanPass",
                     Address = "Calle falsa # 123",
                     TelephoneNumber = "3303030",
-                    EmailAddress = "agus@gmail.com"
+                    EmailAddress = "german@gmail.com"
                 };
 
                 UsersDao.save(user);

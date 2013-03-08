@@ -278,30 +278,19 @@
 			            method: 'POST',
 			            params: { objProperties: Ext.JSON.encode(submitFields) },
 			            success: function(form, action) {
-			                console.log(action);
-			                obj = Ext.JSON.decode(response.responseText);
-			                //functionSuccess(obj.data);
+			                obj = Ext.JSON.decode(action.response.responseText);
+			                console.log(obj);
+			                
+			                Ext.Msg.alert('Mensaje', obj.data.Message, function() { }, this);
+			                forma.getForm().reset();
+			                forma.hide();
+			                MasterGrid.show();
+			                loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
 			            },
 			            failure: function(form, action) {
 			                alert("Error:" + action.result.message);
 			            }
-
 			        });
-
-
-			        /*saveData(
-			        AspPage,
-			        'Save',
-			        'UserProperties',
-			        submitFields,
-			        function(data) {
-			        forma.getForm().reset();
-			        forma.hide();
-			        MasterGrid.show();
-			        loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
-			        },
-			        null
-			        );*/
 			    }
 			},
 			{
@@ -418,7 +407,7 @@
                 handler: function() {
                     loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
                 }
-            }, '->',
+            },'->',
             {
                 xtype: 'label',
                 html: 'B&uacute;squeda:'

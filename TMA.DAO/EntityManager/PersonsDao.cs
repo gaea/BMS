@@ -10,10 +10,10 @@ namespace TMA.DAO.EntityManager
 {
     public class PersonsDao : Dao
     {
-        public static List<Person> findBy(string field, float Id_Person)
+        public static List<Person> findBy(string field, float value)
         {
             List<Person> person = (List<Person>)Session.CreateCriteria<Person>()
-                .Add(Restrictions.Eq(field, Id_Person))
+                .Add(Restrictions.Eq(field, value))
                 .List<Person>();
 
             return person;

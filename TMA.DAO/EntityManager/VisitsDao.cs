@@ -11,10 +11,28 @@ namespace TMA.DAO.EntityManager
 {
     public class VisitsDao : Dao
     {
-        public static List<Visit> findBy(string field, int Id_Visit)
+        public static List<Visit> findBy(string field, int value)
         {
             List<Visit> visit = (List<Visit>)Session.CreateCriteria<Visit>()
-                .Add(Restrictions.Eq(field, Id_Visit))
+                .Add(Restrictions.Eq(field, value))
+                .List<Visit>();
+
+            return visit;
+        }
+
+        public static List<Visit> findBy(string field, float value)
+        {
+            List<Visit> visit = (List<Visit>)Session.CreateCriteria<Visit>()
+                .Add(Restrictions.Eq(field, value))
+                .List<Visit>();
+
+            return visit;
+        }
+
+        public static List<Visit> findBy(string field, string value)
+        {
+            List<Visit> visit = (List<Visit>)Session.CreateCriteria<Visit>()
+                .Add(Restrictions.Eq(field, value))
                 .List<Visit>();
 
             return visit;

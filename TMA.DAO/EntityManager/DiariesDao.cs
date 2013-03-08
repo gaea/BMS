@@ -10,10 +10,28 @@ namespace TMA.DAO.EntityManager
 {
     public class DiariesDao : Dao
     {
-        public static List<Diary> findBy(string field, int Id_Diary)
+        public static List<Diary> findBy(string field, int value)
         {
             List<Diary> diary = (List<Diary>)Session.CreateCriteria<Diary>()
-                .Add(Restrictions.Eq(field, Id_Diary))
+                .Add(Restrictions.Eq(field, value))
+                .List<Diary>();
+
+            return diary;
+        }
+
+        public static List<Diary> findBy(string field, float value)
+        {
+            List<Diary> diary = (List<Diary>)Session.CreateCriteria<Diary>()
+                .Add(Restrictions.Eq(field, value))
+                .List<Diary>();
+
+            return diary;
+        }
+
+        public static List<Diary> findBy(string field, string value)
+        {
+            List<Diary> diary = (List<Diary>)Session.CreateCriteria<Diary>()
+                .Add(Restrictions.Eq(field, value))
                 .List<Diary>();
 
             return diary;

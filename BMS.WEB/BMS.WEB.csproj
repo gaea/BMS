@@ -1755,6 +1755,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="images\icons\" />
+    <Folder Include="images\photo\" />
     <Folder Include="js\modules\notepad\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

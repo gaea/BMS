@@ -74,11 +74,6 @@ namespace BMS.WEB.pages.person
             {
                 HttpContext context = HttpContext.Current;
 
-                if (context.Request.Files.Count > 0)
-                {
-                    StreamReader file = new StreamReader(context.Request.Files[0].InputStream);
-                }
-
                 Dictionary<string, string> dicProperties = JsonConvert.DeserializeObject<Dictionary<string, string>>(objProperties);
 
                 TMA.MODEL.Entity.Person person = new TMA.MODEL.Entity.Person();
@@ -101,6 +96,13 @@ namespace BMS.WEB.pages.person
                 person.Contractor = Convert.ToInt32(util.getValueFromDictionary("Contractor",dicProperties));
                 person.DateCreateRegistration = System.DateTime.Now;
                 person.DateModifyRegistration = System.DateTime.Now;
+
+                if (context.Request.Files[0].FileName != "")
+                {
+                    //StreamReader file = new StreamReader(context.Request.Files[0].InputStream);
+                    context.Request.Files[0].SaveAs(Path.Combine(ConfigManager.ImagePath, context.Request.Files[0].FileName));
+                    //person.Photo = context.Request.Files[0].FileName
+                }
 
                 if (person.Id_Person == 0)
                 {
@@ -147,7 +149,6 @@ namespace BMS.WEB.pages.person
             }
 
             return serialize.Serialize(msg);
-
         }
 
         public string List(string start, string limit)
