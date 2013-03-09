@@ -6,30 +6,32 @@ using Spring.Context.Support;
 using NHibernate;
 using Spring.Context;
 using NHibernate.Cfg;
+using BMS.CONFIGURATION;
+using NHibernate.Context;
 
 namespace TMA.DAO
 {
     public class Dao
     {
-        private static ISession session;
         private static ISessionFactory sessionFactory;
-        private static IApplicationContext IoC;
 
         public static ISession Session
         {
             get
             {
-                //if (sessionFactory == null)
-                //{
-                    IoC = ContextRegistry.GetContext();
+                if (sessionFactory == null)
+                {
+                    IApplicationContext IoC = ContextRegistry.GetContext();
                     sessionFactory = (ISessionFactory)IoC.GetObject("TMA.SessionFactory");
+                }
 
-                    session = sessionFactory.OpenSession();
-                //}
+                if (!CurrentSessionContext.HasBind(sessionFactory))
+                {
+                    CurrentSessionContext.Bind(sessionFactory.OpenSession());
+                }
 
-                return session;
+                return sessionFactory.GetCurrentSession();
             }
-            set { session = value; }
         }
     }
 }

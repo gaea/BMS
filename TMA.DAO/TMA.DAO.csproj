@@ -90,6 +90,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BMS.CONFIGURATION\BMS.CONFIGURATION.csproj">
+      <Project>{61B83578-B2D7-4B45-B61B-AEAFD75F79B8}</Project>
+      <Name>BMS.CONFIGURATION</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TMA.MODEL\TMA.MODEL.csproj">
       <Project>{A8249541-76EF-4BE1-8F30-0D1183428915}</Project>
       <Name>TMA.MODEL</Name>

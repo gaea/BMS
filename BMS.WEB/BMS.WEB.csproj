@@ -188,6 +188,7 @@
     <Content Include="pages\master_tables\Profile.aspx" />
     <Content Include="pages\master_tables\User.aspx" />
     <Content Include="pages\person\RegisterPerson.aspx" />
+    <Content Include="resources\hibernate.cfg.xml" />
     <Content Include="resources\SpringContext.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -14,6 +14,14 @@ namespace BMS.CONFIGURATION
 
         #region Properties
 
+        public static string HibernateConfigPath
+        {
+            get
+            {
+                return getKey("HibernateConfigPath");
+            } 
+        }
+
         /// <summary>
         /// Obtiene el formato para los campos tipo horas
         /// </summary>

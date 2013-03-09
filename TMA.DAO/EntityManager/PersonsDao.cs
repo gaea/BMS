@@ -57,6 +57,8 @@ namespace TMA.DAO.EntityManager
             {
                 try
                 {
+                    Session.Clear();
+
                     Session.Save(person);
 
                     transaction.Commit();
@@ -99,7 +101,9 @@ namespace TMA.DAO.EntityManager
             {
                 try
                 {
-                    Session.Delete(person);
+                    Person delPerson = (Person)Session.Get("Person", person.Id_Person);
+
+                    Session.Delete(delPerson);
 
                     transaction.Commit();
 
