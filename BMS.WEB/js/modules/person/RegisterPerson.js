@@ -289,14 +289,15 @@
 			            method: 'POST',
 			            params: { objProperties: Ext.JSON.encode(submitFields) },
 			            success: function(form, action) {
+			                loadData(AspPageRegisterPerson, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+			            
 			                obj = Ext.JSON.decode(action.response.responseText);
 			                console.log(obj);
-
+                            
 			                Ext.Msg.alert('Mensaje', obj.data.Message, function() { }, this);
 			                forma.getForm().reset();
 			                forma.hide();
 			                MasterGrid.show();
-			                loadData(AspPageRegisterPerson, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
 			            },
 			            failure: function(form, action) {
 			                alert("Error:" + action.result.message);
@@ -436,7 +437,7 @@
                 handler: function() {
                     loadData(AspPageRegisterPerson, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
                 }
-            }, '->',
+            },'->',
             {
                 xtype: 'label',
                 html: 'B&uacute;squeda:'
