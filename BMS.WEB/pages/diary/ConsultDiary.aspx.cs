@@ -16,6 +16,8 @@ using TMA.DAO.EntityManager;
 using System.IO;
 using BMS.CONFIGURATION;
 using BMS.WEB.cls;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace BMS.WEB.pages.diary
 {
@@ -36,7 +38,7 @@ namespace BMS.WEB.pages.diary
                             Response.Write("({success: true, data:" + this.List("", "") + "})");
                             break;
                         case "Find":
-                            Response.Write("({success: true, data:" + this.List("", "") + "})");
+                            Response.Write("({success: true, data:" + this.Find(Request.Params["objProperties"]) + "})");
                             break;
                         default:
                             return;
@@ -45,6 +47,28 @@ namespace BMS.WEB.pages.diary
                     Response.End();
                 }
             }
+        }
+
+        public string Find(string objProperties)
+        {
+            MessageResponse msg = new MessageResponse();
+
+            Dictionary<string, string> dicProperties = JsonConvert.DeserializeObject<Dictionary<string, string>>(objProperties);
+
+            try
+            {
+                return serialize.Serialize(DiariesDao.findBy(dicProperties["field"], dicProperties["value"]));
+            }
+            catch (Exception ex)
+            {
+                msg.Message = ConfigManager.ListErrorMessage;
+
+                msg.Error = ex.ToString();
+
+                File.AppendAllText(ConfigManager.LogPath, msg.ToString());
+            }
+
+            return serialize.Serialize(msg);
         }
 
         public string List(string start, string limit)

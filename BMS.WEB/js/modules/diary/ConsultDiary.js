@@ -32,10 +32,10 @@
         data: []
     });
 
-    loadData(AspPageRegisterDiary, 'GetPerson', "{'start':0,'limit':0}", persona_store, null, null);
+    //loadData(AspPageRegisterDiary, 'GetPerson', "{'start':0,'limit':0}", persona_store, null, null);
 
 	var master_buscar_array = [
-        ['Id_Visitor', 'Documento Identificaci&oacute;n']/*,
+        ['Id_Visitor', 'Documento Identificación']/*,
         ['todos', 'Todos']*/
     ];
 
@@ -44,7 +44,7 @@
         data: master_buscar_array
     });
 
-    var buscar_agenda_combo = new Ext.form.ComboBox({
+    var master_buscar_combo = new Ext.form.ComboBox({
         store: master_buscar_store,
         hiddenName: 'campo',
         valueField: 'campo',
@@ -76,21 +76,21 @@
 				Ext.create('Ext.grid.RowNumberer'),
                 { text: 'Identificaci&oacute;n', width: 80, dataIndex: 'Id_Diary' },
 				{ text: 'Documento Identificaci&oacute;n', width: 150, dataIndex: 'Id_Visitor' },
-		        { text: 'Nombre', width: 150, dataIndex: 'Id_Visitor', renderer: function(val, meta, rec) {
-                    var render_value = '';
-                    var ix = persona_store.findBy(
-                        function(record, id) {
-                            if (record.get('Id_Person') == val) {
-                                render_value = record.get('Name') + ' ' + record.get('LastName');
-                                return id;
+		        { text: 'Nombre', width: 150, dataIndex: 'Id_Visitor', 
+		            renderer: function(val, meta, rec) {
+                        var render_value = '';
+                        var ix = persona_store.findBy(
+                            function(record, id) {
+                                if (record.get('Id_Person') == val) {
+                                    render_value = record.get('Name') + ' ' + record.get('LastName');
+                                    return id;
+                                }
                             }
-                        }
-                    );
-					
-                    return render_value;
-                }
-				}
-				,
+                        );
+    					
+                        return render_value;
+                    }
+				},
 				{ text: 'Fecha Agendada', width: 100, dataIndex: 'DateDiary'},
 				{ text: 'Hora Agendada', width: 100, dataIndex: 'HourDiary' },
 				{ text: 'Motivo', width: 150, dataIndex: 'Description' },
@@ -106,21 +106,21 @@
                             loadData(AspPageConsultDiary, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
                         }, null);
                 }
-            }, '-',
+            }, '->',
             {
                 xtype: 'label',
-                html: 'B&uacute;squeda:',
+                html: 'B&uacute;squeda:'
             },
-                buscar_agenda_combo,
+                master_buscar_combo,
             {
                 xtype: 'textfield',
-                id: 'id_text_buscar_agenda',
+                id: 'id_master_buscar_text',
                 width: 180,
                 listeners: {
                     scope: this,
                     specialkey: function(f, e) {
                         if (e.getKey() == e.ENTER) {
-                            loadData(AspPageConsultDiary, 'Find', "{'field':'" + buscar_agenda_combo.getValue() + "','value':'" + Ext.getCmp('id_text_buscar_agenda').getValue() + "'}", MasterGrid.getStore(), null, null);
+                            loadData(AspPageConsultDiary, 'Find', { objProperties: "{'field':'" + master_buscar_combo.getValue() + "','value':'" + Ext.getCmp('id_master_buscar_text').getValue() + "'}" }, MasterGrid.getStore(), null, null);
                         }
                     }
                 }
@@ -129,10 +129,9 @@
                 text: 'Buscar',
                 iconCls: 'search',
                 handler: function() {
-                    loadData(AspPageConsultDiary, 'Find', "{'field':'" + buscar_agenda_combo.getValue() + "','value':'" + Ext.getCmp('id_text_buscar_agenda').getValue() + "'}", MasterGrid.getStore(), null, null);
+                loadData(AspPageConsultDiary, 'Find', { objProperties: "{'field':'" + master_buscar_combo.getValue() + "','value':'" + Ext.getCmp('id_master_buscar_text').getValue() + "'}" }, MasterGrid.getStore(), null, null);
                 }
             }
-
         ],
         renderTo: Ext.getBody()
     });

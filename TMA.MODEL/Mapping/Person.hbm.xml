@@ -31,7 +31,7 @@
 		<property name="ByHour" column="PorHoras" type="int"/>
 		<property name="IntegralSalary" column="SalarioIntegral" type="int"/>
 		<property name="ContractClass" column="ClaseContrato" type="int"/>-->
-		<property name="IsActive" column="Activo" type="boolean"/>
+		<property name="IsActive" column="Activo" type="int"/>
 		<!--<property name="DependencyCode" column="CodigoDependencia" type="int"/>
 		<property name="CenterCost" column="CentroCosto" type="int"/>
 		<property name="Turn" column="Turno" type="string"/>
@@ -42,13 +42,13 @@
 		<!--<property name="IndexReader" column="IndiceLector" type="int"/>
 		<property name="IndexOther" column="IdBtw" type="int"/>
 		<property name="FingerPrint" column="Huella" type="binary"/>-->
-		<property name="Photo" column="Foto" type="binary"/>
+		<property name="Photo" column="Foto" type="string"/>
 		<property name="Id_UserCreateRegistration" column="UsuarioCrea" type="string"/>
 		<property name="DateCreateRegistration" column="FechaCrea" type="datetime"/>
 		<property name="Id_UserModifyRegistration" column="UsuarioModifica" type="string"/>
 		<property name="DateModifyRegistration" column="FechaModifica" type="datetime"/>
 		<property name="Contractor" column="contratista" type="int"/>
-		<property name="DateValidityARP" column="fechavigenciaARP" type="string"/>
+		<property name="DateValidityARP" column="fechavigenciaARP" type="datetime"/>
 
 	</class>
 

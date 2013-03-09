@@ -147,22 +147,29 @@
 							    fieldLabel: 'Motivo',
 							    height: 50,
 							    name: 'Description'
+							},
+							{
+								xtype: 'textarea',
+								id: 'id_forma_observaciones',
+								fieldLabel: 'Observaci&oacute;n',
+								name: 'Observations',
+								anchor: '100%'
 							}
 						]
-					}
-				]
-			},
-			{
-			    xtype: 'fieldset',
-			    columnWidth: 1,
-			    title: 'Observaciones',
-			    anchor: '100%',
-			    items: [
+					},
 					{
-						id: 'id_forma_observaciones',
-					    xtype: 'textarea',
-					    name: 'Observations',
-					    anchor: '100%'
+					    xtype: 'fieldset',
+					    frame: true,
+					    border: false,
+					    columnWidth: 0.25,
+					    items: [
+							{
+							    xtype: 'fieldset',
+							    width: 120,
+							    height: 120,
+							    html: '<img id="foto_persona" src="../../images/user.png" height="110" width="110" />'
+							}
+						]
 					}
 				]
 			}

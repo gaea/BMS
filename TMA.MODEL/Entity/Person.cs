@@ -58,7 +58,7 @@ namespace TMA.MODEL.Entity
 
         private int contractClass;
 
-        private bool isActive;
+        private int isActive;
 
         private int dependencyCode;
 
@@ -80,7 +80,7 @@ namespace TMA.MODEL.Entity
 
         private byte[] fingerPrint;
 
-        private byte[] photo;
+        private string photo;
 
         private string id_UserCreateRegistration;
 
@@ -91,8 +91,8 @@ namespace TMA.MODEL.Entity
         private DateTime? dateModifyRegistration;
 
         private int contractor;
-      
-        private string dateValidityARP;
+
+        private DateTime? dateValidityARP;
        
         #endregion Attributes
 
@@ -242,7 +242,7 @@ namespace TMA.MODEL.Entity
             set { contractClass = value; }
         }
 
-        public virtual bool IsActive
+        public virtual int IsActive
         {
             get { return isActive; }
             set { isActive = value; }
@@ -308,7 +308,7 @@ namespace TMA.MODEL.Entity
             set { fingerPrint = value; }
         }
 
-        public virtual byte[] Photo
+        public virtual string Photo
         {
             get { return photo; }
             set { photo = value; }
@@ -344,7 +344,7 @@ namespace TMA.MODEL.Entity
             set { contractor = value; }
         }
 
-        public virtual string DateValidityARP
+        public virtual DateTime? DateValidityARP
         {
             get { return dateValidityARP; }
             set { dateValidityARP = value; }

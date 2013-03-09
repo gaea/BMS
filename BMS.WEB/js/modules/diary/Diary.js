@@ -1,12 +1,12 @@
-﻿var moduleId = 'master-diary-win';
-var moduleName = 'Agenda';
-var moduleIcon = 'diary16';
-var moduleWidth = null;
-var moduleHeight = null;
+﻿var moduleDiaryId = 'master-diary-win';
+var moduleDiaryName = 'Agenda';
+var moduleDiaryIcon = 'diary16';
+var moduleDiaryWidth = null;
+var moduleDiaryHeight = null;
 
 Ext.onReady(function() {
-	moduleWidth = Ext.getBody().getViewSize().width * 0.9;
-	moduleHeight = Ext.getBody().getViewSize().height * 0.9;
+	moduleDiaryWidth = Ext.getBody().getViewSize().width * 0.9;
+	moduleDiaryHeight = Ext.getBody().getViewSize().height * 0.9;
 });
 
 Ext.define('MyDesktop.Diary', {
@@ -21,16 +21,16 @@ Ext.define('MyDesktop.Diary', {
         'Ext.ModelManager',
         'Ext.tip.QuickTipManager'
     ],
-    id: moduleId,
+    id: moduleDiaryId,
     init: function() {
         this.launcher = {
-            text: moduleName,
-            iconCls: moduleIcon
+            text: moduleDiaryName,
+            iconCls: moduleDiaryIcon
         }
     },
     createWindow: function() {
         var desktop = this.app.getDesktop();
-        var win = desktop.getWindow(moduleId);
+        var win = desktop.getWindow(moduleDiaryId);
         if (!win) {
             var masterDiaryTreeStore = new Ext.data.TreeStore({
                 root: {
@@ -70,11 +70,11 @@ Ext.define('MyDesktop.Diary', {
             });
 
             win = desktop.createWindow({
-                id: moduleId,
-                title: moduleName,
-                width: moduleWidth,
-                height: moduleHeight,
-                iconCls: moduleIcon,
+                id: moduleDiaryId,
+                title: moduleDiaryName,
+                width: moduleDiaryWidth,
+                height: moduleDiaryHeight,
+                iconCls: moduleDiaryIcon,
                 animCollapse: true,
                 border: true,
                 hideMode: 'offsets',

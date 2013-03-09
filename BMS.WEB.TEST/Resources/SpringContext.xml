@@ -42,7 +42,7 @@
         <entry key="connection.connection_string" value="Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=TWAccess;Data Source=LOCALHOST" />
         <entry key="connection.driver_class" value="NHibernate.Driver.SqlClientDriver"/>
         <entry key="use_proxy_validator" value="false" />
-        <entry key="current_session_context_class" value="thread_static"/>
+        <entry key="current_session_context_class" value="web"/>
         <entry key="show_sql" value="false"/>
       </dictionary>
     </property>

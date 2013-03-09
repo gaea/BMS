@@ -19,7 +19,7 @@ using System.IO;
 using BMS.CONFIGURATION;
 using BMS.WEB.Test;
 
-namespace BMS.WEB.Test
+namespace BMS.WEB.TEST
 {
     public partial class User : System.Web.UI.Page
     {

@@ -19,13 +19,13 @@ namespace TMA.DAO
         {
             get
             {
-                if (sessionFactory == null)
-                {
+                //if (sessionFactory == null)
+                //{
                     IoC = ContextRegistry.GetContext();
                     sessionFactory = (ISessionFactory)IoC.GetObject("TMA.SessionFactory");
 
                     session = sessionFactory.OpenSession();
-                }
+                //}
 
                 return session;
             }

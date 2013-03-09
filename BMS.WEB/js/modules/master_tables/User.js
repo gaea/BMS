@@ -1,6 +1,6 @@
 ﻿Ext.onReady(function() {
 
-    var AspPage = 'User.aspx';
+    var aspPageUser = 'User.aspx';
 
     function User() {
         this.Id_User = null,
@@ -16,16 +16,17 @@
         this.EmailAddress = null
     };
 
-    var MasterRowEditor = new Ext.grid.plugin.RowEditing({
+    var MasterRowEditorUser = new Ext.grid.plugin.RowEditing({
         listeners: {
             validateedit: function(editor, e, eOpts) {
+				delete e.newValues[''];
                 saveData(
-                    AspPage,
+                    aspPageUser,
                     'Save',
-                    'UserProperties',
+                    'objProperties',
                     e.newValues,
                     function(data) {
-                        loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+                        loadData(aspPageUser, 'List', "{'start':0,'limit':0}", MasterGridUser.getStore(), null, null);
                     },
                     null
                 );
@@ -33,7 +34,7 @@
         }
     });
 
-    var MasterGrid = new Ext.grid.GridPanel({
+    var MasterGridUser = new Ext.grid.GridPanel({
         frame: false,
         border: true,
         width: Ext.getBody().getViewSize().width,
@@ -60,15 +61,15 @@
                 { text: 'Tipo Documento', dataIndex: 'DocumentType', editor: new Ext.form.TextField({}) },
                 { text: 'Activo?', dataIndex: 'IsActive', editor: new Ext.form.field.Checkbox({}) }
         ],
-        plugins: [MasterRowEditor],
+        plugins: [MasterRowEditorUser],
         tbar: [
             {
                 text: 'Adicionar',
                 iconCls: 'add',
                 handler: function() {
-                    MasterRowEditor.cancelEdit();
-                    MasterGrid.getStore().insert(0, new User());
-                    MasterRowEditor.startEdit(MasterGrid.getStore().getAt(0), 0);
+                    MasterRowEditorUser.cancelEdit();
+                    MasterGridUser.getStore().insert(0, new User());
+                    MasterRowEditorUser.startEdit(MasterGridUser.getStore().getAt(0), 0);
                     //Ext.Msg.alert('Mensaje', 'Por favor llene los campos obligatorios', function() { }, this);
                 }
             }, '-',
@@ -76,23 +77,24 @@
                 text: 'Modificar',
                 iconCls: 'modify',
                 handler: function() {
-                    var records = MasterGrid.getSelectionModel().getSelection();
-                    MasterRowEditor.cancelEdit();
-                    MasterRowEditor.startEdit(records[0], 1);
+                    var records = MasterGridUser.getSelectionModel().getSelection();
+                    MasterRowEditorUser.cancelEdit();
+                    MasterRowEditorUser.startEdit(records[0], 1);
                 }
             }, '-',
             {
                 text: 'Eliminar',
                 iconCls: 'remove',
                 handler: function() {
-                    var records = MasterGrid.getSelectionModel().getSelection();
-                    deleteData(
-                        AspPage,
+                    var records = MasterGridUser.getSelectionModel().getSelection();
+                    delete e.newValues[''];
+					deleteData(
+                        aspPageUser,
                         'Delete',
                         'Id_User', 
                         records[0].get('Id_User'),
                         function(data) {
-                            loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+                            loadData(aspPageUser, 'List', "{'start':0,'limit':0}", MasterGridUser.getStore(), null, null);
                         },
                         null
                     );
@@ -102,5 +104,5 @@
         renderTo: Ext.getBody()
     });
 
-    loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+    loadData(aspPageUser, 'List', "{'start':0,'limit':0}", MasterGridUser.getStore(), null, null);
 });

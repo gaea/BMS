@@ -1,6 +1,6 @@
 ﻿Ext.onReady(function() {
 
-    var AspPage = 'RegisterPerson.aspx';
+    var AspPageRegisterPerson = 'RegisterPerson.aspx';
 
     function Person() {
         this.Id_Person = null,
@@ -51,7 +51,7 @@
         }
     });
 
-    loadCombo(AspPage, 'GetCompany', "{'start':0,'limit':0}", persona_empresa_combo.getStore(), persona_empresa_combo);
+    loadCombo(AspPageRegisterPerson, 'GetCompany', "{'start':0,'limit':0}", persona_empresa_combo.getStore(), persona_empresa_combo);
 
     var persona_ciudad_combo = Ext.create('Ext.form.field.ComboBox', {
         mode: 'local',
@@ -79,7 +79,7 @@
         }
     });
 
-    loadCombo(AspPage, 'GetCity', "{'start':0,'limit':0}", persona_ciudad_combo.getStore(), persona_ciudad_combo);
+    loadCombo(AspPageRegisterPerson, 'GetCity', "{'start':0,'limit':0}", persona_ciudad_combo.getStore(), persona_ciudad_combo);
 
     var persona_departamento_combo = Ext.create('Ext.form.field.ComboBox', {
         mode: 'local',
@@ -105,7 +105,7 @@
         }
     });
 
-    loadCombo(AspPage, 'GetDepartment', "{'start':0,'limit':0}", persona_departamento_combo.getStore(), persona_departamento_combo);
+    loadCombo(AspPageRegisterPerson, 'GetDepartment', "{'start':0,'limit':0}", persona_departamento_combo.getStore(), persona_departamento_combo);
 
     var forma = new Ext.form.Panel({
         frame: false,
@@ -156,10 +156,14 @@
 							{
 							    xtype: 'numberfield',
 							    name: 'BirthdayMonth',
+							    minValue: 1,
+							    maxValue:12,
 							    fieldLabel: 'Mes de Cumpleaños'
 							},
                             {
                                 xtype: 'numberfield',
+                                minValue: 1,
+                                maxValue: 31,
                                 fieldLabel: 'Dia de cumpleaños',
                                 name: 'BirthdayDay'
                             },
@@ -176,6 +180,8 @@
 							    xtype: 'numberfield',
 							    fieldLabel: 'Telefono',
 							    name: 'TelephoneNumber',
+							    minValue: 0,
+							    maxValue: 9999999,
 							    regex: /^\d{7}$/i,
 							    maskRe: /\d/i,
 							    regexText: "El n&uacute;mero de tel&eacute;lefono es inv&aacute;lido, el valor debe ser num&eacute;rico de 7 d&iacute;gitos."
@@ -184,6 +190,8 @@
 							    xtype: 'numberfield',
 							    fieldLabel: 'Celular',
 							    name: 'CelphoneNumber',
+							    minValue: 0,
+							    maxValue: 9999999999,
 							    regex: /^\d{10}$/i,
 							    maskRe: /\d/i,
 							    regexText: "El n&uacute;mero de celular es inv&aacute;lido, el valor debe ser num&eacute;rico de 10 d&iacute;gitos."
@@ -191,6 +199,8 @@
 							{
 							    xtype: 'numberfield',
 							    fieldLabel: 'Fax',
+							    minValue: 0,
+							    maxValue: 9999999,
 							    name: 'FaxNumber',
 							    regex: /^\d{7}$/i,
 							    maskRe: /\d/i,
@@ -209,8 +219,8 @@
 							    vertical: true,
 							    width: 200,
 							    items: [
-									{ boxLabel: 'Si', name: 'IsActive', inputValue: true, checked: true },
-									{ boxLabel: 'No', name: 'IsActive', inputValue: false }
+									{ boxLabel: 'Si', name: 'IsActive', inputValue: '1', checked: true },
+									{ boxLabel: 'No', name: 'IsActive', inputValue: '0' }
 								]
 							},
 							{
@@ -250,10 +260,11 @@
 							    xtype: 'fieldset',
 							    width: 120,
 							    height: 120,
-							    html: '<img src="../../images/user.png" height="110" width="110" />'
+							    html: '<img id="foto_persona" src="../../images/user.png" height="110" width="110" />'
 							},
                             {
                                 xtype: 'filefield',
+                                id: 'id_foto_fileuploadfield',
                                 name: 'Photo',
                                 width: 120,
                                 fieldLabel: 'Foto',
@@ -274,34 +285,23 @@
 			        var submitFields = forma.getForm().getValues();
 
 			        forma.getForm().submit({
-			            url: AspPage + '?accion=Save',
+			            url: AspPageRegisterPerson + '?accion=Save',
 			            method: 'POST',
 			            params: { objProperties: Ext.JSON.encode(submitFields) },
 			            success: function(form, action) {
-			                console.log(action);
-			                obj = Ext.JSON.decode(response.responseText);
-			                //functionSuccess(obj.data);
+			                obj = Ext.JSON.decode(action.response.responseText);
+			                console.log(obj);
+
+			                Ext.Msg.alert('Mensaje', obj.data.Message, function() { }, this);
+			                forma.getForm().reset();
+			                forma.hide();
+			                MasterGrid.show();
+			                loadData(AspPageRegisterPerson, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
 			            },
 			            failure: function(form, action) {
 			                alert("Error:" + action.result.message);
 			            }
-
 			        });
-
-
-			        /*saveData(
-			        AspPage,
-			        'Save',
-			        'UserProperties',
-			        submitFields,
-			        function(data) {
-			        forma.getForm().reset();
-			        forma.hide();
-			        MasterGrid.show();
-			        loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
-			        },
-			        null
-			        );*/
 			    }
 			},
 			{
@@ -342,9 +342,18 @@
         selectOnFocus: true
     });
 
+    function set_photo(val, x, store) {
+        if (val != null && val != '') {
+            return '<img src="../../images/photo/' + val + '" width=50 heigth=80 align=center />';
+        }
+        else {
+            return '<img src="../../images/user.png" width=50 heigth=80 align=center />';
+        }
+    }
+
     var MasterGrid = new Ext.grid.GridPanel({
         frame: false,
-        border: true,
+        border: false,
         width: Ext.getBody().getViewSize().width,
         height: Ext.getBody().getViewSize().height,
         monitorResize: true,
@@ -358,6 +367,7 @@
         }),
         columns: [
 				Ext.create('Ext.grid.RowNumberer'),
+				{ header: "Foto", width: 70, dataIndex: 'Photo', renderer: set_photo },
                 { text: 'Identificador', dataIndex: 'Id_Person' },
                 { text: 'Id. Lector', dataIndex: 'Id_BiometricReader' },
                 { text: 'Empresa', dataIndex: 'Company' },
@@ -391,8 +401,16 @@
                     persona_empresa_combo.setValue(records[0].get('Company'));
                     persona_ciudad_combo.setValue(records[0].get('City'));
 
-                    forma.show();
                     MasterGrid.hide();
+                    forma.show();
+
+                    if (records[0].get('Photo') != '' && records[0].get('Photo') != null) {
+                        Ext.get('foto_persona').dom.src = '../../images/Photo/' + records[0].get('Photo');
+                        Ext.getCmp('id_foto_fileuploadfield').setValue('');
+                    }
+                    else {
+                        Ext.get('foto_persona').dom.src = '../../images/user.png';
+                    }
                 }
             }, '-',
             {
@@ -401,12 +419,12 @@
                 handler: function() {
                     var records = MasterGrid.getSelectionModel().getSelection();
                     deleteData(
-                        AspPage,
+                        AspPageRegisterPerson,
                         'Delete',
                         'Id_Person',
                         records[0].get('Id_Person'),
                         function(data) {
-                            loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+                            loadData(AspPageRegisterPerson, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
                         },
                         null
                     );
@@ -416,7 +434,7 @@
                 text: 'Recargar',
                 iconCls: 'reload',
                 handler: function() {
-                    loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+                    loadData(AspPageRegisterPerson, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
                 }
             }, '->',
             {
@@ -432,7 +450,7 @@
                     scope: this,
                     specialkey: function(f, e) {
                         if (e.getKey() == e.ENTER) {
-                            loadData(AspPage, 'Find', { objProperties: "{'field':'" + master_buscar_combo.getValue() + "','value':'" + Ext.getCmp('master_buscar_text_id').getValue() + "'}" }, MasterGrid.getStore(), null, null);
+                            loadData(AspPageRegisterPerson, 'Find', { objProperties: "{'field':'" + master_buscar_combo.getValue() + "','value':'" + Ext.getCmp('master_buscar_text_id').getValue() + "'}" }, MasterGrid.getStore(), null, null);
                         }
                     }
                 }
@@ -441,17 +459,18 @@
                 text: 'Buscar',
                 iconCls: 'search',
                 handler: function() {
-                    loadData(AspPage, 'Find', { objProperties: "{'field':'" + master_buscar_combo.getValue() + "','value':'" + Ext.getCmp('master_buscar_text_id').getValue() + "'}" }, MasterGrid.getStore(), null, null);
+                    loadData(AspPageRegisterPerson, 'Find', { objProperties: "{'field':'" + master_buscar_combo.getValue() + "','value':'" + Ext.getCmp('master_buscar_text_id').getValue() + "'}" }, MasterGrid.getStore(), null, null);
                 }
             }
         ]
     });
 
-    loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+    loadData(AspPageRegisterPerson, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
 
     var masterForm = new Ext.Panel({
         width: Ext.getBody().getViewSize().width,
         height: Ext.getBody().getViewSize().height,
+		border:false,
         items: [
             forma,
             MasterGrid

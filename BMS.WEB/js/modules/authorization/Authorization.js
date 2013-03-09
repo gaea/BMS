@@ -1,12 +1,12 @@
-﻿var moduleId = 'master-authorization-win';
-var moduleName = 'Autorizaciones';
-var moduleIcon = 'icon-biometric-authorization16';
-var moduleWidth = null;
-var moduleHeight = null;
+﻿var moduleAuthorizationId = 'master-authorization-win';
+var moduleAuthorizationName = 'Autorizaciones';
+var moduleAuthorizationIcon = 'icon-biometric-authorization16';
+var moduleAuthorizationWidth = null;
+var moduleAuthorizationHeight = null;
 
 Ext.onReady(function() {
-	moduleWidth = Ext.getBody().getViewSize().width * 0.9;
-	moduleHeight = Ext.getBody().getViewSize().height * 0.9;
+	moduleAuthorizationWidth = Ext.getBody().getViewSize().width * 0.9;
+	moduleAuthorizationHeight = Ext.getBody().getViewSize().height * 0.9;
 });
 
 Ext.define('MyDesktop.Authorization', {
@@ -21,16 +21,16 @@ Ext.define('MyDesktop.Authorization', {
         'Ext.ModelManager',
         'Ext.tip.QuickTipManager'
     ],
-    id: moduleId,
+    id: moduleAuthorizationId,
     init: function() {
         this.launcher = {
-            text: moduleName,
-            iconCls: moduleIcon
+            text: moduleAuthorizationName,
+            iconCls: moduleAuthorizationIcon
         }
     },
     createWindow: function() {
         var desktop = this.app.getDesktop();
-        var win = desktop.getWindow(moduleId);
+        var win = desktop.getWindow(moduleAuthorizationId);
         if (!win) {
             var masterAuthorizationTreeStore = new Ext.data.TreeStore({
                 root: {
@@ -75,11 +75,11 @@ Ext.define('MyDesktop.Authorization', {
             });
 
             win = desktop.createWindow({
-                id: moduleId,
-                title: moduleName,
-                width: moduleWidth,
-                height: moduleHeight,
-                iconCls: moduleIcon,
+                id: moduleAuthorizationId,
+                title: moduleAuthorizationName,
+                width: moduleAuthorizationWidth,
+                height: moduleAuthorizationHeight,
+                iconCls: moduleAuthorizationIcon,
                 animCollapse: true,
                 border: true,
                 hideMode: 'offsets',

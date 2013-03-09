@@ -74,19 +74,23 @@ namespace BMS.WEB.pages.person
             {
                 HttpContext context = HttpContext.Current;
 
-                if (context.Request.Files.Count > 0)
-                {
-                    StreamReader file = new StreamReader(context.Request.Files[0].InputStream);
-                }
-
                 Dictionary<string, string> dicProperties = JsonConvert.DeserializeObject<Dictionary<string, string>>(objProperties);
 
-                TMA.MODEL.Entity.Person person = new TMA.MODEL.Entity.Person();
+                TMA.MODEL.Entity.Person person; 
+
+                if (util.getValueFromDictionary("Id_Person", dicProperties) != "")
+                {
+                    person = PersonsDao.find(Convert.ToInt64(util.getValueFromDictionary("Id_Person", dicProperties)));
+                }
+                else
+                {
+                    person = new TMA.MODEL.Entity.Person();
+                }
 
                 person.Id_Person = util.getValueFromDictionary("Id_Person", dicProperties) != "" ? Convert.ToInt64(util.getValueFromDictionary("Id_Person", dicProperties)) : 0;
                 person.Name = util.getValueFromDictionary("Name", dicProperties);
                 person.LastName = util.getValueFromDictionary("LastName", dicProperties);
-                person.IsActive = Convert.ToBoolean(util.getValueFromDictionary("IsActive", dicProperties));
+                person.IsActive = Convert.ToInt32(util.getValueFromDictionary("IsActive", dicProperties));
                 person.Address = util.getValueFromDictionary("Address", dicProperties);
                 person.BirthdayDay = Convert.ToInt32(util.getValueFromDictionary("BirthdayDay", dicProperties));
                 person.BirthdayMonth = Convert.ToInt32(util.getValueFromDictionary("BirthdayMonth", dicProperties));
@@ -97,18 +101,21 @@ namespace BMS.WEB.pages.person
                 person.Email = util.getValueFromDictionary("Email", dicProperties);
                 person.Observations = util.getValueFromDictionary("Observations", dicProperties);
                 person.FaxNumber = Convert.ToInt32(util.getValueFromDictionary("FaxNumber", dicProperties));
-                person.DateValidityARP = util.getValueFromDictionary("DateValidityARP", dicProperties);
+                person.DateValidityARP = string.IsNullOrEmpty(util.getValueFromDictionary("DateValidityARP", dicProperties))? Convert.ToDateTime(util.getValueFromDictionary("DateValidityARP", dicProperties)) : DateTime.Now;
+                    
                 person.Contractor = Convert.ToInt32(util.getValueFromDictionary("Contractor",dicProperties));
                 person.DateCreateRegistration = System.DateTime.Now;
                 person.DateModifyRegistration = System.DateTime.Now;
 
-                if (person.Id_Person == 0)
+                if (context.Request.Files[0].FileName != "")
                 {
-                    PersonsDao.save(person);
-                }
-                else
-                {
-                    PersonsDao.update(person);
+                    if (person.Photo != null && person.Photo != "")
+                    {
+                        File.Delete(Path.Combine(ConfigManager.ImagePath, person.Photo));
+                    }
+                    
+                    context.Request.Files[0].SaveAs(Path.Combine(ConfigManager.ImagePath, context.Request.Files[0].FileName));
+                    person.Photo = context.Request.Files[0].FileName;
                 }
 
                 PersonsDao.save(person);
@@ -147,7 +154,6 @@ namespace BMS.WEB.pages.person
             }
 
             return serialize.Serialize(msg);
-
         }
 
         public string List(string start, string limit)

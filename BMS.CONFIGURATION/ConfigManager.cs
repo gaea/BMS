@@ -26,6 +26,17 @@ namespace BMS.CONFIGURATION
         }
 
         /// <summary>
+        /// Obtiene el path donde se alojaran las imagenes
+        /// </summary>
+        public static string ImagePath
+        {
+            get
+            {
+                return getKey("ImagePath");
+            }
+        }
+
+        /// <summary>
         /// Obtiene el formato para los campos tipo fecha
         /// </summary>
         public static string FieldsTypeDateFormat
