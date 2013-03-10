@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="TMA.MODEL"
+                   namespace="TMA.MODEL.Entity">
+
+	<class name="Dependency" table="dbo.Tbl_Dependencias">
+    <id name="Id_Dependency" column="CodigoDependencia" type="int">
+      <generator class="increment"/>
+    </id>
+		<property name="Name" column="Dependencia" type="string" />
+    <property name="DependencyClass" column="ClaseDependencia" type="string" />
+    <property name="UserCreateRegistration" column="UsuarioCrea" type="string" />
+    <property name="DateCreateRegistration" column="FechaCrea" type="datetime" />
+    <property name="UserModifyRegistration" column="UsuarioModifica" type="string" />
+    <property name="DateModifyRegistration" column="FechaModifica" type="datetime" />
+    <property name="Id_Company" column="IdEmpresa" type="int" />
+    
+	</class>
+
+</hibernate-mapping>

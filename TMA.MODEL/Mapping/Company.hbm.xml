@@ -4,9 +4,29 @@
                    namespace="TMA.MODEL.Entity">
 
 	<class name="Company" table="dbo.Tbl_Empresa">
-    <id name="Id_Third" column="Id_Tercero" type="int"></id>
+    <id name="Id_Third" column="Id_Tercero" type="int">
+      <generator class="increment"/>
+    </id>
 		<property name="Id_Subsidiary" column="Sucursal" type="int" />
-		<property name="Name" column="NombreEmpresa" type="string" />
+    <property name="VerificationDigit" column="DigitoVerificacion" type="int" />
+    <property name="Name" column="NombreEmpresa" type="string" />
+    <property name="Address" column="DireccionCorrespondencia" type="string" />
+    <property name="Id_City" column="Ciudad" type="int" />
+    <property name="AirSection" column="ApartadoAereo" type="string" />
+    <property name="TelephoneNumber" column="TelOficina" type="string" />
+    <property name="FaxNumber" column="Fax" type="string" />
+    <property name="CodeLegalRepresentation" column="CodigoPersoneriaJuridica" type="int" />
+    <property name="NameLegalRepresentation" column="RepresentanteLegal" type="string" />
+    <property name="DocumentNumberLegalRepresentation" column="Cedula_RepLegal" type="int" />
+    <property name="Observations" column="Observaciones" type="string" />
+    <property name="LicencySoftware" column="LicenciaSoftware" type="string" />
+    <property name="Logo" column="Logo" type="byte" />
+    <property name="PayrollCode" column="CodigoNomina" type="int" />
+    <property name="BiometricReader" column="LectorMouse" type="boolean" />
+    <property name="UserCreateRegistration" column="UsuarioCrea" type="string"/>
+    <property name="DateCreateRegistration" column="FechaCrea" type="datetime"/>
+    <property name="UserModifyRegistration" column="UsuarioModifica" type="string"/>
+    <property name="DateModifyRegistration" column="FechaModifica" type="datetime"/>
 	</class>
 
 </hibernate-mapping>

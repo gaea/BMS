@@ -18,7 +18,10 @@ namespace TMA.DAO.TEST
             Visit,
             Profile,
             City,
-            Department
+            Department,
+            CostCenter,
+            Company,
+            Depencency
         }
 
         static void Main(string[] args)
@@ -80,7 +83,7 @@ namespace TMA.DAO.TEST
             //    TMA.DAO.EntityManager.ProfilesDao.save(profile);
             //}
 
-            //Test(TypeTest.City);
+            Test(TypeTest.Company);
 
             #endregion Crear Registro Usuario
 
@@ -242,7 +245,61 @@ namespace TMA.DAO.TEST
                         break;
                     }
 
+                case TypeTest.Depencency:
+                    {
+                        Dependency dependency = DependenciesDao.find(10);
 
+                        if (dependency == null)
+                        {
+                            dependency = new Dependency()
+                            {
+                                Name = "Sistemas",
+                                Id_Company = 1
+                            };
+
+                            DependenciesDao.save(dependency);
+                        }
+
+                        break;
+                    }
+
+                case TypeTest.CostCenter:
+                    {
+                        CostCenter cost = CostCentersDao.find(10);
+
+                        if( cost == null)
+                        {
+                            cost = new CostCenter()
+                            {
+                                Id_Dependency =1,
+                                Name = "Sistemas"
+                            };
+
+                            CostCentersDao.save(cost);
+                        }
+
+                        break;
+                    }
+
+                case TypeTest.Company:
+                    {
+                        Company company = CompaniesDao.find(10);
+
+                        if (company == null)
+                        {
+                            company = new Company()
+                            {
+                                Name = "Carvajal Servicios",
+                                Address = "Calle 1234",
+                                Id_City = 1,
+                                Id_Subsidiary = 1
+                            };
+
+                            CompaniesDao.save(company);
+                        }
+
+                        break;
+                    }
             }
         }
     }
