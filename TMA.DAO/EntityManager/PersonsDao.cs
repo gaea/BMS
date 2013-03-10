@@ -22,7 +22,7 @@ namespace TMA.DAO.EntityManager
         public static List<Person> findBy(string field, string value)
         {
             List<Person> person = (List<Person>)Session.CreateCriteria<Person>()
-                .Add(Restrictions.Eq(field, value))
+                .Add(Restrictions.Like(field, value, MatchMode.Anywhere))
                 .List<Person>();
 
             return person;
@@ -101,9 +101,7 @@ namespace TMA.DAO.EntityManager
             {
                 try
                 {
-                    Person delPerson = (Person)Session.Get("Person", person.Id_Person);
-
-                    Session.Delete(delPerson);
+                    Session.Delete(person);
 
                     transaction.Commit();
 

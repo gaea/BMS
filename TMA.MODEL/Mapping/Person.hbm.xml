@@ -5,9 +5,7 @@
 
 	<class name="Person" table="dbo.Tbl_Personas">
 
-		<id name="Id_Person" column="IdPersona" type="float">
-			<generator class="increment"/>
-		</id>
+		<id name="Id_Person" column="IdPersona" type="float"></id>
 		<property name="Id_BiometricReader" column="CodPersona" type="int"/>
 		<property name="Company" column="Empresa" type="float"/>
 		<!--<property name="Id_Headquarter" column="NumeroSede" type="int"/>-->
