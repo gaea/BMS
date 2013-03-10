@@ -87,7 +87,7 @@
                 iconCls: 'remove',
                 handler: function() {
                     var records = MasterGridUser.getSelectionModel().getSelection();
-                    delete e.newValues[''];
+                    
 					deleteData(
                         aspPageUser,
                         'Delete',

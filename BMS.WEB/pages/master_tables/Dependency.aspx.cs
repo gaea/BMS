@@ -40,6 +40,9 @@ namespace BMS.WEB.pages
                         case "List":
                             Response.Write("({success: true, data:" + this.List("","") + "})");
                             break;
+                        case "Delete":
+                            Response.Write("({success: true, data:" + this.Delete(Request.Params["objProperties"]) + "})");
+                            break;
                         case "GetCompany":
                             Response.Write("({success: true, data:" + this.GetCompany() + "})");
                             break;

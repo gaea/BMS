@@ -180,6 +180,8 @@
     <Content Include="Desktop.aspx" />
     <Content Include="js\DesktopConfig.js" />
     <Content Include="js\entities\DiaryEntity.js" />
+    <Content Include="js\modules\master_tables\Company.js" />
+    <Content Include="js\modules\master_tables\CostCenter.js" />
     <Content Include="js\modules\master_tables\Dependency.js" />
     <Content Include="js\TemplateWindow.js" />
     <Content Include="js\modules\authorization\Authorization.js" />

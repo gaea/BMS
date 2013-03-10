@@ -35,13 +35,13 @@ namespace BMS.WEB.pages
                     switch (action)
                     {
                         case "Save":
-                            //Response.Write("({success: true, data:" + this.Save(Request.Params["objProperties"]) + "})");
+                            Response.Write("({success: true, data:" + this.Save(Request.Params["objProperties"]) + "})");
                             break;
                         case "List":
-                            //Response.Write("({success: true, data:" + this.List("","") + "})");
+                            Response.Write("({success: true, data:" + this.List("","") + "})");
                             break;
-                        case "GetDepartment":
-                            //Response.Write("({success: true, data:" + this.GetDepartment() + "})");
+                        case "Delete":
+                            Response.Write("({success: true, data:" + this.Delete(Request.Params["objProperties"]) + "})");
                             break;
                         default:
                             return;
@@ -50,6 +50,81 @@ namespace BMS.WEB.pages
                     Response.End();
                 }
             }
+        }
+
+        public string Save(string objProperties)
+        {
+            MessageResponse msg = new MessageResponse();
+
+            try
+            {
+                TMA.MODEL.Entity.CostCenter costCenter = serialize.Deserialize<TMA.MODEL.Entity.CostCenter>(objProperties);
+
+                if (costCenter.Id_CostCenter == null)
+                {
+                    CostCentersDao.save(costCenter);
+                }
+                else
+                {
+                    CostCentersDao.update(costCenter);
+                }
+
+                msg.Message = ConfigManager.SaveSuccessMessage;
+            }
+            catch (Exception ex)
+            {
+                msg.Message = ConfigManager.SaveErrorMessage;
+
+                msg.Error = ex.ToString();
+
+                File.AppendAllText(ConfigManager.LogPath, msg.ToString());
+            }
+
+            return serialize.Serialize(msg);
+        }
+
+        public string List(string start, string limit)
+        {
+            MessageResponse msg = new MessageResponse();
+            
+            try
+            {
+                return serialize.Serialize(CostCentersDao.findAll());
+            }
+            catch (Exception ex)
+            {
+                msg.Message = ConfigManager.DeleteErrorMessage;
+
+                msg.Error = ex.ToString();
+
+                File.AppendAllText(ConfigManager.LogPath, msg.ToString());
+            }
+
+            return serialize.Serialize(msg);
+        }
+
+        public string Delete(string Id_CostCenter)
+        {
+            MessageResponse msg = new MessageResponse();
+
+            try
+            {
+                TMA.MODEL.Entity.CostCenter costCenter = CostCentersDao.find(Convert.ToInt32(Id_CostCenter));
+
+                CostCentersDao.delete(costCenter);
+
+                msg.Message = ConfigManager.DeleteSuccessMessage;
+            }
+            catch (Exception ex)
+            {
+                msg.Message = ConfigManager.DeleteErrorMessage;
+
+                msg.Error = ex.ToString();
+
+                File.AppendAllText(ConfigManager.LogPath, msg.ToString());
+            }
+
+            return serialize.Serialize(msg);
         }
 
     }

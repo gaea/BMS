@@ -11,9 +11,7 @@ namespace TMA.MODEL.Entity
         #region Attributes
 
         private int? id_CostCenter;
-
         private int? id_Dependency;
-
         private string name;
 
         #endregion Attributes
