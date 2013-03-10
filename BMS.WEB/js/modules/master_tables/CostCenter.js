@@ -1,10 +1,11 @@
 ﻿Ext.onReady(function() {
 
-    var aspPageDepartment = 'Department.aspx';
+    var aspPageCostCenter = 'CostCenter.aspx';
 
-    function Department() {
-        this.Id_Department = null,
-        this.Name = null
+    function CostCenter() {
+        this.Id_CostCenter = null,
+        this.Id_Dependency = null,
+		this.Name = null
     };
 
     var MasterRowEditorDepartment = new Ext.grid.plugin.RowEditing({
@@ -12,12 +13,12 @@
             validateedit: function(editor, e, eOpts) {
 				delete e.newValues[''];
                 saveData(
-                    aspPageDepartment,
+                    aspPageCostCenter,
                     'Save',
                     'objProperties',
                     e.newValues,
                     function(data) {
-                        loadData(aspPageDepartment, 'List', "{'start':0,'limit':0}", MasterGridDepartment.getStore(), null, null);
+                        loadData(aspPageCostCenter, 'List', "{'start':0,'limit':0}", MasterGridDepartment.getStore(), null, null);
                     },
                     null
                 );
@@ -36,13 +37,15 @@
         stateful: true,
         stateId: 'grid',
         store: ({
-            fields: getProperties(new Department()),
+            fields: getProperties(new CostCenter()),
             data: [{}]
         }),
         columns: [
 				Ext.create('Ext.grid.RowNumberer'),
-                { text: 'Identificador', dataIndex: 'Id_Department' },
-                { text: 'Nombre', dataIndex: 'Name', editor: new Ext.form.TextField({ msgTarget: 'none', allowBlank: false, labelWidth: 75, minText: 'Texto de ejemplo' }) }
+                { text: 'Identificador', dataIndex: 'Id_CostCenter' },
+                { text: 'Nombre', dataIndex: 'Name', editor: new Ext.form.TextField({ msgTarget: 'none', allowBlank: false, labelWidth: 75, minText: 'Texto de ejemplo' }) },
+				{ text: 'Dependencia', dataIndex: 'Id_Dependency', editor: new Ext.form.TextField({ msgTarget: 'none', allowBlank: false, labelWidth: 75, minText: 'Texto de ejemplo' }) }
+				        
         ],
         plugins: [MasterRowEditorDepartment],
         tbar: [
@@ -51,7 +54,7 @@
                 iconCls: 'add',
                 handler: function() {
                     MasterRowEditorDepartment.cancelEdit();
-                    MasterGridDepartment.getStore().insert(0, new Department());
+                    MasterGridDepartment.getStore().insert(0, new CostCenter());
                     MasterRowEditorDepartment.startEdit(MasterGridDepartment.getStore().getAt(0), 0);
                 }
             }, '-',
@@ -71,12 +74,12 @@
                     var records = MasterGridDepartment.getSelectionModel().getSelection();
 					
                     deleteData(
-                        aspPageDepartment,
+                        aspPageCostCenter,
                         'Delete',
-                        'Id_Department',
-                        records[0].get('Id_Department'),
+                        'Id_CostCenter',
+                        records[0].get('Id_CostCenter'),
                         function(data) {
-                            loadData(aspPageDepartment, 'List', "{'start':0,'limit':0}", MasterGridDepartment.getStore(), null, null);
+                            loadData(aspPageCostCenter, 'List', "{'start':0,'limit':0}", MasterGridDepartment.getStore(), null, null);
                         },
                         null
                     );
@@ -86,5 +89,5 @@
         renderTo: Ext.getBody()
     });
 
-    loadData(aspPageDepartment, 'List', "{'start':0,'limit':0}", MasterGridDepartment.getStore(), null, null);
+    loadData(aspPageCostCenter, 'List', "{'start':0,'limit':0}", MasterGridDepartment.getStore(), null, null);
 });

@@ -46,6 +46,11 @@ Ext.define('MyDesktop.MasterTables', {
 					                leaf: true
 					            },
 					            {
+					                text: "Centros de Costo",
+					                id: "CostCenter",
+					                leaf: true
+					            },
+					            {
 					                text: "Departamentos",
 					                id: "Department",
 					                leaf: true
@@ -53,6 +58,11 @@ Ext.define('MyDesktop.MasterTables', {
 					            {
 					                text: "Dependencias",
 					                id: "Dependency",
+					                leaf: true
+					            },
+					            {
+					                text: "Empresas",
+					                id: "Company",
 					                leaf: true
 					            },
 					            {

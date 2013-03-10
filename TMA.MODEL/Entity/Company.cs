@@ -12,20 +12,20 @@ namespace TMA.MODEL.Entity
 
         private int? id_Third;
         private int? id_Subsidiary;
-        private int verificationDigit;
+        private int? verificationDigit;
         private string name;
         private string address;
         private int? id_City;
         private string airSection;
         private string telephoneNumber;
         private string faxNumber;
-        private int codeLegalRepresentation;
+        private int? codeLegalRepresentation;
         private string nameLegalRepresentation;
-        private int documentNumberLegalRepresentation;
+        private int? documentNumberLegalRepresentation;
         private string observations;
         private string licencySoftware;
         private byte[] logo;
-        private int payrollCode;
+        private int? payrollCode;
         private bool biometricReader;
         private string userCreateRegistration;
         private DateTime? dateCreateRegistration;
@@ -54,7 +54,7 @@ namespace TMA.MODEL.Entity
             set { name = value; }
         }
 
-        public virtual int VerificationDigit
+        public virtual int? VerificationDigit
         {
             get { return verificationDigit; }
             set { verificationDigit = value; }
@@ -89,7 +89,7 @@ namespace TMA.MODEL.Entity
             set { faxNumber = value; }
         }
 
-        public int CodeLegalRepresentation
+        public int? CodeLegalRepresentation
         {
             get { return codeLegalRepresentation; }
             set { codeLegalRepresentation = value; }
@@ -101,7 +101,7 @@ namespace TMA.MODEL.Entity
             set { nameLegalRepresentation = value; }
         }
 
-        public int DocumentNumberLegalRepresentation
+        public int? DocumentNumberLegalRepresentation
         {
             get { return documentNumberLegalRepresentation; }
             set { documentNumberLegalRepresentation = value; }
@@ -125,7 +125,7 @@ namespace TMA.MODEL.Entity
             set { logo = value; }
         }
 
-        public int PayrollCode
+        public int? PayrollCode
         {
             get { return payrollCode; }
             set { payrollCode = value; }
