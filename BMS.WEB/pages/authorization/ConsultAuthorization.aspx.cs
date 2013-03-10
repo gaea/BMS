@@ -57,7 +57,23 @@ namespace BMS.WEB.pages.authorization
 
             try
             {
-                return serialize.Serialize(VisitsDao.findBy(dicProperties["field"], dicProperties["value"]));
+                int numberParam;
+
+                if (int.TryParse(dicProperties["value"], out numberParam))
+                {
+                    return serialize.Serialize(VisitsDao.findBy(dicProperties["field"], numberParam));
+                }
+                else 
+                {
+                    if (dicProperties["field"].Contains("Person"))
+                    {
+                        return serialize.Serialize(VisitsDao.findPersonBy(dicProperties["field"].Split('.')[1], dicProperties["value"]));
+                    }
+                    else
+                    {
+                        return serialize.Serialize(VisitsDao.findBy(dicProperties["field"], dicProperties["value"]));
+                    }
+                }
             }
             catch (Exception ex)
             {

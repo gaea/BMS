@@ -7,7 +7,7 @@
     <id name="Id_Visit" column="Consecutivo" type="int">
       <generator class="identity"/>
     </id>
-    <property name="Id_Visitor" column="IdVisitante" type="int" />
+    <property name="Id_Visitor" column="IdVisitante" type="float" />
     <property name="DateCreateTransaction" column="Fecha" type="datetime" />
     <property name="DocumentNumberVisitor" column="RecibeVisita" type="float" />
     <property name="VisitDescription" column="MotivoVisita" type="string" />

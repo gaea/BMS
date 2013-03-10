@@ -11,6 +11,29 @@ namespace TMA.DAO.EntityManager
 {
     public class VisitsDao : Dao
     {
+        public static List<Visit> findPersonBy(string field, string value)
+        {
+            List<Person> persons = (List<Person>)Session.CreateCriteria<Person>()
+                .Add(Restrictions.Like(field, value, MatchMode.Anywhere))
+                .List<Person>();
+
+            List<Visit> visits = new List<Visit>();
+
+            foreach (Person person in persons)
+            {
+                Visit visit = (Visit)Session.CreateCriteria<Visit>()
+                .Add(Restrictions.Eq("Id_Visitor", person.Id_Person))
+                .UniqueResult();
+
+                if (visit != null)
+                {
+                    visits.Add(visit);
+                }
+            }
+
+            return visits;
+        }
+
         public static List<Visit> findBy(string field, int value)
         {
             List<Visit> visit = (List<Visit>)Session.CreateCriteria<Visit>()
@@ -23,7 +46,7 @@ namespace TMA.DAO.EntityManager
         public static List<Visit> findBy(string field, float value)
         {
             List<Visit> visit = (List<Visit>)Session.CreateCriteria<Visit>()
-                .Add(Restrictions.Eq(field, value))
+                .Add(Restrictions.Like(field, value))
                 .List<Visit>();
 
             return visit;
@@ -32,7 +55,7 @@ namespace TMA.DAO.EntityManager
         public static List<Visit> findBy(string field, string value)
         {
             List<Visit> visit = (List<Visit>)Session.CreateCriteria<Visit>()
-                .Add(Restrictions.Eq(field, value))
+                .Add(Restrictions.Like(field, value))
                 .List<Visit>();
 
             return visit;

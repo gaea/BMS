@@ -123,9 +123,16 @@ namespace BMS.WEB.pages.person
                             File.Delete(Path.Combine(ConfigManager.ImagePath, person.Photo));
                         }
                     }
-                    
-                    context.Request.Files[0].SaveAs(Path.Combine(ConfigManager.ImagePath, context.Request.Files[0].FileName));
-                    person.Photo = context.Request.Files[0].FileName;
+
+                    /*if (!Directory.Exists(Path.Combine(ConfigManager.ImagePath, person.Id_Person.ToString())))
+                    {
+                        Directory.CreateDirectory(Path.Combine(ConfigManager.ImagePath, person.Id_Person.ToString()));
+                    }*/
+
+                    //string extImage = Path.GetExtension(context.Request.Files[0].FileName);
+
+                    context.Request.Files[0].SaveAs(Path.Combine(ConfigManager.ImagePath, util.getValueFromDictionary("Id_Person", dicProperties) /*+ extImage*/));
+                    person.Photo = util.getValueFromDictionary("Id_Person", dicProperties) /*+ extImage*/;
                 }
 
                 PersonsDao.update(person);

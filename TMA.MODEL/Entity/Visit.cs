@@ -12,7 +12,7 @@ namespace TMA.MODEL.Entity
 
         private int id_Visit;
 
-        private int id_Visitor;
+        private float id_Visitor;
 
         private DateTime? dateCreateTransaction;
 
@@ -67,7 +67,7 @@ namespace TMA.MODEL.Entity
             set { id_Visit = value; }
         }
 
-        public virtual int Id_Visitor
+        public virtual float Id_Visitor
         {
             get { return id_Visitor; }
             set { id_Visitor = value; }

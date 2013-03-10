@@ -99,6 +99,15 @@
         selectOnFocus: true
     });
 
+    function set_photo(val, x, store) {
+        if (val != null && val != '') {
+            return '<img src="../../images/photo/' + String(val) + '" onerror=this.src="../../images/user.png" width=45 heigth=75 align=center />';
+        }
+        else {
+            return '<img src="../../images/user.png" width=45 heigth=75 align=center />';
+        }
+    }
+
     var MasterGrid = new Ext.grid.GridPanel({
         frame: false,
         border: true,
@@ -115,8 +124,9 @@
         }),
         columns: [
 				Ext.create('Ext.grid.RowNumberer'),
-                { text: 'Identificaci&oacute;n', width: 150, dataIndex: 'Id_Visitor' },
-                { text: 'Nombre', width: 150, dataIndex: 'Id_Visitor', renderer: function(val, meta, rec) {
+				{ header: "Foto", width: 55, dataIndex: 'Id_Visitor', renderer: set_photo },
+                { text: 'Identificaci&oacute;n', width: 120, dataIndex: 'Id_Visitor' },
+                { text: 'Nombre', width: 250, dataIndex: 'Id_Visitor', renderer: function(val, meta, rec) {
                     var render_value = '';
                     var ix = ingreso_funcionarios_funcionario_store.findBy(
                         function(record, id) {
@@ -130,10 +140,12 @@
                     return render_value;
                 } 
                 },
-                { text: 'Fecha Inicial', width: 150, dataIndex: 'InitialDate', renderer: function(val, meta, rec) { return Ext.Date.parse(val, "MS"); } },
-                { text: 'Hora Inicial', width: 150, dataIndex: 'InitialHour', renderer: function(val, meta, rec) { return Ext.Date.parse(val, "MS"); } },
-                { text: 'Fecha Final', width: 150, dataIndex: 'FinalDate', renderer: function(val, meta, rec) { return Ext.Date.parse(val, "MS"); } },
-                { text: 'Hora Final', width: 150, dataIndex: 'FinalHour', renderer: function(val, meta, rec) { return Ext.Date.parse(val, "MS"); } }
+                { text: 'Fecha Inicial', width: 200, dataIndex: 'InitialDate', renderer: function(val, meta, rec) { return Ext.Date.parse(val, "MS"); } },
+                //{ text: 'Hora Inicial', width: 150, dataIndex: 'InitialHour', renderer: function(val, meta, rec) { return Ext.Date.parse(val, "MS"); } },
+                { text: 'Fecha Final', width: 200, dataIndex: 'FinalDate', renderer: function(val, meta, rec) { return Ext.Date.parse(val, "MS"); } },
+                //{ text: 'Hora Final', width: 150, dataIndex: 'FinalHour', renderer: function(val, meta, rec) { return Ext.Date.parse(val, "MS"); } }
+                {text: 'Observaciones', width: 200, dataIndex: 'VisitDescription' },
+                { text: 'Equipos', width: 200, dataIndex: 'ElementsToGetIn' }
         ],
         tbar:[
             {
@@ -159,7 +171,7 @@
                     scope: this,
                     specialkey: function(f, e) {
                         if (e.getKey() == e.ENTER) {
-                            loadData(AspPageConsultDiary, 'Find', { objProperties: "{'field':'" + master_buscar_combo.getValue() + "','value':'" + Ext.getCmp('id_master_buscar_text').getValue() + "'}" }, MasterGrid.getStore(), null, null);
+                            loadData(AspPage, 'Find', { objProperties: "{'field':'" + master_buscar_combo.getValue() + "','value':'" + Ext.getCmp('id_master_buscar_text').getValue() + "'}" }, MasterGrid.getStore(), null, null);
                         }
                     }
                 }
@@ -168,7 +180,7 @@
                 text: 'Buscar',
                 iconCls: 'search',
                 handler: function() {
-                    loadData(AspPageConsultDiary, 'Find', { objProperties: "{'field':'" + master_buscar_combo.getValue() + "','value':'" + Ext.getCmp('id_master_buscar_text').getValue() + "'}" }, MasterGrid.getStore(), null, null);
+                    loadData(AspPage, 'Find', { objProperties: "{'field':'" + master_buscar_combo.getValue() + "','value':'" + Ext.getCmp('id_master_buscar_text').getValue() + "'}" }, MasterGrid.getStore(), null, null);
                 }
             }
         ],
