@@ -10,6 +10,29 @@ namespace TMA.DAO.EntityManager
 {
     public class DiariesDao : Dao
     {
+        public static List<Visit> findPersonBy(string field, string value)
+        {
+            List<Person> persons = (List<Person>)Session.CreateCriteria<Person>()
+                .Add(Restrictions.Like(field, value, MatchMode.Anywhere))
+                .List<Person>();
+
+            List<Visit> visits = new List<Visit>();
+
+            foreach (Person person in persons)
+            {
+                Visit visit = (Visit)Session.CreateCriteria<Visit>()
+                .Add(Restrictions.Eq("Id_Visitor", person.Id_Person))
+                .UniqueResult();
+
+                if (visit != null)
+                {
+                    visits.Add(visit);
+                }
+            }
+
+            return visits;
+        }
+
         public static List<Diary> findBy(string field, int value)
         {
             List<Diary> diary = (List<Diary>)Session.CreateCriteria<Diary>()
@@ -31,7 +54,7 @@ namespace TMA.DAO.EntityManager
         public static List<Diary> findBy(string field, string value)
         {
             List<Diary> diary = (List<Diary>)Session.CreateCriteria<Diary>()
-                .Add(Restrictions.Eq(field, value))
+                .Add(Restrictions.Like(field, value))
                 .List<Diary>();
 
             return diary;

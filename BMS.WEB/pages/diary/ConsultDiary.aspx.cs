@@ -57,7 +57,23 @@ namespace BMS.WEB.pages.diary
 
             try
             {
-                return serialize.Serialize(DiariesDao.findBy(dicProperties["field"], dicProperties["value"]));
+                float numberParam;
+
+                if (float.TryParse(dicProperties["value"], out numberParam))
+                {
+                    return serialize.Serialize(DiariesDao.findBy(dicProperties["field"], numberParam));
+                }
+                else
+                {
+                    if (dicProperties["field"].Contains("Person"))
+                    {
+                        return serialize.Serialize(DiariesDao.findPersonBy(dicProperties["field"].Split('.')[1], dicProperties["value"]));
+                    }
+                    else
+                    {
+                        return serialize.Serialize(DiariesDao.findBy(dicProperties["field"], dicProperties["value"]));
+                    }
+                }
             }
             catch (Exception ex)
             {

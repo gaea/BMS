@@ -1,6 +1,6 @@
 ﻿Ext.onReady(function() {
 
-	var AspPageRegisterDiary = 'RegisterDiary.aspx';
+    var AspPageRegisterDiary = 'RegisterDiary.aspx';
     var AspPageConsultDiary = 'ConsultDiary.aspx';
 
     var agenda_store = new Ext.data.Store({
@@ -34,8 +34,10 @@
 
     //loadData(AspPageRegisterDiary, 'GetPerson', "{'start':0,'limit':0}", persona_store, null, null);
 
-	var master_buscar_array = [
-        ['Id_Visitor', 'Documento Identificación']/*,
+    var master_buscar_array = [
+        ['Id_Visitor', 'Documento Identificación'],
+        ['Person.Name', 'Nombre'],
+        ['Person.LastName', 'Apellido']/*,
         ['todos', 'Todos']*/
     ];
 
@@ -57,7 +59,16 @@
         emptyText: 'Seleccione un campo',
         selectOnFocus: true
     });
-	
+
+    function set_photo(val, x, store) {
+        if (val != null && val != '') {
+            return '<img src="../../images/photo/' + parseInt(val) + '" onerror=this.src="../../images/user.png" width=45 heigth=75 align=center />';
+        }
+        else {
+            return '<img src="../../images/user.png" width=45 heigth=75 align=center />';
+        }
+    }
+
     var MasterGrid = new Ext.grid.GridPanel({
         frame: false,
         border: true,
@@ -74,12 +85,13 @@
         }),
         columns: [
 				Ext.create('Ext.grid.RowNumberer'),
+				{ header: "Foto", width: 55, dataIndex: 'Id_Visitor', renderer: set_photo },
                 { text: 'Identificaci&oacute;n', width: 80, dataIndex: 'Id_Diary' },
 				{ text: 'Documento Identificaci&oacute;n', width: 150, dataIndex: 'Id_Visitor' },
-		        { text: 'Nombre', width: 150, dataIndex: 'Id_Visitor', 
+		        { text: 'Nombre', width: 150, dataIndex: 'Id_Visitor',
 		            renderer: function(val, meta, rec) {
-                        var render_value = '';
-                        var ix = persona_store.findBy(
+		                var render_value = '';
+		                var ix = persona_store.findBy(
                             function(record, id) {
                                 if (record.get('Id_Person') == val) {
                                     render_value = record.get('Name') + ' ' + record.get('LastName');
@@ -87,20 +99,20 @@
                                 }
                             }
                         );
-    					
-                        return render_value;
-                    }
-				},
-				{ text: 'Fecha Agendada', width: 100, dataIndex: 'DateDiary'},
+
+		                return render_value;
+		            }
+		        },
+				{ text: 'Fecha Agendada', width: 100, dataIndex: 'DateDiary' },
 				{ text: 'Hora Agendada', width: 100, dataIndex: 'HourDiary' },
 				{ text: 'Motivo', width: 150, dataIndex: 'Description' },
 				{ text: 'Estado', width: 100, dataIndex: 'State' }
         ],
-        tbar:[
+        tbar: [
             {
-                text:'Recargar',
-                iconCls:'reload',
-                handler:function(){
+                text: 'Recargar',
+                iconCls: 'reload',
+                handler: function() {
                     loadData(AspPageRegisterDiary, 'GetPerson', "{'start':0,'limit':0}", persona_store,
                         function(data) {
                             loadData(AspPageConsultDiary, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
@@ -129,7 +141,7 @@
                 text: 'Buscar',
                 iconCls: 'search',
                 handler: function() {
-                loadData(AspPageConsultDiary, 'Find', { objProperties: "{'field':'" + master_buscar_combo.getValue() + "','value':'" + Ext.getCmp('id_master_buscar_text').getValue() + "'}" }, MasterGrid.getStore(), null, null);
+                    loadData(AspPageConsultDiary, 'Find', { objProperties: "{'field':'" + master_buscar_combo.getValue() + "','value':'" + Ext.getCmp('id_master_buscar_text').getValue() + "'}" }, MasterGrid.getStore(), null, null);
                 }
             }
         ],

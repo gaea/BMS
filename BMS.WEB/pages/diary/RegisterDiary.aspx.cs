@@ -66,7 +66,7 @@ namespace BMS.WEB.pages.diary
                 
                 Diary diary = new Diary()
                 {
-                    Id_Visitor = int.Parse(dicProperties["Id_Visitor"]),
+                    Id_Visitor = float.Parse(dicProperties["Id_Visitor"]),
                     Description = dicProperties["Description"],
                     DateDiary = Convert.ToDateTime(dicProperties["DateDiary"]).ToString(ConfigManager.FieldsTypeDateFormat),
                     HourDiary = Convert.ToDateTime(dicProperties["HourDiary"]).ToString(ConfigManager.FieldsTypeTimeFormat),

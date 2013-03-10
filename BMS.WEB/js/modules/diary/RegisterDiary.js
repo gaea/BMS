@@ -52,6 +52,7 @@
     var persona_store = new Ext.data.Store({
         fields: [
             { name: 'Id_Person' },
+            { name: 'Photo' },
             { name: 'Name' },
             { name: 'LastName' },
             { name: 'FullName',
@@ -83,7 +84,14 @@
         hiddenValue: 'Id_Visitor',
         store: persona_store,
         listeners: {
-            select: function(combo, arrRec, obj) { }
+            select: function(combo, arrRec, obj) {
+                if (arrRec[0].get('Photo') != '' && arrRec[0].get('Photo') != null) {
+                    Ext.get('foto_persona').dom.src = '../../images/Photo/' + arrRec[0].get('Photo');
+                }
+                else {
+                    Ext.get('foto_persona').dom.src = '../../images/user.png';
+                }
+            }
         }
     });
 
