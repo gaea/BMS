@@ -105,7 +105,11 @@ namespace BMS.WEB.pages.person
 
                 if (person.Contractor == 1)
                 {
-                    person.DateValidityARP = Convert.ToDateTime(util.getValueFromDictionary("DateValidityARP", dicProperties));    
+                    person.DateValidityARP = Convert.ToDateTime(util.getValueFromDictionary("DateValidityARP", dicProperties));
+                }
+                else 
+                {
+                    person.DateValidityARP = null;
                 }
                 
                 person.DateModifyRegistration = System.DateTime.Now;

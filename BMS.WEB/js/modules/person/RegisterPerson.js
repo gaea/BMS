@@ -420,6 +420,8 @@
                     persona_empresa_combo.setValue(records[0].get('Company'));
                     persona_ciudad_combo.setValue(records[0].get('City'));
 
+                    Ext.getCmp('DateValidityARP').setValue(Ext.Date.parse(records[0].data.DateValidityARP, "MS"));
+
                     MasterGrid.hide();
                     forma.show();
 
