@@ -152,7 +152,16 @@ namespace BMS.WEB.pages.person
 
             try
             {
-                return serialize.Serialize(PersonsDao.findBy(dicProperties["field"], dicProperties["value"]));
+                float numberParam;
+
+                if (float.TryParse(dicProperties["value"], out numberParam))
+                {
+                    return serialize.Serialize(PersonsDao.findBy(dicProperties["field"], numberParam));
+                }
+                else
+                {
+                    return serialize.Serialize(PersonsDao.findBy(dicProperties["field"], dicProperties["value"]));
+                }
             }
             catch (Exception ex)
             {
