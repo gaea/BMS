@@ -101,7 +101,10 @@
             data: []
         },
         listeners: {
-            select: function(combo, arrRec, obj) { }
+            select: function(combo, arrRec, obj) {
+                persona_ciudad_combo.getStore().clearFilter(true);
+                persona_ciudad_combo.getStore().filter('Id_Department', arrRec[0].data.Id_Department);
+            }
         }
     });
 
@@ -124,6 +127,8 @@
 			    xtype: 'fieldset',
 			    title: 'Informaci&oacute;n Personal',
 			    columnWidth: 1,
+			    height: 560,
+			    autoScroll: true,
 			    layout: 'column',
 			    items: [
 					{
@@ -135,9 +140,9 @@
 					    items: [
 					        {
 					            xtype: 'numberfield',
-					            fieldLabel: 'Id Persona',
-					            name: 'Id_Person',
-					            readOnly: true
+					            fieldLabel: 'Identificaci&oacute;n',
+					            allowBlank: false,
+					            name: 'Id_Person'
 					        },
 							{
 							    xtype: 'textfield',
@@ -157,7 +162,7 @@
 							    xtype: 'numberfield',
 							    name: 'BirthdayMonth',
 							    minValue: 1,
-							    maxValue:12,
+							    maxValue: 12,
 							    fieldLabel: 'Mes de Cumpleaños'
 							},
                             {
@@ -231,10 +236,21 @@
 							    items: [
 									{ boxLabel: 'Si', name: 'Contractor', inputValue: '1', checked: true },
 									{ boxLabel: 'No', name: 'Contractor', inputValue: '0' }
-								]
+								],
+							    listeners: {
+							        change: function(radio, newValue, oldValue) {
+							            if (newValue.Contractor == 0) {
+							                Ext.getCmp('DateValidityARP').setDisabled(true);
+							            }
+							            else {
+							                Ext.getCmp('DateValidityARP').setDisabled(false);
+							            }
+							        }
+							    }
 							},
 					        {
 					            xtype: 'datefield',
+					            id: 'DateValidityARP',
 					            fieldLabel: 'Fecha Vigencia ARP',
 					            name: 'DateValidityARP',
 					            dateFormat: 'd/m/Y',
@@ -290,10 +306,10 @@
 			            params: { objProperties: Ext.JSON.encode(submitFields) },
 			            success: function(form, action) {
 			                loadData(AspPageRegisterPerson, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
-			            
+
 			                obj = Ext.JSON.decode(action.response.responseText);
 			                console.log(obj);
-                            
+
 			                Ext.Msg.alert('Mensaje', obj.data.Message, function() { }, this);
 			                forma.getForm().reset();
 			                forma.hide();
@@ -388,8 +404,10 @@
                 text: 'Adicionar',
                 iconCls: 'add',
                 handler: function() {
-                    forma.show();
                     MasterGrid.hide();
+                    forma.show();
+                    Ext.getCmp('id_foto_fileuploadfield').setValue('');
+                    Ext.get('foto_persona').dom.src = '../../images/user.png';
                 }
             }, '-',
             {
@@ -430,14 +448,14 @@
                         null
                     );
                 }
-            },
+            },'-',
             {
                 text: 'Recargar',
                 iconCls: 'reload',
                 handler: function() {
                     loadData(AspPageRegisterPerson, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
                 }
-            },'->',
+            }, '->',
             {
                 xtype: 'label',
                 html: 'B&uacute;squeda:'
@@ -471,7 +489,7 @@
     var masterForm = new Ext.Panel({
         width: Ext.getBody().getViewSize().width,
         height: Ext.getBody().getViewSize().height,
-		border:false,
+        border: false,
         items: [
             forma,
             MasterGrid

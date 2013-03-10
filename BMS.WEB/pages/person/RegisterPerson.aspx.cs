@@ -76,18 +76,17 @@ namespace BMS.WEB.pages.person
 
                 Dictionary<string, string> dicProperties = JsonConvert.DeserializeObject<Dictionary<string, string>>(objProperties);
 
-                TMA.MODEL.Entity.Person person; 
-
-                if (util.getValueFromDictionary("Id_Person", dicProperties) != "")
-                {
-                    person = PersonsDao.find(Convert.ToInt64(util.getValueFromDictionary("Id_Person", dicProperties)));
-                }
-                else
+                TMA.MODEL.Entity.Person person = PersonsDao.find(Convert.ToInt64(util.getValueFromDictionary("Id_Person", dicProperties)));
+                
+                if(person == null)
                 {
                     person = new TMA.MODEL.Entity.Person();
-                }
+                    person.Id_Person = util.getValueFromDictionary("Id_Person", dicProperties) != "" ? Convert.ToInt64(util.getValueFromDictionary("Id_Person", dicProperties)) : 0;
+                    person.DateCreateRegistration = System.DateTime.Now;
 
-                person.Id_Person = util.getValueFromDictionary("Id_Person", dicProperties) != "" ? Convert.ToInt64(util.getValueFromDictionary("Id_Person", dicProperties)) : 0;
+                    PersonsDao.save(person);
+                }
+                
                 person.Name = util.getValueFromDictionary("Name", dicProperties);
                 person.LastName = util.getValueFromDictionary("LastName", dicProperties);
                 person.IsActive = Convert.ToInt32(util.getValueFromDictionary("IsActive", dicProperties));
@@ -101,24 +100,31 @@ namespace BMS.WEB.pages.person
                 person.Email = util.getValueFromDictionary("Email", dicProperties);
                 person.Observations = util.getValueFromDictionary("Observations", dicProperties);
                 person.FaxNumber = Convert.ToInt32(util.getValueFromDictionary("FaxNumber", dicProperties));
-                person.DateValidityARP = string.IsNullOrEmpty(util.getValueFromDictionary("DateValidityARP", dicProperties))? Convert.ToDateTime(util.getValueFromDictionary("DateValidityARP", dicProperties)) : DateTime.Now;
-                    
-                person.Contractor = Convert.ToInt32(util.getValueFromDictionary("Contractor",dicProperties));
-                person.DateCreateRegistration = System.DateTime.Now;
+
+                person.Contractor = Convert.ToInt32(util.getValueFromDictionary("Contractor", dicProperties));
+
+                if (person.Contractor == 1)
+                {
+                    person.DateValidityARP = Convert.ToDateTime(util.getValueFromDictionary("DateValidityARP", dicProperties));    
+                }
+                
                 person.DateModifyRegistration = System.DateTime.Now;
 
                 if (context.Request.Files[0].FileName != "")
                 {
                     if (person.Photo != null && person.Photo != "")
                     {
-                        File.Delete(Path.Combine(ConfigManager.ImagePath, person.Photo));
+                        if (File.Exists(Path.Combine(ConfigManager.ImagePath, person.Photo)))
+                        {
+                            File.Delete(Path.Combine(ConfigManager.ImagePath, person.Photo));
+                        }
                     }
                     
                     context.Request.Files[0].SaveAs(Path.Combine(ConfigManager.ImagePath, context.Request.Files[0].FileName));
                     person.Photo = context.Request.Files[0].FileName;
                 }
 
-                PersonsDao.save(person);
+                PersonsDao.update(person);
 
                 msg.Message = ConfigManager.SaveSuccessMessage;
             }

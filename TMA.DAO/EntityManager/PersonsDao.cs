@@ -101,9 +101,7 @@ namespace TMA.DAO.EntityManager
             {
                 try
                 {
-                    Person delPerson = (Person)Session.Get("Person", person.Id_Person);
-
-                    Session.Delete(delPerson);
+                    Session.Delete(person);
 
                     transaction.Commit();
 
