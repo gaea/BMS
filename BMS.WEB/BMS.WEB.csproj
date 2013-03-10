@@ -110,6 +110,27 @@
     <Compile Include="pages\master_tables\City.aspx.designer.cs">
       <DependentUpon>City.aspx</DependentUpon>
     </Compile>
+    <Compile Include="pages\master_tables\Company.aspx.cs">
+      <DependentUpon>Company.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\master_tables\Company.aspx.designer.cs">
+      <DependentUpon>Company.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\master_tables\Dependency.aspx.cs">
+      <DependentUpon>Dependency.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\master_tables\Dependency.aspx.designer.cs">
+      <DependentUpon>Dependency.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\master_tables\CostCenter.aspx.cs">
+      <DependentUpon>CostCenter.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\master_tables\CostCenter.aspx.designer.cs">
+      <DependentUpon>CostCenter.aspx</DependentUpon>
+    </Compile>
     <Compile Include="pages\master_tables\Department.aspx.cs">
       <DependentUpon>Department.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -159,6 +180,7 @@
     <Content Include="Desktop.aspx" />
     <Content Include="js\DesktopConfig.js" />
     <Content Include="js\entities\DiaryEntity.js" />
+    <Content Include="js\modules\master_tables\Dependency.js" />
     <Content Include="js\TemplateWindow.js" />
     <Content Include="js\modules\authorization\Authorization.js" />
     <Content Include="js\modules\authorization\ConsultAuthorization.js" />
@@ -182,6 +204,9 @@
     <Content Include="pages\authorization\RegisterRequest.aspx" />
     <Content Include="pages\authorization\RegisterAuthorization.aspx" />
     <Content Include="pages\master_tables\City.aspx" />
+    <Content Include="pages\master_tables\Company.aspx" />
+    <Content Include="pages\master_tables\Dependency.aspx" />
+    <Content Include="pages\master_tables\CostCenter.aspx" />
     <Content Include="pages\master_tables\Department.aspx" />
     <Content Include="pages\master_tables\Headquarter.aspx" />
     <Content Include="pages\master_tables\Person.aspx" />

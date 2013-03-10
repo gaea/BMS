@@ -18,7 +18,7 @@
 		<property name="Address" column="DireccionCorrespondencia" type="string"/>
 		<property name="City" column="Ciudad" type="int"/>
 		<!--<property name="PostalZone" column="ZonaPostal" type="int"/>-->
-		<!--<property name="ZipCode" column="ApartadoAereo" type="string"/>-->
+		<!--<property name="AirSection" column="ApartadoAereo" type="string"/>-->
 		<property name="TelephoneNumber" column="TelCasa" type="int"/>
 		<property name="CelphoneNumber" column="Celular" type="float"/>
 		<!--<property name="BeeperNumber" column="Beeper" type="string"/>-->

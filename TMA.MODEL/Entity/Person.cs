@@ -32,7 +32,7 @@ namespace TMA.MODEL.Entity
 
         private int postalZone;
 
-        private string zipCode;
+        private string airSection;
 
         private int telephoneNumber;
 
@@ -164,10 +164,10 @@ namespace TMA.MODEL.Entity
             set { postalZone = value; }
         }
 
-        public virtual string ZipCode
+        public virtual string AirSection
         {
-            get { return zipCode; }
-            set { zipCode = value; }
+            get { return airSection; }
+            set { airSection = value; }
         }
 
         public virtual int TelephoneNumber
