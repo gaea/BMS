@@ -337,7 +337,8 @@
     var master_buscar_array = [
         ['Name', 'Nombre'],
         ['LastName', 'Apellidos'],
-        ['Email', 'Email']
+        ['Email', 'Email'],
+        ['Id_Person', 'Identificación']
     ];
 
     var master_buscar_store = new Ext.data.ArrayStore({
