@@ -415,12 +415,13 @@
                 iconCls: 'modify',
                 handler: function() {
                     var records = MasterGrid.getSelectionModel().getSelection();
-
+                    var recCity = persona_ciudad_combo.getStore().getAt(persona_ciudad_combo.getStore().find('Id_City', records[0].get('City')));
+                    
                     forma.getForm().loadRecord(records[0]);
                     persona_empresa_combo.setValue(records[0].get('Company'));
                     persona_ciudad_combo.setValue(records[0].get('City'));
-
-                    Ext.getCmp('DateValidityARP').setValue(Ext.Date.parse(records[0].data.DateValidityARP, "MS"));
+                    persona_departamento_combo.setValue(recCity.get('Id_Department'));
+                    Ext.getCmp('DateValidityARP').setValue(Ext.Date.parse(records[0].get('DateValidityARP'), "MS"));
 
                     MasterGrid.hide();
                     forma.show();
@@ -450,7 +451,7 @@
                         null
                     );
                 }
-            },'-',
+            }, '-',
             {
                 text: 'Recargar',
                 iconCls: 'reload',
