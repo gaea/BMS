@@ -39,12 +39,20 @@
         displayField: 'EntryTypeName',
         valueField: 'Id_EntryType',
         queryMode: 'local',
+        allowBlank: false,
         store: new Ext.data.Store({
             fields: [{ name: 'Id_EntryType' }, { name: 'EntryTypeName'}],
             data: []
         }),
         listeners: {
-            select: function(combo, arrRec, obj) { }
+            select: function(combo, arrRec, obj) {
+                if (arrRec[0].get('EntryTypeName') == 'Contratista') {
+                    Ext.getCmp('AuthorizationARPVigente').setDisabled(false);
+                }
+                else {
+                    Ext.getCmp('AuthorizationARPVigente').setDisabled(true);
+                }
+            }
         }
     });
 
@@ -247,6 +255,7 @@
 							},
 							{
 							    xtype: 'radiogroup',
+							    id: 'AuthorizationARPVigente',
 							    fieldLabel: 'ARP Vigente',
 							    vertical: true,
 							    width: 200,
