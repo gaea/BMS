@@ -100,7 +100,7 @@
         }),
         listeners: {
             select: function(combo, arrRec, obj) {
-            //console.log(arrRec[0].get('Photo'));
+                //console.log(arrRec[0].get('Photo'));
                 if (arrRec[0].get('Photo') != '' && arrRec[0].get('Photo') != null) {
                     Ext.get('foto_persona').dom.src = '../../images/Photo/' + arrRec[0].get('Photo');
                 }
@@ -182,15 +182,19 @@
 							    items: [
 									{
 									    xtype: 'datefield',
+									    id: 'AuthorizationInitialDate',
 									    dateFormat: 'd/m/Y',
 									    submitFormat: 'd/m/Y',
 									    name: 'InitialDate',
+									    allowBlank: false,
 									    width: 130,
 									    value: new Date()
 									},
 									{
 									    xtype: 'timefield',
+									    id: 'AuthorizationInitialHour',
 									    name: 'InitialHour',
+									    allowBlank: false,
 									    dateFormat: 'H:i:s',
 									    submitFormat: 'H:i:s',
 									    width: 130,
@@ -208,17 +212,22 @@
 					        items: [
 					            {
 					                xtype: 'datefield',
+					                id: 'AuthorizationFinalDate',
 					                dateFormat: 'd/m/Y',
 					                submitFormat: 'd/m/Y',
 					                name: 'FinalDate',
 					                width: 130,
-					                value: new Date()
+					                value: new Date(),
+					                allowBlank: false
 					            },
 					            {
 					                xtype: 'timefield',
+					                id: 'AuthorizationFinalHour',
 					                name: 'FinalHour',
+					                allowBlank: false,
 					                dateFormat: 'H:i:s',
 					                submitFormat: 'H:i:s',
+					                value: new Date(),
 					                width: 130
 					            }
 					        ]
@@ -283,21 +292,36 @@
 			    text: 'Guardar',
 			    iconCls: 'save',
 			    handler: function() {
-			        //Ext.Msg.confirm('Impresi&oacute;n Autorizaci&oacute;n', '¿Desea realizar la impresión del tiquete?');
+			        if (forma.getForm().isValid()) {
+			            var initialDate = Ext.Date.format(Ext.getCmp('AuthorizationInitialDate').getValue(), 'Y/m/d');
+			            var initialHour = Ext.Date.format(Ext.getCmp('AuthorizationInitialHour').getValue(), 'H:i:s');
+			            var initialDateHour = new Date(initialDate + ' ' + initialHour);
 
-			        var submitFields = forma.getForm().getValues();
-			        submitFields.Id_Person = ingreso_funcionarios_funcionario_combo.getValue();
+			            var finalDate = Ext.Date.format(Ext.getCmp('AuthorizationFinalDate').getValue(), 'Y/m/d');
+			            var finalHour = Ext.Date.format(Ext.getCmp('AuthorizationFinalHour').getValue(), 'H:i:s');
+			            var finalDateHour = new Date(finalDate + ' ' + finalHour);
 
-			        saveData(
-			            AspPage,
-			            'Save',
-			            'VisitProperties',
-			            submitFields,
-			            function(data) {
-			                //loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
-			            },
-			        null
-			        );
+			            if (finalDateHour > initialDateHour) {
+			                //Ext.Msg.confirm('Impresi&oacute;n Autorizaci&oacute;n', '¿Desea realizar la impresión del tiquete?');
+
+			                var submitFields = forma.getForm().getValues();
+			                submitFields.Id_Person = ingreso_funcionarios_funcionario_combo.getValue();
+
+			                saveData(
+			                    AspPage,
+			                    'Save',
+			                    'VisitProperties',
+			                    submitFields,
+			                    function(data) {
+			                        //loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+			                    },
+			                    null
+			                );
+			            }
+			            else {
+			                alert('La fecha de ingreso debe de ser menor a la fecha de salida');
+			            }
+			        }
 			    }
 			},
 			{
