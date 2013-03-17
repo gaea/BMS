@@ -127,18 +127,39 @@
                 iconCls: 'remove',
                 handler: function() {
                     var records = MasterGrid.getSelectionModel().getSelection();
-                    deleteData(
-                        AspPageConsultDiary,
-                        'Delete',
-                        'Id_Visitor',
-                        records[0].get('Id_Visitor'),
-                        function(data) {
-                            loadData(AspPageRegisterPerson, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
-                        },
-                        null
-                    );
+
+                    if (records.length > 0) {
+                        var initialDateHour = records[0].get('DateDiary') + ' ' + records[0].get('HourDiary');
+                        initialDateHour = initialDateHour.replace(/-/g, "/");
+
+                        initialDateHour = initialDateHour.replace("a", '');
+                        initialDateHour = initialDateHour.replace("p", '');
+                        initialDateHour = initialDateHour.replace("m", '');
+                        initialDateHour = initialDateHour.replace(".", '');
+                        initialDateHour = initialDateHour.replace(".", '');
+                        
+                        initialDateHour = new Date(initialDateHour);
+
+                        var currentDateHour = new Date()
+
+                        if (initialDateHour > currentDateHour) {
+                            deleteData(
+                                AspPageConsultDiary,
+                                'Delete',
+                                'Id_Visitor',
+                                records[0].get('Id_Diary'),
+                                function(data) {
+                                    loadData(AspPageConsultDiary, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+                                },
+                                null
+                            );
+                        }
+                        else {
+                            alert('La agenda a eliminar debe de tener fecha mayor a la actual');
+                        }
+                    }
                 }
-            },'-',
+            }, '-',
             {
                 text: 'Recargar',
                 iconCls: 'reload',

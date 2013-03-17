@@ -4,9 +4,10 @@
                    namespace="TMA.MODEL.Entity">
 
 	<class name="Diary" table="dbo.Tbl_AgendaVisitasFuncionario">
-		<id name="Id_Diary" column="IdFuncionario" type="int">
-			<generator class="increment"/>
+		<id name="Id_Diary" column="Id_AgendaVisitasFuncionario" type="int">
+			<generator class="native"/>
 		</id>
+    <property name="Id_Functionary" column="IdFuncionario" type="decimal" />
 		<property name="DateDiary" column="Fecha" type="string" />
 		<property name="HourDiary" column="Hora" type="string" />
 		<property name="Id_Visitor" column="IdVisitante" type="float" />

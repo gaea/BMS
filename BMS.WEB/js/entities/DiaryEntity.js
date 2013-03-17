@@ -1,5 +1,6 @@
 ﻿function Diary() {
     this.Id_Diary = null,
+    this.Id_Functionary = null,
 	this.Id_Visitor = null,
 	this.DateDiary = null,
 	this.HourDiary = null,

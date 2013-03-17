@@ -35,7 +35,7 @@ namespace BMS.WEB.pages.diary
                     switch (action)
                     {
                         case "Delete":
-                            Response.Write("({success: true, data:" + this.Delete(Request.Params["objProperties"]) + "})");
+                            Response.Write("({success: true, data:" + this.Delete(Convert.ToInt32(Request.Params["objProperties"])) + "})");
                             break;
                         case "List":
                             Response.Write("({success: true, data:" + this.List("", "") + "})");

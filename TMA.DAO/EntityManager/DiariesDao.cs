@@ -111,9 +111,9 @@ namespace TMA.DAO.EntityManager
 
         public static List<Diary> findAll()
         {
-            IList<Diary> iHeadquarter = Session.CreateCriteria<Diary>().List<Diary>();
+            IList<Diary> diaries = Session.CreateCriteria<Diary>().List<Diary>();
 
-            return (iHeadquarter != null) ? new List<Diary>(iHeadquarter) : new List<Diary>();
+            return (diaries != null) ? new List<Diary>(diaries) : new List<Diary>();
         }
 
         public static void save(Diary diary)
