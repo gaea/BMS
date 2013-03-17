@@ -37,8 +37,9 @@
     var master_buscar_array = [
         ['Id_Visitor', 'Documento Identificación'],
         ['Person.Name', 'Nombre'],
-        ['Person.LastName', 'Apellido']/*,
-        ['todos', 'Todos']*/
+        ['Person.LastName', 'Apellido'],
+        ['Person.Company.Name', 'Empresa'],
+        ['DateDiary', 'Fecha Agendada']
     ];
 
     var master_buscar_store = new Ext.data.ArrayStore({
@@ -57,7 +58,19 @@
         forceSelection: true,
         triggerAction: 'all',
         emptyText: 'Seleccione un campo',
-        selectOnFocus: true
+        selectOnFocus: true,
+        listeners: {
+            select: function(combo, arrRec, obj) {
+                if (arrRec[0].get('campo') == 'DateDiary') {
+                    Ext.getCmp('id_master_buscar_text').hide();
+                    Ext.getCmp('id_master_buscar_date').show();
+                }
+                else {
+                    Ext.getCmp('id_master_buscar_date').hide();
+                    Ext.getCmp('id_master_buscar_text').show();
+                }
+            }
+        }
     });
 
     function set_photo(val, x, store) {
@@ -125,6 +138,23 @@
             },
                 master_buscar_combo,
             {
+                xtype: 'datefield',
+                id: 'id_master_buscar_date',
+                width: 180,
+                dateFormat: 'Y-m-d',
+                submitFormat: 'Y-m-d',
+                format: 'Y-m-d',
+                hidden: true,
+                listeners: {
+                    scope: this,
+                    specialkey: function(f, e) {
+                        if (e.getKey() == e.ENTER) {
+                            loadData(AspPage, 'Find', { objProperties: "{'field':'InitialDate','value':'" + Ext.getCmp('id_master_buscar_date').getValue() + "'}" }, MasterGrid.getStore(), null, null);
+                        }
+                    }
+                }
+            },
+            {
                 xtype: 'textfield',
                 id: 'id_master_buscar_text',
                 width: 180,
@@ -141,7 +171,16 @@
                 text: 'Buscar',
                 iconCls: 'search',
                 handler: function() {
-                    loadData(AspPageConsultDiary, 'Find', { objProperties: "{'field':'" + master_buscar_combo.getValue() + "','value':'" + Ext.getCmp('id_master_buscar_text').getValue() + "'}" }, MasterGrid.getStore(), null, null);
+                    var search = '';
+
+                    if (master_buscar_combo.getValue() == 'DateDiary') {
+                        search = Ext.Date.format(Ext.getCmp('id_master_buscar_date').getValue(), 'Y-m-d');
+                    }
+                    else {
+                        search = Ext.getCmp('id_master_buscar_text').getValue();
+                    }
+
+                    loadData(AspPageConsultDiary, 'Find', { objProperties: "{'field':'" + master_buscar_combo.getValue() + "','value':'" + search + "'}" }, MasterGrid.getStore(), null, null);
                 }
             }
         ],

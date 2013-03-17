@@ -67,7 +67,15 @@ namespace BMS.WEB.pages.diary
                 {
                     if (dicProperties["field"].Contains("Person"))
                     {
-                        return serialize.Serialize(DiariesDao.findPersonBy(dicProperties["field"].Split('.')[1], dicProperties["value"]));
+
+                        if (dicProperties["field"].Contains("Company"))
+                        {
+                            return serialize.Serialize(DiariesDao.findCompanyBy(dicProperties["field"].Split('.')[2], dicProperties["value"]));
+                        }
+                        else
+                        {
+                            return serialize.Serialize(DiariesDao.findPersonBy(dicProperties["field"].Split('.')[1], dicProperties["value"]));
+                        }
                     }
                     else
                     {
@@ -93,7 +101,9 @@ namespace BMS.WEB.pages.diary
 
             try
             {
-                return serialize.Serialize(DiariesDao.findAll());
+                DateTime today = System.DateTime.Today;
+
+                return serialize.Serialize(DiariesDao.findBy("DateDiary", today.ToString("yyyy-MM-dd")));
             }
             catch (Exception ex)
             {
