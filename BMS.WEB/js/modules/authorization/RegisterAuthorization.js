@@ -309,26 +309,33 @@
 			            var finalDate = Ext.Date.format(Ext.getCmp('AuthorizationFinalDate').getValue(), 'Y/m/d');
 			            var finalHour = Ext.Date.format(Ext.getCmp('AuthorizationFinalHour').getValue(), 'H:i:s');
 			            var finalDateHour = new Date(finalDate + ' ' + finalHour);
+                        
+                        var currentDateHour = new Date()
 
-			            if (finalDateHour > initialDateHour) {
-			                //Ext.Msg.confirm('Impresi&oacute;n Autorizaci&oacute;n', '¿Desea realizar la impresión del tiquete?');
+                        if (initialDate > currentDateHour) {
+			                if (finalDateHour > initialDateHour) {
+			                    //Ext.Msg.confirm('Impresi&oacute;n Autorizaci&oacute;n', '¿Desea realizar la impresión del tiquete?');
 
-			                var submitFields = forma.getForm().getValues();
-			                submitFields.Id_Person = ingreso_funcionarios_funcionario_combo.getValue();
+			                    var submitFields = forma.getForm().getValues();
+			                    submitFields.Id_Person = ingreso_funcionarios_funcionario_combo.getValue();
 
-			                saveData(
-			                    AspPage,
-			                    'Save',
-			                    'VisitProperties',
-			                    submitFields,
-			                    function(data) {
-			                        //loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
-			                    },
-			                    null
-			                );
+			                    saveData(
+			                        AspPage,
+			                        'Save',
+			                        'VisitProperties',
+			                        submitFields,
+			                        function(data) {
+			                            //loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+			                        },
+			                        null
+			                    );
+			                }
+			                else {
+			                    alert('La fecha de ingreso debe ser menor a la fecha de salida');
+			                }
 			            }
-			            else {
-			                alert('La fecha de ingreso debe de ser menor a la fecha de salida');
+			            else{
+			                alert('La fecha de ingreso debe ser mayor a la actual');
 			            }
 			        }
 			    }
