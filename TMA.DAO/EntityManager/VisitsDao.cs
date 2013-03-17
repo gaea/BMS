@@ -6,6 +6,7 @@ using System.Text;
 using NHibernate;
 using NHibernate.Criterion;
 using TMA.MODEL.Entity;
+using NHibernate.Engine.Query;
 
 namespace TMA.DAO.EntityManager
 {
@@ -28,6 +29,37 @@ namespace TMA.DAO.EntityManager
                 if (visit != null)
                 {
                     visits.Add(visit);
+                }
+            }
+
+            return visits;
+        }
+
+        public static List<Visit> findCompanyBy(string field, string value)
+        {
+            List<Company> companys = (List<Company>)Session.CreateCriteria<Company>()
+                .Add(Restrictions.Like(field, value, MatchMode.Anywhere))
+                .List<Company>();
+
+            List<Person> persons = new List<Person>();
+            List<Visit> visits = new List<Visit>();
+
+            foreach (Company company in companys)
+            {
+                persons = (List<Person>)Session.CreateCriteria<Person>()
+                .Add(Restrictions.Eq("Company", (float)company.Id_Third))
+                .List<Person>();
+
+                foreach (Person person in persons)
+                {
+                    Visit visit = (Visit)Session.CreateCriteria<Visit>()
+                    .Add(Restrictions.Eq("Id_Visitor", person.Id_Person))
+                    .UniqueResult();
+
+                    if (visit != null)
+                    {
+                        visits.Add(visit);
+                    }
                 }
             }
 

@@ -76,8 +76,8 @@
     var master_buscar_array = [
         ['Id_Visitor', 'Documento Identificación'],
         ['Person.Name', 'Nombre'],
-        ['Person.LastName', 'Apellido']/*,
-        ['todos', 'Todos']*/
+        ['Person.LastName', 'Apellido'],
+        ['Person.Company.Name', 'Empresa']
     ];
 
     var master_buscar_store = new Ext.data.ArrayStore({
