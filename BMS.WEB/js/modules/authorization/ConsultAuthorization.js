@@ -107,6 +107,10 @@
             return '<img src="../../images/user.png" width=45 heigth=75 align=center />';
         }
     }
+    
+    function fixDate(val, meta, rec) {
+        return val != '' && val != null ? Ext.Date.format(Ext.Date.parse(val, "MS"), 'Y/m/d - H:i:s') : '';
+    }
 
     var MasterGrid = new Ext.grid.GridPanel({
         frame: false,
@@ -140,9 +144,9 @@
                     return render_value;
                 } 
                 },
-                { text: 'Fecha Inicial', width: 200, dataIndex: 'InitialDate', renderer: function(val, meta, rec) { return Ext.Date.parse(val, "MS"); } },
+                { text: 'Fecha Inicial', width: 150, dataIndex: 'InitialDate', renderer: fixDate },
                 //{ text: 'Hora Inicial', width: 150, dataIndex: 'InitialHour', renderer: function(val, meta, rec) { return Ext.Date.parse(val, "MS"); } },
-                { text: 'Fecha Final', width: 200, dataIndex: 'FinalDate', renderer: function(val, meta, rec) { return Ext.Date.parse(val, "MS"); } },
+                {text: 'Fecha Final', width: 150, dataIndex: 'FinalDate', renderer: fixDate },
                 //{ text: 'Hora Final', width: 150, dataIndex: 'FinalHour', renderer: function(val, meta, rec) { return Ext.Date.parse(val, "MS"); } }
                 {text: 'Observaciones', width: 200, dataIndex: 'VisitDescription' },
                 { text: 'Equipos', width: 200, dataIndex: 'ElementsToGetIn' }
