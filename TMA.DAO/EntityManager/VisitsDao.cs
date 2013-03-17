@@ -84,6 +84,15 @@ namespace TMA.DAO.EntityManager
             return visit;
         }
 
+        public static List<Visit> findBy(string field, DateTime value)
+        {
+            List<Visit> visit = (List<Visit>)Session.CreateCriteria<Visit>()
+                .Add(Restrictions.Gt(field, value))
+                .List<Visit>();
+
+            return visit;
+        }
+
         public static List<Visit> findBy(string field, string value)
         {
             List<Visit> visit = (List<Visit>)Session.CreateCriteria<Visit>()

@@ -78,7 +78,15 @@ namespace BMS.WEB.pages.authorization
                     }
                     else
                     {
-                        return serialize.Serialize(VisitsDao.findBy(dicProperties["field"], dicProperties["value"]));
+                        DateTime InitialDate;
+                        if (DateTime.TryParse(dicProperties["value"], out InitialDate))
+                        {
+                            return serialize.Serialize(VisitsDao.findBy(dicProperties["field"], InitialDate));
+                        }
+                        else 
+                        {
+                            return serialize.Serialize(VisitsDao.findBy(dicProperties["field"], dicProperties["value"]));
+                        }
                     }
                 }
             }

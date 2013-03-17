@@ -77,7 +77,8 @@
         ['Id_Visitor', 'Documento Identificación'],
         ['Person.Name', 'Nombre'],
         ['Person.LastName', 'Apellido'],
-        ['Person.Company.Name', 'Empresa']
+        ['Person.Company.Name', 'Empresa'],
+        ['InitialDate', 'Fecha Inicial']
     ];
 
     var master_buscar_store = new Ext.data.ArrayStore({
@@ -96,7 +97,19 @@
         forceSelection: true,
         triggerAction: 'all',
         emptyText: 'Seleccione un campo',
-        selectOnFocus: true
+        selectOnFocus: true,
+        listeners: {
+            select: function(combo, arrRec, obj) {
+                if (arrRec[0].get('campo') == 'InitialDate') {
+                    Ext.getCmp('id_master_buscar_text').hide();
+                    Ext.getCmp('id_master_buscar_date').show();
+                }
+                else {
+                    Ext.getCmp('id_master_buscar_date').hide();
+                    Ext.getCmp('id_master_buscar_text').show();
+                }
+            }
+        }
     });
 
     function set_photo(val, x, store) {
@@ -107,7 +120,7 @@
             return '<img src="../../images/user.png" width=45 heigth=75 align=center />';
         }
     }
-    
+
     function fixDate(val, meta, rec) {
         return val != '' && val != null ? Ext.Date.format(Ext.Date.parse(val, "MS"), 'Y/m/d - H:i:s') : '';
     }
@@ -130,32 +143,32 @@
 				Ext.create('Ext.grid.RowNumberer'),
 				{ header: "Foto", width: 55, dataIndex: 'Id_Visitor', renderer: set_photo },
                 { text: 'Identificaci&oacute;n', width: 120, dataIndex: 'Id_Visitor' },
-                { text: 'Nombre', width: 250, dataIndex: 'Id_Visitor', renderer: function(val, meta, rec) {
-                    var render_value = '';
-                    var ix = ingreso_funcionarios_funcionario_store.findBy(
-                        function(record, id) {
-                            if (record.get('Id_Person') == val) {
-                                render_value = record.get('Name') + ' ' + record.get('LastName');
-                                return id;
+                { text: 'Nombre', width: 250, dataIndex: 'Id_Visitor',
+                    renderer: function(val, meta, rec) {
+                        var render_value = '';
+                        var ix = ingreso_funcionarios_funcionario_store.findBy(
+                            function(record, id) {
+                                if (record.get('Id_Person') == val) {
+                                    render_value = record.get('Name') + ' ' + record.get('LastName');
+                                    return id;
+                                }
                             }
-                        }
-                    );
-                    //console.log(ingreso_funcionarios_funcionario_store);
-                    return render_value;
-                } 
+                        );
+                        return render_value;
+                    }
                 },
                 { text: 'Fecha Inicial', width: 150, dataIndex: 'InitialDate', renderer: fixDate },
-                //{ text: 'Hora Inicial', width: 150, dataIndex: 'InitialHour', renderer: function(val, meta, rec) { return Ext.Date.parse(val, "MS"); } },
+        //{ text: 'Hora Inicial', width: 150, dataIndex: 'InitialHour', renderer: function(val, meta, rec) { return Ext.Date.parse(val, "MS"); } },
                 {text: 'Fecha Final', width: 150, dataIndex: 'FinalDate', renderer: fixDate },
-                //{ text: 'Hora Final', width: 150, dataIndex: 'FinalHour', renderer: function(val, meta, rec) { return Ext.Date.parse(val, "MS"); } }
+        //{ text: 'Hora Final', width: 150, dataIndex: 'FinalHour', renderer: function(val, meta, rec) { return Ext.Date.parse(val, "MS"); } }
                 {text: 'Observaciones', width: 200, dataIndex: 'VisitDescription' },
                 { text: 'Equipos', width: 200, dataIndex: 'ElementsToGetIn' }
         ],
-        tbar:[
+        tbar: [
             {
-                text:'Recargar',
-                iconCls:'reload',
-                handler:function(){
+                text: 'Recargar',
+                iconCls: 'reload',
+                handler: function() {
                     loadData(AspPageRegisterAuthorization, 'GetPerson', "{'start':0,'limit':0}", ingreso_funcionarios_funcionario_store,
                         function(data) {
                             loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
@@ -167,6 +180,22 @@
                 html: 'B&uacute;squeda:'
             },
                 master_buscar_combo,
+            {
+                xtype: 'datefield',
+                id: 'id_master_buscar_date',
+                width: 180,
+                dateFormat: 'd/m/Y',
+                submitFormat: 'd/m/Y',
+                hidden: true,
+                listeners: {
+                    scope: this,
+                    specialkey: function(f, e) {
+                        if (e.getKey() == e.ENTER) {
+                            loadData(AspPage, 'Find', { objProperties: "{'field':'InitialDate','value':'" + Ext.getCmp('id_master_buscar_date').getValue() + "'}" }, MasterGrid.getStore(), null, null);
+                        }
+                    }
+                }
+            },
             {
                 xtype: 'textfield',
                 id: 'id_master_buscar_text',
@@ -184,7 +213,16 @@
                 text: 'Buscar',
                 iconCls: 'search',
                 handler: function() {
-                    loadData(AspPage, 'Find', { objProperties: "{'field':'" + master_buscar_combo.getValue() + "','value':'" + Ext.getCmp('id_master_buscar_text').getValue() + "'}" }, MasterGrid.getStore(), null, null);
+                    var search = '';
+
+                    if (master_buscar_combo.getValue() == 'InitialDate') {
+                        search = Ext.Date.format(Ext.getCmp('id_master_buscar_date').getValue(), 'Y/m/d H:i:s');
+                    }
+                    else {
+                        search = Ext.getCmp('id_master_buscar_text').getValue();
+                    }
+
+                    loadData(AspPage, 'Find', { objProperties: "{'field':'" + master_buscar_combo.getValue() + "','value':'" + search + "'}" }, MasterGrid.getStore(), null, null);
                 }
             }
         ],
