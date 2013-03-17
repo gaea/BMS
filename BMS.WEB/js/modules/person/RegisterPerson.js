@@ -360,7 +360,7 @@
         selectOnFocus: true
     });
 
-    function set_photo(val, x, store) {
+    function setPhoto(val, x, store) {
         if (val != null && val != '') {
             return '<img src="../../images/photo/' + val + '" width=50 heigth=80 align=center />';
         }
@@ -385,7 +385,7 @@
         }),
         columns: [
 				Ext.create('Ext.grid.RowNumberer'),
-				{ header: "Foto", width: 70, dataIndex: 'Photo', renderer: set_photo },
+				{ header: "Foto", width: 70, dataIndex: 'Photo', renderer: setPhoto },
                 { text: 'Identificador', dataIndex: 'Id_Person' },
                 { text: 'Id. Lector', dataIndex: 'Id_BiometricReader' },
                 { text: 'Empresa', dataIndex: 'Company' },

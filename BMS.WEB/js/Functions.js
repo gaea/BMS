@@ -91,3 +91,41 @@ function deleteData(url, method, webParam, param, funcSucces, funcFailure) {
         }
     );
 }
+
+function setPhoto(val, x, store) {
+        if (val != null && val != '') {
+            return '<img src="../../images/photo/' + val + '" width=50 heigth=80 align=center />';
+        }
+        else {
+            return '<img src="../../images/user.png" width=50 heigth=80 align=center />';
+        }
+}
+
+
+function getStringFromBoolean(val){
+	var render_value = '';
+	if(val == true)
+		render_value = 'Si';
+	else
+		render_value = 'No';
+	return render_value;
+}
+
+function getValueFromStore(val, meta, rec, store, key, value) {
+	var render_value = '';
+	var ix = store.findBy(
+	function(record, id) {
+		if (record.get(key) == val) {
+			render_value = record.get(value);
+			return id;
+		}
+	}
+	);
+	return render_value;
+}
+
+function getMonthFromInt(month){
+	var monthNames = [ "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+    "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" ];
+	return monthNames[month-1];
+}

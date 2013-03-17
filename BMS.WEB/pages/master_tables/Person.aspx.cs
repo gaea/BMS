@@ -41,6 +41,9 @@ namespace BMS.WEB.pages
                         case "Delete":
                             Response.Write("({success: true, data:" + this.Delete(Request.Params["objProperties"]) + "})");
                             break;
+                        case "GetCompany":
+                            Response.Write("({success: true, data:" + this.GetCompany() + "})");
+                            break;
                         default:
                             return;
                     }
@@ -48,6 +51,11 @@ namespace BMS.WEB.pages
                     Response.End();
                 }
             }
+        }
+
+        public string GetCompany()
+        {
+            return serialize.Serialize(CompaniesDao.findAll());
         }
 
         public string Save(string personProperties)

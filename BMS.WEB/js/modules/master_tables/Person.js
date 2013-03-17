@@ -1,6 +1,8 @@
 ﻿Ext.onReady(function() {
 
     var aspPagePerson = 'Person.aspx';
+	
+	var aspPageCity = 'City.aspx';
 
     function Person() {
         this.Id_Person                      = null,
@@ -46,11 +48,59 @@
         this.Contractor                     = null,
         this.DateValidityARP                = null
     };
+	
+	var companyStore = new Ext.data.Store({
+        fields: [{ name: 'Id_Third' }, { name: 'Name'}],
+        data: []
+    });
+	
+	var companyCombo = Ext.create('Ext.form.field.ComboBox', {
+        id: 'id_company_combo',
+        mode: 'local',
+        triggerAction: 'all',
+        forceSelection: true,
+        editable: false,
+        name: 'Id_Third',
+        displayField: 'Name',
+        valueField: 'Id_Third',
+        queryMode: 'local',
+        store: companyStore,
+        listeners: {
+            select: function(combo, arrRec, obj) { }
+        }
+    });
+	
+	loadCombo(aspPagePerson, 'GetCompany', "{'start':0,'limit':0}", companyStore, companyCombo);
+	
+	var cityStore = new Ext.data.Store({
+        fields: [{ name: 'Id_City' }, { name: 'Name'}],
+        data: []
+    });
+	
+	var cityCombo = Ext.create('Ext.form.field.ComboBox', {
+        id: 'id_city_combo',
+        mode: 'local',
+        triggerAction: 'all',
+        forceSelection: true,
+        editable: false,
+        name: 'Id_City',
+        displayField: 'Name',
+        valueField: 'Id_City',
+        queryMode: 'local',
+        store: cityStore,
+        listeners: {
+            select: function(combo, arrRec, obj) { }
+        }
+    });
+	
+	loadCombo(aspPageCity, 'List', "{'start':0,'limit':0}", cityStore, cityCombo);
+
 
     var MasterRowEditorPerson = new Ext.grid.plugin.RowEditing({
         listeners: {
             validateedit: function(editor, e, eOpts) {
 				delete e.newValues[''];
+				delete e.newValues['Photo'];
 				
                 saveData(
                     aspPagePerson,
@@ -82,23 +132,36 @@
         }),
         columns: [
 				Ext.create('Ext.grid.RowNumberer'),
+				{ header: "Foto", width: 70, dataIndex: 'Photo', renderer: setPhoto },
                 { text: 'Identificador', dataIndex: 'Id_Person' },
                 { text: 'Identificador Lector', dataIndex: 'Id_BiometricReader', editor: new Ext.form.TextField({ allowBlank: false }) },
-                { text: 'Empresa', dataIndex: 'Company', editor: new Ext.form.TextField() },
+                { text: 'Empresa', dataIndex: 'Company', renderer: function(val, meta, rec) 
+					{
+						return getValueFromStore(val, meta, rec, companyStore, 'Id_Third', 'Name');
+					},  editor: companyCombo				
+				},
                 { text: 'Nombre', dataIndex: 'Name', editor: new Ext.form.TextField({ allowBlank: false }) },
                 { text: 'Apellido', dataIndex: 'LastName', editor: new Ext.form.TextField({}) },
-                { text: 'Mes Nacimiento', dataIndex: 'BirthdayMonth', editor: new Ext.form.TextField({}) },
+                { text: 'Mes Nacimiento', dataIndex: 'BirthdayMonth', editor: new Ext.form.TextField({}), renderer:  function(val, meta, rec) 
+					{
+						return getMonthFromInt(val);
+					}
+				},
                 { text: 'D&iacute;a Nacimiento', dataIndex: 'BirthdayDay', editor: new Ext.form.TextField({}) },
                 { text: 'Direcci&oacute;n', dataIndex: 'Address', editor: new Ext.form.TextField({}) },
-                { text: 'Ciudad', dataIndex: 'City', editor: new Ext.form.TextField({}) },
+                { text: 'Ciudad', dataIndex: 'City', renderer: function(val, meta, rec) 
+					{
+						return getValueFromStore(val, meta, rec, cityStore, 'Id_City', 'Name');
+					},  editor: cityCombo			
+				},					
                 { text: 'Tel&eacute;fono', dataIndex: 'TelephoneNumber', editor: new Ext.form.TextField({}) },
                 { text: 'Celular', dataIndex: 'CelphoneNumber', editor: new Ext.form.TextField({}) },
-                //{ text: 'N&uacute;mero Beeper', dataIndex: 'BeeperNumber', editor: new Ext.form.TextField({}) },
-                //{ text: 'C&oacute;digo Beeper', dataIndex: 'BeeperCode', editor: new Ext.form.TextField({}) },
-                //{ text: 'Fax', dataIndex: 'FaxNumber', editor: new Ext.form.TextField({}) },
                 { text: 'Email', dataIndex: 'Email', editor: new Ext.form.TextField({}) },
-                { text: 'Activo?', dataIndex: 'IsActive', editor: new Ext.form.field.Checkbox({}) }
-                //{ text: 'Extensi&oacute;n', dataIndex: 'ExtensionNumber', editor: new Ext.form.TextField({}) }
+                { text: 'Activo?', dataIndex: 'IsActive', editor: new Ext.form.field.Checkbox({}) , renderer: function(val, meta, rec) 
+					{
+						return getStringFromBoolean(val);
+                    }
+				}
         ],
         plugins: [MasterRowEditorPerson],
         tbar: [
@@ -143,4 +206,5 @@
     });
 
     loadData(aspPagePerson, 'List', "{'start':0,'limit':0}", MasterGridPerson.getStore(), null, null);
+	
 });
