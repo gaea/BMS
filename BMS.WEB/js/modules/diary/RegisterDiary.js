@@ -2,7 +2,7 @@
 
     var AspPage = 'RegisterDiary.aspx';
 
-	var tipo_ingreso_store = new Ext.data.Store({
+    var tipo_ingreso_store = new Ext.data.Store({
         fields: [{ name: 'Id_EntryType' }, { name: 'EntryTypeName'}],
         data: []
     });
@@ -17,6 +17,7 @@
         name: 'Id_EntryType',
         displayField: 'EntryTypeName',
         valueField: 'Id_EntryType',
+        allowBlank: false,
         queryMode: 'local',
         store: tipo_ingreso_store,
         listeners: {
@@ -40,6 +41,7 @@
         name: 'Id_State',
         displayField: 'StateName',
         valueField: 'Id_State',
+        allowBlank: false,
         queryMode: 'local',
         store: estado_store,
         listeners: {
@@ -70,8 +72,8 @@
     });
 
     var ingreso_agenda_funcionario_combo = Ext.create('Ext.form.field.ComboBox', {
-        id:'id_registro_agenda_persona_combo',
-		mode: 'local',
+        id: 'id_registro_agenda_persona_combo',
+        mode: 'local',
         triggerAction: 'all',
         anchor: '100%',
         //pageSize: 10,
@@ -82,6 +84,7 @@
         valueField: 'Id_Person',
         queryMode: 'local',
         hiddenValue: 'Id_Visitor',
+        allowBlank: false,
         store: persona_store,
         listeners: {
             select: function(combo, arrRec, obj) {
@@ -96,8 +99,8 @@
     });
 
     loadCombo(AspPage, 'GetPerson', "{'start':0,'limit':0}", persona_store, ingreso_agenda_funcionario_combo);
-	
-	
+
+
     var forma = new Ext.form.Panel({
         frame: false,
         border: false,
@@ -134,18 +137,20 @@
 							    },
 							    items: [
 									{
-										id: 'id_fecha_ingreso',
+									    id: 'id_fecha_ingreso',
 									    xtype: 'datefield',
 									    name: 'fecha_ingreso',
+									    allowBlank: false,
 									    width: 130,
-										value: new Date()
+									    value: new Date()
 									},
 									{
-										id: 'id_hora_ingreso',
+									    id: 'id_hora_ingreso',
 									    xtype: 'timefield',
 									    name: 'hora_ingreso',
+									    allowBlank: false,
 									    width: 130,
-										value: new Date()
+									    value: new Date()
 									}
 								]
 							},
@@ -157,11 +162,11 @@
 							    name: 'Description'
 							},
 							{
-								xtype: 'textarea',
-								id: 'id_forma_observaciones',
-								fieldLabel: 'Observaci&oacute;n',
-								name: 'Observations',
-								anchor: '100%'
+							    xtype: 'textarea',
+							    id: 'id_forma_observaciones',
+							    fieldLabel: 'Observaci&oacute;n',
+							    name: 'Observations',
+							    anchor: '100%'
 							}
 						]
 					},
@@ -185,27 +190,42 @@
         buttons: [
 			{
 			    text: 'Guardar',
-				iconCls: 'save',
+			    iconCls: 'save',
 			    handler: function() {
-			        var submitFields = forma.getForm().getValues();
-					submitFields.Id_Visitor = Ext.getCmp('id_registro_agenda_persona_combo').getValue();
-			        submitFields.DateDiary = Ext.getCmp('id_fecha_ingreso').getValue();
-			        submitFields.HourDiary = Ext.getCmp('id_hora_ingreso').getValue();
-			        saveData(
-			            AspPage,
-			            'Save',
-			            'DiaryProperties',
-			            submitFields,
-			            function(data) {
-			                //loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
-			            },
-			        null
-			        );
+			        if (forma.getForm().isValid()) {
+
+			            var initialDate = Ext.Date.format(Ext.getCmp('id_fecha_ingreso').getValue(), 'Y/m/d');
+			            var initialHour = Ext.Date.format(Ext.getCmp('id_hora_ingreso').getValue(), 'H:i:s');
+			            var initialDateHour = new Date(initialDate + ' ' + initialHour);
+
+			            var currentDateHour = new Date()
+
+			            if (initialDateHour > currentDateHour) {
+			                var submitFields = forma.getForm().getValues();
+			                submitFields.Id_Visitor = Ext.getCmp('id_registro_agenda_persona_combo').getValue();
+			                submitFields.DateDiary = Ext.getCmp('id_fecha_ingreso').getValue();
+			                submitFields.HourDiary = Ext.getCmp('id_hora_ingreso').getValue();
+
+			                saveData(
+			                    AspPage,
+			                    'Save',
+			                    'DiaryProperties',
+			                    submitFields,
+			                    function(data) {
+			                        //loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+			                    },
+			                    null
+			                );
+			            }
+			            else {
+			                alert('La fecha de ingreso debe ser mayor a la actual');
+			            }
+			        }
 			    }
 			},
 			{
 			    text: 'Cancelar',
-				iconCls: 'cancel'
+			    iconCls: 'cancel'
 
 			}
 		],
