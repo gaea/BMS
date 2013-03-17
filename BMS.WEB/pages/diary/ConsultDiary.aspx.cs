@@ -34,6 +34,9 @@ namespace BMS.WEB.pages.diary
                 {
                     switch (action)
                     {
+                        case "Delete":
+                            Response.Write("({success: true, data:" + this.Delete(Request.Params["objProperties"]) + "})");
+                            break;
                         case "List":
                             Response.Write("({success: true, data:" + this.List("", "") + "})");
                             break;
@@ -47,6 +50,30 @@ namespace BMS.WEB.pages.diary
                     Response.End();
                 }
             }
+        }
+
+        public string Delete(int Id_Diary)
+        {
+            MessageResponse msg = new MessageResponse();
+
+            try
+            {
+                Diary diary = DiariesDao.find(Id_Diary);
+
+                DiariesDao.delete(diary);
+
+                msg.Message = ConfigManager.DeleteSuccessMessage;
+            }
+            catch (Exception ex)
+            {
+                msg.Message = ConfigManager.DeleteErrorMessage;
+
+                msg.Error = ex.ToString();
+
+                File.AppendAllText(ConfigManager.LogPath, msg.ToString());
+            }
+
+            return serialize.Serialize(msg);
         }
 
         public string Find(string objProperties)

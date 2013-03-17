@@ -123,6 +123,23 @@
         ],
         tbar: [
             {
+                text: 'Eliminar',
+                iconCls: 'remove',
+                handler: function() {
+                    var records = MasterGrid.getSelectionModel().getSelection();
+                    deleteData(
+                        AspPageConsultDiary,
+                        'Delete',
+                        'Id_Visitor',
+                        records[0].get('Id_Visitor'),
+                        function(data) {
+                            loadData(AspPageRegisterPerson, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+                        },
+                        null
+                    );
+                }
+            },'-',
+            {
                 text: 'Recargar',
                 iconCls: 'reload',
                 handler: function() {
