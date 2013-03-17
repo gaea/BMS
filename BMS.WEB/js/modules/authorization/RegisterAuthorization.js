@@ -312,7 +312,7 @@
                         
                         var currentDateHour = new Date()
 
-                        if (initialDate > currentDateHour) {
+                        if (initialDateHour > currentDateHour) {
 			                if (finalDateHour > initialDateHour) {
 			                    //Ext.Msg.confirm('Impresi&oacute;n Autorizaci&oacute;n', '¿Desea realizar la impresión del tiquete?');
 

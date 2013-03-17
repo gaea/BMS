@@ -100,7 +100,9 @@ namespace BMS.WEB.pages.authorization
 
             try
             {
-                return serialize.Serialize(VisitsDao.findAll());
+                DateTime today = System.DateTime.Today;
+
+                return serialize.Serialize(VisitsDao.findByInitialDate(today));
             }
             catch (Exception ex)
             {

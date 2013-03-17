@@ -104,9 +104,18 @@ namespace TMA.DAO.EntityManager
 
         public static List<Visit> findAll()
         {
-            IList<Visit> iHeadquarter = Session.CreateCriteria<Visit>().List<Visit>();
+            IList<Visit> visits = Session.CreateCriteria<Visit>().List<Visit>();
 
-            return (iHeadquarter != null) ? new List<Visit>(iHeadquarter) : new List<Visit>();
+            return (visits != null) ? new List<Visit>(visits) : new List<Visit>();
+        }
+
+        public static List<Visit> findByInitialDate(DateTime InitialDate)
+        {
+            List<Visit> visits = (List<Visit>)Session.CreateCriteria<Visit>()
+                .Add(Restrictions.Gt("InitialDate", InitialDate))
+                .List<Visit>();
+
+            return visits;
         }
 
         public static void save(Visit visit)
