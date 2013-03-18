@@ -129,3 +129,8 @@ function getMonthFromInt(month){
     "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" ];
 	return monthNames[month-1];
 }
+
+function getDocumentTypeFromInt(documentNumber){
+	var documentType = [ "Cédula"];
+	return documentType[documentNumber-1];
+}

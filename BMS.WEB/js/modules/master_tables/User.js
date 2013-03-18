@@ -2,6 +2,8 @@
 
     var aspPageUser = 'User.aspx';
 
+	var aspPageRole = 'Profile.aspx';
+	
     function User() {
         this.Id_User = null,
         this.Login = null,
@@ -16,6 +18,30 @@
         this.EmailAddress = null
     };
 
+	var roleStore = new Ext.data.Store({
+        fields: [{ name: 'Id_Profile' }, { name: 'Description'}],
+        data: []
+    });
+	
+	var roleCombo = Ext.create('Ext.form.field.ComboBox', {
+        id: 'id_profile_combo',
+        mode: 'local',
+        triggerAction: 'all',
+        forceSelection: true,
+        editable: false,
+        name: 'Id_Profile',
+        displayField: 'Description',
+        valueField: 'Id_Profile',
+        queryMode: 'local',
+        store: roleStore,
+        listeners: {
+            select: function(combo, arrRec, obj) { }
+        }
+    });
+	
+	loadCombo(aspPageRole, 'List', "{'start':0,'limit':0}", roleStore, roleCombo);
+
+	
     var MasterRowEditorUser = new Ext.grid.plugin.RowEditing({
         listeners: {
             validateedit: function(editor, e, eOpts) {
@@ -57,9 +83,22 @@
                 { text: 'Password', dataIndex: 'Password', editor: new Ext.form.TextField({ allowBlank: false }) },
                 { text: 'Tel&eacute;fono', dataIndex: 'TelephoneNumber', editor: new Ext.form.TextField({}) },
                 { text: 'Direcci&oacute;n', dataIndex: 'Address', editor: new Ext.form.TextField({}) },
-                { text: 'Rol', dataIndex: 'Id_Role', editor: new Ext.form.TextField({}) },
-                { text: 'Tipo Documento', dataIndex: 'DocumentType', editor: new Ext.form.TextField({}) },
-                { text: 'Activo?', dataIndex: 'IsActive', editor: new Ext.form.field.Checkbox({}) }
+                { text: 'Rol', dataIndex: 'Id_Role', renderer: function(val, meta, rec) 
+					{
+						return getValueFromStore(val, meta, rec, roleStore, 'Id_Profile', 'Description');
+					},  editor: roleCombo	 
+				
+				},
+                { text: 'Tipo Documento', dataIndex: 'DocumentType', editor: new Ext.form.TextField({}) , renderer:  function(val, meta, rec) 
+					{
+						return getDocumentTypeFromInt(val);
+					}
+				},
+                { text: 'Activo?', dataIndex: 'IsActive', editor: new Ext.form.field.Checkbox({}) , renderer: function(val, meta, rec) 
+					{
+						return getStringFromBoolean(val);
+                    }
+				}
         ],
         plugins: [MasterRowEditorUser],
         tbar: [

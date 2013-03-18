@@ -2,12 +2,38 @@
 
     var aspPageCostCenter = 'CostCenter.aspx';
 
+	var aspPageDependency = 'Dependency.aspx';
+	
     function CostCenter() {
         this.Id_CostCenter = null,
         this.Id_Dependency = null,
 		this.Name = null
     };
 
+	var dependencyStore = new Ext.data.Store({
+        fields: [{ name: 'Id_Dependency' }, { name: 'Name'}],
+        data: []
+    });
+	
+	var dependencyCombo = Ext.create('Ext.form.field.ComboBox', {
+        id: 'id_dependency_combo',
+        mode: 'local',
+        triggerAction: 'all',
+        forceSelection: true,
+        editable: false,
+        name: 'Id_Dependency',
+        displayField: 'Name',
+        valueField: 'Id_Dependency',
+        queryMode: 'local',
+        store: dependencyStore,
+        listeners: {
+            select: function(combo, arrRec, obj) { }
+        }
+    });
+	
+	loadCombo(aspPageDependency, 'List', "{'start':0,'limit':0}", dependencyStore, dependencyCombo);
+	
+	
     var MasterRowEditorDepartment = new Ext.grid.plugin.RowEditing({
         listeners: {
             validateedit: function(editor, e, eOpts) {
@@ -44,7 +70,11 @@
 				Ext.create('Ext.grid.RowNumberer'),
                 { text: 'Identificador', dataIndex: 'Id_CostCenter' },
                 { text: 'Nombre', dataIndex: 'Name', editor: new Ext.form.TextField({ msgTarget: 'none', allowBlank: false, labelWidth: 75, minText: 'Texto de ejemplo' }) },
-				{ text: 'Dependencia', dataIndex: 'Id_Dependency', editor: new Ext.form.TextField({ msgTarget: 'none', allowBlank: false, labelWidth: 75, minText: 'Texto de ejemplo' }) }
+				{ text: 'Dependencia', dataIndex: 'Id_Dependency', editor: new Ext.form.TextField({ msgTarget: 'none', allowBlank: false, labelWidth: 75, minText: 'Texto de ejemplo' }), renderer: function(val, meta, rec) 
+					{
+						return getValueFromStore(val, meta, rec, dependencyStore, 'Id_Dependency', 'Name');
+					},  editor: dependencyCombo				
+				}
 				        
         ],
         plugins: [MasterRowEditorDepartment],

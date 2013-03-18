@@ -1,7 +1,7 @@
 ﻿Ext.onReady(function() {
 
-    var AspPageRegisterPerson = 'RegisterPerson.aspx';
-
+    var aspPageRegisterPerson = 'RegisterPerson.aspx';
+		
     function Person() {
         this.Id_Person = null,
         this.Id_BiometricReader = null,
@@ -26,7 +26,15 @@
         this.Contractor = null,
         this.DateValidityARP = null
     };
-
+	
+	var companyStore = new Ext.data.Store({
+		fields: [
+                { name: 'Id_Third' },
+                { name: 'Name' }
+            ],
+            data: []
+	});
+	
     var persona_empresa_combo = Ext.create('Ext.form.field.ComboBox', {
         mode: 'local',
         triggerAction: 'all',
@@ -39,25 +47,27 @@
         valueField: 'Id_Third',
         queryMode: 'local',
         typeAhead: true,
-        store: {
-            fields: [
-                { name: 'Id_Third' },
-                { name: 'Name' }
-            ],
-            data: []
-        },
+        store: companyStore,
         listeners: {
             select: function(combo, arrRec, obj) { }
         }
     });
 
-    loadCombo(AspPageRegisterPerson, 'GetCompany', "{'start':0,'limit':0}", persona_empresa_combo.getStore(), persona_empresa_combo);
-
+    loadCombo(aspPageRegisterPerson, 'GetCompany', "{'start':0,'limit':0}", persona_empresa_combo.getStore(), persona_empresa_combo);
+	
+	var cityStore = new Ext.data.Store({
+		fields: [
+                { name: 'Id_City' },
+                { name: 'Name' },
+                { name: 'Id_Department' }
+            ],
+            data: []
+	});
+	
     var persona_ciudad_combo = Ext.create('Ext.form.field.ComboBox', {
         mode: 'local',
         triggerAction: 'all',
         labelWidth: 120,
-        //allowBlank: false,
         anchor: '50%',
         fieldLabel: 'Ciudad',
         forceSelection: true,
@@ -66,21 +76,16 @@
         valueField: 'Id_City',
         queryMode: 'local',
         typeAhead: true,
-        store: {
-            fields: [
-                { name: 'Id_City' },
-                { name: 'Name' },
-                { name: 'Id_Department' }
-            ],
-            data: []
-        },
+        store: cityStore,
         listeners: {
             select: function(combo, arrRec, obj) { }
         }
     });
 
-    loadCombo(AspPageRegisterPerson, 'GetCity', "{'start':0,'limit':0}", persona_ciudad_combo.getStore(), persona_ciudad_combo);
+    loadCombo(aspPageRegisterPerson, 'GetCity', "{'start':0,'limit':0}", persona_ciudad_combo.getStore(), persona_ciudad_combo);
 
+	
+	
     var persona_departamento_combo = Ext.create('Ext.form.field.ComboBox', {
         mode: 'local',
         labelWidth: 120,
@@ -108,7 +113,7 @@
         }
     });
 
-    loadCombo(AspPageRegisterPerson, 'GetDepartment', "{'start':0,'limit':0}", persona_departamento_combo.getStore(), persona_departamento_combo);
+    loadCombo(aspPageRegisterPerson, 'GetDepartment', "{'start':0,'limit':0}", persona_departamento_combo.getStore(), persona_departamento_combo);
 
     var forma = new Ext.form.Panel({
         frame: false,
@@ -301,11 +306,11 @@
 			        var submitFields = forma.getForm().getValues();
 
 			        forma.getForm().submit({
-			            url: AspPageRegisterPerson + '?accion=Save',
+			            url: aspPageRegisterPerson + '?accion=Save',
 			            method: 'POST',
 			            params: { objProperties: Ext.JSON.encode(submitFields) },
 			            success: function(form, action) {
-			                loadData(AspPageRegisterPerson, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+			                loadData(aspPageRegisterPerson, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
 
 			                obj = Ext.JSON.decode(action.response.responseText);
 			                console.log(obj);
@@ -336,9 +341,9 @@
 
     var master_buscar_array = [
         ['Name', 'Nombre'],
-        ['LastName', 'Apellidos'],
+        ['LastName', 'Apellido'],
         ['Email', 'Email'],
-        ['Id_Person', 'Identificación']
+        ['Id_Person', 'Documento de Identificación']
     ];
 
     var master_buscar_store = new Ext.data.ArrayStore({
@@ -386,19 +391,34 @@
         columns: [
 				Ext.create('Ext.grid.RowNumberer'),
 				{ header: "Foto", width: 70, dataIndex: 'Photo', renderer: setPhoto },
-                { text: 'Identificador', dataIndex: 'Id_Person' },
-                { text: 'Id. Lector', dataIndex: 'Id_BiometricReader' },
-                { text: 'Empresa', dataIndex: 'Company' },
+                { text: 'Documento de Identificaci&oacute;n', dataIndex: 'Id_Person' },
+                { text: 'Empresa', dataIndex: 'Company', renderer: function(val, meta, rec) 
+					{
+						return getValueFromStore(val, meta, rec, companyStore, 'Id_Third', 'Name');
+					}
+				},
                 { text: 'Nombre', dataIndex: 'Name' },
                 { text: 'Apellido', dataIndex: 'LastName' },
-                { text: 'Mes Nacimiento', dataIndex: 'BirthdayMonth' },
+                { text: 'Mes Nacimiento', dataIndex: 'BirthdayMonth', renderer:  function(val, meta, rec) 
+					{
+						return getMonthFromInt(val);
+					}
+				},
                 { text: 'D&iacute;a Nacimiento', dataIndex: 'BirthdayDay' },
                 { text: 'Direcci&oacute;n', dataIndex: 'Address' },
-                { text: 'Ciudad', dataIndex: 'City' },
+                { text: 'Ciudad', dataIndex: 'City', renderer: function(val, meta, rec) 
+					{
+						return getValueFromStore(val, meta, rec, cityStore, 'Id_City', 'Name');
+					}		
+				},
                 { text: 'Tel&eacute;fono', dataIndex: 'TelephoneNumber' },
                 { text: 'Celular', dataIndex: 'CelphoneNumber' },
                 { text: 'Email', dataIndex: 'Email' },
-                { text: 'Activo?', dataIndex: 'IsActive' }
+                { text: 'Activo?', dataIndex: 'IsActive', renderer: function(val, meta, rec) 
+					{
+						return getStringFromBoolean(val);
+                    }
+				}
         ],
         tbar: [
             {
@@ -442,12 +462,12 @@
                 handler: function() {
                     var records = MasterGrid.getSelectionModel().getSelection();
                     deleteData(
-                        AspPageRegisterPerson,
+                        aspPageRegisterPerson,
                         'Delete',
                         'Id_Person',
                         records[0].get('Id_Person'),
                         function(data) {
-                            loadData(AspPageRegisterPerson, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+                            loadData(aspPageRegisterPerson, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
                         },
                         null
                     );
@@ -457,7 +477,7 @@
                 text: 'Recargar',
                 iconCls: 'reload',
                 handler: function() {
-                    loadData(AspPageRegisterPerson, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+                    loadData(aspPageRegisterPerson, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
                 }
             }, '->',
             {
@@ -473,7 +493,7 @@
                     scope: this,
                     specialkey: function(f, e) {
                         if (e.getKey() == e.ENTER) {
-                            loadData(AspPageRegisterPerson, 'Find', { objProperties: "{'field':'" + master_buscar_combo.getValue() + "','value':'" + Ext.getCmp('master_buscar_text_id').getValue() + "'}" }, MasterGrid.getStore(), null, null);
+                            loadData(aspPageRegisterPerson, 'Find', { objProperties: "{'field':'" + master_buscar_combo.getValue() + "','value':'" + Ext.getCmp('master_buscar_text_id').getValue() + "'}" }, MasterGrid.getStore(), null, null);
                         }
                     }
                 }
@@ -482,13 +502,13 @@
                 text: 'Buscar',
                 iconCls: 'search',
                 handler: function() {
-                    loadData(AspPageRegisterPerson, 'Find', { objProperties: "{'field':'" + master_buscar_combo.getValue() + "','value':'" + Ext.getCmp('master_buscar_text_id').getValue() + "'}" }, MasterGrid.getStore(), null, null);
+                    loadData(aspPageRegisterPerson, 'Find', { objProperties: "{'field':'" + master_buscar_combo.getValue() + "','value':'" + Ext.getCmp('master_buscar_text_id').getValue() + "'}" }, MasterGrid.getStore(), null, null);
                 }
             }
         ]
     });
 
-    loadData(AspPageRegisterPerson, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+    loadData(aspPageRegisterPerson, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
 
     var masterForm = new Ext.Panel({
         width: Ext.getBody().getViewSize().width,

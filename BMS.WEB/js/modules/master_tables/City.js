@@ -27,13 +27,13 @@
         }
     });
 	
-	var city_store = new Ext.data.Store({
+	var departmentStore = new Ext.data.Store({
         fields: [{ name: 'Id_Department' }, { name: 'Name'}],
         data: []
     });
 
-	 var city_combo = Ext.create('Ext.form.field.ComboBox', {
-        id: 'id_city_combo',
+	 var departmentCombo = Ext.create('Ext.form.field.ComboBox', {
+        id: 'id_departmentCombo',
         mode: 'local',
         triggerAction: 'all',
         forceSelection: true,
@@ -42,13 +42,13 @@
         displayField: 'Name',
         valueField: 'Id_Department',
         queryMode: 'local',
-        store: city_store,
+        store: departmentStore,
         listeners: {
             select: function(combo, arrRec, obj) { }
         }
     });
 
-	loadCombo(AspPageCity, 'GetDepartment', "{'start':0,'limit':0}", city_store, city_combo);
+	loadCombo(AspPageCity, 'GetDepartment', "{'start':0,'limit':0}", departmentStore, departmentCombo);
 	
     var masterGridCombo = new Ext.grid.GridPanel({
         frame: false,
@@ -68,7 +68,11 @@
 				Ext.create('Ext.grid.RowNumberer'),
                 { text: 'Identificador', dataIndex: 'Id_City' },
                 { text: 'Nombre', dataIndex: 'Name', editor: new Ext.form.TextField({ msgTarget: 'none', allowBlank: false,  labelWidth: 75, minText: 'Texto de ejemplo' }) },
-				{ text: 'Departamento', dataIndex: 'Id_Department', editor: city_combo },
+				{ text: 'Departamento', dataIndex: 'Id_Department', renderer: function(val, meta, rec) 
+					{
+						return getValueFromStore(val, meta, rec, departmentStore, 'Id_Department', 'Name');
+					} , editor: departmentCombo
+				},
 				{ text: 'C&oacute;digo Dane', dataIndex: 'DaneCode', editor: new Ext.form.TextField({ msgTarget: 'none', allowBlank: false,  labelWidth: 75, minText: 'Texto de ejemplo' }) }
         ],
         plugins: [masterRowEditorCity],
@@ -114,4 +118,5 @@
     });
 
     loadData(AspPageCity, 'List', "{'start':0,'limit':0}", masterGridCombo.getStore(), null, null);
+	
 });
