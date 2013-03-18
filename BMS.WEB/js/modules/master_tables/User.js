@@ -109,7 +109,6 @@
                     MasterRowEditorUser.cancelEdit();
                     MasterGridUser.getStore().insert(0, new User());
                     MasterRowEditorUser.startEdit(MasterGridUser.getStore().getAt(0), 0);
-                    //Ext.Msg.alert('Mensaje', 'Por favor llene los campos obligatorios', function() { }, this);
                 }
             }, '-',
             {

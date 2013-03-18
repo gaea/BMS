@@ -124,6 +124,19 @@ function getValueFromStore(val, meta, rec, store, key, value) {
 	return render_value;
 }
 
+function getValueFromStoreSinceOtherValueToFind(val, meta, rec, store, key, value, valueToFind) {
+	var render_value = '';
+	var ix = store.findBy(
+	function(record, id) {
+		if (record.get(key) == valueToFind) {
+			render_value = record.get(value);
+			return id;
+		}
+	}
+	);
+	return render_value;
+}
+
 function getMonthFromInt(month){
 	var monthNames = [ "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
     "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" ];

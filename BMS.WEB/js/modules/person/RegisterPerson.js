@@ -77,6 +77,7 @@
         queryMode: 'local',
         typeAhead: true,
         store: cityStore,
+		allowBlank: false,
         listeners: {
             select: function(combo, arrRec, obj) { }
         }
@@ -145,9 +146,11 @@
 					    items: [
 					        {
 					            xtype: 'numberfield',
-					            fieldLabel: 'Identificaci&oacute;n',
+					            fieldLabel: 'Documento de Identificaci&oacute;n',
 					            allowBlank: false,
-					            name: 'Id_Person'
+					            name: 'Id_Person',
+								minValue: 0,
+							    maxValue: 999999999999
 					        },
 							{
 							    xtype: 'textfield',
@@ -441,7 +444,12 @@
                     forma.getForm().loadRecord(records[0]);
                     persona_empresa_combo.setValue(records[0].get('Company'));
                     persona_ciudad_combo.setValue(records[0].get('City'));
-                    persona_departamento_combo.setValue(recCity.get('Id_Department'));
+					
+					if(recCity != null)
+					{
+                        persona_departamento_combo.setValue(recCity.get('Id_Department'));
+                    }
+					
                     Ext.getCmp('DateValidityARP').setValue(Ext.Date.parse(records[0].get('DateValidityARP'), "MS"));
 
                     MasterGrid.hide();

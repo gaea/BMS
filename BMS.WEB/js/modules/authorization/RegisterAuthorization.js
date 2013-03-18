@@ -304,17 +304,16 @@
 			        if (forma.getForm().isValid()) {
 			            var initialDate = Ext.Date.format(Ext.getCmp('AuthorizationInitialDate').getValue(), 'Y/m/d');
 			            var initialHour = Ext.Date.format(Ext.getCmp('AuthorizationInitialHour').getValue(), 'H:i:s');
-			            var initialDateHour = new Date(initialDate + ' ' + initialHour);
+			            var initialDateHour = new Date( Ext.Date.format(new Date(initialDate + ' ' + initialHour), 'Y/m/d H:i:s') );
 
 			            var finalDate = Ext.Date.format(Ext.getCmp('AuthorizationFinalDate').getValue(), 'Y/m/d');
 			            var finalHour = Ext.Date.format(Ext.getCmp('AuthorizationFinalHour').getValue(), 'H:i:s');
-			            var finalDateHour = new Date(finalDate + ' ' + finalHour);
+			            var finalDateHour = new Date( Ext.Date.format(new Date(finalDate + ' ' + finalHour), 'Y/m/d H:i:s'));
                         
-                        var currentDateHour = new Date()
-
-                        if (initialDateHour > currentDateHour) {
+						var currentDateHour = new Date( Ext.Date.format(new Date(), 'Y/m/d') + ' ' + Ext.Date.format(new Date(), 'H:i:s'));
+						
+                        if (initialDateHour >= currentDateHour) {
 			                if (finalDateHour > initialDateHour) {
-			                    //Ext.Msg.confirm('Impresi&oacute;n Autorizaci&oacute;n', '¿Desea realizar la impresión del tiquete?');
 
 			                    var submitFields = forma.getForm().getValues();
 			                    submitFields.Id_Person = ingreso_funcionarios_funcionario_combo.getValue();
@@ -335,7 +334,7 @@
 			                }
 			            }
 			            else{
-			                alert('La fecha de ingreso debe ser mayor a la actual');
+			                alert('La fecha de ingreso debe ser mayor o igual a la fecha actual');
 			            }
 			        }
 			    }

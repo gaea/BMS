@@ -95,7 +95,6 @@
 	
 	loadCombo(aspPageCity, 'List', "{'start':0,'limit':0}", cityStore, cityCombo);
 
-
     var MasterRowEditorPerson = new Ext.grid.plugin.RowEditing({
         listeners: {
             validateedit: function(editor, e, eOpts) {

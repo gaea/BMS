@@ -44,15 +44,11 @@ namespace TMA.DAO.EntityManager
 
             foreach (Company company in companys)
             {
-                persons = (List<Person>)Session.CreateCriteria<Person>()
-                .Add(Restrictions.Eq("Company", (float)company.Id_Third))
-                .List<Person>();
+                persons = PersonsDao.findBy("Company", (float)company.Id_Third); ;
 
                 foreach (Person person in persons)
                 {
-                    Diary diary = (Diary)Session.CreateCriteria<Diary>()
-                    .Add(Restrictions.Eq("Id_Visitor", person.Id_Person))
-                    .UniqueResult();
+                    Diary diary = DiariesDao.find(int.Parse(person.Id_Person.ToString()));
 
                     if (diary != null)
                     {

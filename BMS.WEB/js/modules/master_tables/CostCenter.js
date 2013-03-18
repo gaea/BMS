@@ -33,7 +33,6 @@
 	
 	loadCombo(aspPageDependency, 'List', "{'start':0,'limit':0}", dependencyStore, dependencyCombo);
 	
-	
     var MasterRowEditorDepartment = new Ext.grid.plugin.RowEditing({
         listeners: {
             validateedit: function(editor, e, eOpts) {

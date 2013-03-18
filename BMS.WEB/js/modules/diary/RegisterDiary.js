@@ -51,6 +51,43 @@
 
     loadCombo(AspPage, 'GetState', "{'start':0,'limit':0}", estado_store, ingreso_agenda_estado_combo);
 
+	var personaVisitadaStore = new Ext.data.Store({
+        fields: [
+            { name: 'Id_Person' },
+            { name: 'Name' },
+            { name: 'LastName' },
+            { name: 'FullName',
+                convert: function(v, record) {
+                    return record.data.Id_Person + ' - ' + record.data.Name + ' ' + record.data.LastName;
+                }
+            },
+            { name: 'Id_Visitor',
+                convert: function(v, record) {
+                    return record.data.Id_Person;
+                }
+            }
+        ],
+        data: []
+    });
+	
+	var ingreso_agenda_persona_visitada_combo = Ext.create('Ext.form.field.ComboBox', {
+        id: 'id_registro_agenda_persona_visitada_combo',
+        mode: 'local',
+        triggerAction: 'all',
+        anchor: '100%',
+        fieldLabel: 'Nombre del Visitado',
+        forceSelection: true,
+        name: 'Id_Functionary',
+        displayField: 'FullName',
+        valueField: 'Id_Functionary',
+        queryMode: 'local',
+        hiddenValue: 'Id_Visitor',
+        allowBlank: false,
+        store: personaVisitadaStore,
+    });
+	
+	loadCombo(AspPage, 'GetPerson', "{'start':0,'limit':0}", personaVisitadaStore, ingreso_agenda_persona_visitada_combo);
+	
     var persona_store = new Ext.data.Store({
         fields: [
             { name: 'Id_Person' },
@@ -64,20 +101,20 @@
             },
             { name: 'Id_Visitor',
                 convert: function(v, record) {
-                    return record.data.id_Person;
+                    return record.data.Id_Person;
                 }
             }
         ],
         data: []
     });
-
-    var ingreso_agenda_funcionario_combo = Ext.create('Ext.form.field.ComboBox', {
+	
+    var ingreso_agenda_persona_visitante_combo = Ext.create('Ext.form.field.ComboBox', {
         id: 'id_registro_agenda_persona_combo',
         mode: 'local',
         triggerAction: 'all',
         anchor: '100%',
         //pageSize: 10,
-        fieldLabel: 'Nombre',
+        fieldLabel: 'Nombre del Visitante',
         forceSelection: true,
         name: 'Id_Person',
         displayField: 'FullName',
@@ -98,7 +135,7 @@
         }
     });
 
-    loadCombo(AspPage, 'GetPerson', "{'start':0,'limit':0}", persona_store, ingreso_agenda_funcionario_combo);
+    loadCombo(AspPage, 'GetPerson', "{'start':0,'limit':0}", persona_store, ingreso_agenda_persona_visitante_combo);
 
 
     var forma = new Ext.form.Panel({
@@ -117,7 +154,6 @@
 			    title: 'Datos para la Agenda',
 			    columnWidth: 1,
 			    layout: 'column',
-			    //height: Ext.getBody().getViewSize().height - 500,
 			    items: [
 					{
 					    xtype: 'fieldset',
@@ -127,7 +163,8 @@
 					    items: [
 							ingreso_agenda_tipo_ingreso_combo,
 							ingreso_agenda_estado_combo,
-							ingreso_agenda_funcionario_combo,
+							ingreso_agenda_persona_visitante_combo,
+							ingreso_agenda_persona_visitada_combo,
 							{
 							    xtype: 'fieldcontainer',
 							    fieldLabel: 'Fecha para agendar',
@@ -198,9 +235,9 @@
 			            var initialHour = Ext.Date.format(Ext.getCmp('id_hora_ingreso').getValue(), 'H:i:s');
 			            var initialDateHour = new Date(initialDate + ' ' + initialHour);
 
-			            var currentDateHour = new Date()
+			            var currentDateHour = new Date(Ext.Date.format(new Date(), 'Y/m/d H:i:s'));
 
-			            if (initialDateHour > currentDateHour) {
+			            if (initialDateHour >= currentDateHour) {
 			                var submitFields = forma.getForm().getValues();
 			                submitFields.Id_Visitor = Ext.getCmp('id_registro_agenda_persona_combo').getValue();
 			                submitFields.DateDiary = Ext.getCmp('id_fecha_ingreso').getValue();
@@ -218,7 +255,7 @@
 			                );
 			            }
 			            else {
-			                alert('La fecha de ingreso debe ser mayor a la actual');
+			                alert('La fecha de ingreso debe ser mayor o igual a la fecha actual');
 			            }
 			        }
 			    }

@@ -1,8 +1,11 @@
 ﻿Ext.onReady(function() {
 
     var AspPageRegisterDiary = 'RegisterDiary.aspx';
+	
     var AspPageConsultDiary = 'ConsultDiary.aspx';
 
+	var aspPagePerson = '../person/RegisterPerson.aspx';
+	
     var agenda_store = new Ext.data.Store({
         fields: [{ name: 'Id_EntryType' }, { name: 'EntryTypeName'}],
         data: []
@@ -17,7 +20,13 @@
 
     loadData(AspPageRegisterDiary, 'GetState', "{'start':0,'limit':0}", estado_store, null, null);
 
-
+	var companyStore = new Ext.data.Store({
+        fields: [{ name: 'Id_Third' }, { name: 'Name'}],
+        data: []
+    });
+	
+	loadData(aspPagePerson, 'GetCompany', "{'start':0,'limit':0}", companyStore, null, null);
+	
     var persona_store = new Ext.data.Store({
         fields: [
             { name: 'Id_Person' },
@@ -27,7 +36,8 @@
                 convert: function(v, record) {
                     return record.data.Name + ' ' + record.data.LastName;
                 }
-            }
+            },
+			{ name: 'Company' }
         ],
         data: []
     });
@@ -99,9 +109,9 @@
         columns: [
 				Ext.create('Ext.grid.RowNumberer'),
 				{ header: "Foto", width: 55, dataIndex: 'Id_Visitor', renderer: set_photo },
-                { text: 'Identificaci&oacute;n', width: 80, dataIndex: 'Id_Diary' },
+				{ text: 'Nombre del Funcionario', dataIndex: 'Id_Functionary', width: 140 },
 				{ text: 'Documento Identificaci&oacute;n', width: 150, dataIndex: 'Id_Visitor' },
-		        { text: 'Nombre', width: 150, dataIndex: 'Id_Visitor',
+		        { text: 'Nombre del Visitante', width: 150, dataIndex: 'Id_Visitor',
 		            renderer: function(val, meta, rec) {
 		                var render_value = '';
 		                var ix = persona_store.findBy(
@@ -116,6 +126,11 @@
 		                return render_value;
 		            }
 		        },
+				{ text: 'Empresa', width: 150, dataIndex: 'Id_Visitor', renderer: function(val, meta, rec) 
+					{	
+						return getValueFromStoreSinceOtherValueToFind(val, meta, rec, companyStore, 'Id_Third', 'Name', getValueFromStore(val, meta, rec, persona_store, 'Id_Person', 'Company'));
+					}
+				},
 				{ text: 'Fecha Agendada', width: 100, dataIndex: 'DateDiary' },
 				{ text: 'Hora Agendada', width: 100, dataIndex: 'HourDiary' },
 				{ text: 'Motivo', width: 150, dataIndex: 'Description' },

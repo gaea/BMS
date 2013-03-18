@@ -1,8 +1,11 @@
 ﻿Ext.onReady(function() {
 
     var AspPageRegisterAuthorization = 'RegisterAuthorization.aspx';
+	
     var AspPage = 'ConsultAuthorization.aspx';
 
+	var aspPagePerson = '../person/RegisterPerson.aspx';
+	
     function Visit() {
         this.Id_Visit = null,
         this.Id_Visitor = null,
@@ -43,6 +46,13 @@
 
     loadData(AspPageRegisterAuthorization, 'GetState', "{'start':0,'limit':0}", ingreso_funcionarios_estado_store, null, null);
 
+	var companyStore = new Ext.data.Store({
+        fields: [{ name: 'Id_Third' }, { name: 'Name'}],
+        data: []
+    });
+	
+	loadData(aspPagePerson, 'GetCompany', "{'start':0,'limit':0}", companyStore, null, null);
+	
     var ingreso_funcionarios_funcionario_store = new Ext.data.Store({
         fields: [
             { name: 'Id_Person' },
@@ -52,7 +62,8 @@
                 convert: function(v, record) {
                     return record.data.Id_Person + ' - ' + record.data.Name + ' ' + record.data.LastName;
                 }
-            }
+            },
+			{ name: 'Company' }
         ],
         data: []
     });
@@ -66,7 +77,8 @@
                 convert: function(v, record) {
                     return record.data.Name + ' ' + record.data.LastName;
                 }
-            }
+            },
+			{ name: 'Company' }
         ],
         data: []
     });
@@ -142,7 +154,7 @@
         columns: [
 				Ext.create('Ext.grid.RowNumberer'),
 				{ header: "Foto", width: 55, dataIndex: 'Id_Visitor', renderer: set_photo },
-                { text: 'Identificaci&oacute;n', width: 120, dataIndex: 'Id_Visitor' },
+                { text: 'Documento de Identificaci&oacute;n', width: 120, dataIndex: 'Id_Visitor' },
                 { text: 'Nombre', width: 250, dataIndex: 'Id_Visitor',
                     renderer: function(val, meta, rec) {
                         var render_value = '';
@@ -157,10 +169,13 @@
                         return render_value;
                     }
                 },
+				{ text: 'Empresa', width: 150, dataIndex: 'Id_Visitor', renderer: function(val, meta, rec) 
+					{	
+						return getValueFromStoreSinceOtherValueToFind(val, meta, rec, companyStore, 'Id_Third', 'Name', getValueFromStore(val, meta, rec, ingreso_funcionarios_funcionario_store, 'Id_Person', 'Company'));
+					}
+				},
                 { text: 'Fecha Inicial', width: 150, dataIndex: 'InitialDate', renderer: fixDate },
-        //{ text: 'Hora Inicial', width: 150, dataIndex: 'InitialHour', renderer: function(val, meta, rec) { return Ext.Date.parse(val, "MS"); } },
                 {text: 'Fecha Final', width: 150, dataIndex: 'FinalDate', renderer: fixDate },
-        //{ text: 'Hora Final', width: 150, dataIndex: 'FinalHour', renderer: function(val, meta, rec) { return Ext.Date.parse(val, "MS"); } }
                 {text: 'Observaciones', width: 200, dataIndex: 'VisitDescription' },
                 { text: 'Equipos', width: 200, dataIndex: 'ElementsToGetIn' }
         ],
