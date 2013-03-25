@@ -17,33 +17,33 @@ namespace TMA.MODEL.Entity
         private string name;
         private string lastName;
         private int? id_Dependency;
-        private int birthdayMonth;
-        private int birthdayDay;
+        private int? birthdayMonth;
+        private int? birthdayDay;
         private string address;
         private int? id_City;
-        private int postalZone;
+        private int? postalZone;
         private string airSection;
-        private int telephoneNumber;
-        private float celphoneNumber;
+        private int? telephoneNumber;
+        private float? celphoneNumber;
         private string beeperNumber;
         private string beeperCode;
-        private int faxNumber;
+        private int? faxNumber;
         private string email;
         private string password;
         private int? id_Charge;
         private bool byPayroll;
         private bool byHour;
         private bool integralSalary;
-        private int contractClass;
+        private int? contractClass;
         private bool isActive;
         private int? id_CostCenter;
         private string turn;
-        private int extensionNumber;
+        private int? extensionNumber;
         private string bossName;
-        private int bossExtensionNumber;
+        private int? bossExtensionNumber;
         private string observations;
-        private int indexReader;
-        private int id_Between;
+        private int? indexReader;
+        private int? id_Between;
         private byte[] fingerPrint;
         private byte[] photo;
         private string id_UserCreateRegistration;
@@ -97,13 +97,13 @@ namespace TMA.MODEL.Entity
             set { id_Dependency = value; }
         }
 
-        public virtual int BirthdayMonth
+        public virtual int? BirthdayMonth
         {
             get { return birthdayMonth; }
             set { birthdayMonth = value; }
         }
 
-        public virtual int BirthdayDay
+        public virtual int? BirthdayDay
         {
             get { return birthdayDay; }
             set { birthdayDay = value; }
@@ -121,7 +121,7 @@ namespace TMA.MODEL.Entity
             set { id_City = value; }
         }
 
-        public virtual int PostalZone
+        public virtual int? PostalZone
         {
             get { return postalZone; }
             set { postalZone = value; }
@@ -133,13 +133,13 @@ namespace TMA.MODEL.Entity
             set { airSection = value; }
         }
 
-        public virtual int TelephoneNumber
+        public virtual int? TelephoneNumber
         {
             get { return telephoneNumber; }
             set { telephoneNumber = value; }
         }
 
-        public virtual float CelphoneNumber
+        public virtual float? CelphoneNumber
         {
             get { return celphoneNumber; }
             set { celphoneNumber = value; }
@@ -157,7 +157,7 @@ namespace TMA.MODEL.Entity
             set { beeperCode = value; }
         }
 
-        public virtual int FaxNumber
+        public virtual int? FaxNumber
         {
             get { return faxNumber; }
             set { faxNumber = value; }
@@ -199,7 +199,7 @@ namespace TMA.MODEL.Entity
             set { integralSalary = value; }
         }
 
-        public virtual int ContractClass
+        public virtual int? ContractClass
         {
             get { return contractClass; }
             set { contractClass = value; }
@@ -223,7 +223,7 @@ namespace TMA.MODEL.Entity
             set { turn = value; }
         }
 
-        public virtual int ExtensionNumber
+        public virtual int? ExtensionNumber
         {
             get { return extensionNumber; }
             set { extensionNumber = value; }
@@ -235,7 +235,7 @@ namespace TMA.MODEL.Entity
             set { bossName = value; }
         }
 
-        public virtual int BossExtensionNumber
+        public virtual int? BossExtensionNumber
         {
             get { return bossExtensionNumber; }
             set { bossExtensionNumber = value; }
@@ -247,13 +247,13 @@ namespace TMA.MODEL.Entity
             set { observations = value; }
         }
 
-        public virtual int IndexReader
+        public virtual int? IndexReader
         {
             get { return indexReader; }
             set { indexReader = value; }
         }
 
-        public virtual int Id_Between
+        public virtual int? Id_Between
         {
             get { return id_Between; }
             set { id_Between = value; }

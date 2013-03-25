@@ -23,9 +23,36 @@ namespace BMS.WEB.pages
 {
     public partial class Department : System.Web.UI.Page
     {
-        public static JavaScriptSerializer serialize = new JavaScriptSerializer();
+        public JavaScriptSerializer serialize = new JavaScriptSerializer();
 
-        public static string Save(string departmentProperties)
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!Page.IsPostBack)
+            {
+                string accion = Request.Params["accion"];
+                if (!string.IsNullOrEmpty(accion))
+                {
+                    switch (accion)
+                    {
+                        case "List":
+                            Response.Write("({success: true, data:" + this.List("", "") + "})");
+                            break;
+                        case "Save":
+                            Response.Write("({success: true, data:" + this.Save(Request.Params["objProperties"]) + "})");
+                            break;
+                        case "Delete":
+                            Response.Write("({success: true, data:" + this.Delete(Request.Params["objProperties"]) + "})");
+                            break;
+                        default:
+                            return;
+                    }
+
+                    Response.End();
+                }
+            }
+        }
+        
+        public string Save(string departmentProperties)
         {
             MessageResponse msg = new MessageResponse();
 
@@ -53,7 +80,7 @@ namespace BMS.WEB.pages
             return serialize.Serialize(msg);
         }
 
-        public static string List(string start, string limit)
+        public string List(string start, string limit)
         {
 
             MessageResponse msg = new MessageResponse();
@@ -71,7 +98,7 @@ namespace BMS.WEB.pages
             return serialize.Serialize(msg);
         }
 
-        public static string Delete(string Id_Department)
+        public string Delete(string Id_Department)
         {
             MessageResponse msg = new MessageResponse();
 
@@ -91,33 +118,6 @@ namespace BMS.WEB.pages
             }
 
             return serialize.Serialize(msg);
-        }
-
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            if (!Page.IsPostBack)
-            {
-                string accion = Request.Params["accion"];
-                if (!string.IsNullOrEmpty(accion))
-                {
-                    switch (accion)
-                    {
-                        case "List":
-                            Response.Write("({success: true, data:" + Department.List("", "") + "})");
-                            break;
-                        case "Save":
-                            Response.Write("({success: true, data:" + Department.Save(Request.Params["objProperties"]) + "})");
-                            break;
-                        case "Delete":
-                            Response.Write("({success: true, data:" + Department.Delete(Request.Params["objProperties"]) + "})");
-                            break;
-                        default:
-                            return;
-                    }
-
-                    Response.End();
-                }
-            }
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿Ext.onReady(function() {
 
-    var AspPage = 'Headquarter.aspx';
+    var aspPageHeadquarter = 'Headquarter.aspx';
 
     function Headquarter() {
         this.Id_Headquarter = null,
@@ -11,12 +11,12 @@
         listeners: {
             validateedit: function(editor, e, eOpts) {
                 saveData(
-                    AspPage,
+                    aspPageHeadquarter,
                     'Save',
-                    'HeadquarterProperties',
+                    'objProperties',
                     e.newValues,
                     function(data) {
-                        loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+                        loadData(aspPageHeadquarter, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
                     },
                     null
                 );
@@ -69,12 +69,12 @@
                 handler: function() {
                     var records = MasterGrid.getSelectionModel().getSelection();
                     deleteData(
-                        AspPage,
+                        aspPageHeadquarter,
                         'Delete',
                         'Id_Headquarter', 
                         records[0].get('Id_Headquarter'),
                         function(data) {
-                            loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+                            loadData(aspPageHeadquarter, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
                         },
                         null
                     );
@@ -84,5 +84,5 @@
         renderTo: Ext.getBody()
     });
 
-    loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+    loadData(aspPageHeadquarter, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
 });

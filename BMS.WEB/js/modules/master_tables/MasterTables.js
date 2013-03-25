@@ -71,6 +71,11 @@ Ext.define('MyDesktop.MasterTables', {
 					                leaf: true
 					            },
 					            {
+					                text: "Funcionarios",
+					                id: "Functionary",
+					                leaf: true
+					            },
+					            {
 					                text: "Usuarios",
 					                id: "User",
 					                leaf: true

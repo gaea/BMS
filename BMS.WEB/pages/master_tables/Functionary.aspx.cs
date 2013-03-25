@@ -10,9 +10,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
-
 using System.Web.Script.Serialization;
-
 using TMA.MODEL.Entity;
 using TMA.DAO.EntityManager;
 using System.IO;
@@ -21,7 +19,7 @@ using BMS.WEB.cls;
 
 namespace BMS.WEB.pages
 {
-    public partial class Headquarter : System.Web.UI.Page
+    public partial class Functionary : System.Web.UI.Page
     {
         public JavaScriptSerializer serialize = new JavaScriptSerializer();
 
@@ -29,19 +27,22 @@ namespace BMS.WEB.pages
         {
             if (!Page.IsPostBack)
             {
-                string accion = Request.Params["accion"];
-                if (!string.IsNullOrEmpty(accion))
+                string action = Request.Params["accion"];
+                if (!string.IsNullOrEmpty(action))
                 {
-                    switch (accion)
+                    switch (action)
                     {
-                        case "List":
-                            Response.Write("({success: true, data:" + this.List("", "") + "})");
-                            break;
                         case "Save":
                             Response.Write("({success: true, data:" + this.Save(Request.Params["objProperties"]) + "})");
                             break;
+                        case "List":
+                            Response.Write("({success: true, data:" + this.List("", "") + "})");
+                            break;
                         case "Delete":
                             Response.Write("({success: true, data:" + this.Delete(Request.Params["objProperties"]) + "})");
+                            break;
+                        case "GetCompany":
+                            Response.Write("({success: true, data:" + this.GetCompany() + "})");
                             break;
                         default:
                             return;
@@ -52,22 +53,34 @@ namespace BMS.WEB.pages
             }
         }
 
+        public string GetCompany()
+        {
+            return serialize.Serialize(CompaniesDao.findAll());
+        }
 
-        public string Save(string HeadquarterProperties)
+        public string Save(string objProperties)
         {
             MessageResponse msg = new MessageResponse();
 
             try
             {
-                TMA.MODEL.Entity.Headquarter headquarter = serialize.Deserialize<TMA.MODEL.Entity.Headquarter>(HeadquarterProperties);
+                TMA.MODEL.Entity.Functionary functionary = serialize.Deserialize<TMA.MODEL.Entity.Functionary>(objProperties);
 
-                if (headquarter.Id_Headquarter == null)
+                if (functionary.Id_Functionary == null)
                 {
-                    HeadquartersDao.save(headquarter);
+                    functionary.Id_UserCreateRegistration = "1";
+
+                    functionary.Id_UserModifyRegistration = "1";
+
+                    functionary.DateCreateRegistration = System.DateTime.Now;
+
+                    FunctionariesDao.save(functionary);
                 }
                 else
                 {
-                    HeadquartersDao.update(headquarter);
+                    functionary.DateModifyRegistration = System.DateTime.Now;
+
+                    FunctionariesDao.update(functionary);
                 }
 
                 msg.Message = ConfigManager.SaveSuccessMessage;
@@ -75,9 +88,9 @@ namespace BMS.WEB.pages
             catch (Exception ex)
             {
                 msg.Message = ConfigManager.SaveErrorMessage;
-                
+
                 msg.Error = ex.ToString();
-                
+
                 File.AppendAllText(ConfigManager.LogPath, msg.ToString());
             }
 
@@ -90,11 +103,11 @@ namespace BMS.WEB.pages
 
             try
             {
-                return serialize.Serialize(HeadquartersDao.findAll());
+                return serialize.Serialize(FunctionariesDao.findAll());
             }
             catch (Exception ex)
             {
-                msg.Message = ConfigManager.DeleteErrorMessage;
+                msg.Message = ConfigManager.ListErrorMessage;
 
                 msg.Error = ex.ToString();
 
@@ -102,24 +115,25 @@ namespace BMS.WEB.pages
             }
 
             return serialize.Serialize(msg);
+
         }
 
-        public string Delete(string Id_Headquarter)
+        public string Delete(string Id_Functionary)
         {
             MessageResponse msg = new MessageResponse();
 
             try
             {
-                TMA.MODEL.Entity.Headquarter headquarter = HeadquartersDao.find(Convert.ToInt32(Id_Headquarter));
-            
-                HeadquartersDao.delete(headquarter);
+                TMA.MODEL.Entity.Functionary functionary = FunctionariesDao.find(Convert.ToInt32(Id_Functionary));
+
+                FunctionariesDao.delete(functionary);
 
                 msg.Message = ConfigManager.DeleteSuccessMessage;
             }
             catch (Exception ex)
             {
                 msg.Message = ConfigManager.DeleteErrorMessage;
-                
+
                 msg.Error = ex.ToString();
 
                 File.AppendAllText(ConfigManager.LogPath, msg.ToString());

@@ -1,6 +1,8 @@
 ﻿Ext.onReady(function() {
 
-    var AspPage = 'RegisterAuthorization.aspx';
+    var aspPageRegister = 'RegisterAuthorization.aspx';
+	
+	var aspPageFunctionary = '../master_tables/Functionary.aspx';
 
     function Visit() {
         this.Id_Visit = null,
@@ -56,7 +58,7 @@
         }
     });
 
-    loadCombo(AspPage, 'GetEntryType', "{'start':0,'limit':0}", ingreso_funcionarios_tipo_ingreso_combo.getStore(), ingreso_funcionarios_tipo_ingreso_combo);
+    loadCombo(aspPageRegister, 'GetEntryType', "{'start':0,'limit':0}", ingreso_funcionarios_tipo_ingreso_combo.getStore(), ingreso_funcionarios_tipo_ingreso_combo);
 
     var ingreso_funcionarios_estado_combo = Ext.create('Ext.form.field.ComboBox', {
         mode: 'local',
@@ -77,7 +79,7 @@
         }
     });
 
-    loadCombo(AspPage, 'GetState', "{'start':0,'limit':0}", ingreso_funcionarios_estado_combo.getStore(), ingreso_funcionarios_estado_combo);
+    loadCombo(aspPageRegister, 'GetState', "{'start':0,'limit':0}", ingreso_funcionarios_estado_combo.getStore(), ingreso_funcionarios_estado_combo);
 
     var ingreso_funcionarios_funcionario_combo = Ext.create('Ext.form.field.ComboBox', {
         mode: 'local',
@@ -119,8 +121,9 @@
         }
     });
 
-    loadCombo(AspPage, 'GetPerson', "{'start':0,'limit':0}", ingreso_funcionarios_funcionario_combo.getStore(), ingreso_funcionarios_funcionario_combo);
+    loadCombo(aspPageRegister, 'GetPerson', "{'start':0,'limit':0}", ingreso_funcionarios_funcionario_combo.getStore(), ingreso_funcionarios_funcionario_combo);
 
+	/*
     var ingreso_funcionarios_persona_autoriza_combo = Ext.create('Ext.form.field.ComboBox', {
         mode: 'local',
         triggerAction: 'all',
@@ -150,9 +153,41 @@
         }
     });
 
-    loadCombo(AspPage, 'GetAprobatorPerson', "{'start':0,'limit':0}", ingreso_funcionarios_persona_autoriza_combo.getStore(), ingreso_funcionarios_persona_autoriza_combo);
+    loadCombo(aspPageRegister, 'GetAprobatorPerson', "{'start':0,'limit':0}", ingreso_funcionarios_persona_autoriza_combo.getStore(), ingreso_funcionarios_persona_autoriza_combo);
+	*/
+	
+	var ingreso_funcionarios_persona_autoriza_combo = Ext.create('Ext.form.field.ComboBox', {
+        mode: 'local',
+        triggerAction: 'all',
+        anchor: '100%',
+        fieldLabel: 'Autorizado por',
+        forceSelection: true,
+        name: 'Id_Functionary',
+        displayField: 'FullName',
+        valueField: 'Id_Functionary',
+        queryMode: 'local',
+        typeAhead: true,
+        store: new Ext.data.Store({
+            fields: [
+                { name: 'Id_Functionary' },
+                { name: 'Name' },
+                { name: 'LastName' },
+                { name: 'FullName',
+                    convert: function(v, record) {
+                        return record.data.Id_Functionary + ' - ' + record.data.Name + ' ' + record.data.LastName;
+                    }
+                }
+            ],
+            data: []
+        }),
+        listeners: {
+            select: function(combo, arrRec, obj) { }
+        }
+    });
 
-    var forma = new Ext.form.Panel({
+    loadCombo(aspPageFunctionary, 'List', "{'start':0,'limit':0}", ingreso_funcionarios_persona_autoriza_combo.getStore(), ingreso_funcionarios_persona_autoriza_combo);
+   
+	var forma = new Ext.form.Panel({
         frame: false,
         border: false,
         width: Ext.getBody().getViewSize().width,
@@ -319,12 +354,12 @@
 			                    submitFields.Id_Person = ingreso_funcionarios_funcionario_combo.getValue();
 
 			                    saveData(
-			                        AspPage,
+			                        aspPageRegister,
 			                        'Save',
 			                        'VisitProperties',
 			                        submitFields,
 			                        function(data) {
-			                            //loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+			                            //loadData(aspPageRegister, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
 			                        },
 			                        null
 			                    );
@@ -348,5 +383,5 @@
         renderTo: Ext.getBody()
     });
 
-    //loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+    //loadData(aspPageRegister, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
 });
