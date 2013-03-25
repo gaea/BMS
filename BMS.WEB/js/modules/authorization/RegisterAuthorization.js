@@ -83,7 +83,7 @@
         mode: 'local',
         triggerAction: 'all',
         anchor: '100%',
-        fieldLabel: 'Nombre',
+        fieldLabel: 'Nombre del Visitante',
         forceSelection: true,
         name: 'Id_Person',
         displayField: 'FullName',

@@ -47,11 +47,13 @@
   <ItemGroup>
     <Compile Include="Entity\City.cs" />
     <Compile Include="Entity\Company.cs" />
+    <Compile Include="Entity\Charge.cs" />
     <Compile Include="Entity\CostCenter.cs" />
     <Compile Include="Entity\Department.cs" />
     <Compile Include="Entity\Dependency.cs" />
     <Compile Include="Entity\Diary.cs" />
     <Compile Include="Entity\EntryType.cs" />
+    <Compile Include="Entity\Functionary.cs" />
     <Compile Include="Entity\Person.cs" />
     <Compile Include="Entity\State.cs" />
     <Compile Include="Entity\Visit.cs" />
@@ -106,6 +108,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mapping\Dependency.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapping\Charge.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

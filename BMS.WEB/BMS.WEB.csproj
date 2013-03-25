@@ -117,6 +117,13 @@
     <Compile Include="pages\master_tables\Company.aspx.designer.cs">
       <DependentUpon>Company.aspx</DependentUpon>
     </Compile>
+    <Compile Include="pages\master_tables\Charge.aspx.cs">
+      <DependentUpon>Charge.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\master_tables\Charge.aspx.designer.cs">
+      <DependentUpon>Charge.aspx</DependentUpon>
+    </Compile>
     <Compile Include="pages\master_tables\Dependency.aspx.cs">
       <DependentUpon>Dependency.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -181,6 +188,7 @@
     <Content Include="js\DesktopConfig.js" />
     <Content Include="js\entities\DiaryEntity.js" />
     <Content Include="js\modules\master_tables\Company.js" />
+    <Content Include="js\modules\master_tables\Charge.js" />
     <Content Include="js\modules\master_tables\CostCenter.js" />
     <Content Include="js\modules\master_tables\Dependency.js" />
     <Content Include="js\TemplateWindow.js" />
@@ -207,6 +215,7 @@
     <Content Include="pages\authorization\RegisterAuthorization.aspx" />
     <Content Include="pages\master_tables\City.aspx" />
     <Content Include="pages\master_tables\Company.aspx" />
+    <Content Include="pages\master_tables\Charge.aspx" />
     <Content Include="pages\master_tables\Dependency.aspx" />
     <Content Include="pages\master_tables\CostCenter.aspx" />
     <Content Include="pages\master_tables\Department.aspx" />

@@ -67,7 +67,7 @@
         columns: [
 				Ext.create('Ext.grid.RowNumberer'),
                 { text: 'Identificador', dataIndex: 'Id_City' },
-                { text: 'Nombre', dataIndex: 'Name', editor: new Ext.form.TextField({ msgTarget: 'none', allowBlank: false,  labelWidth: 75, minText: 'Texto de ejemplo' }) },
+                { text: 'Nombre', dataIndex: 'Name', editor: new Ext.form.TextField({ msgTarget: 'none', allowBlank: false,  labelWidth: 150, minText: 'Texto de ejemplo' }) },
 				{ text: 'Departamento', dataIndex: 'Id_Department', renderer: function(val, meta, rec) 
 					{
 						return getValueFromStore(val, meta, rec, departmentStore, 'Id_Department', 'Name');
@@ -100,7 +100,7 @@
                 iconCls: 'remove',
                 handler: function() {
                     var records = masterGridCombo.getSelectionModel().getSelection();
-					delete e.newValues[''];
+                
                     deleteData(
                         AspPageCity,
                         'Delete',

@@ -40,6 +40,11 @@ Ext.define('MyDesktop.MasterTables', {
 				            text: "Maestras",
 				            expanded: true,
 				            children: [
+								{
+					                text: "Cargos",
+					                id: "Charge",
+					                leaf: true
+					            },
 					            {
 					                text: "Ciudades",
 					                id: "City",

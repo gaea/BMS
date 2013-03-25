@@ -164,7 +164,44 @@ namespace BMS.CONFIGURATION
                 return getKey("TimeForResponseRequest");
             }
         }
+
+        #region Service
         
+        /// <summary>
+        /// Descripción del servcio de windows
+        /// </summary>
+        public static string ServiceDescription
+        {
+            get
+            {
+                return getKey("ServiceDescription");
+            }
+        }
+
+        /// <summary>
+        /// Nombre a desplegar del servcio de windows
+        /// </summary>
+        public static string ServiceDisplayName
+        {
+            get
+            {
+                return getKey("ServiceDisplayName");
+            }
+        }
+
+        /// <summary>
+        /// Nombre del servcio de windows
+        /// </summary>
+        public static string ServiceName
+        {
+            get
+            {
+                return getKey("ServiceName");
+            }
+        }
+
+        #endregion
+
 
         #endregion Properties
 
