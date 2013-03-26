@@ -8,7 +8,7 @@
         this.Id_Visit = null,
 		  this.Id_Visitor = null,
 		  this.DateCreateTransaction = null,
-		  this.DocumentNumberVisitor = null,
+		  this.Id_Functionary = null,
 		  this.VisitDescription = null,
 		  this.ElementsToGetIn = null,
 		  this.Activity = null,
@@ -356,7 +356,7 @@
 			                    saveData(
 			                        aspPageRegister,
 			                        'Save',
-			                        'VisitProperties',
+			                        'objProperties',
 			                        submitFields,
 			                        function(data) {
 			                            //loadData(aspPageRegister, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
@@ -365,11 +365,11 @@
 			                    );
 			                }
 			                else {
-			                    alert('La fecha de ingreso debe ser menor a la fecha de salida');
+			                    Ext.Msg.alert('Mensaje', 'La fecha de ingreso debe ser menor a la fecha de salida');
 			                }
 			            }
 			            else{
-			                alert('La fecha de ingreso debe ser mayor o igual a la fecha actual');
+			                Ext.Msg.alert('Mensaje', 'La fecha de ingreso debe ser mayor o igual a la fecha actual');
 			            }
 			        }
 			    }

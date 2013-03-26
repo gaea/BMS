@@ -1,16 +1,18 @@
 ﻿Ext.onReady(function() {
 
-    var AspPageRegisterAuthorization = 'RegisterAuthorization.aspx';
+    var aspPageRegisterAuthorization = 'RegisterAuthorization.aspx';
 	
-    var AspPage = 'ConsultAuthorization.aspx';
+    var aspPageConsultAuthorization = 'ConsultAuthorization.aspx';
 
 	var aspPagePerson = '../person/RegisterPerson.aspx';
+	
+	var aspPageFunctionary = '../master_tables/Functionary.aspx';
 	
     function Visit() {
         this.Id_Visit = null,
         this.Id_Visitor = null,
         this.DateCreateTransaction = null,
-        this.DocumentNumberVisitor = null,
+        this.Id_Functionary = null,
         this.VisitDescription = null,
         this.ElementsToGetIn = null,
         this.Activity = null,
@@ -37,14 +39,30 @@
         data: []
     });
 
-    loadData(AspPageRegisterAuthorization, 'GetEntryType', "{'start':0,'limit':0}", ingreso_funcionarios_tipo_ingreso_store, null, null);
+    loadData(aspPageRegisterAuthorization, 'GetEntryType', "{'start':0,'limit':0}", ingreso_funcionarios_tipo_ingreso_store, null, null);
+
+    var functionaryStore = new Ext.data.Store({
+        fields: [
+				 { name: 'Id_Functionary' }, 
+				 { name: 'Name'},
+				 { name: 'LastName' },
+				 { name: 'FullName',
+					convert: function(v, record) {
+						return record.data.Name + ' ' + record.data.LastName;
+					}
+				 }
+				 ],
+        data: []
+    });
+
+    loadData(aspPageFunctionary, 'List', "{'start':0,'limit':0}", functionaryStore, null, null);
 
     var ingreso_funcionarios_estado_store = new Ext.data.Store({
         fields: [{ name: 'Id_State' }, { name: 'StateName'}],
         data: []
     });
 
-    loadData(AspPageRegisterAuthorization, 'GetState', "{'start':0,'limit':0}", ingreso_funcionarios_estado_store, null, null);
+    loadData(aspPageRegisterAuthorization, 'GetState', "{'start':0,'limit':0}", ingreso_funcionarios_estado_store, null, null);
 
 	var companyStore = new Ext.data.Store({
         fields: [{ name: 'Id_Third' }, { name: 'Name'}],
@@ -60,7 +78,7 @@
             { name: 'LastName' },
             { name: 'FullName',
                 convert: function(v, record) {
-                    return record.data.Id_Person + ' - ' + record.data.Name + ' ' + record.data.LastName;
+                    return record.data.Name + ' ' + record.data.LastName;
                 }
             },
 			{ name: 'Company' }
@@ -83,13 +101,13 @@
         data: []
     });
 
-    loadData(AspPageRegisterAuthorization, 'GetAprobatorPerson', "{'start':0,'limit':0}", ingreso_funcionarios_persona_autoriza_store, null, null);
+    loadData(aspPageRegisterAuthorization, 'GetAprobatorPerson', "{'start':0,'limit':0}", ingreso_funcionarios_persona_autoriza_store, null, null);
 
     var master_buscar_array = [
         ['Id_Visitor', 'Documento Identificación'],
-        ['Person.Name', 'Nombre'],
-        ['Person.LastName', 'Apellido'],
-        ['Person.Company.Name', 'Empresa'],
+        ['Person.Name', 'Nombre del Visitante'],
+        ['Person.LastName', 'Apellido del Visitante'],
+        ['Person.Company.Name', 'Empresa del Visitante'],
         ['InitialDate', 'Fecha Inicial']
     ];
 
@@ -154,29 +172,26 @@
         columns: [
 				Ext.create('Ext.grid.RowNumberer'),
 				{ header: "Foto", width: 55, dataIndex: 'Id_Visitor', renderer: set_photo },
-                { text: 'Documento de Identificaci&oacute;n', width: 120, dataIndex: 'Id_Visitor' },
-                { text: 'Nombre', width: 250, dataIndex: 'Id_Visitor',
-                    renderer: function(val, meta, rec) {
-                        var render_value = '';
-                        var ix = ingreso_funcionarios_funcionario_store.findBy(
-                            function(record, id) {
-                                if (record.get('Id_Person') == val) {
-                                    render_value = record.get('Name') + ' ' + record.get('LastName');
-                                    return id;
-                                }
-                            }
-                        );
-                        return render_value;
-                    }
+                { text: 'Documento de Identificaci&oacute;n', width: 150, dataIndex: 'Id_Visitor' },
+                { text: 'Nombre del Visitante', width: 250, dataIndex: 'Id_Visitor',
+                    renderer: function(val, meta, rec) 
+					{
+						return getValueFromStore(val, meta, rec, ingreso_funcionarios_funcionario_store, 'Id_Person', 'FullName');
+					}
                 },
-				{ text: 'Empresa', width: 150, dataIndex: 'Id_Visitor', renderer: function(val, meta, rec) 
+				{ text: 'Empresa del Visitante', width: 150, dataIndex: 'Id_Visitor', renderer: function(val, meta, rec) 
 					{	
 						return getValueFromStoreSinceOtherValueToFind(val, meta, rec, companyStore, 'Id_Third', 'Name', getValueFromStore(val, meta, rec, ingreso_funcionarios_funcionario_store, 'Id_Person', 'Company'));
 					}
 				},
+				{ text: "Autorizado por", width: 150, dataIndex: 'Id_Functionary', renderer: function(val, meta, rec) 
+					{
+						return getValueFromStore(val, meta, rec, functionaryStore, 'Id_Functionary', 'FullName');
+					}
+				},
                 { text: 'Fecha Inicial', width: 150, dataIndex: 'InitialDate', renderer: fixDate },
-                {text: 'Fecha Final', width: 150, dataIndex: 'FinalDate', renderer: fixDate },
-                {text: 'Observaciones', width: 200, dataIndex: 'VisitDescription' },
+                { text: 'Fecha Final', width: 150, dataIndex: 'FinalDate', renderer: fixDate },
+                { text: 'Observaciones', width: 200, dataIndex: 'VisitDescription' },
                 { text: 'Equipos', width: 200, dataIndex: 'ElementsToGetIn' }
         ],
         tbar: [
@@ -184,9 +199,9 @@
                 text: 'Recargar',
                 iconCls: 'reload',
                 handler: function() {
-                    loadData(AspPageRegisterAuthorization, 'GetPerson', "{'start':0,'limit':0}", ingreso_funcionarios_funcionario_store,
+                    loadData(aspPageRegisterAuthorization, 'GetPerson', "{'start':0,'limit':0}", ingreso_funcionarios_funcionario_store,
                         function(data) {
-                            loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+                            loadData(aspPageConsultAuthorization, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
                         }, null);
                 }
             }, '->',
@@ -206,7 +221,7 @@
                     scope: this,
                     specialkey: function(f, e) {
                         if (e.getKey() == e.ENTER) {
-                            loadData(AspPage, 'Find', { objProperties: "{'field':'InitialDate','value':'" + Ext.getCmp('id_master_buscar_date').getValue() + "'}" }, MasterGrid.getStore(), null, null);
+                            loadData(aspPageConsultAuthorization, 'Find', { objProperties: "{'field':'InitialDate','value':'" + Ext.getCmp('id_master_buscar_date').getValue() + "'}" }, MasterGrid.getStore(), null, null);
                         }
                     }
                 }
@@ -219,7 +234,7 @@
                     scope: this,
                     specialkey: function(f, e) {
                         if (e.getKey() == e.ENTER) {
-                            loadData(AspPage, 'Find', { objProperties: "{'field':'" + master_buscar_combo.getValue() + "','value':'" + Ext.getCmp('id_master_buscar_text').getValue() + "'}" }, MasterGrid.getStore(), null, null);
+                            loadData(aspPageConsultAuthorization, 'Find', { objProperties: "{'field':'" + master_buscar_combo.getValue() + "','value':'" + Ext.getCmp('id_master_buscar_text').getValue() + "'}" }, MasterGrid.getStore(), null, null);
                         }
                     }
                 }
@@ -237,7 +252,7 @@
                         search = Ext.getCmp('id_master_buscar_text').getValue();
                     }
 
-                    loadData(AspPage, 'Find', { objProperties: "{'field':'" + master_buscar_combo.getValue() + "','value':'" + search + "'}" }, MasterGrid.getStore(), null, null);
+                    loadData(aspPageConsultAuthorization, 'Find', { objProperties: "{'field':'" + master_buscar_combo.getValue() + "','value':'" + search + "'}" }, MasterGrid.getStore(), null, null);
                 }
             }
         ],
@@ -249,8 +264,8 @@
     //myDate = Ext.Date.parse("2012-01-03 5:43:21 PM", "Y-m-d g:i:s A");
     //return date;
 
-    loadData(AspPageRegisterAuthorization, 'GetPerson', "{'start':0,'limit':0}", ingreso_funcionarios_funcionario_store,
+    loadData(aspPageRegisterAuthorization, 'GetPerson', "{'start':0,'limit':0}", ingreso_funcionarios_funcionario_store,
         function(data) {
-            loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+            loadData(aspPageConsultAuthorization, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
         }, null);
 });

@@ -1,6 +1,8 @@
 ﻿Ext.onReady(function() {
 
-    var AspPage = 'RegisterDiary.aspx';
+    var aspPageRegisterDiary = 'RegisterDiary.aspx';
+	
+	var aspPageFunctionary = '../master_tables/Functionary.aspx';
 
     var tipo_ingreso_store = new Ext.data.Store({
         fields: [{ name: 'Id_EntryType' }, { name: 'EntryTypeName'}],
@@ -25,7 +27,7 @@
         }
     });
 
-    loadCombo(AspPage, 'GetEntryType', "{'start':0,'limit':0}", tipo_ingreso_store, ingreso_agenda_tipo_ingreso_combo);
+    loadCombo(aspPageRegisterDiary, 'GetEntryType', "{'start':0,'limit':0}", tipo_ingreso_store, ingreso_agenda_tipo_ingreso_combo);
 
     var estado_store = new Ext.data.Store({
         fields: [{ name: 'Id_State' }, { name: 'StateName'}],
@@ -49,16 +51,16 @@
         }
     });
 
-    loadCombo(AspPage, 'GetState', "{'start':0,'limit':0}", estado_store, ingreso_agenda_estado_combo);
+    loadCombo(aspPageRegisterDiary, 'GetState', "{'start':0,'limit':0}", estado_store, ingreso_agenda_estado_combo);
 
 	var personaVisitadaStore = new Ext.data.Store({
         fields: [
-            { name: 'Id_Person' },
+            { name: 'Id_Functionary' },
             { name: 'Name' },
             { name: 'LastName' },
             { name: 'FullName',
                 convert: function(v, record) {
-                    return record.data.Id_Person + ' - ' + record.data.Name + ' ' + record.data.LastName;
+                    return record.data.Id_Functionary + ' - ' + record.data.Name + ' ' + record.data.LastName;
                 }
             },
             { name: 'Id_Visitor',
@@ -86,7 +88,7 @@
         store: personaVisitadaStore,
     });
 	
-	loadCombo(AspPage, 'GetPerson', "{'start':0,'limit':0}", personaVisitadaStore, ingreso_agenda_persona_visitada_combo);
+	loadCombo(aspPageFunctionary, 'List', "{'start':0,'limit':0}", personaVisitadaStore, ingreso_agenda_persona_visitada_combo);
 	
     var persona_store = new Ext.data.Store({
         fields: [
@@ -135,7 +137,7 @@
         }
     });
 
-    loadCombo(AspPage, 'GetPerson', "{'start':0,'limit':0}", persona_store, ingreso_agenda_persona_visitante_combo);
+    loadCombo(aspPageRegisterDiary, 'GetPerson', "{'start':0,'limit':0}", persona_store, ingreso_agenda_persona_visitante_combo);
 
 
     var forma = new Ext.form.Panel({
@@ -244,18 +246,18 @@
 			                submitFields.HourDiary = Ext.getCmp('id_hora_ingreso').getValue();
 
 			                saveData(
-			                    AspPage,
+			                    aspPageRegisterDiary,
 			                    'Save',
 			                    'DiaryProperties',
 			                    submitFields,
 			                    function(data) {
-			                        //loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+			                        //loadData(aspPageRegisterDiary, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
 			                    },
 			                    null
 			                );
 			            }
 			            else {
-			                alert('La fecha de ingreso debe ser mayor o igual a la fecha actual');
+			                Ext.Msg.alert('Mensaje', 'La fecha de ingreso debe ser mayor o igual a la fecha actual');
 			            }
 			        }
 			    }
@@ -269,5 +271,5 @@
         renderTo: Ext.getBody()
     });
 
-    //loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+    //loadData(aspPageRegisterDiary, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
 });

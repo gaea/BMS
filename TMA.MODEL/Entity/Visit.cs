@@ -10,50 +10,28 @@ namespace TMA.MODEL.Entity
     {
         #region Attributes
 
-        private int id_Visit;
-
-        private float id_Visitor;
-
+        private int? id_Visit;
+        private float? id_Visitor;
         private DateTime? dateCreateTransaction;
-
-        private float documentNumberVisitor;
-
+        private float id_Functionary;
         private string visitDescription;
-
         private string elementsToGetIn;
-
         private char activity;
-
         private DateTime? initialDate;
-
         private DateTime? initialHour;
-
         private DateTime? finalDate;
-
         private DateTime? finalHour;
-
         private string visitDuration;
-
         private int id_Usuario;
-
         private int id_Area;
-
         private string tracing;
-
         private bool outEquipment;
-
         private bool scheduledVisit;
-
         private string barCode;
-
         private string provider;
-
         private DateTime? dateCreateRegistration;
-
         private DateTime? dateModifyRegistration;
-
         private string id_UserCreateRegistration;
-
         private string id_UserModifyRegistration;
 
 
@@ -61,13 +39,13 @@ namespace TMA.MODEL.Entity
 
         #region Properties
 
-        public virtual int Id_Visit
+        public virtual int? Id_Visit
         {
             get { return id_Visit; }
             set { id_Visit = value; }
         }
 
-        public virtual float Id_Visitor
+        public virtual float? Id_Visitor
         {
             get { return id_Visitor; }
             set { id_Visitor = value; }
@@ -79,10 +57,10 @@ namespace TMA.MODEL.Entity
             set { dateCreateTransaction = value; }
         }
 
-        public virtual float DocumentNumberVisitor
+        public virtual float Id_Functionary
         {
-            get { return documentNumberVisitor; }
-            set { documentNumberVisitor = value; }
+            get { return id_Functionary; }
+            set { id_Functionary = value; }
         }
 
         public virtual string VisitDescription

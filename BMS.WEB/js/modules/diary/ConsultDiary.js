@@ -6,6 +6,8 @@
 
 	var aspPagePerson = '../person/RegisterPerson.aspx';
 	
+	var aspPageFunctionary = '../master_tables/Functionary.aspx';
+	
     var agenda_store = new Ext.data.Store({
         fields: [{ name: 'Id_EntryType' }, { name: 'EntryTypeName'}],
         data: []
@@ -20,6 +22,22 @@
 
     loadData(AspPageRegisterDiary, 'GetState', "{'start':0,'limit':0}", estado_store, null, null);
 
+	var functionaryStore = new Ext.data.Store({
+        fields: [
+				 { name: 'Id_Functionary' }, 
+				 { name: 'Name'},
+				 { name: 'LastName' },
+				 { name: 'FullName',
+					convert: function(v, record) {
+						return record.data.Name + ' ' + record.data.LastName;
+					}
+				 }
+				 ],
+        data: []
+    });
+
+    loadData(aspPageFunctionary, 'List', "{'start':0,'limit':0}", functionaryStore, null, null);
+	
 	var companyStore = new Ext.data.Store({
         fields: [{ name: 'Id_Third' }, { name: 'Name'}],
         data: []
@@ -109,26 +127,20 @@
         columns: [
 				Ext.create('Ext.grid.RowNumberer'),
 				{ header: "Foto", width: 55, dataIndex: 'Id_Visitor', renderer: set_photo },
-				{ text: 'Nombre del Funcionario', dataIndex: 'Id_Functionary', width: 140 },
 				{ text: 'Documento Identificaci&oacute;n', width: 150, dataIndex: 'Id_Visitor' },
 		        { text: 'Nombre del Visitante', width: 150, dataIndex: 'Id_Visitor',
 		            renderer: function(val, meta, rec) {
-		                var render_value = '';
-		                var ix = persona_store.findBy(
-                            function(record, id) {
-                                if (record.get('Id_Person') == val) {
-                                    render_value = record.get('Name') + ' ' + record.get('LastName');
-                                    return id;
-                                }
-                            }
-                        );
-
-		                return render_value;
-		            }
+						return getValueFromStore(val, meta, rec, persona_store, 'Id_Person', 'FullName');
+					}
 		        },
-				{ text: 'Empresa', width: 150, dataIndex: 'Id_Visitor', renderer: function(val, meta, rec) 
+				{ text: 'Empresa del Visitante', width: 150, dataIndex: 'Id_Visitor', renderer: function(val, meta, rec) 
 					{	
 						return getValueFromStoreSinceOtherValueToFind(val, meta, rec, companyStore, 'Id_Third', 'Name', getValueFromStore(val, meta, rec, persona_store, 'Id_Person', 'Company'));
+					}
+				},
+				{ text: 'Nombre del Funcionario Agendado', width: 180, dataIndex: 'Id_Functionary' , renderer: function(val, meta, rec) 
+					{
+						return getValueFromStore(val, meta, rec, functionaryStore, 'Id_Functionary', 'FullName');
 					}
 				},
 				{ text: 'Fecha Agendada', width: 100, dataIndex: 'DateDiary' },
@@ -170,7 +182,7 @@
                             );
                         }
                         else {
-                            alert('La agenda a eliminar debe de tener fecha mayor a la actual');
+                            Ext.Msg.alert('Mensaje','La agenda a eliminar debe presentar una fecha mayor a la fecha actual');
                         }
                     }
                 }

@@ -150,7 +150,7 @@ namespace TMA.DAO.TEST
                             {
                                 Id_Visit = 0,
                                 Id_Visitor = 1,
-                                DocumentNumberVisitor = 1,
+                                Id_Functionary = 1,
                                 VisitDescription = "Capacitación",
                                 ElementsToGetIn = "Pc",
                                 DateCreateTransaction = DateTime.Now,

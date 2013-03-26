@@ -9,7 +9,7 @@
     </id>
     <property name="Id_Visitor" column="IdVisitante" type="float" />
     <property name="DateCreateTransaction" column="Fecha" type="datetime" />
-    <property name="DocumentNumberVisitor" column="RecibeVisita" type="float" />
+    <property name="Id_Functionary" column="RecibeVisita" type="float" />
     <property name="VisitDescription" column="MotivoVisita" type="string" />
     <property name="ElementsToGetIn" column="ElementosIngresa" type="string" />
     <property name="Activity" column="StsActividad" type="char" />

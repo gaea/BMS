@@ -58,12 +58,12 @@ namespace BMS.WEB.pages.authorization
             }
         }
 
-        public string Save(string VisitProperties)
+        public string Save(string objProperties)
         {
             MessageResponse msg = new MessageResponse();
             try
             {
-                Dictionary<string, string> dicProperties = JsonConvert.DeserializeObject<Dictionary<string, string>>(VisitProperties);
+                Dictionary<string, string> dicProperties = JsonConvert.DeserializeObject<Dictionary<string, string>>(objProperties);
 
                 Visit visit = new Visit();
                 visit.Id_Visitor = (float)Convert.ToInt64(dicProperties["Id_Person"]);
@@ -75,7 +75,7 @@ namespace BMS.WEB.pages.authorization
                 visit.InitialHour = InitialDate;
                 visit.FinalDate = FinalDate;
                 visit.FinalHour = FinalDate;
-                visit.DocumentNumberVisitor = (float)Convert.ToInt64(dicProperties["Id_Person"]);
+                visit.Id_Functionary = (float)Convert.ToInt64(dicProperties["Id_Functionary"]);
                 visit.ElementsToGetIn = dicProperties["ElementsToGetIn"];
                 visit.VisitDescription = dicProperties["VisitDescription"];
                 visit.DateCreateTransaction = System.DateTime.Now;
