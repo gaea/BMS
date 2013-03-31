@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,69 +11,82 @@ namespace TMA.DAO.EntityManager
 {
     public class VisitsDao : Dao
     {
-        public static List<Visit> findPersonBy(string field, string value)
+
+        public static List<Visit> findFunctionaryBy(string field, string value)
         {
-            List<Person> persons = (List<Person>)Session.CreateCriteria<Person>()
-                .Add(Restrictions.Like(field, value, MatchMode.Anywhere))
-                .List<Person>();
+            List<Functionary> functionaries = FunctionariesDao.findBy(field, value);
 
-            List<Visit> visits = new List<Visit>();
+            List<Visit> result = new List<Visit>();
 
-            foreach (Person person in persons)
+            foreach (Functionary functionary in functionaries)
             {
-                Visit visit = (Visit)Session.CreateCriteria<Visit>()
-                .Add(Restrictions.Eq("Id_Visitor", person.Id_Person))
-                .UniqueResult();
+                List<Visit> visits = VisitsDao.findBy("Id_Functionary", float.Parse(functionary.Id_Functionary.ToString()));
 
-                if (visit != null)
+                if (visits != null)
                 {
-                    visits.Add(visit);
+                    result.AddRange(visits);
                 }
             }
 
-            return visits;
+            return result;
+        }
+
+        public static List<Visit> findPersonBy(string field, string value)
+        {
+            List<Person> persons = PersonsDao.findBy(field, value);
+
+            List<Visit> result = new List<Visit>();
+
+            foreach (Person person in persons)
+            {
+                List<Visit> visits = VisitsDao.findBy("Id_Visitor", float.Parse(person.Id_Person.ToString()));
+
+                if (visits != null)
+                {
+                    result.AddRange(visits);
+                }
+            }
+
+            return result;
         }
 
         public static List<Visit> findCompanyBy(string field, string value)
         {
-            List<Company> companys = (List<Company>)Session.CreateCriteria<Company>()
-                .Add(Restrictions.Like(field, value, MatchMode.Anywhere))
-                .List<Company>();
+            List<Company> companys = CompaniesDao.findBy(field, value);
 
-            List<Person> persons = new List<Person>();
-            List<Visit> visits = new List<Visit>();
+            List<Visit> result = new List<Visit>();
 
             foreach (Company company in companys)
             {
-                persons = PersonsDao.findBy("Company", (float)company.Id_Third); ;
+                List<Person> persons = PersonsDao.findBy("Company", company.Id_Third.ToString());
 
                 foreach (Person person in persons)
                 {
-                    Visit visit =  VisitsDao.find(int.Parse(person.Id_Person.ToString()));
+                     List<Visit> visits =  (List<Visit>)VisitsDao.findBy("Id_Visitor", float.Parse(person.Id_Person.ToString()));
 
-                    if (visit != null)
+                     if (visits != null)
                     {
-                        visits.Add(visit);
+                        result.AddRange(visits);
                     }
                 }
             }
 
-            return visits;
+            return result;
         }
 
         public static List<Visit> findBy(string field, int value)
         {
             List<Visit> visit = (List<Visit>)Session.CreateCriteria<Visit>()
-                .Add(Restrictions.Eq(field, value))
+                .Add(Restrictions.Like(Projections.Cast(NHibernateUtil.Int32, Projections.Property(field)), value))
                 .List<Visit>();
 
             return visit;
         }
-
+        
         public static List<Visit> findBy(string field, float value)
         {
             List<Visit> visit = (List<Visit>)Session.CreateCriteria<Visit>()
-                .Add(Restrictions.Like(field, value))
+                .Add(Restrictions.Eq(Projections.Cast(NHibernateUtil.Double, Projections.Property(field)), value))
                 .List<Visit>();
 
             return visit;
@@ -92,8 +104,8 @@ namespace TMA.DAO.EntityManager
         public static List<Visit> findBy(string field, string value)
         {
             List<Visit> visit = (List<Visit>)Session.CreateCriteria<Visit>()
-                .Add(Restrictions.Like(field, value))
-                .List<Visit>();
+               .Add(Restrictions.Like(Projections.Cast(NHibernateUtil.String, Projections.Property(field)), value))
+               .List<Visit>();
 
             return visit;
         }
@@ -101,7 +113,7 @@ namespace TMA.DAO.EntityManager
         public static Visit find(int Id_Visit)
         {
             Visit visit = (Visit)Session.CreateCriteria<Visit>()
-                .Add(Restrictions.Eq("Id_Visit", Id_Visit))
+                .Add(Restrictions.Like(Projections.Cast(NHibernateUtil.String, Projections.Property("Id_Visit")), Id_Visit.ToString()))
                 .UniqueResult();
 
             return visit;

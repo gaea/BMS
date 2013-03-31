@@ -10,19 +10,11 @@ namespace TMA.DAO.EntityManager
 {
     public class PersonsDao : Dao
     {
-        public static List<Person> findBy(string field, float value)
-        {
-            List<Person> person = (List<Person>)Session.CreateCriteria<Person>()
-                .Add(Restrictions.Eq(field, value))
-                .List<Person>();
-
-            return person;
-        }
-
+        
         public static List<Person> findBy(string field, string value)
         {
             List<Person> person = (List<Person>)Session.CreateCriteria<Person>()
-                .Add(Restrictions.Like(field, value, MatchMode.Anywhere))
+                .Add(Restrictions.Like(Projections.Cast(NHibernateUtil.String, Projections.Property(field)), value, MatchMode.Anywhere))
                 .List<Person>();
 
             return person;
@@ -31,7 +23,7 @@ namespace TMA.DAO.EntityManager
         public static Person find(float Id_Person)
         {
             Person person = (Person)Session.CreateCriteria<Person>()
-                .Add(Restrictions.Eq("Id_Person", Id_Person))
+                .Add(Restrictions.Like(Projections.Cast(NHibernateUtil.Double, Projections.Property("Id_Person")), Id_Person.ToString()))
                 .UniqueResult();
 
             return person;

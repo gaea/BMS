@@ -64,9 +64,10 @@
 
     var master_buscar_array = [
         ['Id_Visitor', 'Documento Identificación'],
-        ['Person.Name', 'Nombre'],
-        ['Person.LastName', 'Apellido'],
-        ['Person.Company.Name', 'Empresa'],
+        ['Person.Name', 'Nombre del Visitante'],
+        ['Person.LastName', 'Apellido del Visitante'],
+        ['Person.Company.Name', 'Empresa del Visitante'],
+		['Diary.Functionary.Name', 'Nombre del Funcionario Agendado'],
         ['DateDiary', 'Fecha Agendada']
     ];
 

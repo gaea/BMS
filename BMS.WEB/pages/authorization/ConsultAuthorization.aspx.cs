@@ -76,6 +76,14 @@ namespace BMS.WEB.pages.authorization
                             return serialize.Serialize(VisitsDao.findPersonBy(dicProperties["field"].Split('.')[1], dicProperties["value"]));
                         }
                     }
+                    if (dicProperties["field"].Contains("Functionary"))
+                    {
+
+                        if (dicProperties["field"].Contains("Name"))
+                        {
+                            return serialize.Serialize(VisitsDao.findFunctionaryBy(dicProperties["field"].Split('.')[2], dicProperties["value"]));
+                        }
+                    }
                     else
                     {
                         DateTime InitialDate;

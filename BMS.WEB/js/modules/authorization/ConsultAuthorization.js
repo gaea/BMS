@@ -108,6 +108,7 @@
         ['Person.Name', 'Nombre del Visitante'],
         ['Person.LastName', 'Apellido del Visitante'],
         ['Person.Company.Name', 'Empresa del Visitante'],
+		['Visit.Functionary.Name', 'Autorizado por'],
         ['InitialDate', 'Fecha Inicial']
     ];
 

@@ -10,10 +10,10 @@ namespace TMA.DAO.EntityManager
 {
     public class CompaniesDao : Dao
     {
-        public static List<Company> findBy(string field, int val)
+        public static List<Company> findBy(string field, string val)
         {
             List<Company> company = (List<Company>)Session.CreateCriteria<Company>()
-                .Add(Restrictions.Eq(field, val))
+                .Add(Restrictions.Like(Projections.Cast(NHibernateUtil.String, Projections.Property(field)), val))
                 .List<Company>();
 
             return company;
@@ -22,7 +22,7 @@ namespace TMA.DAO.EntityManager
         public static Company find(int Id_Third)
         {
             Company company = (Company)Session.CreateCriteria<Company>()
-                .Add(Restrictions.Eq("Id_Third", Id_Third))
+                .Add(Restrictions.Like(Projections.Cast(NHibernateUtil.String, Projections.Property("Id_Third")), Id_Third))
                 .UniqueResult();
 
             return company;

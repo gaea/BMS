@@ -10,19 +10,19 @@ namespace TMA.DAO.EntityManager
 {
     public class FunctionariesDao : Dao
     {
-        public static List<Functionary> findBy(string field, float value)
+        public static List<Functionary> findBy(string field, string value)
         {
             List<Functionary> functionary = (List<Functionary>)Session.CreateCriteria<Functionary>()
-                .Add(Restrictions.Eq(field, value))
+                .Add(Restrictions.Like(Projections.Cast(NHibernateUtil.String, Projections.Property(field)), value, MatchMode.Anywhere))
                 .List<Functionary>();
 
             return functionary;
         }
 
-        public static List<Functionary> findBy(string field, string value)
+        public static List<Functionary> findBy(string field, float value)
         {
             List<Functionary> functionary = (List<Functionary>)Session.CreateCriteria<Functionary>()
-                .Add(Restrictions.Like(field, value, MatchMode.Anywhere))
+                .Add(Restrictions.Eq(Projections.Cast(NHibernateUtil.Double, Projections.Property(field)), value))
                 .List<Functionary>();
 
             return functionary;
@@ -31,7 +31,7 @@ namespace TMA.DAO.EntityManager
         public static Functionary find(float Id_Functionary)
         {
             Functionary functionary = (Functionary)Session.CreateCriteria<Functionary>()
-                .Add(Restrictions.Eq("Id_Functionary", Id_Functionary))
+                .Add(Restrictions.Like(Projections.Cast(NHibernateUtil.Double, Projections.Property("Id_Functionary")), Id_Functionary))
                 .UniqueResult();
 
             return functionary;

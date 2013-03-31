@@ -12,85 +12,79 @@ namespace TMA.DAO.EntityManager
     {
         public static List<Diary> findPersonBy(string field, string value)
         {
-            List<Person> persons = (List<Person>)Session.CreateCriteria<Person>()
-                .Add(Restrictions.Like(field, value, MatchMode.Anywhere))
-                .List<Person>();
+            List<Person> persons = PersonsDao.findBy(field, value);
 
-            List<Diary> visits = new List<Diary>();
+            List<Diary> result = new List<Diary>();
 
             foreach (Person person in persons)
             {
-                Diary visit = (Diary)Session.CreateCriteria<Diary>()
-                .Add(Restrictions.Eq("Id_Visitor", person.Id_Person))
-                .UniqueResult();
+                List<Diary> diaries = DiariesDao.findBy("Id_Visitor", person.Id_Person.ToString());
 
-                if (visit != null)
+                if (diaries != null)
                 {
-                    visits.Add(visit);
+                    result.AddRange(diaries);
                 }
             }
 
-            return visits;
+            return result;
+        }
+
+        public static List<Diary> findFunctionaryBy(string field, string value)
+        {
+            List<Functionary> functionaries = FunctionariesDao.findBy(field, value);
+
+            List<Diary> result = new List<Diary>();
+
+            foreach (Functionary functionary in functionaries)
+            {
+                List<Diary> diaries = DiariesDao.findBy("Id_Functionary", functionary.Id_Functionary.ToString());
+
+                if (diaries != null)
+                {
+                    result.AddRange(diaries);
+                }
+            }
+
+            return result;
         }
 
         public static List<Diary> findCompanyBy(string field, string value)
         {
-            List<Company> companys = (List<Company>)Session.CreateCriteria<Company>()
-                .Add(Restrictions.Like(field, value, MatchMode.Anywhere))
-                .List<Company>();
+            List<Company> companys = CompaniesDao.findBy(field, value);
 
-            List<Person> persons = new List<Person>();
-            List<Diary> diaries = new List<Diary>();
+            List<Diary> result = new List<Diary>();
 
             foreach (Company company in companys)
             {
-                persons = PersonsDao.findBy("Company", (float)company.Id_Third); ;
+                List<Person> persons = PersonsDao.findBy("Company", company.Id_Third.ToString()); ;
 
                 foreach (Person person in persons)
                 {
-                    Diary diary = DiariesDao.find(int.Parse(person.Id_Person.ToString()));
+                    List<Diary> diaries = DiariesDao.findBy("Id_Visitor", person.Id_Person.ToString());
 
-                    if (diary != null)
+                    if (diaries != null)
                     {
-                        diaries.Add(diary);
+                        result.AddRange(diaries);
                     }
                 }
             }
 
+            return result;
+        }
+
+        public static List<Diary> findBy(string field, string value)
+        {
+            List<Diary> diaries = (List<Diary>)Session.CreateCriteria<Diary>()
+                .Add(Restrictions.Like(Projections.Cast(NHibernateUtil.String, Projections.Property(field)), value.ToString(), MatchMode.Anywhere))
+                .List<Diary>();
+
             return diaries;
-        }
-
-        public static List<Diary> findBy(string field, int value)
-        {
-            List<Diary> diary = (List<Diary>)Session.CreateCriteria<Diary>()
-                .Add(Restrictions.Eq(field, value))
-                .List<Diary>();
-
-            return diary;
-        }
-
-        public static List<Diary> findBy(string field, float value)
-        {
-            List<Diary> diary = (List<Diary>)Session.CreateCriteria<Diary>()
-                .Add(Restrictions.Eq(field, value))
-                .List<Diary>();
-
-            return diary;
         }
 
         public static List<Diary> findBy(string field, DateTime value)
         {
             List<Diary> diary = (List<Diary>)Session.CreateCriteria<Diary>()
                 .Add(Restrictions.Gt(field, value))
-                .List<Diary>();
-
-            return diary;
-        }
-
-        public static List<Diary> findBy(string field, string value)
-        {
-            List<Diary> diary = (List<Diary>)Session.CreateCriteria<Diary>()
-                .Add(Restrictions.Like(field, value))
                 .List<Diary>();
 
             return diary;
@@ -121,7 +115,7 @@ namespace TMA.DAO.EntityManager
                     Session.Save(diary);
 
                     transaction.Commit();
-                    
+
                     Session.Flush();
                 }
                 catch (Exception exception)
@@ -173,5 +167,6 @@ namespace TMA.DAO.EntityManager
                 }
             }
         }
+
     }
 }

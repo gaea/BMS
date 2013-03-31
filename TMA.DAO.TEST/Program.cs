@@ -83,7 +83,7 @@ namespace TMA.DAO.TEST
             //    TMA.DAO.EntityManager.ProfilesDao.save(profile);
             //}
 
-            Test(TypeTest.Company);
+            Test(TypeTest.Visit);
 
             #endregion Crear Registro Usuario
 
@@ -143,6 +143,8 @@ namespace TMA.DAO.TEST
                 case TypeTest.Visit:
                     {
                         Visit visit = VisitsDao.find(8);
+
+                        VisitsDao.findFunctionaryBy("Name", "wil");
 
                         if (visit == null)
                         {
