@@ -37,7 +37,7 @@ namespace TMA.DAO.EntityManager
 
             foreach (Functionary functionary in functionaries)
             {
-                List<Diary> diaries = DiariesDao.findBy("Id_Functionary", functionary.Id_Functionary.ToString());
+                List<Diary> diaries = DiariesDao.findBy("Id_Functionary", (float)functionary.Id_Functionary);
 
                 if (diaries != null)
                 {
@@ -78,6 +78,15 @@ namespace TMA.DAO.EntityManager
                 .Add(Restrictions.Like(Projections.Cast(NHibernateUtil.String, Projections.Property(field)), value.ToString(), MatchMode.Anywhere))
                 .List<Diary>();
 
+            return diaries;
+        }
+
+        public static List<Diary> findBy(string field, float value)
+        {
+            List<Diary> diaries = (List<Diary>)Session.CreateCriteria<Diary>()
+                .Add(Restrictions.Like(Projections.Cast(NHibernateUtil.Double, Projections.Property(field)), value ))
+                .List<Diary>();
+ 
             return diaries;
         }
 

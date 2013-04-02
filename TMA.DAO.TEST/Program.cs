@@ -83,7 +83,7 @@ namespace TMA.DAO.TEST
             //    TMA.DAO.EntityManager.ProfilesDao.save(profile);
             //}
 
-            Test(TypeTest.Visit);
+            Test(TypeTest.Diary);
 
             #endregion Crear Registro Usuario
 
@@ -96,6 +96,10 @@ namespace TMA.DAO.TEST
                 case TypeTest.Diary:
                     {
                         Diary diary = DiariesDao.find(1);
+
+                        List<Diary> diaries = DiariesDao.findBy("Id_Visitor", 11);
+
+                        List<Visit> visits = VisitsDao.findBy("Id_Visitor", 11);
 
                         if (diary == null)
                         {

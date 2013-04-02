@@ -13,7 +13,7 @@ namespace TMA.DAO.EntityManager
         public static List<Company> findBy(string field, string val)
         {
             List<Company> company = (List<Company>)Session.CreateCriteria<Company>()
-                .Add(Restrictions.Like(Projections.Cast(NHibernateUtil.String, Projections.Property(field)), val))
+                .Add(Restrictions.Like(Projections.Cast(NHibernateUtil.String, Projections.Property(field)), val, MatchMode.Anywhere))
                 .List<Company>();
 
             return company;
