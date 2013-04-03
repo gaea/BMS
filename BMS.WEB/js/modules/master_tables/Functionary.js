@@ -146,6 +146,7 @@
     loadCombo(aspPageCity, 'List', "{'start':0,'limit':0}", cityStore, cityCombo);
 
     var MasterRowEditorPerson = new Ext.grid.plugin.RowEditing({
+        errorSummary: false,
         listeners: {
             validateedit: function(editor, e, eOpts) {
                 delete e.newValues[''];
@@ -157,7 +158,8 @@
                     'objProperties',
                     e.newValues,
                     function(data) {
-                        loadData(aspPageFunctionary, 'List', "{'start':0,'limit':0}", MasterGridPerson.getStore(), null, null);
+                        MasterStorePerson.load();
+                        //loadData(aspPageFunctionary, 'List', "{'start':0,'limit':20}", MasterGridPerson.getStore(), null, null);
                     },
                     null
                 );
@@ -214,7 +216,7 @@
     });
 
     var MasterStorePerson = new Ext.data.Store({
-        pageSize: 2,
+        pageSize: 20,
         model: 'MasterModelPerson',
         remoteSort: true,
         proxy: {
@@ -232,23 +234,23 @@
         sorters: [{
             property: 'Id_Functionary',
             direction: 'ASC'
-        }]
-    });
+}]
+        });
 
-    MasterStorePerson.load();
+        MasterStorePerson.load();
 
-    var MasterGridPerson = new Ext.grid.GridPanel({
-        frame: false,
-        border: true,
-        width: Ext.getBody().getViewSize().width,
-        height: Ext.getBody().getViewSize().height,
-        monitorResize: true,
-        stripeRows: true,
-        columnLines: true,
-        stateful: true,
-        stateId: 'grid',
-        store: MasterStorePerson,
-        columns: [
+        var MasterGridPerson = new Ext.grid.GridPanel({
+            frame: false,
+            border: true,
+            width: Ext.getBody().getViewSize().width,
+            height: Ext.getBody().getViewSize().height,
+            monitorResize: true,
+            stripeRows: true,
+            columnLines: true,
+            stateful: true,
+            stateId: 'grid',
+            store: MasterStorePerson,
+            columns: [
 				Ext.create('Ext.grid.RowNumberer'),
 				{ header: "Foto", width: 70, dataIndex: 'Photo', renderer: setPhoto },
                 { text: 'Documento de Identificaci&oacute;n', width: 160, dataIndex: 'Id_Functionary', editor: new Ext.form.TextField({ allowBlank: false }) },
@@ -295,8 +297,8 @@
                 }
                 }
         ],
-        plugins: [MasterRowEditorPerson],
-        tbar: [
+            plugins: [MasterRowEditorPerson],
+            tbar: [
             {
                 text: 'Adicionar',
                 iconCls: 'add',
@@ -304,6 +306,7 @@
                     MasterRowEditorPerson.cancelEdit();
                     MasterGridPerson.getStore().insert(0, new Functionary());
                     MasterRowEditorPerson.startEdit(MasterGridPerson.getStore().getAt(0), 0);
+                    MasterRowEditorPerson.enableBubble('edit');
                 }
             }, '-',
             {
@@ -334,15 +337,15 @@
                 }
             }
         ],
-        bbar: new Ext.PagingToolbar({
-            pageSize: 2,
-            store: MasterStorePerson,
-            displayInfo: true,
-            displayMsg: 'Registros {0} - {1} de {2}',
-            emptyMsg: "No hay registros"
-        }),
-        renderTo: Ext.getBody()
-    });
+            bbar: new Ext.PagingToolbar({
+                pageSize: 20,
+                store: MasterStorePerson,
+                displayInfo: true,
+                displayMsg: 'Registros {0} - {1} de {2}',
+                emptyMsg: "No hay registros"
+            }),
+            renderTo: Ext.getBody()
+        });
 
-    //loadData(aspPageFunctionary, 'List', "{'start':0,'limit':0}", MasterGridPerson.getStore(), null, null);
-});
+        //loadData(aspPageFunctionary, 'List', "{'start':0,'limit':0}", MasterGridPerson.getStore(), null, null);
+    });
