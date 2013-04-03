@@ -44,9 +44,26 @@ namespace TMA.DAO.EntityManager
             return (iPerson != null) ? new List<Functionary>(iPerson) : new List<Functionary>();
         }
 
+        public static int Count()
+        {
+            IList<Functionary> iPerson = Session.CreateCriteria<Functionary>().List<Functionary>();
+
+            return iPerson.Count;
+        }
+
         public static List<Functionary> findAll()
         {
             IList<Functionary> iPerson = Session.CreateCriteria<Functionary>().List<Functionary>();
+
+            return (iPerson != null) ? new List<Functionary>(iPerson) : new List<Functionary>();
+        }
+
+        public static List<Functionary> findAll(int start, int limit)
+        {
+            IList<Functionary> iPerson = Session.CreateCriteria<Functionary>()
+                                                        .SetFirstResult(start)
+                                                        .SetMaxResults(limit)
+                                                        .List<Functionary>();
 
             return (iPerson != null) ? new List<Functionary>(iPerson) : new List<Functionary>();
         }

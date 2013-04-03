@@ -16,6 +16,7 @@ using TMA.DAO.EntityManager;
 using System.IO;
 using BMS.CONFIGURATION;
 using BMS.WEB.cls;
+using Newtonsoft.Json;
 
 namespace BMS.WEB.pages
 {
@@ -28,7 +29,7 @@ namespace BMS.WEB.pages
             if (!Page.IsPostBack)
             {
                 string action = Request.Params["accion"];
-                if (!string.IsNullOrEmpty(action))
+                if (!string.IsNullOrEmpty(action))  
                 {
                     switch (action)
                     {
@@ -36,7 +37,9 @@ namespace BMS.WEB.pages
                             Response.Write("({success: true, data:" + this.Save(Request.Params["objProperties"]) + "})");
                             break;
                         case "List":
-                            Response.Write("({success: true, data:" + this.List("", "") + "})");
+                            int start = Convert.ToInt32(Request.Params["start"]);
+                            int limit = Convert.ToInt32(Request.Params["limit"]);
+                            Response.Write(Request.Params["callback"] + "({\"total\":" + this.Count() + ",\"result\":" + this.List(start, limit) + "})");
                             break;
                         case "Delete":
                             Response.Write("({success: true, data:" + this.Delete(Request.Params["objProperties"]) + "})");
@@ -97,13 +100,22 @@ namespace BMS.WEB.pages
             return serialize.Serialize(msg);
         }
 
-        public string List(string start, string limit)
+        public int Count()
+        {
+            int count = FunctionariesDao.Count();
+
+            return count;
+        }
+
+        public string List(int start, int limit)
         {
             MessageResponse msg = new MessageResponse();
 
             try
             {
-                return serialize.Serialize(FunctionariesDao.findAll());
+                return JsonConvert.SerializeObject(FunctionariesDao.findAll(start, limit));
+
+                //return serialize.Serialize(FunctionariesDao.findAll());
             }
             catch (Exception ex)
             {

@@ -14,26 +14,33 @@ namespace BMS.SERVICE
             loadService();
         }
 
-        public static void loadService() {
-            HostFactory.Run(x =>                                 //1
+        public static void loadService()
+        {
+
+            HostFactory.Run(hostConfigurator =>
             {
-                //x.Service<TopShelfImplementation>(s =>                        //2
-                //{
-                //    s.ConstructUsing(name => new TopShelfImplementation());     //3
-                //    s.WhenStarted(tc => tc.Start());              //4
-                //    s.WhenStopped(tc => tc.Stop());               //5
-                //});
-                x.RunAsLocalSystem();                            //6
+                hostConfigurator.Service<TopShelfImplementation>(serviceConfigurator =>
+                {
+                    serviceConfigurator.ConstructUsing(serviceType => new TopShelfImplementation());
+                    serviceConfigurator.WhenStarted(service => service.Start());
+                    serviceConfigurator.WhenStopped(service => service.Stop());
+                });
 
-                x.SetDescription(ConfigManager.ServiceDescription);        //7
-                x.SetDisplayName(ConfigManager.ServiceDisplayName );                       //8
-                x.SetServiceName(ConfigManager.ServiceName);                       //9
-            }); 
+                hostConfigurator.RunAsLocalSystem();
+
+                hostConfigurator.SetDescription(ConfigManager.ServiceDescription);
+                hostConfigurator.SetDisplayName(ConfigManager.ServiceDisplayName);
+                hostConfigurator.SetServiceName(ConfigManager.ServiceName);
+                hostConfigurator.StartAutomatically();
+            });
         }
-
     }
 
-    public class TopShelfImplementation{
+    public class TopShelfImplementation {
         public TopShelfImplementation(){}
+
+        public void Start() { }
+
+        public void Stop() { }
     }
 }
