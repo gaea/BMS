@@ -306,7 +306,6 @@
                     MasterRowEditorPerson.cancelEdit();
                     MasterGridPerson.getStore().insert(0, new Functionary());
                     MasterRowEditorPerson.startEdit(MasterGridPerson.getStore().getAt(0), 0);
-                    MasterRowEditorPerson.enableBubble('edit');
                 }
             }, '-',
             {
