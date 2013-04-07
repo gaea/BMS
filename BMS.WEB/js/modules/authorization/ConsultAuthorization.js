@@ -6,9 +6,63 @@
 
     var aspPagePerson = '../person/RegisterPerson.aspx';
 
-    var aspPageFunctionary = '../master_tables/Functionary.aspx';
+	var aspPageFunctionary = '../master_tables/Functionary.aspx';
 
-    function Visit() {
+    Ext.define('MasterModelVisit', {
+		extend: 'Ext.data.Model',
+		fields: [
+			{ name: 'Id_Visit' },
+			{ name: 'Id_Visitor' },
+			{ name: 'DateCreateTransaction' },
+			{ name: 'Id_Functionary' },
+			{ name: 'VisitDescription' },
+			{ name: 'ElementsToGetIn' },
+			{ name: 'Activity' },
+			{ name: 'InitialDate' },
+			{ name: 'InitialHour' },
+			{ name: 'FinalDate' },
+			{ name: 'FinalHour' },
+			{ name: 'VisitDuration' },
+			{ name: 'Id_Usuario' },
+			{ name: 'Id_Area' },
+			{ name: 'Tracing' },
+			{ name: 'OutEquipment' },
+			{ name: 'ScheduledVisit' },
+			{ name: 'BarCode' },
+			{ name: 'Provider' },
+			{ name: 'DateCreateRegistration' },
+			{ name: 'DateModifyRegistration' },
+			{ name: 'Id_UserCreateRegistration' },
+			{ name: 'Id_UserModifyRegistration' }
+			],
+			idProperty: 'Id_Visit'
+    });
+	
+	var masterStoreVisit = new Ext.data.Store({
+        pageSize: 20,
+        model: 'MasterModelVisit',
+        remoteSort: true,
+        proxy: {
+            type: 'jsonp',
+            url: aspPageConsultAuthorization,
+            reader: {
+                root: 'result',
+                totalProperty: 'total'
+            },
+            simpleSortMode: true,
+            extraParams: {
+                accion: 'List'
+            }
+        },
+        sorters: [{
+            property: 'InitialDate',
+            direction: 'ASC'
+        }]
+    });
+	
+	masterStoreVisit.load();
+	
+	function Visit() {
         this.Id_Visit = null,
         this.Id_Visitor = null,
         this.DateCreateTransaction = null,
@@ -34,6 +88,7 @@
         this.Id_UserModifyRegistration = null
     };
 
+	
     var ingreso_funcionarios_tipo_ingreso_store = new Ext.data.Store({
         fields: [{ name: 'Id_EntryType' }, { name: 'EntryTypeName'}],
         data: []
@@ -183,10 +238,10 @@
             columnLines: true,
             stateful: true,
             stateId: 'grid',
-            store: ({
+            store: masterStoreVisit,/*({
                 fields: getProperties(new Visit()),
                 data: [{}]
-            }),
+            }),*/
             columns: [
 				Ext.create('Ext.grid.RowNumberer'),
 				{ header: "Foto", width: 55, dataIndex: 'Id_Visitor', renderer: set_photo },
@@ -270,7 +325,14 @@
                     loadData(aspPageConsultAuthorization, 'Find', { objProperties: "{'field':'" + master_buscar_combo.getValue() + "','value':'" + search + "'}" }, MasterGrid.getStore(), null, null);
                 }
             }
-        ],
+        ], 
+			bbar: new Ext.PagingToolbar({
+                pageSize: 20,
+                store: masterStoreVisit,
+                displayInfo: true,
+                displayMsg: 'Registros {0} - {1} de {2}',
+                emptyMsg: "No hay registros"
+            }),
             renderTo: Ext.getBody()
         });
 
