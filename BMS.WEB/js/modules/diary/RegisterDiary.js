@@ -52,24 +52,37 @@
     });
 
     loadCombo(aspPageRegisterDiary, 'GetState', "{'start':0,'limit':0}", estado_store, ingreso_agenda_estado_combo);
-
-	var personaVisitadaStore = new Ext.data.Store({
+    
+    Ext.define('personaVisitadaModel', {
+        extend: 'Ext.data.Model',
         fields: [
-            { name: 'Id_Functionary' },
+			{ name: 'Id_Functionary' },
             { name: 'Name' },
             { name: 'LastName' },
             { name: 'FullName',
                 convert: function(v, record) {
-                    return record.data.Id_Functionary + ' - ' + record.data.Name + ' ' + record.data.LastName;
-                }
-            },
-            { name: 'Id_Visitor',
-                convert: function(v, record) {
-                    return record.data.Id_Person;
+                    return record.data.Name + ' ' + record.data.LastName;
                 }
             }
         ],
-        data: []
+        idProperty: 'Id_Functionary'
+    });
+
+    var personaVisitadaStore = new Ext.data.Store({
+        model: 'personaVisitadaModel',
+        remoteSort: false,
+        proxy: {
+            type: 'jsonp',
+            url: aspPageFunctionary,
+            reader: { root: 'result', totalProperty: 'total'},
+            simpleSortMode: true,
+            extraParams: { accion: 'List', start: 0, limit: 0 }
+        },
+        autoLoad: true,
+        sorters: [{
+            property: 'FullName',
+            direction: 'ASC'
+        }]
     });
 	
 	var ingreso_agenda_persona_visitada_combo = Ext.create('Ext.form.field.ComboBox', {
@@ -85,11 +98,9 @@
         queryMode: 'local',
         hiddenValue: 'Id_Visitor',
         allowBlank: false,
-        store: personaVisitadaStore,
+        store: personaVisitadaStore
     });
-	
-	loadCombo(aspPageFunctionary, 'List', "{'start':0,'limit':0}", personaVisitadaStore, ingreso_agenda_persona_visitada_combo);
-	
+
     var persona_store = new Ext.data.Store({
         fields: [
             { name: 'Id_Person' },

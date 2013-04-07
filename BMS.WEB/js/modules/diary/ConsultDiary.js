@@ -22,21 +22,37 @@
 
     loadData(AspPageRegisterDiary, 'GetState', "{'start':0,'limit':0}", estado_store, null, null);
 
-	var functionaryStore = new Ext.data.Store({
+    Ext.define('functionaryModel', {
+        extend: 'Ext.data.Model',
         fields: [
-				 { name: 'Id_Functionary' }, 
-				 { name: 'Name'},
-				 { name: 'LastName' },
-				 { name: 'FullName',
-					convert: function(v, record) {
-						return record.data.Name + ' ' + record.data.LastName;
-					}
-				 }
-				 ],
-        data: []
+			{ name: 'Id_Functionary' },
+            { name: 'Name' },
+            { name: 'LastName' },
+            { name: 'FullName',
+                convert: function(v, record) {
+                    return record.data.Name + ' ' + record.data.LastName;
+                }
+            }
+        ],
+        idProperty: 'Id_Functionary'
     });
 
-    loadData(aspPageFunctionary, 'List', "{'start':0,'limit':0}", functionaryStore, null, null);
+    var functionaryStore = new Ext.data.Store({
+        model: 'functionaryModel',
+        remoteSort: false,
+        proxy: {
+            type: 'jsonp',
+            url: aspPageFunctionary,
+            reader: { root: 'result', totalProperty: 'total' },
+            simpleSortMode: true,
+            extraParams: { accion: 'List', start: 0, limit: 0 }
+        },
+        autoLoad: true,
+        sorters: [{
+            property: 'FullName',
+            direction: 'ASC'
+        }]
+    });
 	
 	var companyStore = new Ext.data.Store({
         fields: [{ name: 'Id_Third' }, { name: 'Name'}],
