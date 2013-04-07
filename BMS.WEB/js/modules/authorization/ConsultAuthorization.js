@@ -59,28 +59,20 @@
 
     var functionaryStore = new Ext.data.Store({
         model: 'functionaryModel',
-        remoteSort: true,
+        remoteSort: false,
         proxy: {
             type: 'jsonp',
             url: aspPageFunctionary,
-            reader: {
-                root: 'result',
-                totalProperty: 'total'
-            },
+            reader: { root: 'result', totalProperty: 'total' },
             simpleSortMode: true,
-            extraParams: {
-                accion: 'List',
-                start:0,
-                limit:0
-            }
+            extraParams: { accion: 'List', start: 0, limit: 0 }
         },
+        autoLoad: true,
         sorters: [{
-            property: 'Id_Functionary',
+            property: 'FullName',
             direction: 'ASC'
         }]
     });
-
-    functionaryStore.load();
 
         var ingreso_funcionarios_estado_store = new Ext.data.Store({
             fields: [{ name: 'Id_State' }, { name: 'StateName'}],

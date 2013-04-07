@@ -156,7 +156,6 @@
     loadCombo(aspPageRegister, 'GetAprobatorPerson', "{'start':0,'limit':0}", ingreso_funcionarios_persona_autoriza_combo.getStore(), ingreso_funcionarios_persona_autoriza_combo);
 	*/
 
-
     Ext.define('functionaryModel', {
         extend: 'Ext.data.Model',
         fields: [
@@ -174,28 +173,20 @@
 
     var functionaryStore = new Ext.data.Store({
         model: 'functionaryModel',
-        remoteSort: true,
+        remoteSort: false,
         proxy: {
             type: 'jsonp',
             url: aspPageFunctionary,
-            reader: {
-                root: 'result',
-                totalProperty: 'total'
-            },
+            reader: { root: 'result', totalProperty: 'total'},
             simpleSortMode: true,
-            extraParams: {
-                accion: 'List',
-                start: 0,
-                limit: 0
-            }
+            extraParams: { accion: 'List', start: 0, limit: 0 }
         },
+        autoLoad: true,
         sorters: [{
-            property: 'Id_Functionary',
+            property: 'FullName',
             direction: 'ASC'
         }]
     });
-
-    functionaryStore.load();
 	
 	var ingreso_funcionarios_persona_autoriza_combo = Ext.create('Ext.form.field.ComboBox', {
         mode: 'local',
