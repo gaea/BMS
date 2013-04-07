@@ -113,9 +113,14 @@ namespace BMS.WEB.pages
 
             try
             {
-                return JsonConvert.SerializeObject(FunctionariesDao.findAll(start, limit));
-
-                //return serialize.Serialize(FunctionariesDao.findAll());
+                if (limit != 0)
+                {
+                    return JsonConvert.SerializeObject(FunctionariesDao.findAll(start, limit));
+                }
+                else 
+                {
+                    return JsonConvert.SerializeObject(FunctionariesDao.findAll());
+                }
             }
             catch (Exception ex)
             {

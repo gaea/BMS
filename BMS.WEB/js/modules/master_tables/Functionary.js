@@ -234,8 +234,8 @@
         sorters: [{
             property: 'Id_Functionary',
             direction: 'ASC'
-}]
-        });
+        }]
+    });
 
         MasterStorePerson.load();
 

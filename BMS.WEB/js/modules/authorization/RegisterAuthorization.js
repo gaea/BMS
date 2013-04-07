@@ -155,6 +155,47 @@
 
     loadCombo(aspPageRegister, 'GetAprobatorPerson', "{'start':0,'limit':0}", ingreso_funcionarios_persona_autoriza_combo.getStore(), ingreso_funcionarios_persona_autoriza_combo);
 	*/
+
+
+    Ext.define('functionaryModel', {
+        extend: 'Ext.data.Model',
+        fields: [
+			{ name: 'Id_Functionary' },
+            { name: 'Name' },
+            { name: 'LastName' },
+            { name: 'FullName',
+                convert: function(v, record) {
+                    return record.data.Name + ' ' + record.data.LastName;
+                }
+            }
+        ],
+        idProperty: 'Id_Functionary'
+    });
+
+    var functionaryStore = new Ext.data.Store({
+        model: 'functionaryModel',
+        remoteSort: true,
+        proxy: {
+            type: 'jsonp',
+            url: aspPageFunctionary,
+            reader: {
+                root: 'result',
+                totalProperty: 'total'
+            },
+            simpleSortMode: true,
+            extraParams: {
+                accion: 'List',
+                start: 0,
+                limit: 0
+            }
+        },
+        sorters: [{
+            property: 'Id_Functionary',
+            direction: 'ASC'
+        }]
+    });
+
+    functionaryStore.load();
 	
 	var ingreso_funcionarios_persona_autoriza_combo = Ext.create('Ext.form.field.ComboBox', {
         mode: 'local',
@@ -167,26 +208,9 @@
         valueField: 'Id_Functionary',
         queryMode: 'local',
         typeAhead: true,
-        store: new Ext.data.Store({
-            fields: [
-                { name: 'Id_Functionary' },
-                { name: 'Name' },
-                { name: 'LastName' },
-                { name: 'FullName',
-                    convert: function(v, record) {
-                        return record.data.Id_Functionary + ' - ' + record.data.Name + ' ' + record.data.LastName;
-                    }
-                }
-            ],
-            data: []
-        }),
-        listeners: {
-            select: function(combo, arrRec, obj) { }
-        }
+        store: functionaryStore
     });
 
-    loadCombo(aspPageFunctionary, 'List', "{'start':0,'limit':0}", ingreso_funcionarios_persona_autoriza_combo.getStore(), ingreso_funcionarios_persona_autoriza_combo);
-   
 	var forma = new Ext.form.Panel({
         frame: false,
         border: false,
