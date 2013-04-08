@@ -10,11 +10,38 @@ namespace TMA.DAO.EntityManager
 {
     public class PersonsDao : Dao
     {
-        
+
+        public static int Count()
+        {
+            IList<Person> iPerson = Session.CreateCriteria<Person>().List<Person>();
+
+            return iPerson.Count;
+        }
+
+        public static int Count(string field, string value)
+        {
+            List<Person> person = (List<Person>)Session.CreateCriteria<Person>()
+                .Add(Restrictions.Like(Projections.Cast(NHibernateUtil.String, Projections.Property(field)), value, MatchMode.Anywhere))
+                .List<Person>();
+
+            return person.Count;
+        }
+
         public static List<Person> findBy(string field, string value)
         {
             List<Person> person = (List<Person>)Session.CreateCriteria<Person>()
                 .Add(Restrictions.Like(Projections.Cast(NHibernateUtil.String, Projections.Property(field)), value, MatchMode.Anywhere))
+                .List<Person>();
+
+            return person;
+        }
+
+        public static List<Person> findBy(int start, int limit, string field, string value)
+        {
+            List<Person> person = (List<Person>)Session.CreateCriteria<Person>()
+                .Add(Restrictions.Like(Projections.Cast(NHibernateUtil.String, Projections.Property(field)), value, MatchMode.Anywhere))
+                .SetFirstResult(start)
+                .SetMaxResults(limit)
                 .List<Person>();
 
             return person;
@@ -32,6 +59,16 @@ namespace TMA.DAO.EntityManager
         public static List<Person> findByAll()
         {
             IList<Person> iPerson = Session.CreateCriteria<Person>().List<Person>();
+
+            return (iPerson != null) ? new List<Person>(iPerson) : new List<Person>();
+        }
+
+        public static List<Person> findAll(int start, int limit)
+        {
+            IList<Person> iPerson = Session.CreateCriteria<Person>()
+                                                        .SetFirstResult(start)
+                                                        .SetMaxResults(limit)
+                                                        .List<Person>();
 
             return (iPerson != null) ? new List<Person>(iPerson) : new List<Person>();
         }

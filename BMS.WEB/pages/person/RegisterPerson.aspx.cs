@@ -34,10 +34,15 @@ namespace BMS.WEB.pages.person
                 string accion = Request.Params["accion"];
                 if (!string.IsNullOrEmpty(accion))
                 {
+                    int start = Convert.ToInt32(Request.Params["start"]);
+                    int limit = Convert.ToInt32(Request.Params["limit"]);
+                    string field = Request.Params["field"];
+                    string value = Request.Params["value"];
+
                     switch (accion)
                     {
                         case "List":
-                            Response.Write("({success: true, data:" + this.List("", "") + "})");
+                            Response.Write(Request.Params["callback"] + "({\"total\":" + this.Count() + ",\"result\":" + this.List(start, limit) + "})");
                             break;
                         case "Save":
                             Response.Write("({success: true, data:" + this.Save(Request.Params["objProperties"]) + "})");
@@ -55,7 +60,7 @@ namespace BMS.WEB.pages.person
                             Response.Write("({success: true, data:" + this.GetDepartment() + "})");
                             break;
                         case "Find":
-                            Response.Write("({success: true, data:" + this.Find(Request.Params["objProperties"]) + "})");
+                            Response.Write(Request.Params["callback"] + "({\"total\":" + this.Count(field, value) + ",\"result\":" + this.Find(start, limit, field, value) + "})");
                             break;
                         default:
                             return;
@@ -64,6 +69,20 @@ namespace BMS.WEB.pages.person
                     Response.End();
                 }
             }
+        }
+
+        public int Count(string field, string value)
+        {
+            int count = PersonsDao.Count(field, value);
+
+            return count;
+        }
+
+        public int Count()
+        {
+            int count = PersonsDao.Count();
+
+            return count;
         }
 
         public string Save(string objProperties)
@@ -77,8 +96,8 @@ namespace BMS.WEB.pages.person
                 Dictionary<string, string> dicProperties = JsonConvert.DeserializeObject<Dictionary<string, string>>(objProperties);
 
                 TMA.MODEL.Entity.Person person = PersonsDao.find(Convert.ToInt64(util.getValueFromDictionary("Id_Person", dicProperties)));
-                
-                if(person == null)
+
+                if (person == null)
                 {
                     person = new TMA.MODEL.Entity.Person();
                     person.Id_Person = util.getValueFromDictionary("Id_Person", dicProperties) != "" ? Convert.ToInt64(util.getValueFromDictionary("Id_Person", dicProperties)) : 0;
@@ -86,7 +105,7 @@ namespace BMS.WEB.pages.person
 
                     PersonsDao.save(person);
                 }
-                
+
                 person.Name = util.getValueFromDictionary("Name", dicProperties);
                 person.LastName = util.getValueFromDictionary("LastName", dicProperties);
                 person.IsActive = Convert.ToInt32(util.getValueFromDictionary("IsActive", dicProperties));
@@ -107,11 +126,11 @@ namespace BMS.WEB.pages.person
                 {
                     person.DateValidityARP = Convert.ToDateTime(util.getValueFromDictionary("DateValidityARP", dicProperties));
                 }
-                else 
+                else
                 {
                     person.DateValidityARP = null;
                 }
-                
+
                 person.DateModifyRegistration = System.DateTime.Now;
 
                 if (context.Request.Files[0].FileName != "")
@@ -151,24 +170,13 @@ namespace BMS.WEB.pages.person
             return serialize.Serialize(msg);
         }
 
-        public string Find(string objProperties)
+        public string Find(int start, int limit, string field, string value)
         {
             MessageResponse msg = new MessageResponse();
 
-            Dictionary<string, string> dicProperties = JsonConvert.DeserializeObject<Dictionary<string, string>>(objProperties);
-
             try
             {
-                float numberParam;
-
-                if (float.TryParse(dicProperties["value"], out numberParam))
-                {
-                    return serialize.Serialize(PersonsDao.findBy(dicProperties["field"], dicProperties["value"]));
-                }
-                else
-                {
-                    return serialize.Serialize(PersonsDao.findBy(dicProperties["field"], dicProperties["value"]));
-                }
+                return serialize.Serialize(PersonsDao.findBy(start, limit, field, value));
             }
             catch (Exception ex)
             {
@@ -182,13 +190,13 @@ namespace BMS.WEB.pages.person
             return serialize.Serialize(msg);
         }
 
-        public string List(string start, string limit)
+        public string List(int start, int limit)
         {
             MessageResponse msg = new MessageResponse();
 
             try
             {
-                return serialize.Serialize(PersonsDao.findAll());
+                return serialize.Serialize(PersonsDao.findAll(start, limit));
             }
             catch (Exception ex)
             {
