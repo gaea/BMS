@@ -123,39 +123,6 @@
 
     loadCombo(aspPageRegister, 'GetPerson', "{'start':0,'limit':0}", ingreso_funcionarios_funcionario_combo.getStore(), ingreso_funcionarios_funcionario_combo);
 
-	/*
-    var ingreso_funcionarios_persona_autoriza_combo = Ext.create('Ext.form.field.ComboBox', {
-        mode: 'local',
-        triggerAction: 'all',
-        anchor: '100%',
-        fieldLabel: 'Autorizado por',
-        forceSelection: true,
-        name: 'Id_Person',
-        displayField: 'FullName',
-        valueField: 'Id_Person',
-        queryMode: 'local',
-        typeAhead: true,
-        store: new Ext.data.Store({
-            fields: [
-                { name: 'Id_Person' },
-                { name: 'Name' },
-                { name: 'LastName' },
-                { name: 'FullName',
-                    convert: function(v, record) {
-                        return record.data.Name + ' ' + record.data.LastName;
-                    }
-                }
-            ],
-            data: []
-        }),
-        listeners: {
-            select: function(combo, arrRec, obj) { }
-        }
-    });
-
-    loadCombo(aspPageRegister, 'GetAprobatorPerson', "{'start':0,'limit':0}", ingreso_funcionarios_persona_autoriza_combo.getStore(), ingreso_funcionarios_persona_autoriza_combo);
-	*/
-
     Ext.define('functionaryModel', {
         extend: 'Ext.data.Model',
         fields: [
@@ -164,7 +131,7 @@
             { name: 'LastName' },
             { name: 'FullName',
                 convert: function(v, record) {
-                    return record.data.Name + ' ' + record.data.LastName;
+                    return record.data.Id_Functionary + ' - ' + record.data.Name + ' ' + record.data.LastName;
                 }
             }
         ],

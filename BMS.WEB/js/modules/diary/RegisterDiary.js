@@ -61,7 +61,7 @@
             { name: 'LastName' },
             { name: 'FullName',
                 convert: function(v, record) {
-                    return record.data.Name + ' ' + record.data.LastName;
+                    return record.data.Id_Functionary + ' - ' + record.data.Name + ' ' + record.data.LastName;
                 }
             }
         ],
@@ -149,7 +149,6 @@
     });
 
     loadCombo(aspPageRegisterDiary, 'GetPerson', "{'start':0,'limit':0}", persona_store, ingreso_agenda_persona_visitante_combo);
-
 
     var forma = new Ext.form.Panel({
         frame: false,
