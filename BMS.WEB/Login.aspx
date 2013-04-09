@@ -9,8 +9,22 @@
         <link rel="stylesheet" type="text/css"  href="../../css/icons.css" />
         <script type="text/javascript" src="../../lib/extjs/ext-all.js"></script>
         <script type="text/javascript" src="../../lib/extjs/locale/ext-lang-es.js"></script>
+        <script type="text/javascript" src="../../lib/extjs/locale/ext-lang-es.js"></script>
     </head>
-    <body>
+    <body style="background-color:#F2F2F2;">
+        <table width="50%" height="50%" border="0" align="center" style="margin-top:100px;">
+            <tr>
+                <td align="center" height="100px" width="50%">
+                    <font face="arial" size="6px" color="#4E79B2">Sistema de Gestión Biometrica</font>
+                </td>
+            </tr>
+            <tr align="center" width="50%">
+                <td width="50%">
+                    <div id="autenticacion"/>
+                </td>
+            </tr>
+        </table>
+    
         <form id="UserForm" runat="server">
             <asp:ScriptManager 
                 EnablePageMethods="true" 

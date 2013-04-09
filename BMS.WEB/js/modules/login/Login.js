@@ -4,17 +4,19 @@
 var login = new Ext.FormPanel({
     frame: false,
     border: false,
-    width: 350,
+    width: 300,
     height: 90,
     scroll: false,
     bodyStyle: 'padding:0px; background-color:#F2F2F2;',
-    autoScroll: true,
+    autoScroll: true, 
     defaults: { xtype: 'textfield', anchor: '100%' },
     items: [
 		{
 		    name: 'user',
-		    hideLabel: true,
-		    emptyText: 'Usuario',
+		    //hideLabel: true,
+		    labelWidth: 65,
+		    fieldLabel: 'Usuario',
+		    //emptyText: 'Usuario',
 		    listeners: {
 		        scope: this,
 		        specialkey: function(f, e) {
@@ -26,9 +28,11 @@ var login = new Ext.FormPanel({
 		},
 		{
 		    name: 'password',
-		    hideLabel: true,
+		    //hideLabel: true,
+		    labelWidth: 65,
+		    fieldLabel: 'Password',
 		    inputType: 'password',
-		    emptyText: 'Password',
+		    //emptyText: 'Password',
 		    listeners: {
 		        scope: this,
 		        specialkey: function(f, e) {
@@ -42,7 +46,7 @@ var login = new Ext.FormPanel({
     buttons: [
 		{ text: 'Ingresar', iconCls: 'admin', handler: autenticar }
 	],
-	renderTo: Ext.getBody()
+	renderTo: 'autenticacion'
 });
 
 function autenticar() {

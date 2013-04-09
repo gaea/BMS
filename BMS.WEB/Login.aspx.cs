@@ -31,7 +31,7 @@ namespace BMS.WEB
                     switch (action)
                     {
                         case "Login":
-                            Response.Write("({success: true, data:{Message:\"Autenticación Exitosa\", url:\"" + this.Authenticate(user, password) + "\"}})");
+                            Response.Write("({success: true, data:{Message:\"Autenticación Exitosa\", url:\"" + this.Authenticate(user, password) + "\"}})"); 
                             break;
                         default:
                             return;
