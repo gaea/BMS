@@ -62,7 +62,7 @@ Ext.define("MyDesktop.App", { extend: "Ext.ux.desktop.App",
         return Ext.apply(
             a,
             {
-                title: "Don Griffin",
+                title: "Administrador",
                 iconCls: "user",
                 height: 300,
                 toolConfig: {
@@ -112,7 +112,7 @@ Ext.define("MyDesktop.App", { extend: "Ext.ux.desktop.App",
         )
     },
     onLogout: function() {
-        Ext.Msg.confirm("Logout", "Are you sure you want to logout?")
+        Ext.Msg.confirm("Logout", "Deseas salir?")
     },
     onSettings: function() {
         var a = new MyDesktop.Settings({

@@ -14,7 +14,7 @@
     <body style="background-color:#F2F2F2;">
         <table width="50%" height="50%" border="0" align="center" style="margin-top:100px;">
             <tr>
-                <td align="center" height="100px" width="50%">
+                <td align="center" height="100px" width="60%">
                     <font face="arial" size="6px" color="#4E79B2">Sistema de Gestión Biometrica</font>
                 </td>
             </tr>
