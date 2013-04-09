@@ -42,7 +42,7 @@ namespace BMS.WEB.pages.person
                     switch (accion)
                     {
                         case "List":
-                            Response.Write(Request.Params["callback"] + "({\"total\":" + this.Count() + ",\"result\":" + this.List(start, limit) + "})");
+                            Response.Write(Request.Params["callback"] + this.List(start, limit));
                             break;
                         case "Save":
                             Response.Write("({success: true, data:" + this.Save(Request.Params["objProperties"]) + "})");
@@ -60,7 +60,7 @@ namespace BMS.WEB.pages.person
                             Response.Write("({success: true, data:" + this.GetDepartment() + "})");
                             break;
                         case "Find":
-                            Response.Write(Request.Params["callback"] + "({\"total\":" + this.Count(field, value) + ",\"result\":" + this.Find(start, limit, field, value) + "})");
+                            Response.Write(Request.Params["callback"] + this.Find(start, limit, field, value));
                             break;
                         default:
                             return;
@@ -69,20 +69,6 @@ namespace BMS.WEB.pages.person
                     Response.End();
                 }
             }
-        }
-
-        public int Count(string field, string value)
-        {
-            int count = PersonsDao.Count(field, value);
-
-            return count;
-        }
-
-        public int Count()
-        {
-            int count = PersonsDao.Count();
-
-            return count;
         }
 
         public string Save(string objProperties)
@@ -161,7 +147,6 @@ namespace BMS.WEB.pages.person
             catch (Exception ex)
             {
                 msg.Message = ConfigManager.SaveErrorMessage;
-
                 msg.Error = ex.ToString();
 
                 File.AppendAllText(ConfigManager.LogPath, msg.ToString());
@@ -176,15 +161,15 @@ namespace BMS.WEB.pages.person
 
             try
             {
-                return serialize.Serialize(PersonsDao.findBy(start, limit, field, value));
+                string result = serialize.Serialize(PersonsDao.findBy(start, limit, field, value));
+                string total = PersonsDao.Count(field, value).ToString();
+
+                return "({total:" + total + ", result: " + result + "})";
             }
             catch (Exception ex)
             {
                 msg.Message = ConfigManager.ListErrorMessage;
-
                 msg.Error = ex.ToString();
-
-                File.AppendAllText(ConfigManager.LogPath, msg.ToString());
             }
 
             return serialize.Serialize(msg);
@@ -196,19 +181,18 @@ namespace BMS.WEB.pages.person
 
             try
             {
-                return serialize.Serialize(PersonsDao.findAll(start, limit));
+                string result = serialize.Serialize(PersonsDao.findAll(start, limit));
+                string total = PersonsDao.Count().ToString();
+
+                return "({total:" + total + ", result: " + result + "})";
             }
             catch (Exception ex)
             {
                 msg.Message = ConfigManager.ListErrorMessage;
-
                 msg.Error = ex.ToString();
-
-                File.AppendAllText(ConfigManager.LogPath, msg.ToString());
             }
 
             return serialize.Serialize(msg);
-
         }
 
         public string Delete(string Id_Person)
