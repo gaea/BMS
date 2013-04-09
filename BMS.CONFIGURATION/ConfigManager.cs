@@ -200,6 +200,27 @@ namespace BMS.CONFIGURATION
             }
         }
 
+        /// <summary>
+        /// Dirección IP del dispositivo biométrico
+        /// </summary>
+        public static string ServiceBiometricIPDevice
+        {
+            get
+            {
+                return getKey("ServiceBiometricIPDevice");
+            }
+        }
+
+        /// <summary>
+        /// Puerto del dispositivo biométrico
+        /// </summary>
+        public static string ServiceBiometricPortDevice
+        {
+            get
+            {
+                return getKey("ServiceBiometricPortDevice");
+            }
+        }
         #endregion
 
 

@@ -9,7 +9,7 @@ var login = new Ext.FormPanel({
     scroll: false,
     bodyStyle: 'padding:0px; background-color:#F2F2F2;',
     autoScroll: true, 
-    defaults: { xtype: 'textfield', anchor: '100%' },
+    defaults: { xtype: 'textfield', anchor: '90%' },
     items: [
 		{
 		    name: 'user',

@@ -48,6 +48,16 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TMA.DAO\TMA.DAO.csproj">
+      <Project>{37348338-9462-4145-82D8-8091AA923833}</Project>
+      <Name>TMA.DAO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TMA.MODEL\TMA.MODEL.csproj">
+      <Project>{A8249541-76EF-4BE1-8F30-0D1183428915}</Project>
+      <Name>TMA.MODEL</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
