@@ -77,6 +77,13 @@
                     MasterRowEditor.cancelEdit();
                     MasterRowEditor.startEdit(records[0], 1);
                 }
+            }, '-',
+            {
+                text: 'Aceptar',
+                iconCls: 'acept',
+                handler: function() {
+                    
+                }
             }
         ],
         renderTo: Ext.getBody()

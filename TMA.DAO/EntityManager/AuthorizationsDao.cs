@@ -11,7 +11,7 @@ namespace TMA.DAO.EntityManager
 {
     public class AuthorizationsDao : Dao
     {
-        public static List<Authorization> findBy(string field, int value)
+        public static List<Authorization> findBy(int start, int limit, string field, int value)
         {
             List<Authorization> authorizations = (List<Authorization>)Session.CreateCriteria<Authorization>()
                 .Add(Restrictions.Eq(field, value))
@@ -20,10 +20,12 @@ namespace TMA.DAO.EntityManager
             return authorizations;
         }
 
-        public static Authorization findBy(string field, string value)
+        public static Authorization findBy(int start, int limit, string field, string value)
         {
             Authorization authorization = (Authorization)Session.CreateCriteria<Authorization>()
                 .Add(Restrictions.Eq(field, value))
+                .SetFirstResult(start)
+                .SetMaxResults(limit)
                 .UniqueResult();
 
             return authorization;
@@ -38,9 +40,20 @@ namespace TMA.DAO.EntityManager
             return authorization;
         }
 
-        public static List<Authorization> findAll()
+        public static int Count()
         {
-            IList<Authorization> iAuthorizations = Session.CreateCriteria<Authorization>().List<Authorization>();
+            IList<Authorization> iAuthorizations = Session.CreateCriteria<Authorization>()
+                .List<Authorization>();
+
+            return iAuthorizations.Count;
+        }
+
+        public static List<Authorization> findAll(int start, int limit)
+        {
+            IList<Authorization> iAuthorizations = Session.CreateCriteria<Authorization>()
+                .SetFirstResult(start)
+                .SetMaxResults(limit)
+                .List<Authorization>();
 
             return (iAuthorizations != null) ? new List<Authorization>(iAuthorizations) : new List<Authorization>();
         }

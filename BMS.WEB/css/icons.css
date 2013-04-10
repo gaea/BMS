@@ -1,4 +1,7 @@
-﻿.cancel {
+﻿.acept {
+    background-image: url( ../images/icons/acept.png ) !important;
+}
+.cancel {
     background-image: url( ../images/icons/cancelar.png ) !important;
 }
 .search {
