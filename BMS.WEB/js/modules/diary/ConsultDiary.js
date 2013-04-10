@@ -1,13 +1,13 @@
 ﻿Ext.onReady(function() {
 
     var AspPageRegisterDiary = 'RegisterDiary.aspx';
-	
+
     var AspPageConsultDiary = 'ConsultDiary.aspx';
 
-	var aspPagePerson = '../person/RegisterPerson.aspx';
-	
-	var aspPageFunctionary = '../master_tables/Functionary.aspx';
-	
+    var aspPagePerson = '../person/RegisterPerson.aspx';
+
+    var aspPageFunctionary = '../master_tables/Functionary.aspx';
+
     var agenda_store = new Ext.data.Store({
         fields: [{ name: 'Id_EntryType' }, { name: 'EntryTypeName'}],
         data: []
@@ -51,18 +51,18 @@
         sorters: [{
             property: 'FullName',
             direction: 'ASC'
-        }]
-    });
-	
-	var companyStore = new Ext.data.Store({
-        fields: [{ name: 'Id_Third' }, { name: 'Name'}],
-        data: []
-    });
-	
-	loadData(aspPagePerson, 'GetCompany', "{'start':0,'limit':0}", companyStore, null, null);
-	
-    var persona_store = new Ext.data.Store({
-        fields: [
+}]
+        });
+
+        var companyStore = new Ext.data.Store({
+            fields: [{ name: 'Id_Third' }, { name: 'Name'}],
+            data: []
+        });
+
+        loadData(aspPagePerson, 'GetCompany', "{'start':0,'limit':0}", companyStore, null, null);
+
+        var persona_store = new Ext.data.Store({
+            fields: [
             { name: 'Id_Person' },
             { name: 'Name' },
             { name: 'LastName' },
@@ -73,12 +73,12 @@
             },
 			{ name: 'Company' }
         ],
-        data: []
-    });
+            data: []
+        });
 
-    //loadData(AspPageRegisterDiary, 'GetPerson', "{'start':0,'limit':0}", persona_store, null, null);
+        //loadData(AspPageRegisterDiary, 'GetPerson', "{'start':0,'limit':0}", persona_store, null, null);
 
-    var master_buscar_array = [
+        var master_buscar_array = [
         ['Id_Visitor', 'Documento Identificación'],
         ['Person.Name', 'Nombre del Visitante'],
         ['Person.LastName', 'Apellido del Visitante'],
@@ -87,84 +87,124 @@
         ['DateDiary', 'Fecha Agendada']
     ];
 
-    var master_buscar_store = new Ext.data.ArrayStore({
-        fields: ['campo', 'display_campo'],
-        data: master_buscar_array
-    });
+        var master_buscar_store = new Ext.data.ArrayStore({
+            fields: ['campo', 'display_campo'],
+            data: master_buscar_array
+        });
 
-    var master_buscar_combo = new Ext.form.ComboBox({
-        store: master_buscar_store,
-        hiddenName: 'campo',
-        valueField: 'campo',
-        displayField: 'display_campo',
-        typeAhead: true,
-        width: 180,
-        mode: 'local',
-        forceSelection: true,
-        triggerAction: 'all',
-        emptyText: 'Seleccione un campo',
-        selectOnFocus: true,
-        listeners: {
-            select: function(combo, arrRec, obj) {
-                if (arrRec[0].get('campo') == 'DateDiary') {
-                    Ext.getCmp('id_master_buscar_text').hide();
-                    Ext.getCmp('id_master_buscar_date').show();
-                }
-                else {
-                    Ext.getCmp('id_master_buscar_date').hide();
-                    Ext.getCmp('id_master_buscar_text').show();
+        var master_buscar_combo = new Ext.form.ComboBox({
+            store: master_buscar_store,
+            hiddenName: 'campo',
+            valueField: 'campo',
+            displayField: 'display_campo',
+            typeAhead: true,
+            width: 180,
+            mode: 'local',
+            forceSelection: true,
+            triggerAction: 'all',
+            emptyText: 'Seleccione un campo',
+            selectOnFocus: true,
+            listeners: {
+                select: function(combo, arrRec, obj) {
+                    if (arrRec[0].get('campo') == 'DateDiary') {
+                        Ext.getCmp('id_master_buscar_text').hide();
+                        Ext.getCmp('id_master_buscar_date').show();
+                    }
+                    else {
+                        Ext.getCmp('id_master_buscar_date').hide();
+                        Ext.getCmp('id_master_buscar_text').show();
+                    }
                 }
             }
-        }
-    });
+        });
 
-    function set_photo(val, x, store) {
-        if (val != null && val != '') {
-            return '<img src="../../images/photo/' + parseInt(val) + '" onerror=this.src="../../images/user.png" width=45 heigth=75 align=center />';
+        function set_photo(val, x, store) {
+            if (val != null && val != '') {
+                return '<img src="../../images/photo/' + parseInt(val) + '" onerror=this.src="../../images/user.png" width=45 heigth=75 align=center />';
+            }
+            else {
+                return '<img src="../../images/user.png" width=45 heigth=75 align=center />';
+            }
         }
-        else {
-            return '<img src="../../images/user.png" width=45 heigth=75 align=center />';
-        }
-    }
 
-    var MasterGrid = new Ext.grid.GridPanel({
-        frame: false,
-        border: true,
-        width: Ext.getBody().getViewSize().width,
-        height: Ext.getBody().getViewSize().height,
-        monitorResize: true,
-        stripeRows: true,
-        columnLines: true,
-        stateful: true,
-        stateId: 'grid',
-        store: ({
-            fields: getProperties(new Diary()),
-            data: [{}]
-        }),
-        columns: [
+        Ext.define('MasterModel', {
+            extend: 'Ext.data.Model',
+            fields: [
+			{ name: 'Id_Diary' },
+            { name: 'Id_Functionary' },
+	        { name: 'Id_Visitor' },
+	        { name: 'DateDiary' },
+	        { name: 'HourDiary' },
+	        { name: 'Description' },
+	        { name: 'DateCreateRegistration' },
+	        { name: 'DateModifyRegistration' },
+	        { name: 'Id_UserCreateRegistration' },
+	        { name: 'Id_UserModifyRegistration' },
+	        { name: 'CenterCost' },
+            { name: 'State' },
+            { name: 'Id_User' }
+        ],
+            idProperty: 'Id_Diary'
+        });
+
+        var MasterStore = new Ext.data.Store({
+            model: 'MasterModel',
+            pageSize: 20,
+            remoteSort: false,
+            proxy: {
+                type: 'jsonp',
+                url: AspPageConsultDiary,
+                reader: { root: 'Result', totalProperty: 'Total' },
+                simpleSortMode: true,
+                extraParams: { accion: 'List' }
+            },
+            //autoLoad: true,
+            sorters: [{
+                property: 'Id_Diary',
+                direction: 'DESC'
+}]
+            });
+
+        var MasterGrid = new Ext.grid.GridPanel({
+            frame: false,
+            border: true,
+            width: Ext.getBody().getViewSize().width,
+            height: Ext.getBody().getViewSize().height,
+            monitorResize: true,
+            stripeRows: true,
+            columnLines: true,
+            stateful: true,
+            stateId: 'grid',
+            store: MasterStore,
+            columns: [
 				Ext.create('Ext.grid.RowNumberer'),
 				{ header: "Foto", width: 55, dataIndex: 'Id_Visitor', renderer: set_photo },
 				{ text: 'Documento Identificaci&oacute;n', width: 150, dataIndex: 'Id_Visitor' },
 		        { text: 'Nombre del Visitante', width: 150, dataIndex: 'Id_Visitor',
 		            renderer: function(val, meta, rec) {
-						return getValueFromStore(val, meta, rec, persona_store, 'Id_Person', 'FullName');
-					}
+		                return getValueFromStore(val, meta, rec, persona_store, 'Id_Person', 'FullName');
+		            }
 		        },
-				{ text: 'Empresa del Visitante', width: 150, dataIndex: 'Id_Visitor', renderer: function(val, meta, rec) 
-					{	
-						return getValueFromStoreSinceOtherValueToFind(val, meta, rec, companyStore, 'Id_Third', 'Name', getValueFromStore(val, meta, rec, persona_store, 'Id_Person', 'Company'));
-					}
+				{ text: 'Empresa del Visitante', width: 150, dataIndex: 'Id_Visitor', renderer: function(val, meta, rec) {
+				    return getValueFromStoreSinceOtherValueToFind(val, meta, rec, companyStore, 'Id_Third', 'Name', getValueFromStore(val, meta, rec, persona_store, 'Id_Person', 'Company'));
+				}
 				},
-				{ text: 'Nombre del Funcionario Agendado', width: 180, dataIndex: 'Id_Functionary' , renderer: function(val, meta, rec) 
-					{
-						return getValueFromStore(val, meta, rec, functionaryStore, 'Id_Functionary', 'FullName');
-					}
+				{ text: 'Nombre del Funcionario Agendado', width: 180, dataIndex: 'Id_Functionary', renderer: function(val, meta, rec) {
+				    return getValueFromStore(val, meta, rec, functionaryStore, 'Id_Functionary', 'FullName');
+				}
 				},
 				{ text: 'Fecha Agendada', width: 100, dataIndex: 'DateDiary' },
 				{ text: 'Hora Agendada', width: 100, dataIndex: 'HourDiary' },
 				{ text: 'Motivo', width: 150, dataIndex: 'Description' },
 				{ text: 'Estado', width: 100, dataIndex: 'State' }
         ],
+		bbar: new Ext.PagingToolbar({
+		    pageSize: 20,
+		    store: MasterStore,
+		    displayInfo: true,
+		    displayMsg: 'Registros {0} - {1} de {2}',
+		    emptyMsg: "No hay registros"
+		}),
         tbar: [
             {
                 text: 'Eliminar',
@@ -181,7 +221,7 @@
                         initialDateHour = initialDateHour.replace("m", '');
                         initialDateHour = initialDateHour.replace(".", '');
                         initialDateHour = initialDateHour.replace(".", '');
-                        
+
                         initialDateHour = new Date(initialDateHour);
 
                         var currentDateHour = new Date()
@@ -199,7 +239,7 @@
                             );
                         }
                         else {
-                            Ext.Msg.alert('Mensaje','La agenda a eliminar debe presentar una fecha mayor a la fecha actual');
+                            Ext.Msg.alert('Mensaje', 'La agenda a eliminar debe presentar una fecha mayor a la fecha actual');
                         }
                     }
                 }
@@ -210,7 +250,7 @@
                 handler: function() {
                     loadData(AspPageRegisterDiary, 'GetPerson', "{'start':0,'limit':0}", persona_store,
                         function(data) {
-                            loadData(AspPageConsultDiary, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+                            MasterStore.load();
                         }, null);
                 }
             }, '->',
@@ -231,7 +271,11 @@
                     scope: this,
                     specialkey: function(f, e) {
                         if (e.getKey() == e.ENTER) {
-                            loadData(AspPage, 'Find', { objProperties: "{'field':'InitialDate','value':'" + Ext.getCmp('id_master_buscar_date').getValue() + "'}" }, MasterGrid.getStore(), null, null);
+                            MasterStore.load({ params: {
+                                accion: 'Find',
+                                field: 'InitialDate',
+                                value: Ext.getCmp('id_master_buscar_date').getValue()
+                            }});
                         }
                     }
                 }
@@ -244,7 +288,11 @@
                     scope: this,
                     specialkey: function(f, e) {
                         if (e.getKey() == e.ENTER) {
-                            loadData(AspPageConsultDiary, 'Find', { objProperties: "{'field':'" + master_buscar_combo.getValue() + "','value':'" + Ext.getCmp('id_master_buscar_text').getValue() + "'}" }, MasterGrid.getStore(), null, null);
+                            MasterStore.load({ params: {
+                                accion: 'Find',
+                                field: master_buscar_combo.getValue(),
+                                value: Ext.getCmp('id_master_buscar_text').getValue()
+                            }});
                         }
                     }
                 }
@@ -262,15 +310,23 @@
                         search = Ext.getCmp('id_master_buscar_text').getValue();
                     }
 
-                    loadData(AspPageConsultDiary, 'Find', { objProperties: "{'field':'" + master_buscar_combo.getValue() + "','value':'" + search + "'}" }, MasterGrid.getStore(), null, null);
+                    MasterStore.load({ params: {
+                        accion: 'Find',
+                        field: master_buscar_combo.getValue(),
+                        value: search
+                    }});
+                    
+                    //loadData(AspPageConsultDiary, 'Find', { objProperties: "{'field':'" + master_buscar_combo.getValue() + "','value':'" + search + "'}" }, MasterGrid.getStore(), null, null);
                 }
             }
         ],
-        renderTo: Ext.getBody()
-    });
+                renderTo: Ext.getBody()
+            });
+
+            //MasterStore.load();
 
     loadData(AspPageRegisterDiary, 'GetPerson', "{'start':0,'limit':0}", persona_store,
         function(data) {
-            loadData(AspPageConsultDiary, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+            MasterStore.load();
         }, null);
-});
+    });

@@ -38,11 +38,12 @@ namespace BMS.WEB.pages.person
                     int limit = Convert.ToInt32(Request.Params["limit"]);
                     string field = Request.Params["field"];
                     string value = Request.Params["value"];
+                    string callback = Request.Params["callback"];
 
                     switch (accion)
                     {
                         case "List":
-                            Response.Write(string.Concat(Request.Params["callback"], this.List(start, limit)));
+                            Response.Write(string.Concat(callback, this.List(start, limit)));
                             break;
                         case "Save":
                             Response.Write("({success: true, data:" + this.Save(Request.Params["objProperties"]) + "})");
@@ -60,7 +61,7 @@ namespace BMS.WEB.pages.person
                             Response.Write("({success: true, data:" + this.GetDepartment() + "})");
                             break;
                         case "Find":
-                            Response.Write(string.Concat(Request.Params["callback"], this.Find(start, limit, field, value)));
+                            Response.Write(string.Concat(callback, this.Find(start, limit, field, value)));
                             break;
                         default:
                             return;

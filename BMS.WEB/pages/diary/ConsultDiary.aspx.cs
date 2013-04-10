@@ -32,16 +32,22 @@ namespace BMS.WEB.pages.diary
                 string action = Request.Params["accion"];
                 if (!string.IsNullOrEmpty(action))
                 {
+                    int start = Convert.ToInt32(Request.Params["start"]);
+                    int limit = Convert.ToInt32(Request.Params["limit"]);
+                    string field = Request.Params["field"];
+                    string value = Request.Params["value"];
+                    string callback = Request.Params["callback"];
+
                     switch (action)
                     {
                         case "Delete":
                             Response.Write("({success: true, data:" + this.Delete(Convert.ToInt32(Request.Params["objProperties"])) + "})");
                             break;
                         case "List":
-                            Response.Write("({success: true, data:" + this.List("", "") + "})");
+                            Response.Write(string.Concat(callback, this.List(start, limit)));
                             break;
                         case "Find":
-                            Response.Write("({success: true, data:" + this.Find(Request.Params["objProperties"]) + "})");
+                            Response.Write(string.Concat(callback, this.Find(start, limit, field, value)));
                             break;
                         default:
                             return;
@@ -76,45 +82,57 @@ namespace BMS.WEB.pages.diary
             return serialize.Serialize(msg);
         }
 
-        public string Find(string objProperties)
+        public string Find(int start, int limit, string field, string value)
         {
             MessageResponse msg = new MessageResponse();
-
-            Dictionary<string, string> dicProperties = JsonConvert.DeserializeObject<Dictionary<string, string>>(objProperties);
+            DataResponse<TMA.MODEL.Entity.Diary> dataResponse = new DataResponse<TMA.MODEL.Entity.Diary>();
 
             try
             {
                 float numberParam;
 
-                if (float.TryParse(dicProperties["value"], out numberParam))
+                if (float.TryParse(value, out numberParam))
                 {
-                    return serialize.Serialize(DiariesDao.findBy(dicProperties["field"], numberParam.ToString()));
+                    dataResponse.Result = DiariesDao.findBy(start, limit, field, numberParam.ToString());
+                    dataResponse.Total = DiariesDao.Count(field, numberParam.ToString());
+
+                    return dataResponse.ToJsonString();
                 }
                 else
                 {
-                    if (dicProperties["field"].Contains("Person"))
+                    if (field.Contains("Person"))
                     {
-
-                        if (dicProperties["field"].Contains("Company"))
+                        if (field.Contains("Company"))
                         {
-                            return serialize.Serialize(DiariesDao.findCompanyBy(dicProperties["field"].Split('.')[2], dicProperties["value"]));
+                            dataResponse.Result = DiariesDao.findCompanyBy(start, limit, field.Split('.')[2], value);
+                            dataResponse.Total = DiariesDao.CountCompany(field.Split('.')[2], value);
+
+                            return dataResponse.ToJsonString();
                         }
                         else
                         {
-                            return serialize.Serialize(DiariesDao.findPersonBy(dicProperties["field"].Split('.')[1], dicProperties["value"]));
+                            dataResponse.Result = DiariesDao.findPersonBy(start, limit, field.Split('.')[1], value);
+                            dataResponse.Total = DiariesDao.CountPerson(field.Split('.')[1], value);
+
+                            return dataResponse.ToJsonString();
                         }
                     }
-                    if (dicProperties["field"].Contains("Functionary"))
+                    if (field.Contains("Functionary"))
                     {
-
-                        if (dicProperties["field"].Contains("Name"))
+                        if (field.Contains("Name"))
                         {
-                            return serialize.Serialize(DiariesDao.findFunctionaryBy(dicProperties["field"].Split('.')[2], dicProperties["value"]));
+                            dataResponse.Result = DiariesDao.findFunctionaryBy(start, limit, field.Split('.')[2], value);
+                            dataResponse.Total = DiariesDao.CountFunctionary(field.Split('.')[1], value);
+
+                            return dataResponse.ToJsonString();
                         }
                     }
                     else
                     {
-                        return serialize.Serialize(DiariesDao.findBy(dicProperties["field"], dicProperties["value"]));
+                        dataResponse.Result = DiariesDao.findBy(start, limit, field, value);
+                        dataResponse.Total = DiariesDao.Count(field, value);
+
+                        return dataResponse.ToJsonString();
                     }
                 }
             }
@@ -130,15 +148,20 @@ namespace BMS.WEB.pages.diary
             return serialize.Serialize(msg);
         }
 
-        public string List(string start, string limit)
+        public string List(int start, int limit)
         {
             MessageResponse msg = new MessageResponse();
+
+            DataResponse<TMA.MODEL.Entity.Diary> dataResponse = new DataResponse<TMA.MODEL.Entity.Diary>();
 
             try
             {
                 DateTime today = System.DateTime.Today;
 
-                return serialize.Serialize(DiariesDao.findBy("DateDiary", today.ToString("yyyy-MM-dd")));
+                dataResponse.Result = DiariesDao.findBy(start, limit, "DateDiary", today.ToString("yyyy-MM-dd"));
+                dataResponse.Total = DiariesDao.Count("DateDiary", today.ToString("yyyy-MM-dd"));
+
+                return dataResponse.ToJsonString();
             }
             catch (Exception ex)
             {

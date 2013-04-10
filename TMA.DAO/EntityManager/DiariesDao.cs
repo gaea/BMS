@@ -10,7 +10,7 @@ namespace TMA.DAO.EntityManager
 {
     public class DiariesDao : Dao
     {
-        public static List<Diary> findPersonBy(string field, string value)
+        public static int CountPerson(string field, string value)
         {
             List<Person> persons = PersonsDao.findBy(field, value);
 
@@ -26,10 +26,29 @@ namespace TMA.DAO.EntityManager
                 }
             }
 
+            return result.Count;
+        }
+
+        public static List<Diary> findPersonBy(int start, int limit, string field, string value)
+        {
+            List<Person> persons = PersonsDao.findBy(field, value);
+
+            List<Diary> result = new List<Diary>();
+
+            foreach (Person person in persons)
+            {
+                List<Diary> diaries = DiariesDao.findBy(start, limit, "Id_Visitor", person.Id_Person.ToString());
+
+                if (diaries != null)
+                {
+                    result.AddRange(diaries);
+                }
+            }
+
             return result;
         }
 
-        public static List<Diary> findFunctionaryBy(string field, string value)
+        public static int CountFunctionary(string field, string value)
         {
             List<Functionary> functionaries = FunctionariesDao.findBy(field, value);
 
@@ -45,10 +64,29 @@ namespace TMA.DAO.EntityManager
                 }
             }
 
+            return result.Count;
+        }
+
+        public static List<Diary> findFunctionaryBy(int start, int limit, string field, string value)
+        {
+            List<Functionary> functionaries = FunctionariesDao.findBy(field, value);
+
+            List<Diary> result = new List<Diary>();
+
+            foreach (Functionary functionary in functionaries)
+            {
+                List<Diary> diaries = DiariesDao.findBy(start, limit, "Id_Functionary", (float)functionary.Id_Functionary);
+
+                if (diaries != null)
+                {
+                    result.AddRange(diaries);
+                }
+            }
+
             return result;
         }
 
-        public static List<Diary> findCompanyBy(string field, string value)
+        public static int CountCompany(string field, string value)
         {
             List<Company> companys = CompaniesDao.findBy(field, value);
 
@@ -69,7 +107,51 @@ namespace TMA.DAO.EntityManager
                 }
             }
 
+            return result.Count;
+        }
+
+        public static List<Diary> findCompanyBy(int start, int limit, string field, string value)
+        {
+            List<Company> companys = CompaniesDao.findBy(field, value);
+
+            List<Diary> result = new List<Diary>();
+
+            foreach (Company company in companys)
+            {
+                List<Person> persons = PersonsDao.findBy(start, limit, "Company", company.Id_Third.ToString()); ;
+
+                foreach (Person person in persons)
+                {
+                    List<Diary> diaries = DiariesDao.findBy("Id_Visitor", person.Id_Person.ToString());
+
+                    if (diaries != null)
+                    {
+                        result.AddRange(diaries);
+                    }
+                }
+            }
+
             return result;
+        }
+
+        public static List<Diary> findBy(int start, int limit, string field, string value)
+        {
+            List<Diary> diaries = (List<Diary>)Session.CreateCriteria<Diary>()
+                .Add(Restrictions.Like(Projections.Cast(NHibernateUtil.String, Projections.Property(field)), value.ToString(), MatchMode.Anywhere))
+                .SetFirstResult(start)
+                .SetMaxResults(limit)
+                .List<Diary>();
+
+            return diaries;
+        }
+
+        public static int Count(string field, string value)
+        {
+            List<Diary> diaries = (List<Diary>)Session.CreateCriteria<Diary>()
+                .Add(Restrictions.Like(Projections.Cast(NHibernateUtil.String, Projections.Property(field)), value.ToString(), MatchMode.Anywhere))
+                .List<Diary>();
+
+            return diaries.Count;
         }
 
         public static List<Diary> findBy(string field, string value)
@@ -81,13 +163,44 @@ namespace TMA.DAO.EntityManager
             return diaries;
         }
 
-        public static List<Diary> findBy(string field, float value)
+        public static List<Diary> findBy(int start, int limit, string field, float value)
         {
             List<Diary> diaries = (List<Diary>)Session.CreateCriteria<Diary>()
                 .Add(Restrictions.Like(Projections.Cast(NHibernateUtil.Double, Projections.Property(field)), value ))
+                .SetFirstResult(start)
+                .SetMaxResults(limit)
                 .List<Diary>();
  
             return diaries;
+        }
+
+        public static List<Diary> findBy(string field, float value)
+        {
+            List<Diary> diaries = (List<Diary>)Session.CreateCriteria<Diary>()
+                .Add(Restrictions.Like(Projections.Cast(NHibernateUtil.Double, Projections.Property(field)), value))
+                .List<Diary>();
+
+            return diaries;
+        }
+
+        public static int Count(string field, DateTime value)
+        {
+            List<Diary> diary = (List<Diary>)Session.CreateCriteria<Diary>()
+                .Add(Restrictions.Gt(field, value))
+                .List<Diary>();
+
+            return diary.Count;
+        }
+
+        public static List<Diary> findBy(int start, int limit, string field, DateTime value)
+        {
+            List<Diary> diary = (List<Diary>)Session.CreateCriteria<Diary>()
+                .Add(Restrictions.Gt(field, value))
+                .SetFirstResult(start)
+                .SetMaxResults(limit)
+                .List<Diary>();
+
+            return diary;
         }
 
         public static List<Diary> findBy(string field, DateTime value)
