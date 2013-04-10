@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="TMA.MODEL"
+                   namespace="TMA.MODEL.Entity">
+
+  <class name="Authorization" table="dbo.Tbl_Autorizaciones">
+
+    <id name="Id_Authorization" column="Id_Autorizacion" type ="int">
+      <generator class="increment" />
+    </id>
+    <property name="Identification" column="Identificacion" type="string"/>
+    <property name="Authorized" column="Autorizado" type="boolean"/>
+    <property name="StartDate" column="FechaInicial" type="datetime"/>
+    <property name="EndDate" column="FechaFinal" type="string"/>
+    <property name="Id_PersonAuthorizing" column="PersonaAutoriza" type="int"/>
+    <property name="Id_AuthorizationType" column="Id_TipoAutorizacion" type="int"/>
+    <property name="Reason" column="Motivo" type="string"/>
+    <property name="Id_Person" column="Id_Persona" type="int"/>
+    
+  </class>
+
+</hibernate-mapping>

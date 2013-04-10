@@ -79,6 +79,7 @@
     <Compile Include="EntityManager\CitiesDao.cs" />
     <Compile Include="EntityManager\CompaniesDao.cs" />
     <Compile Include="EntityManager\ChargesDao.cs" />
+    <Compile Include="EntityManager\AuthorizationsDao.cs" />
     <Compile Include="EntityManager\FunctionariesDao.cs" />
     <Compile Include="EntityManager\CostCentersDao.cs" />
     <Compile Include="EntityManager\DepartmentsDao.cs" />
