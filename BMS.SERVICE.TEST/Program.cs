@@ -21,12 +21,14 @@ namespace BMS.SERVICE.TEST
             if (persons != null)
             {
                 Person person = persons.First<Person>();
-                Console.WriteLine(person.DocumentNumber);
 
                 List<Diary> diaries = DiariesDao.findDateBy("Id_Person", person.DocumentNumber);
 
-                foreach (Diary diary in diaries)
-                    Console.WriteLine(diary.ToString());
+                if (diaries != null && diaries.Count > 0)
+                {
+                   
+                }
+
             }
 
         }

@@ -10,7 +10,7 @@ namespace TMA.DAO.EntityManager
 {
     public class DiariesDao : Dao
     {
-<<<<<<< HEAD
+
         public static List<Diary> findDateBy(string field, string value)
         {
             Person person = PersonsDao.findBy(field, float.Parse(value));
@@ -28,9 +28,25 @@ namespace TMA.DAO.EntityManager
         }
 
         public static List<Diary> findPersonBy(string field, string value)
-=======
+        {
+            List<Person> persons = PersonsDao.findBy(field, value);
+
+            List<Diary> result = new List<Diary>();
+
+            foreach (Person person in persons)
+            {
+                List<Diary> diaries = DiariesDao.findBy("Id_Visitor", person.Id_Person.ToString());
+
+                if (diaries != null)
+                {
+                    result.AddRange(diaries);
+                }
+            }
+
+            return result;
+        }
+
         public static int CountPerson(string field, string value)
->>>>>>> cb48af8f557f5f4a684579272b77f9adaf40cfae
         {
             List<Person> persons = PersonsDao.findBy(field, value);
 
@@ -186,13 +202,9 @@ namespace TMA.DAO.EntityManager
         public static List<Diary> findBy(int start, int limit, string field, float value)
         {
             List<Diary> diaries = (List<Diary>)Session.CreateCriteria<Diary>()
-<<<<<<< HEAD
                 .Add(Restrictions.Like(Projections.Cast(NHibernateUtil.Single, Projections.Property(field)), value))
-=======
-                .Add(Restrictions.Like(Projections.Cast(NHibernateUtil.Double, Projections.Property(field)), value ))
                 .SetFirstResult(start)
                 .SetMaxResults(limit)
->>>>>>> cb48af8f557f5f4a684579272b77f9adaf40cfae
                 .List<Diary>();
 
             return diaries;
