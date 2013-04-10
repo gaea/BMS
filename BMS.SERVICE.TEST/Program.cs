@@ -16,14 +16,18 @@ namespace BMS.SERVICE.TEST
 
         static void Process()
         {
-            Person person = PersonsDao.findBy("Id_BiometricReader", "10").First<Person>();
+            List<Person> persons = PersonsDao.findBy("Id_BiometricReader", "500007");
 
-            Console.WriteLine(person);
+            if (persons != null)
+            {
+                Person person = persons.First<Person>();
+                Console.WriteLine(person.DocumentNumber);
 
-            List<Diary> diaries = DiariesDao.findPersonBy("Id_Person", person.Id_Person.ToString());
+                List<Diary> diaries = DiariesDao.findDateBy("Id_Person", person.DocumentNumber);
 
-            foreach (Diary diary in diaries)
-                Console.WriteLine(diary.ToString());
+                foreach (Diary diary in diaries)
+                    Console.WriteLine(diary.ToString());
+            }
 
         }
     }

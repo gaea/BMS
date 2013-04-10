@@ -93,7 +93,7 @@ namespace TMA.MODEL.Entity
         private int contractor;
 
         private DateTime? dateValidityARP;
-       
+
         #endregion Attributes
 
         #region Properties
@@ -102,6 +102,14 @@ namespace TMA.MODEL.Entity
         {
             get { return id_Person; }
             set { id_Person = value; }
+        }
+
+        public string DocumentNumber
+        {
+            get
+            {
+                return ((double)id_Person).ToString();
+            }
         }
 
         public virtual int? Id_BiometricReader
@@ -350,6 +358,18 @@ namespace TMA.MODEL.Entity
             set { dateValidityARP = value; }
         }
         #endregion Properties
+
+        #region Methods
+
+        public override string ToString()
+        {
+            return string.Format("Documento de identificación: {1}{0}Nombre: {2}{0}Identificador Lector: {3}{0}"
+                , Environment.NewLine
+                , this.id_Person
+                , this.name
+                , this.id_BiometricReader);
+        }
+        #endregion
     }
 }
 

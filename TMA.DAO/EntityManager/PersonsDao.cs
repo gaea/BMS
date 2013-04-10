@@ -36,6 +36,15 @@ namespace TMA.DAO.EntityManager
             return person;
         }
 
+        public static Person findBy(string field, float value)
+        {
+            Person person = (Person)Session.CreateCriteria<Person>()
+                .Add(Restrictions.Eq (Projections.Cast(NHibernateUtil.Single, Projections.Property(field)), value))
+                .UniqueResult();
+
+            return person;
+        }
+
         public static List<Person> findBy(int start, int limit, string field, string value)
         {
             List<Person> person = (List<Person>)Session.CreateCriteria<Person>()

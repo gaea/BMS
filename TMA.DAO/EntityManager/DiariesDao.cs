@@ -10,6 +10,22 @@ namespace TMA.DAO.EntityManager
 {
     public class DiariesDao : Dao
     {
+        public static List<Diary> findDateBy(string field, string value)
+        {
+            Person person = PersonsDao.findBy(field, float.Parse(value));
+
+            List<Diary> result = new List<Diary>();
+
+            List<Diary> diaries = DiariesDao.findBy("Id_Visitor", (float)person.Id_Person);
+
+            if (diaries != null)
+            {
+                result.AddRange(diaries);
+            }
+
+            return result;
+        }
+
         public static List<Diary> findPersonBy(string field, string value)
         {
             List<Person> persons = PersonsDao.findBy(field, value);
@@ -84,9 +100,9 @@ namespace TMA.DAO.EntityManager
         public static List<Diary> findBy(string field, float value)
         {
             List<Diary> diaries = (List<Diary>)Session.CreateCriteria<Diary>()
-                .Add(Restrictions.Like(Projections.Cast(NHibernateUtil.Double, Projections.Property(field)), value ))
+                .Add(Restrictions.Like(Projections.Cast(NHibernateUtil.Single, Projections.Property(field)), value))
                 .List<Diary>();
- 
+
             return diaries;
         }
 
