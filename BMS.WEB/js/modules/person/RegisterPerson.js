@@ -420,8 +420,8 @@
         sorters: [{
             property: 'Name',
             direction: 'ASC'
-}]
-        });
+        }]
+    });
 
         var MasterGrid = new Ext.grid.GridPanel({
             frame: false,
@@ -439,27 +439,27 @@
 				{ header: "Foto", width: 70, dataIndex: 'Photo', renderer: setPhoto },
                 { text: 'Documento de Identificaci&oacute;n', dataIndex: 'Id_Person' },
                 { text: 'Empresa', dataIndex: 'Company', renderer: function(val, meta, rec) {
-                    return getValueFromStore(val, meta, rec, companyStore, 'Id_Third', 'Name');
-                }
+                        return getValueFromStore(val, meta, rec, companyStore, 'Id_Third', 'Name');
+                    }
                 },
                 { text: 'Nombre', dataIndex: 'Name' },
                 { text: 'Apellido', dataIndex: 'LastName' },
                 { text: 'Mes Nacimiento', dataIndex: 'BirthdayMonth', renderer: function(val, meta, rec) {
-                    return getMonthFromInt(val);
-                }
+                        return getMonthFromInt(val);
+                    }
                 },
                 { text: 'D&iacute;a Nacimiento', dataIndex: 'BirthdayDay' },
                 { text: 'Direcci&oacute;n', dataIndex: 'Address' },
                 { text: 'Ciudad', dataIndex: 'City', renderer: function(val, meta, rec) {
-                    return getValueFromStore(val, meta, rec, cityStore, 'Id_City', 'Name');
-                }
+                        return getValueFromStore(val, meta, rec, cityStore, 'Id_City', 'Name');
+                    }
                 },
                 { text: 'Tel&eacute;fono', dataIndex: 'TelephoneNumber' },
                 { text: 'Celular', dataIndex: 'CelphoneNumber' },
                 { text: 'Email', dataIndex: 'Email' },
                 { text: 'Activo?', dataIndex: 'IsActive', renderer: function(val, meta, rec) {
-                    return getStringFromBoolean(val);
-                }
+                        return getStringFromBoolean(val);
+                    }
                 }
         ],
             bbar: new Ext.PagingToolbar({
