@@ -9,30 +9,34 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
-using System.Collections.Generic;
 using System.Web.Script.Serialization;
 
 namespace BMS.WEB.cls
 {
-    public class DataResponse<T>
+    public class ActionResponse
     {
-        private int total;
-        private List<T> result;
+        private bool success;
+        private MessageResponse data;
 
-        public List<T> Result
+        public ActionResponse()
         {
-            get { return result; }
-            set { result = value; }
+            data = new MessageResponse();
         }
 
-        public int Total
+        public bool Success 
         {
-            get { return total; }
-            set { total = value; }
+            get { return success; }
+            set { success = value; }
+        }
+
+        public MessageResponse Data
+        {
+            get { return data; }
+            set { data = value; }
         }
 
         public string ToJsonString()
-        {
+        { 
             JavaScriptSerializer serialize = new JavaScriptSerializer();
 
             return string.Concat("(", serialize.Serialize(this), ")");

@@ -42,7 +42,7 @@ namespace BMS.WEB.pages.person
                     switch (accion)
                     {
                         case "List":
-                            Response.Write(Request.Params["callback"] + this.List(start, limit));
+                            Response.Write(string.Concat(Request.Params["callback"], this.List(start, limit)));
                             break;
                         case "Save":
                             Response.Write("({success: true, data:" + this.Save(Request.Params["objProperties"]) + "})");
@@ -60,7 +60,7 @@ namespace BMS.WEB.pages.person
                             Response.Write("({success: true, data:" + this.GetDepartment() + "})");
                             break;
                         case "Find":
-                            Response.Write(Request.Params["callback"] + this.Find(start, limit, field, value));
+                            Response.Write(string.Concat(Request.Params["callback"], this.Find(start, limit, field, value)));
                             break;
                         default:
                             return;
@@ -158,13 +158,14 @@ namespace BMS.WEB.pages.person
         public string Find(int start, int limit, string field, string value)
         {
             MessageResponse msg = new MessageResponse();
+            DataResponse<TMA.MODEL.Entity.Person> dataResponse = new DataResponse<TMA.MODEL.Entity.Person>();
 
             try
             {
-                string result = serialize.Serialize(PersonsDao.findBy(start, limit, field, value));
-                string total = PersonsDao.Count(field, value).ToString();
+                dataResponse.Result = PersonsDao.findBy(start, limit, field, value);
+                dataResponse.Total = PersonsDao.Count(field, value);
 
-                return "({total:" + total + ", result: " + result + "})";
+                return dataResponse.ToJsonString();
             }
             catch (Exception ex)
             {
@@ -179,12 +180,14 @@ namespace BMS.WEB.pages.person
         {
             MessageResponse msg = new MessageResponse();
 
+            DataResponse<TMA.MODEL.Entity.Person> dataResponse = new DataResponse<TMA.MODEL.Entity.Person>();
+
             try
             {
-                string result = serialize.Serialize(PersonsDao.findAll(start, limit));
-                string total = PersonsDao.Count().ToString();
+                dataResponse.Result = PersonsDao.findAll(start, limit);
+                dataResponse.Total = PersonsDao.Count();
 
-                return "({total:" + total + ", result: " + result + "})";
+                return dataResponse.ToJsonString();
             }
             catch (Exception ex)
             {

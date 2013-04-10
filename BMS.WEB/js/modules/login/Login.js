@@ -1,6 +1,5 @@
 ﻿var aspPageLogin = 'Login.aspx';
 
-
 var login = new Ext.FormPanel({
     frame: false,
     border: false,
@@ -50,7 +49,7 @@ var login = new Ext.FormPanel({
 });
 
 function autenticar() {
-    saveData(
+    /*saveData(
         aspPageLogin,
         'Login',
         'objProperties',
@@ -61,5 +60,32 @@ function autenticar() {
 		    }
 		},
 		function() { }
-    );
+    );*/
+
+    Ext.Ajax.request({
+        method: 'POST',
+        url: aspPageLogin,
+        params: {
+            accion: 'Login',
+            user: login.getForm().getFieldValues().user,
+            password: login.getForm().getFieldValues().password
+        },
+        waitTitle: 'Autenticando',
+        waitMsg: 'Enviando datos...',
+        timeout: 180000,
+        success: function(response) {
+            obj = Ext.JSON.decode(response.responseText);
+
+            if (obj.Data.Url != null) {
+                window.location = obj.Data.Url;
+            }
+            else{
+                Ext.Msg.alert('Mensaje', obj.Data.Message, function() { }, this);
+            }
+            
+        },
+        failure: function(response, opts) {
+            
+        }
+    });
 }

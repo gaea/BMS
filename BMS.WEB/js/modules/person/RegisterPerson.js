@@ -412,7 +412,7 @@
         proxy: {
             type: 'jsonp',
             url: aspPageRegisterPerson,
-            reader: { root: 'result', totalProperty: 'total' },
+            reader: { root: 'Result', totalProperty: 'Total' },
             simpleSortMode: true,
             extraParams: { accion: 'List' }
         },

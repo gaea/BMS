@@ -16,6 +16,7 @@ namespace BMS.WEB.cls
     {
         private string message;
         private string error;
+        private string url;
 
         public string Message {
             get { return message; }
@@ -26,6 +27,12 @@ namespace BMS.WEB.cls
         {
             get { return error; }
             set { error = value; }
+        }
+
+        public string Url
+        {
+            get { return url; }
+            set { url = value; }
         }
 
         public override string ToString()

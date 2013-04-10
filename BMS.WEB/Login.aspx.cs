@@ -11,6 +11,10 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 using System.Web.Script.Serialization;
+using TMA.DAO.EntityManager;
+using TMA.MODEL.Entity;
+using System.Collections.Generic;
+using BMS.WEB.cls;
 
 namespace BMS.WEB
 {
@@ -31,7 +35,7 @@ namespace BMS.WEB
                     switch (action)
                     {
                         case "Login":
-                            Response.Write("({success: true, data:{Message:\"Autenticación Exitosa\", url:\"" + this.Authenticate(user, password) + "\"}})"); 
+                            Response.Write( this.Authenticate(user, password) ); 
                             break;
                         default:
                             return;
@@ -42,9 +46,30 @@ namespace BMS.WEB
             }
         }
 
-        public string Authenticate(string user, string password)
+        public string Authenticate(string login, string password)
         {
-            return "Desktop.aspx";
+            Users user = UsersDao.findBy("Login", login);
+            ActionResponse actionResponse = new ActionResponse();
+
+            actionResponse.Success = true;
+
+            if (user != null)
+            {
+                if (user.Password == password)
+                {
+                    actionResponse.Data.Url = "Desktop.aspx";
+                }
+                else
+                {
+                    actionResponse.Data.Message = "Password invalido";
+                }
+            }
+            else
+            { 
+                actionResponse.Data.Message = "El usuario no existe";
+            }
+
+            return actionResponse.ToJsonString();
         }
     }
 }
