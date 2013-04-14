@@ -126,7 +126,7 @@ namespace BMS.WEB.pages.authorization
             {
                 DateTime today = System.DateTime.Today;
 
-                dataResponse.Result = VisitsDao.findByInitialDate(today);
+                dataResponse.Result = VisitsDao.findByInitialDate(start, limit, today);
                 dataResponse.Total = VisitsDao.CountByInitialDate(today);
 
                 return dataResponse.ToJsonString();
