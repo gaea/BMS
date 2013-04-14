@@ -46,8 +46,8 @@
             type: 'jsonp',
             url: aspPageConsultAuthorization,
             reader: {
-                root: 'result',
-                totalProperty: 'total'
+                root: 'Result',
+                totalProperty: 'Total'
             },
             simpleSortMode: true,
             extraParams: {
@@ -59,8 +59,6 @@
             direction: 'ASC'
         }]
     });
-	
-	masterStoreVisit.load();
 	
 	function Visit() {
         this.Id_Visit = null,
@@ -87,7 +85,6 @@
         this.Id_UserCreateRegistration = null,
         this.Id_UserModifyRegistration = null
     };
-
 	
     var ingreso_funcionarios_tipo_ingreso_store = new Ext.data.Store({
         fields: [{ name: 'Id_EntryType' }, { name: 'EntryTypeName'}],
@@ -95,7 +92,6 @@
     });
 
     loadData(aspPageRegisterAuthorization, 'GetEntryType', "{'start':0,'limit':0}", ingreso_funcionarios_tipo_ingreso_store, null, null);
-
 
     Ext.define('functionaryModel', {
         extend: 'Ext.data.Model',
@@ -129,142 +125,139 @@
         }]
     });
 
-        var ingreso_funcionarios_estado_store = new Ext.data.Store({
-            fields: [{ name: 'Id_State' }, { name: 'StateName'}],
-            data: []
-        });
+    var ingreso_funcionarios_estado_store = new Ext.data.Store({
+        fields: [{ name: 'Id_State' }, { name: 'StateName'}],
+        data: []
+    });
 
-        loadData(aspPageRegisterAuthorization, 'GetState', "{'start':0,'limit':0}", ingreso_funcionarios_estado_store, null, null);
+    loadData(aspPageRegisterAuthorization, 'GetState', "{'start':0,'limit':0}", ingreso_funcionarios_estado_store, null, null);
 
-        var companyStore = new Ext.data.Store({
-            fields: [{ name: 'Id_Third' }, { name: 'Name'}],
-            data: []
-        });
+    var companyStore = new Ext.data.Store({
+        fields: [{ name: 'Id_Third' }, { name: 'Name'}],
+        data: []
+    });
 
-        loadData(aspPagePerson, 'GetCompany', "{'start':0,'limit':0}", companyStore, null, null);
+    loadData(aspPagePerson, 'GetCompany', "{'start':0,'limit':0}", companyStore, null, null);
 
-        var ingreso_funcionarios_funcionario_store = new Ext.data.Store({
-            fields: [
-            { name: 'Id_Person' },
-            { name: 'Name' },
-            { name: 'LastName' },
-            { name: 'FullName',
-                convert: function(v, record) {
-                    return record.data.Name + ' ' + record.data.LastName;
-                }
-            },
-			{ name: 'Company' }
-        ],
-            data: []
-        });
+    var ingreso_funcionarios_funcionario_store = new Ext.data.Store({
+        fields: [
+        { name: 'Id_Person' },
+        { name: 'Name' },
+        { name: 'LastName' },
+        { name: 'FullName',
+            convert: function(v, record) {
+                return record.data.Name + ' ' + record.data.LastName;
+            }
+        },
+		{ name: 'Company' }
+    ],
+        data: []
+    });
 
-        var ingreso_funcionarios_persona_autoriza_store = new Ext.data.Store({
-            fields: [
-            { name: 'Id_Person' },
-            { name: 'Name' },
-            { name: 'LastName' },
-            { name: 'FullName',
-                convert: function(v, record) {
-                    return record.data.Name + ' ' + record.data.LastName;
-                }
-            },
-			{ name: 'Company' }
-        ],
-            data: []
-        });
+    var ingreso_funcionarios_persona_autoriza_store = new Ext.data.Store({
+        fields: [
+        { name: 'Id_Person' },
+        { name: 'Name' },
+        { name: 'LastName' },
+        { name: 'FullName',
+            convert: function(v, record) {
+                return record.data.Name + ' ' + record.data.LastName;
+            }
+        },
+		{ name: 'Company' }
+    ],
+        data: []
+    });
 
-        loadData(aspPageRegisterAuthorization, 'GetAprobatorPerson', "{'start':0,'limit':0}", ingreso_funcionarios_persona_autoriza_store, null, null);
+    loadData(aspPageRegisterAuthorization, 'GetAprobatorPerson', "{'start':0,'limit':0}", ingreso_funcionarios_persona_autoriza_store, null, null);
 
-        var master_buscar_array = [
+    var master_buscar_array = [
         ['Id_Visitor', 'Documento Identificación'],
         ['Person.Name', 'Nombre del Visitante'],
         ['Person.LastName', 'Apellido del Visitante'],
         ['Person.Company.Name', 'Empresa del Visitante'],
-		['Visit.Functionary.Name', 'Autorizado por'],
+	    ['Visit.Functionary.Name', 'Autorizado por'],
         ['InitialDate', 'Fecha Inicial']
     ];
 
-        var master_buscar_store = new Ext.data.ArrayStore({
-            fields: ['campo', 'display_campo'],
-            data: master_buscar_array
-        });
+    var master_buscar_store = new Ext.data.ArrayStore({
+        fields: ['campo', 'display_campo'],
+        data: master_buscar_array
+    });
 
-        var master_buscar_combo = new Ext.form.ComboBox({
-            store: master_buscar_store,
-            hiddenName: 'campo',
-            valueField: 'campo',
-            displayField: 'display_campo',
-            typeAhead: true,
-            width: 180,
-            mode: 'local',
-            forceSelection: true,
-            triggerAction: 'all',
-            emptyText: 'Seleccione un campo',
-            selectOnFocus: true,
-            listeners: {
-                select: function(combo, arrRec, obj) {
-                    if (arrRec[0].get('campo') == 'InitialDate') {
-                        Ext.getCmp('id_master_buscar_text').hide();
-                        Ext.getCmp('id_master_buscar_date').show();
-                    }
-                    else {
-                        Ext.getCmp('id_master_buscar_date').hide();
-                        Ext.getCmp('id_master_buscar_text').show();
-                    }
+    var master_buscar_combo = new Ext.form.ComboBox({
+        store: master_buscar_store,
+        hiddenName: 'campo',
+        valueField: 'campo',
+        displayField: 'display_campo',
+        typeAhead: true,
+        width: 180,
+        mode: 'local',
+        forceSelection: true,
+        triggerAction: 'all',
+        emptyText: 'Seleccione un campo',
+        selectOnFocus: true,
+        listeners: {
+            select: function(combo, arrRec, obj) {
+                if (arrRec[0].get('campo') == 'InitialDate') {
+                    Ext.getCmp('id_master_buscar_text').hide();
+                    Ext.getCmp('id_master_buscar_date').show();
+                }
+                else {
+                    Ext.getCmp('id_master_buscar_date').hide();
+                    Ext.getCmp('id_master_buscar_text').show();
                 }
             }
-        });
-
-        function set_photo(val, x, store) {
-            if (val != null && val != '') {
-                return '<img src="../../images/photo/' + String(val) + '" onerror=this.src="../../images/user.png" width=45 heigth=75 align=center />';
-            }
-            else {
-                return '<img src="../../images/user.png" width=45 heigth=75 align=center />';
-            }
         }
+    });
 
-        function fixDate(val, meta, rec) {
-            return val != '' && val != null ? Ext.Date.format(Ext.Date.parse(val, "MS"), 'Y/m/d - H:i:s') : '';
+    function set_photo(val, x, store) {
+        if (val != null && val != '') {
+            return '<img src="../../images/photo/' + String(val) + '" onerror=this.src="../../images/user.png" width=45 heigth=75 align=center />';
         }
+        else {
+            return '<img src="../../images/user.png" width=45 heigth=75 align=center />';
+        }
+    }
 
-        var MasterGrid = new Ext.grid.GridPanel({
-            frame: false,
-            border: true,
-            width: Ext.getBody().getViewSize().width,
-            height: Ext.getBody().getViewSize().height,
-            monitorResize: true,
-            stripeRows: true,
-            columnLines: true,
-            stateful: true,
-            stateId: 'grid',
-            store: masterStoreVisit,/*({
-                fields: getProperties(new Visit()),
-                data: [{}]
-            }),*/
-            columns: [
-				Ext.create('Ext.grid.RowNumberer'),
-				{ header: "Foto", width: 55, dataIndex: 'Id_Visitor', renderer: set_photo },
-                { text: 'Documento de Identificaci&oacute;n', width: 150, dataIndex: 'Id_Visitor' },
-                { text: 'Nombre del Visitante', width: 250, dataIndex: 'Id_Visitor',
-                    renderer: function(val, meta, rec) {
-                        return getValueFromStore(val, meta, rec, ingreso_funcionarios_funcionario_store, 'Id_Person', 'FullName');
-                    }
-                },
-				{ text: 'Empresa del Visitante', width: 150, dataIndex: 'Id_Visitor', renderer: function(val, meta, rec) {
-				    return getValueFromStoreSinceOtherValueToFind(val, meta, rec, companyStore, 'Id_Third', 'Name', getValueFromStore(val, meta, rec, ingreso_funcionarios_funcionario_store, 'Id_Person', 'Company'));
-				}
-				},
-				{ text: "Autorizado por", width: 150, dataIndex: 'Id_Functionary', renderer: function(val, meta, rec) {
-				    return getValueFromStore(val, meta, rec, functionaryStore, 'Id_Functionary', 'FullName');
-				}
-				},
-                { text: 'Fecha Inicial', width: 150, dataIndex: 'InitialDate', renderer: fixDate },
-                { text: 'Fecha Final', width: 150, dataIndex: 'FinalDate', renderer: fixDate },
-                { text: 'Observaciones', width: 200, dataIndex: 'VisitDescription' },
-                { text: 'Equipos', width: 200, dataIndex: 'ElementsToGetIn' }
+    function fixDate(val, meta, rec) {
+        return val != '' && val != null ? Ext.Date.format(Ext.Date.parse(val, "MS"), 'Y/m/d - H:i:s') : '';
+    }
+
+    var MasterGrid = new Ext.grid.GridPanel({
+        frame: false,
+        border: true,
+        width: Ext.getBody().getViewSize().width,
+        height: Ext.getBody().getViewSize().height,
+        monitorResize: true,
+        stripeRows: true,
+        columnLines: true,
+        stateful: true,
+        stateId: 'grid',
+        store: masterStoreVisit,
+        columns: [
+			Ext.create('Ext.grid.RowNumberer'),
+			{ header: "Foto", width: 55, dataIndex: 'Id_Visitor', renderer: set_photo },
+            { text: 'Documento de Identificaci&oacute;n', width: 150, dataIndex: 'Id_Visitor' },
+            { text: 'Nombre del Visitante', width: 250, dataIndex: 'Id_Visitor',
+                renderer: function(val, meta, rec) {
+                    return getValueFromStore(val, meta, rec, ingreso_funcionarios_funcionario_store, 'Id_Person', 'FullName');
+                }
+            },
+			{ text: 'Empresa del Visitante', width: 150, dataIndex: 'Id_Visitor', renderer: function(val, meta, rec) {
+			    return getValueFromStoreSinceOtherValueToFind(val, meta, rec, companyStore, 'Id_Third', 'Name', getValueFromStore(val, meta, rec, ingreso_funcionarios_funcionario_store, 'Id_Person', 'Company'));
+			}
+			},
+			{ text: "Autorizado por", width: 150, dataIndex: 'Id_Functionary', renderer: function(val, meta, rec) {
+			    return getValueFromStore(val, meta, rec, functionaryStore, 'Id_Functionary', 'FullName');
+			}
+			},
+            { text: 'Fecha Inicial', width: 150, dataIndex: 'InitialDate', renderer: fixDate },
+            { text: 'Fecha Final', width: 150, dataIndex: 'FinalDate', renderer: fixDate },
+            { text: 'Observaciones', width: 200, dataIndex: 'VisitDescription' },
+            { text: 'Equipos', width: 200, dataIndex: 'ElementsToGetIn' }
         ],
-            tbar: [
+        tbar: [
             {
                 text: 'Recargar',
                 iconCls: 'reload',
@@ -279,7 +272,7 @@
                 xtype: 'label',
                 html: 'B&uacute;squeda:'
             },
-                master_buscar_combo,
+            master_buscar_combo,
             {
                 xtype: 'datefield',
                 id: 'id_master_buscar_date',
@@ -326,23 +319,25 @@
                 }
             }
         ], 
-			bbar: new Ext.PagingToolbar({
-                pageSize: 20,
-                store: masterStoreVisit,
-                displayInfo: true,
-                displayMsg: 'Registros {0} - {1} de {2}',
-                emptyMsg: "No hay registros"
-            }),
-            renderTo: Ext.getBody()
-        });
-
-        //return dateFormatter(val, 'Y-m-d');
-        //return Ext.Date.format(date, 'd/m/Y');
-        //myDate = Ext.Date.parse("2012-01-03 5:43:21 PM", "Y-m-d g:i:s A");
-        //return date;
-
-        loadData(aspPageRegisterAuthorization, 'GetPerson', "{'start':0,'limit':0}", ingreso_funcionarios_funcionario_store,
-        function(data) {
-            loadData(aspPageConsultAuthorization, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
-        }, null);
+		bbar: new Ext.PagingToolbar({
+            pageSize: 20,
+            store: masterStoreVisit,
+            displayInfo: true,
+            displayMsg: 'Registros {0} - {1} de {2}',
+            emptyMsg: "No hay registros"
+        }),
+        renderTo: Ext.getBody()
     });
+
+    //return dateFormatter(val, 'Y-m-d');
+    //return Ext.Date.format(date, 'd/m/Y');
+    //myDate = Ext.Date.parse("2012-01-03 5:43:21 PM", "Y-m-d g:i:s A");
+    //return date;
+
+    loadData(aspPageRegisterAuthorization, 'GetPerson', "{'start':0,'limit':0}", ingreso_funcionarios_funcionario_store,
+        function(data) {
+            masterStoreVisit.load();
+            //loadData(aspPageConsultAuthorization, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+        }, 
+    null);
+});

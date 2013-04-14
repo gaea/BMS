@@ -42,8 +42,7 @@ namespace BMS.WEB.pages.authorization
                             Response.Write(string.Concat(callback, this.List(start, limit)));
                             break;
                         case "Save":
-                            Response.Write("({success: true, data:" + this.Save(Request.Params["objProperties"]) + "})");
-                            break;
+                            Response.Write("({success: true, data:" + this.Acept(Request.Params["objProperties"]) + "})");
                             break;
                         case "Find":
                             Response.Write(string.Concat(callback, this.Find(start, limit, field, value)));

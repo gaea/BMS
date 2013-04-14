@@ -32,10 +32,16 @@ namespace BMS.WEB.pages.authorization
                 string action = Request.Params["accion"];
                 if (!string.IsNullOrEmpty(action))
                 {
+                    int start = Convert.ToInt32(Request.Params["start"]);
+                    int limit = Convert.ToInt32(Request.Params["limit"]);
+                    string field = Request.Params["field"];
+                    string value = Request.Params["value"];
+                    string callback = Request.Params["callback"];
+
                     switch (action)
                     {
                         case "List":
-                            Response.Write("({success: true, data:" + this.List("","") + "})");
+                            Response.Write(string.Concat(callback, this.List(start, limit)));
                             break;
                         case "Find":
                             Response.Write("({success: true, data:" + this.Find(Request.Params["objProperties"]) + "})");
@@ -110,15 +116,20 @@ namespace BMS.WEB.pages.authorization
             return serialize.Serialize(msg);
         }
 		
-        public string List(string start, string limit)
+        public string List(int start, int limit)
         {
             MessageResponse msg = new MessageResponse();
+
+            DataResponse<TMA.MODEL.Entity.Visit> dataResponse = new DataResponse<TMA.MODEL.Entity.Visit>();
 
             try
             {
                 DateTime today = System.DateTime.Today;
 
-                return serialize.Serialize(VisitsDao.findByInitialDate(today));
+                dataResponse.Result = VisitsDao.findByInitialDate(today);
+                dataResponse.Total = VisitsDao.CountByInitialDate(today);
+
+                return dataResponse.ToJsonString();
             }
             catch (Exception ex)
             {

@@ -135,6 +135,26 @@ namespace TMA.DAO.EntityManager
             return visits;
         }
 
+        public static List<Visit> findByInitialDate(int start, int limit, DateTime InitialDate)
+        {
+            List<Visit> visits = (List<Visit>)Session.CreateCriteria<Visit>()
+                .Add(Restrictions.Gt("InitialDate", InitialDate))
+                .SetFirstResult(start)
+                .SetMaxResults(limit)
+                .List<Visit>();
+
+            return visits;
+        }
+
+        public static int CountByInitialDate(DateTime InitialDate)
+        {
+            List<Visit> visits = (List<Visit>)Session.CreateCriteria<Visit>()
+                .Add(Restrictions.Gt("InitialDate", InitialDate))
+                .List<Visit>();
+
+            return visits.Count;
+        }
+
         public static void save(Visit visit)
         {
             using (ITransaction transaction = Session.BeginTransaction())
