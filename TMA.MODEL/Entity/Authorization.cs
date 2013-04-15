@@ -11,24 +11,17 @@ namespace TMA.MODEL.Entity
         #region Attributes
 
         private int id_Authorization;
-        private string identification;
-        private bool authorized;
+        private string id_PersonEntry;
+        private bool? authorized;
         private DateTime? startDate;
         private DateTime? endDate;
         private int? id_PersonAuthorizing;
-        private int? id_AuthorizationType;
+        private int? id_EntryType;
         private string reason;
-        private int id_Person;
 
         #endregion Attributes
 
         #region Properties
-
-        public virtual int Id_Person
-        {
-            get { return id_Person; }
-            set { id_Person = value; }
-        }
 
         public virtual string Reason
         {
@@ -36,10 +29,10 @@ namespace TMA.MODEL.Entity
             set { reason = value; }
         }
 
-        public virtual int? Id_AuthorizationType
+        public virtual int? Id_EntryType
         {
-            get { return id_AuthorizationType; }
-            set { id_AuthorizationType = value; }
+            get { return id_EntryType; }
+            set { id_EntryType = value; }
         }
 
         public virtual int? Id_PersonAuthorizing
@@ -60,7 +53,7 @@ namespace TMA.MODEL.Entity
             set { startDate = value; }
         }
 
-        public virtual bool Authorized
+        public virtual bool? Authorized
         {
             get { return authorized; }
             set { authorized = value; }
@@ -72,10 +65,10 @@ namespace TMA.MODEL.Entity
             set { id_Authorization = value; }
         }
 
-        public virtual string Identification
+        public virtual string Id_PersonEntry
         {
-            get { return identification; }
-            set { identification = value; }
+            get { return id_PersonEntry; }
+            set { id_PersonEntry = value; }
         }
 
         #endregion Properties

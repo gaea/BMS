@@ -2,46 +2,18 @@
 
     var AspPage = 'RegisterRequest.aspx';
 
-    function Request() {
-        this.Id_Request = null,
-        this.Id_BiometricReader = null,
-        this.DateTransaction = null,
-        this.DateResponse = null,
-        this.State = null,
-        this.DescriptionResponse = null,
-        this.ResponsibleAnswer = null
-    };
-
-    var MasterRowEditor = new Ext.grid.plugin.RowEditing({
-        listeners: {
-            validateedit: function(editor, e, eOpts) {
-                saveData(
-                    AspPage,
-                    'Save',
-                    'requestProperties',
-                    e.newValues,
-                    function(data) {
-                        loadData(AspPage, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
-                    },
-                    null
-                );
-            }
-        }
-    });
-
     Ext.define('MasterModel', {
         extend: 'Ext.data.Model',
         fields: [
 			{ name: 'Id_Authorization' },
-            { name: 'Identification' },
+            { name: 'Id_PersonEntry' },
             { name: 'Authorized' },
             { name: 'StartDate' },
             { name: 'EndDate' },
             { name: 'Id_PersonAuthorizing' },
-            { name: 'Id_AuthorizationType' },
-            { name: 'Reason' },
-            { name: 'Id_Person' }
-			],
+            { name: 'Id_EntryType' },
+            { name: 'Reason' }
+		],
         idProperty: 'Id_Authorization'
     });
 
@@ -52,22 +24,22 @@
         proxy: {
             type: 'jsonp',
             url: AspPage,
-            reader: {
-                root: 'Result',
-                totalProperty: 'Total'
-            },
+            reader: { root: 'Result', totalProperty: 'Total' },
             simpleSortMode: true,
-            extraParams: {
-                accion: 'List'
-            }
+            extraParams: { accion: 'List' }
         },
-        sorters: [{
-            property: 'InitialDate',
-            direction: 'ASC'
-            }]
+        sorters: [{ property: 'StartDate', direction: 'ASC'}]
     });
 
-    masterStore.load();
+    function fixDate(val, meta, rec) {
+        return val != '' && val != null ? Ext.Date.format(Ext.Date.parse(val, "MS"), 'Y/m/d - H:i:s') : '';
+    }
+
+    function fixPendingAuthorization(val, meta, rec) {
+        if (val == null) { return 'Pendiente' }
+        if (val == true) { return 'Aprobado' }
+        if (val == false) { return 'Rechazado' }
+    }
 
     var MasterGrid = new Ext.grid.GridPanel({
         frame: false,
@@ -81,55 +53,51 @@
         stateId: 'grid',
         store: masterStore,
         columns: [
-            { text: 'Identificador Solicitud', width: 120, dataIndex: 'Id_Request' },
-            { text: 'Identificador Lector', width: 110, dataIndex: 'Id_BiometricReader' },
-            { text: 'Identificaci&oacute;n', width: 90, dataIndex: 'DocumentNumber' },
-            { text: 'Nombre', width: 170, dataIndex: 'Name', id: 'nombre_column_id' },
-            { text: 'Desde', width: 90, dataIndex: 'DateFrom', editor: new Ext.form.DateField({ allowBlank: false }) },
-            { text: '', width: 80, dataIndex: 'TimeFrom', editor: new Ext.form.TimeField({ allowBlank: false }) },
-            { text: 'Hasta', width: 90, dataIndex: 'DateTo', editor: new Ext.form.DateField({ allowBlank: false }) },
-            { text: '', width: 80, dataIndex: 'TimeTo', editor: new Ext.form.TimeField({ allowBlank: false }) },
-            { text: 'Motivo Aprobaci&oacute;n', dataIndex: 'DescriptionResponse', editor: new Ext.form.TextField({ allowBlank: false }) },
-            { text: 'Persona Aprueba', dataIndex: 'ResponsibleAnswer', editor: new Ext.form.ComboBox({ allowBlank: false }) },
-            { text: 'Aprobado?', width: 60, dataIndex: 'State', editor: new Ext.form.field.Checkbox({}) },
+            { header: 'Identificador Solicitud', width: 120, dataIndex: 'Id_Authorization' },
+            { header: 'Persona que ingresa', width: 200, dataIndex: 'Id_PersonEntry' },
+        //{ header: 'Nombre', width: 170, dataIndex: 'Id_PersonEntry' },
+            {header: 'Desde', width: 140, dataIndex: 'StartDate', renderer: fixDate },
+            { header: 'Hasta', width: 140, dataIndex: 'EndDate', renderer: fixDate },
+            { header: 'Motivo Aprobaci&oacute;n', width: 150, id: 'reason_column_id', dataIndex: 'Reason' },
+            { header: 'Persona Aprueba', width: 200, dataIndex: 'Id_PersonAuthorizing' },
+            { header: 'Aprobado?', width: 80, dataIndex: 'Authorized', renderer: fixPendingAuthorization },
         ],
-        plugins: [MasterRowEditor],
-        autoExpandColumn: 'nombre_column_id',
+        autoExpandColumn: 'reason_column_id',
         bbar: new Ext.PagingToolbar({
             pageSize: 20,
-            store: masterStore  ,
+            store: masterStore,
             displayInfo: true,
             displayMsg: 'Registros {0} - {1} de {2}',
             emptyMsg: "No hay registros"
         }),
         tbar: [
-            {
-                text: 'Adicionar',
-                iconCls: 'add',
-                handler: function() {
-                    MasterRowEditor.cancelEdit();
-                    MasterGrid.getStore().insert(0, new Request());
-                    MasterRowEditor.startEdit(MasterGrid.getStore().getAt(0), 0);
-                    //Ext.Msg.alert('Mensaje', 'Por favor llene los campos obligatorios', function() { }, this);
-                }
-            }, '-',
-            {
-                text: 'Modificar',
-                iconCls: 'modify',
-                handler: function() {
-                    var records = MasterGrid.getSelectionModel().getSelection();
-                    MasterRowEditor.cancelEdit();
-                    MasterRowEditor.startEdit(records[0], 1);
-                }
-            }, '-',
-            {
-                text: 'Aceptar',
-                iconCls: 'acept',
-                handler: function() {
-
-                }
+        {
+            text: 'Aprobar',
+            iconCls: 'acept',
+            handler: function() {
+                var records = MasterGrid.getSelectionModel().getSelection();
+                var Id_Authorization = records[0].get('Id_Authorization');
+                uploadData(
+                    AspPage,
+                    'Save',
+                    { Id_Authorization: Id_Authorization },
+                    function(data) {
+                        Ext.Msg.alert('Mensaje', data.Message, function() { masterStore.load(); }, this);
+                    },
+                    function(data) { }
+                );
             }
-        ],
+        }
+    ],
         renderTo: Ext.getBody()
+    });
+
+    masterStore.load();
+
+    var task = Ext.TaskManager.start({
+        run: function() {
+            masterStore.load();
+        },
+        interval: 30000
     });
 });

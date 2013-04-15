@@ -42,7 +42,8 @@ namespace BMS.WEB.pages.authorization
                             Response.Write(string.Concat(callback, this.List(start, limit)));
                             break;
                         case "Save":
-                            Response.Write("({success: true, data:" + this.Acept(Request.Params["objProperties"]) + "})");
+                            int Id_Authorization = Convert.ToInt32(Request.Params["Id_Authorization"]);
+                            Response.Write(this.Acept(Id_Authorization));
                             break;
                         case "Find":
                             Response.Write(string.Concat(callback, this.Find(start, limit, field, value)));
@@ -99,23 +100,24 @@ namespace BMS.WEB.pages.authorization
             return serialize.Serialize(msg);
         }
 
-        public string Acept(string Id_Authorization)
+        public string Acept(int Id_Authorization)
         {
-            MessageResponse msg = new MessageResponse();
+            ActionResponse msg = new ActionResponse();
 
             try
             {
-                TMA.MODEL.Entity.Authorization authorization = AuthorizationsDao.find(Convert.ToInt32(Id_Authorization));
-
+                TMA.MODEL.Entity.Authorization authorization = AuthorizationsDao.find(Id_Authorization);
                 authorization.Authorized = true;
-                AuthorizationsDao.save(authorization);
+                AuthorizationsDao.update(authorization);
+                msg.Success = true;
 
-                msg.Message = ConfigManager.SaveErrorMessage;
+                msg.Data.Message = ConfigManager.SaveSuccessMessage;
             }
             catch (Exception ex)
             {
-                msg.Message = ConfigManager.SaveErrorMessage;
-                msg.Error = ex.ToString();
+                msg.Success = false;
+                msg.Data.Message = ConfigManager.SaveErrorMessage;
+                msg.Data.Error = ex.ToString();
             }
 
             return serialize.Serialize(msg);

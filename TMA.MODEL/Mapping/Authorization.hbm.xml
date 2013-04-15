@@ -8,14 +8,13 @@
     <id name="Id_Authorization" column="Id_Autorizacion" type ="int">
       <generator class="increment" />
     </id>
-    <property name="Identification" column="Identificacion" type="string"/>
+    <property name="Id_PersonEntry" column="PersonaIngresa" type="string"/>
     <property name="Authorized" column="Autorizado" type="boolean"/>
     <property name="StartDate" column="FechaInicial" type="datetime"/>
-    <property name="EndDate" column="FechaFinal" type="string"/>
+    <property name="EndDate" column="FechaFinal" type="datetime"/>
     <property name="Id_PersonAuthorizing" column="PersonaAutoriza" type="int"/>
-    <property name="Id_AuthorizationType" column="Id_TipoAutorizacion" type="int"/>
+    <property name="Id_EntryType" column="Id_TipoIngreso" type="int"/>
     <property name="Reason" column="Motivo" type="string"/>
-    <property name="Id_Person" column="Id_Persona" type="int"/>
     
   </class>
 

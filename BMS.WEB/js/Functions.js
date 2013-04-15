@@ -12,6 +12,25 @@ function getProperties(obj) {
     return keys;
 }
 
+function uploadData(url, webMethod, extraparams, functionSuccess, functionFailure) {
+    Ext.Ajax.request({
+        method: 'POST',
+        url: url + '?accion=' + webMethod,
+        params: extraparams,
+        waitTitle: 'Enviando',
+        waitMsg: 'Enviando datos...',
+        timeout: 180000,
+        success: function(response) {
+            obj = Ext.JSON.decode(response.responseText);
+            functionSuccess(obj.Data);
+        },
+        failure: function(response, opts) {
+            obj = Ext.JSON.decode(response.responseText);
+            functionFailure(obj);
+        }
+    });
+}
+
 function upload(url, webMethod, extraparams, functionSuccess, functionFailure) {
     Ext.Ajax.request({
         method: 'POST',
@@ -114,12 +133,12 @@ function getStringFromBoolean(val){
 function getValueFromStore(val, meta, rec, store, key, value) {
 	var render_value = '';
 	var ix = store.findBy(
-	function(record, id) {
-		if (record.get(key) == val) {
-			render_value = record.get(value);
-			return id;
-		}
-	}
+	    function(record, id) {
+		    if (record.get(key) == val) {
+			    render_value = record.get(value);
+			    return id;
+		    }
+	    }
 	);
 	return render_value;
 }
