@@ -66,7 +66,7 @@ namespace BMS.WEB.pages.authorization
                 Dictionary<string, string> dicProperties = JsonConvert.DeserializeObject<Dictionary<string, string>>(objProperties);
 
                 Visit visit = new Visit();
-                visit.Id_Visitor = (float)Convert.ToInt64(dicProperties["Id_Person"]);
+                visit.Id_Visitor = Convert.ToDecimal(dicProperties["Id_Person"]);
 
                 DateTime InitialDate = Convert.ToDateTime(dicProperties["InitialDate"] + " " + dicProperties["InitialHour"]);
                 DateTime FinalDate = Convert.ToDateTime(dicProperties["FinalDate"] + " " + dicProperties["FinalHour"]);

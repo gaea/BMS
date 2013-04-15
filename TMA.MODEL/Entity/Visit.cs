@@ -11,7 +11,7 @@ namespace TMA.MODEL.Entity
         #region Attributes
 
         private int? id_Visit;
-        private float? id_Visitor;
+        private decimal? id_Visitor;
         private DateTime? dateCreateTransaction;
         private float id_Functionary;
         private string visitDescription;
@@ -45,7 +45,7 @@ namespace TMA.MODEL.Entity
             set { id_Visit = value; }
         }
 
-        public virtual float? Id_Visitor
+        public virtual decimal? Id_Visitor
         {
             get { return id_Visitor; }
             set { id_Visitor = value; }
