@@ -36,9 +36,10 @@
     }
 
     function fixPendingAuthorization(val, meta, rec) {
-        if (val == null) { return 'Pendiente' }
-        if (val == true) { return 'Aprobado' }
-        if (val == false) { return 'Rechazado' }
+        return 'Pendiente'; /*
+        if (val == null) { return 'Pendiente'; }
+        if (val == true) { return 'Aprobado'; }
+        if (val == false) { return 'Rechazado'; }*/
     }
 
     var MasterGrid = new Ext.grid.GridPanel({
