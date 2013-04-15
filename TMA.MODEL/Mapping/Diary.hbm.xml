@@ -10,7 +10,7 @@
     <property name="Id_Functionary" column="IdFuncionario" type="decimal" />
 		<property name="DateDiary" column="Fecha" type="string" />
 		<property name="HourDiary" column="Hora" type="string" />
-		<property name="Id_Visitor" column="IdVisitante" type="float" />
+		<property name="Id_Visitor" column="IdVisitante" type="decimal" />
 		<property name="Description" column="Motivo" type="string" />
 		<property name="DateCreateRegistration" column="FechaCrea" type="datetime" />
 		<property name="DateModifyRegistration" column="FechaModifica" type="datetime" />

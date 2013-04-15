@@ -17,7 +17,7 @@ namespace TMA.MODEL.Entity
 
         private string hourDiary;
 
-        private float id_Visitor;
+        private decimal id_Visitor;
 
         private string description;
 
@@ -51,7 +51,7 @@ namespace TMA.MODEL.Entity
             set { id_Functionary = value; }
         }
 
-        public virtual float Id_Visitor
+        public virtual decimal Id_Visitor
         {
             get { return id_Visitor; }
             set { id_Visitor = value; }

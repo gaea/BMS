@@ -10,7 +10,7 @@ namespace TMA.MODEL.Entity
     {
         #region Attributes
 
-        private float? id_Person;
+        private decimal? id_Person;
 
         private int? id_BiometricReader;
 
@@ -98,7 +98,7 @@ namespace TMA.MODEL.Entity
 
         #region Properties
 
-        public virtual float? Id_Person
+        public virtual decimal? Id_Person
         {
             get { return id_Person; }
             set { id_Person = value; }

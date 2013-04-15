@@ -54,7 +54,7 @@ namespace TMA.DAO.EntityManager
 
             foreach (Person person in persons)
             {
-                List<Diary> diaries = DiariesDao.findBy("Id_Visitor", person.Id_Person.ToString());
+                List<Diary> diaries = DiariesDao.findBy("Id_Visitor", person.Id_Person);
 
                 if (diaries != null)
                 {
@@ -73,7 +73,7 @@ namespace TMA.DAO.EntityManager
 
             foreach (Person person in persons)
             {
-                List<Diary> diaries = DiariesDao.findBy(start, limit, "Id_Visitor", person.Id_Person.ToString());
+                List<Diary> diaries = DiariesDao.findBy(start, limit, "Id_Visitor", person.Id_Person);
 
                 if (diaries != null)
                 {
@@ -173,7 +173,7 @@ namespace TMA.DAO.EntityManager
         public static List<Diary> findBy(int start, int limit, string field, string value)
         {
             List<Diary> diaries = (List<Diary>)Session.CreateCriteria<Diary>()
-                .Add(Restrictions.Like(Projections.Cast(NHibernateUtil.String, Projections.Property(field)), value.ToString(), MatchMode.Anywhere))
+                .Add(Restrictions.Like(Projections.Cast(NHibernateUtil.String, Projections.Property(field)), value, MatchMode.Anywhere))
                 .SetFirstResult(start)
                 .SetMaxResults(limit)
                 .List<Diary>();
@@ -181,10 +181,39 @@ namespace TMA.DAO.EntityManager
             return diaries;
         }
 
+        public static List<Diary> findBy(int start, int limit, string field, decimal? value)
+        {
+            List<Diary> diaries = (List<Diary>)Session.CreateCriteria<Diary>()
+                .Add(Restrictions.Eq(field, value))
+                .SetFirstResult(start)
+                .SetMaxResults(limit)
+                .List<Diary>();
+
+            return diaries;
+        }
+
+        public static List<Diary> findBy(string field, decimal? value)
+        {
+            List<Diary> diaries = (List<Diary>)Session.CreateCriteria<Diary>()
+                .Add(Restrictions.Eq(field, value))
+                .List<Diary>();
+
+            return diaries;
+        }
+
+        public static int Count(string field, decimal? value)
+        {
+            List<Diary> diaries = (List<Diary>)Session.CreateCriteria<Diary>()
+                .Add(Restrictions.Eq(field, value))
+                .List<Diary>();
+
+            return diaries.Count;
+        }
+
         public static int Count(string field, string value)
         {
             List<Diary> diaries = (List<Diary>)Session.CreateCriteria<Diary>()
-                .Add(Restrictions.Like(Projections.Cast(NHibernateUtil.String, Projections.Property(field)), value.ToString(), MatchMode.Anywhere))
+                .Add(Restrictions.Like(Projections.Cast(NHibernateUtil.String, Projections.Property(field)), value, MatchMode.Anywhere))
                 .List<Diary>();
 
             return diaries.Count;

@@ -79,13 +79,13 @@
         //loadData(AspPageRegisterDiary, 'GetPerson', "{'start':0,'limit':0}", persona_store, null, null);
 
         var master_buscar_array = [
-        ['Id_Visitor', 'Documento Identificación'],
-        ['Person.Name', 'Nombre del Visitante'],
-        ['Person.LastName', 'Apellido del Visitante'],
-        ['Person.Company.Name', 'Empresa del Visitante'],
-		['Diary.Functionary.Name', 'Nombre del Funcionario Agendado'],
-        ['DateDiary', 'Fecha Agendada']
-    ];
+            ['Id_Visitor', 'Documento Identificación'],
+            ['Person.Name', 'Nombre del Visitante'],
+            ['Person.LastName', 'Apellido del Visitante'],
+            ['Person.Company.Name', 'Empresa del Visitante'],
+		    ['Diary.Functionary.Name', 'Nombre del Funcionario Agendado'],
+            ['DateDiary', 'Fecha Agendada']
+        ];
 
         var master_buscar_store = new Ext.data.ArrayStore({
             fields: ['campo', 'display_campo'],
