@@ -2,14 +2,14 @@ Ext.define("MyDesktop.App", { extend: "Ext.ux.desktop.App",
     requires: [
         "Ext.window.MessageBox",
         "Ext.ux.desktop.ShortcutModel",
-        "MyDesktop.Notepad",
+        /*"MyDesktop.Notepad",*/
         "MyDesktop.BogusMenuModule",
         "MyDesktop.BogusModule",
         "MyDesktop.Settings",
         "MyDesktop.Diary",
         "MyDesktop.Authorization",
         "MyDesktop.MasterTables",
-		"MyDesktop.Help",
+		/*"MyDesktop.Help",*/
 		"MyDesktop.ManagePerson"
     ],
     init: function() {
@@ -18,13 +18,13 @@ Ext.define("MyDesktop.App", { extend: "Ext.ux.desktop.App",
     getModules: function() {
         return [
             new MyDesktop.SystemStatus(),
-            new MyDesktop.Notepad(),
+            /*new MyDesktop.Notepad(),*/
             new MyDesktop.BogusMenuModule(),
             new MyDesktop.BogusModule(),
             new MyDesktop.Diary(),
             new MyDesktop.Authorization(),
             new MyDesktop.MasterTables(),
-			new MyDesktop.Help(),
+			/*new MyDesktop.Help(),*/
 			new MyDesktop.ManagePerson()
         ]
     },
@@ -44,11 +44,11 @@ Ext.define("MyDesktop.App", { extend: "Ext.ux.desktop.App",
                     model: "Ext.ux.desktop.ShortcutModel",
                     data: [
 						{ name: "Agenda", iconCls: "diary48", module: "master-diary-win" },
-                        { name: "Maestro Autorizaciones", iconCls: "icon-biometric-authorization48", module: "master-authorization-win" },
+                        { name: "Registro de Visitas", iconCls: "icon-biometric-authorization48", module: "master-authorization-win" },
 						{ name: "Personas", iconCls: "persons48", module: "master-manage-person-win" },
-                        { name: "Tablas Maestras", iconCls: "icon-master-table48", module: "master-table-win" },
+                        { name: "Tablas Maestras", iconCls: "icon-master-table48", module: "master-table-win" }/*,
 						{ name: "Notas", iconCls: "notepad-shortcut", module: "notepad" },
-						{ name: "Ayuda", iconCls: "help48", module: "help-win" }
+						{ name: "Ayuda", iconCls: "help48", module: "help-win" }*/
                     ]
                 }),
                 wallpaper: "../ux/desktop/wallpapers/Blue-Sencha.jpg",

@@ -28,7 +28,7 @@ namespace TMA.DAO.EntityManager
             return functionary;
         }
 
-        public static Functionary find(float Id_Functionary)
+        public static Functionary find(float? Id_Functionary)
         {
             Functionary functionary = (Functionary)Session.CreateCriteria<Functionary>()
                 .Add(Restrictions.Like(Projections.Cast(NHibernateUtil.Double, Projections.Property("Id_Functionary")), Id_Functionary))

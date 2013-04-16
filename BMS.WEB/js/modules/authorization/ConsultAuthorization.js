@@ -285,7 +285,14 @@
                     scope: this,
                     specialkey: function(f, e) {
                         if (e.getKey() == e.ENTER) {
-                            loadData(aspPageConsultAuthorization, 'Find', { objProperties: "{'field':'InitialDate','value':'" + Ext.getCmp('id_master_buscar_date').getValue() + "'}" }, MasterGrid.getStore(), null, null);
+                            masterStoreVisit.load({ params: {
+                                    accion: 'Find',
+                                    field: 'InitialDate',
+                                    value: Ext.getCmp('id_master_buscar_date').getValue()
+                                }
+                            });
+                            
+                            //loadData(aspPageConsultAuthorization, 'Find', { objProperties: "{'field':'InitialDate','value':'" + Ext.getCmp('id_master_buscar_date').getValue() + "'}" }, MasterGrid.getStore(), null, null);
                         }
                     }
                 }
@@ -298,7 +305,14 @@
                     scope: this,
                     specialkey: function(f, e) {
                         if (e.getKey() == e.ENTER) {
-                            loadData(aspPageConsultAuthorization, 'Find', { objProperties: "{'field':'" + master_buscar_combo.getValue() + "','value':'" + Ext.getCmp('id_master_buscar_text').getValue() + "'}" }, MasterGrid.getStore(), null, null);
+                            masterStoreVisit.load({ params: {
+                                    accion: 'Find',
+                                    field: master_buscar_combo.getValue(),
+                                    value: Ext.getCmp('id_master_buscar_text').getValue()
+                                }
+                            });
+                            
+                            //loadData(aspPageConsultAuthorization, 'Find', { objProperties: "{'field':'" + master_buscar_combo.getValue() + "','value':'" + Ext.getCmp('id_master_buscar_text').getValue() + "'}" }, MasterGrid.getStore(), null, null);
                         }
                     }
                 }
@@ -316,7 +330,14 @@
                         search = Ext.getCmp('id_master_buscar_text').getValue();
                     }
 
-                    loadData(aspPageConsultAuthorization, 'Find', { objProperties: "{'field':'" + master_buscar_combo.getValue() + "','value':'" + search + "'}" }, MasterGrid.getStore(), null, null);
+                    masterStoreVisit.load({ params: {
+                        accion: 'Find',
+                        field: master_buscar_combo.getValue(),
+                        value: Ext.getCmp('id_master_buscar_text').getValue()
+                    }
+                    });
+
+                    //loadData(aspPageConsultAuthorization, 'Find', { objProperties: "{'field':'" + master_buscar_combo.getValue() + "','value':'" + search + "'}" }, MasterGrid.getStore(), null, null);
                 }
             }
         ],

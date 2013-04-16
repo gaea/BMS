@@ -44,7 +44,7 @@ namespace BMS.WEB.pages.authorization
                             Response.Write(string.Concat(callback, this.List(start, limit)));
                             break;
                         case "Find":
-                            Response.Write("({success: true, data:" + this.Find(Request.Params["objProperties"]) + "})");
+                            Response.Write(string.Concat(callback, this.Find(start, limit, field, value)));
                             break;
                         default:
                             return;
@@ -55,59 +55,67 @@ namespace BMS.WEB.pages.authorization
             }
         }
 
-        public string Find(string objProperties)
+        public string Find(int start, int limit, string field, string value)
         {
             MessageResponse msg = new MessageResponse();
-
-            Dictionary<string, string> dicProperties = JsonConvert.DeserializeObject<Dictionary<string, string>>(objProperties);
+            DataResponse<TMA.MODEL.Entity.Visit> dataResponse = new DataResponse<TMA.MODEL.Entity.Visit>();
 
             try
             {
                 int numberParam;
 
-                if (int.TryParse(dicProperties["value"], out numberParam))
+                if (int.TryParse(value, out numberParam))
                 {
-                    return serialize.Serialize(VisitsDao.findBy(dicProperties["field"], numberParam));
+                    dataResponse.Result = VisitsDao.findBy(start, limit, field, numberParam);
+                    dataResponse.Total = VisitsDao.Count(field, numberParam);
                 }
                 else 
                 {
-                    if (dicProperties["field"].Contains("Person"))
+                    if (field.Contains("Person"))
                     {
-                        if (dicProperties["field"].Contains("Company"))
+                        if (field.Contains("Company"))
                         {
-                            return serialize.Serialize(VisitsDao.findCompanyBy(dicProperties["field"].Split('.')[2], dicProperties["value"]));
+                            dataResponse.Result = VisitsDao.findCompanyBy(start, limit, field.Split('.')[2], value);
+                            dataResponse.Total = VisitsDao.CountCompanyBy(field.Split('.')[2], value);
                         }
                         else
                         {
-                            return serialize.Serialize(VisitsDao.findPersonBy(dicProperties["field"].Split('.')[1], dicProperties["value"]));
-                        }
-                    }
-                    if (dicProperties["field"].Contains("Functionary"))
-                    {
-
-                        if (dicProperties["field"].Contains("Name"))
-                        {
-                            return serialize.Serialize(VisitsDao.findFunctionaryBy(dicProperties["field"].Split('.')[2], dicProperties["value"]));
+                            dataResponse.Result = VisitsDao.findPersonBy(start, limit, field.Split('.')[1], value);
+                            dataResponse.Total = VisitsDao.CountPersonBy(field.Split('.')[1], value);
                         }
                     }
                     else
                     {
-                        DateTime InitialDate;
-                        if (DateTime.TryParse(dicProperties["value"], out InitialDate))
+                        if (field.Contains("Functionary"))
                         {
-                            return serialize.Serialize(VisitsDao.findBy(dicProperties["field"], InitialDate));
+                            if (field.Contains("Name"))
+                            {
+                                dataResponse.Result = VisitsDao.findFunctionaryBy(start, limit, field.Split('.')[2], value);
+                                dataResponse.Total = VisitsDao.CountFunctionaryBy(field.Split('.')[2], value);
+                            }
                         }
-                        else 
+                        else
                         {
-                            return serialize.Serialize(VisitsDao.findBy(dicProperties["field"], dicProperties["value"]));
+                            DateTime InitialDate;
+                            if (DateTime.TryParse(value, out InitialDate))
+                            {
+                                dataResponse.Result = VisitsDao.findBy(start, limit, field, InitialDate);
+                                dataResponse.Total = VisitsDao.Count(field, InitialDate);
+                            }
+                            else
+                            {
+                                dataResponse.Result = VisitsDao.findBy(start, limit, field, value);
+                                dataResponse.Total = VisitsDao.Count(field, value);
+                            }
                         }
                     }
                 }
+
+                return dataResponse.ToJsonString();
             }
             catch (Exception ex)
             {
                 msg.Message = ConfigManager.ListErrorMessage;
-
                 msg.Error = ex.ToString();
 
                 File.AppendAllText(ConfigManager.LogPath, msg.ToString());

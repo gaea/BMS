@@ -97,7 +97,7 @@ namespace TMA.DAO.TEST
                     {
                         Diary diary = DiariesDao.find(1);
 
-                        List<Diary> diaries = DiariesDao.findBy("Id_Visitor", 11);
+                        List<Diary> diaries = DiariesDao.findBy("Id_Visitor", "11");
 
                         List<Visit> visits = VisitsDao.findBy("Id_Visitor", 11);
 
