@@ -358,8 +358,18 @@
 			},
 			{
 			    text: 'Cancelar',
-			    iconCls: 'cancel'
-
+			    iconCls: 'cancel',
+			    handler: function() {
+			        Ext.MessageBox.confirm(
+			            'Limpiar Formulario',
+			            'Desea Limpiar el Formulario?',
+			            function(btn) {
+			                if (btn == 'yes') {
+			                    forma.getForm().reset();
+			                }
+			            }
+			        );
+			    }
 			}
 		],
         renderTo: Ext.getBody()

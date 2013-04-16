@@ -130,20 +130,20 @@
         Ext.define('MasterModel', {
             extend: 'Ext.data.Model',
             fields: [
-			{ name: 'Id_Diary' },
-            { name: 'Id_Functionary' },
-	        { name: 'Id_Visitor' },
-	        { name: 'DateDiary' },
-	        { name: 'HourDiary' },
-	        { name: 'Description' },
-	        { name: 'DateCreateRegistration' },
-	        { name: 'DateModifyRegistration' },
-	        { name: 'Id_UserCreateRegistration' },
-	        { name: 'Id_UserModifyRegistration' },
-	        { name: 'CenterCost' },
-            { name: 'State' },
-            { name: 'Id_User' }
-        ],
+			    { name: 'Id_Diary' },
+                { name: 'Id_Functionary' },
+	            { name: 'Id_Visitor' },
+	            { name: 'DateDiary' },
+	            { name: 'HourDiary' },
+	            { name: 'Description' },
+	            { name: 'DateCreateRegistration' },
+	            { name: 'DateModifyRegistration' },
+	            { name: 'Id_UserCreateRegistration' },
+	            { name: 'Id_UserModifyRegistration' },
+	            { name: 'CenterCost' },
+                { name: 'State' },
+                { name: 'Id_User' }
+            ],
             idProperty: 'Id_Diary'
         });
 
@@ -162,8 +162,8 @@
             sorters: [{
                 property: 'Id_Diary',
                 direction: 'DESC'
-}]
-            });
+            }]
+        });
 
         var MasterGrid = new Ext.grid.GridPanel({
             frame: false,
@@ -195,8 +195,8 @@
 				},
 				{ text: 'Fecha Agendada', width: 100, dataIndex: 'DateDiary' },
 				{ text: 'Hora Agendada', width: 100, dataIndex: 'HourDiary' },
-				{ text: 'Motivo', width: 150, dataIndex: 'Description' },
-				{ text: 'Estado', width: 100, dataIndex: 'State' }
+				{ text: 'Motivo', width: 150, dataIndex: 'Description' }/*,
+				{ text: 'Estado', width: 100, dataIndex: 'State' }*/
         ],
 		bbar: new Ext.PagingToolbar({
 		    pageSize: 20,

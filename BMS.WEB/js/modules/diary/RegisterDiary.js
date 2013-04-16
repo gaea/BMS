@@ -1,8 +1,8 @@
 ﻿Ext.onReady(function() {
 
     var aspPageRegisterDiary = 'RegisterDiary.aspx';
-	
-	var aspPageFunctionary = '../master_tables/Functionary.aspx';
+
+    var aspPageFunctionary = '../master_tables/Functionary.aspx';
 
     var tipo_ingreso_store = new Ext.data.Store({
         fields: [{ name: 'Id_EntryType' }, { name: 'EntryTypeName'}],
@@ -52,7 +52,7 @@
     });
 
     loadCombo(aspPageRegisterDiary, 'GetState', "{'start':0,'limit':0}", estado_store, ingreso_agenda_estado_combo);
-    
+
     Ext.define('personaVisitadaModel', {
         extend: 'Ext.data.Model',
         fields: [
@@ -74,7 +74,7 @@
         proxy: {
             type: 'jsonp',
             url: aspPageFunctionary,
-            reader: { root: 'result', totalProperty: 'total'},
+            reader: { root: 'result', totalProperty: 'total' },
             simpleSortMode: true,
             extraParams: { accion: 'List', start: 0, limit: 0 }
         },
@@ -82,27 +82,27 @@
         sorters: [{
             property: 'FullName',
             direction: 'ASC'
-        }]
-    });
-	
-	var ingreso_agenda_persona_visitada_combo = Ext.create('Ext.form.field.ComboBox', {
-        id: 'id_registro_agenda_persona_visitada_combo',
-        mode: 'local',
-        triggerAction: 'all',
-        anchor: '100%',
-        fieldLabel: 'Nombre del Visitado',
-        forceSelection: true,
-        name: 'Id_Functionary',
-        displayField: 'FullName',
-        valueField: 'Id_Functionary',
-        queryMode: 'local',
-        hiddenValue: 'Id_Visitor',
-        allowBlank: false,
-        store: personaVisitadaStore
-    });
+}]
+        });
 
-    var persona_store = new Ext.data.Store({
-        fields: [
+        var ingreso_agenda_persona_visitada_combo = Ext.create('Ext.form.field.ComboBox', {
+            id: 'id_registro_agenda_persona_visitada_combo',
+            mode: 'local',
+            triggerAction: 'all',
+            anchor: '100%',
+            fieldLabel: 'Nombre del Visitado',
+            forceSelection: true,
+            name: 'Id_Functionary',
+            displayField: 'FullName',
+            valueField: 'Id_Functionary',
+            queryMode: 'local',
+            hiddenValue: 'Id_Visitor',
+            allowBlank: false,
+            store: personaVisitadaStore
+        });
+
+        var persona_store = new Ext.data.Store({
+            fields: [
             { name: 'Id_Person' },
             { name: 'Photo' },
             { name: 'Name' },
@@ -118,49 +118,49 @@
                 }
             }
         ],
-        data: []
-    });
-	
-    var ingreso_agenda_persona_visitante_combo = Ext.create('Ext.form.field.ComboBox', {
-        id: 'id_registro_agenda_persona_combo',
-        mode: 'local',
-        triggerAction: 'all',
-        anchor: '100%',
-        //pageSize: 10,
-        fieldLabel: 'Nombre del Visitante',
-        forceSelection: true,
-        name: 'Id_Person',
-        displayField: 'FullName',
-        valueField: 'Id_Person',
-        queryMode: 'local',
-        hiddenValue: 'Id_Visitor',
-        allowBlank: false,
-        store: persona_store,
-        listeners: {
-            select: function(combo, arrRec, obj) {
-                if (arrRec[0].get('Photo') != '' && arrRec[0].get('Photo') != null) {
-                    Ext.get('foto_persona').dom.src = '../../images/Photo/' + arrRec[0].get('Photo');
-                }
-                else {
-                    Ext.get('foto_persona').dom.src = '../../images/user.png';
+            data: []
+        });
+
+        var ingreso_agenda_persona_visitante_combo = Ext.create('Ext.form.field.ComboBox', {
+            id: 'id_registro_agenda_persona_combo',
+            mode: 'local',
+            triggerAction: 'all',
+            anchor: '100%',
+            //pageSize: 10,
+            fieldLabel: 'Nombre del Visitante',
+            forceSelection: true,
+            name: 'Id_Person',
+            displayField: 'FullName',
+            valueField: 'Id_Person',
+            queryMode: 'local',
+            hiddenValue: 'Id_Visitor',
+            allowBlank: false,
+            store: persona_store,
+            listeners: {
+                select: function(combo, arrRec, obj) {
+                    if (arrRec[0].get('Photo') != '' && arrRec[0].get('Photo') != null) {
+                        Ext.get('foto_persona').dom.src = '../../images/Photo/' + arrRec[0].get('Photo');
+                    }
+                    else {
+                        Ext.get('foto_persona').dom.src = '../../images/user.png';
+                    }
                 }
             }
-        }
-    });
+        });
 
-    loadCombo(aspPageRegisterDiary, 'GetPerson', "{'start':0,'limit':0}", persona_store, ingreso_agenda_persona_visitante_combo);
+        loadCombo(aspPageRegisterDiary, 'GetPerson', "{'start':0,'limit':0}", persona_store, ingreso_agenda_persona_visitante_combo);
 
-    var forma = new Ext.form.Panel({
-        frame: false,
-        border: false,
-        width: Ext.getBody().getViewSize().width,
-        height: Ext.getBody().getViewSize().height,
-        monitorResize: true,
-        bodyStyle: 'padding:5px',
-        layout: 'column',
-        columnWidth: 0.5,
-        columns: 2,
-        items: [
+        var forma = new Ext.form.Panel({
+            frame: false,
+            border: false,
+            width: Ext.getBody().getViewSize().width,
+            height: Ext.getBody().getViewSize().height,
+            monitorResize: true,
+            bodyStyle: 'padding:5px',
+            layout: 'column',
+            columnWidth: 0.5,
+            columns: 2,
+            items: [
 			{
 			    xtype: 'fieldset',
 			    title: 'Datos para la Agenda',
@@ -173,8 +173,8 @@
 					    border: false,
 					    columnWidth: 0.75,
 					    items: [
-							ingreso_agenda_tipo_ingreso_combo,
-							ingreso_agenda_estado_combo,
+					    /*ingreso_agenda_tipo_ingreso_combo,
+					    ingreso_agenda_estado_combo,*/
 							ingreso_agenda_persona_visitante_combo,
 							ingreso_agenda_persona_visitada_combo,
 							{
@@ -236,7 +236,7 @@
 				]
 			}
 		],
-        buttons: [
+            buttons: [
 			{
 			    text: 'Guardar',
 			    iconCls: 'save',
@@ -274,12 +274,22 @@
 			},
 			{
 			    text: 'Cancelar',
-			    iconCls: 'cancel'
-
+			    iconCls: 'cancel',
+			    handler: function() {
+			        Ext.MessageBox.confirm(
+			            'Limpiar Formulario',
+			            'Desea Limpiar el Formulario?',
+			            function(btn) {
+			                if (btn == 'yes') {
+			                    forma.getForm().reset();
+			                }
+			            }
+			        );
+			    }
 			}
 		],
-        renderTo: Ext.getBody()
-    });
+            renderTo: Ext.getBody()
+        });
 
-    //loadData(aspPageRegisterDiary, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
-});
+        //loadData(aspPageRegisterDiary, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+    });
