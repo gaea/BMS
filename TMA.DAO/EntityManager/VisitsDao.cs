@@ -137,7 +137,7 @@ namespace TMA.DAO.EntityManager
 
                 foreach (Person person in persons)
                 {
-                    List<Visit> visits = (List<Visit>)VisitsDao.findBy("Id_Visitor", float.Parse(person.Id_Person.ToString()));
+                    List<Visit> visits = (List<Visit>)VisitsDao.findBy("Id_Visitor", person.Id_Person);
 
                     if (visits != null)
                     {
@@ -162,7 +162,7 @@ namespace TMA.DAO.EntityManager
 
                 foreach (Person person in persons)
                 {
-                    List<Visit> visits = (List<Visit>)VisitsDao.findBy("Id_Visitor", float.Parse(person.Id_Person.ToString()));
+                    List<Visit> visits = (List<Visit>)VisitsDao.findBy("Id_Visitor", person.Id_Person);
 
                     if (visits != null)
                     {

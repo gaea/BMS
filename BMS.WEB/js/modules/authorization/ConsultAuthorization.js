@@ -265,7 +265,9 @@
                 handler: function() {
                     loadData(aspPageRegisterAuthorization, 'GetPerson', "{'start':0,'limit':0}", ingreso_funcionarios_funcionario_store,
                         function(data) {
-                            loadData(aspPageConsultAuthorization, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
+
+                            masterStoreVisit.load();
+                            //loadData(aspPageConsultAuthorization, 'List', "{'start':0,'limit':0}", MasterGrid.getStore(), null, null);
                         }, null);
                 }
             }, '->',
@@ -333,7 +335,7 @@
                     masterStoreVisit.load({ params: {
                         accion: 'Find',
                         field: master_buscar_combo.getValue(),
-                        value: Ext.getCmp('id_master_buscar_text').getValue()
+                        value: search
                     }
                     });
 

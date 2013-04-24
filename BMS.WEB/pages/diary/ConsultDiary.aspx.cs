@@ -89,12 +89,12 @@ namespace BMS.WEB.pages.diary
 
             try
             {
-                float numberParam;
+                decimal numberParam;
 
-                if (float.TryParse(value, out numberParam))
+                if (decimal.TryParse(value, out numberParam))
                 {
-                    dataResponse.Result = DiariesDao.findBy(start, limit, field, numberParam.ToString());
-                    dataResponse.Total = DiariesDao.Count(field, numberParam.ToString());
+                    dataResponse.Result = DiariesDao.findBy(start, limit, field, numberParam);
+                    dataResponse.Total = DiariesDao.Count(field, numberParam);
 
                     return dataResponse.ToJsonString();
                 }
@@ -122,7 +122,7 @@ namespace BMS.WEB.pages.diary
                         if (field.Contains("Name"))
                         {
                             dataResponse.Result = DiariesDao.findFunctionaryBy(start, limit, field.Split('.')[2], value);
-                            dataResponse.Total = DiariesDao.CountFunctionary(field.Split('.')[1], value);
+                            dataResponse.Total = DiariesDao.CountFunctionary(field.Split('.')[2], value);
 
                             return dataResponse.ToJsonString();
                         }

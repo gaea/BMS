@@ -28,7 +28,7 @@ namespace TMA.DAO.EntityManager
             return functionary;
         }
 
-        public static Functionary find(float? Id_Functionary)
+        public static Functionary find(decimal? Id_Functionary)
         {
             Functionary functionary = (Functionary)Session.CreateCriteria<Functionary>()
                 .Add(Restrictions.Eq("Id_Functionary", Id_Functionary))

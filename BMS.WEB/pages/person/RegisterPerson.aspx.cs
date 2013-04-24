@@ -82,7 +82,7 @@ namespace BMS.WEB.pages.person
 
                 Dictionary<string, string> dicProperties = JsonConvert.DeserializeObject<Dictionary<string, string>>(objProperties);
 
-                TMA.MODEL.Entity.Person person = PersonsDao.find(Convert.ToInt64(util.getValueFromDictionary("Id_Person", dicProperties)));
+                TMA.MODEL.Entity.Person person = PersonsDao.find(Convert.ToDecimal(util.getValueFromDictionary("Id_Person", dicProperties)));
 
                 if (person == null)
                 {

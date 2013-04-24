@@ -56,10 +56,10 @@ namespace TMA.DAO.EntityManager
             return person;
         }
 
-        public static Person find(float Id_Person)
+        public static Person find(decimal Id_Person)
         {
             Person person = (Person)Session.CreateCriteria<Person>()
-                .Add(Restrictions.Like(Projections.Cast(NHibernateUtil.Double, Projections.Property("Id_Person")), Id_Person.ToString()))
+                .Add(Restrictions.Eq("Id_Person", Id_Person))
                 .UniqueResult();
 
             return person;

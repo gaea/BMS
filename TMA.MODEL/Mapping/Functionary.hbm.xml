@@ -5,7 +5,7 @@
 
 	<class name="Functionary" table="dbo.Tbl_Funcionarios">
 
-		<id name="Id_Functionary" column="IdFuncionario" type="float"></id>
+		<id name="Id_Functionary" column="IdFuncionario" type="decimal"></id>
 		<property name="Id_BiometricReader" column="CodEmpleado" type="int"/>
 		<property name="Id_Company" column="Empresa" type="int"/>
 		<property name="Id_Headquarter" column="NumeroSede" type="int"/>

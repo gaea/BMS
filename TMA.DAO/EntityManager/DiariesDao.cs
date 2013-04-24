@@ -92,7 +92,7 @@ namespace TMA.DAO.EntityManager
 
             foreach (Functionary functionary in functionaries)
             {
-                List<Diary> diaries = DiariesDao.findBy("Id_Functionary", (float)functionary.Id_Functionary);
+                List<Diary> diaries = DiariesDao.findBy("Id_Functionary", functionary.Id_Functionary);
 
                 if (diaries != null)
                 {
@@ -111,7 +111,7 @@ namespace TMA.DAO.EntityManager
 
             foreach (Functionary functionary in functionaries)
             {
-                List<Diary> diaries = DiariesDao.findBy(start, limit, "Id_Functionary", (float)functionary.Id_Functionary);
+                List<Diary> diaries = DiariesDao.findBy(start, limit, "Id_Functionary", functionary.Id_Functionary);
 
                 if (diaries != null)
                 {
@@ -134,7 +134,7 @@ namespace TMA.DAO.EntityManager
 
                 foreach (Person person in persons)
                 {
-                    List<Diary> diaries = DiariesDao.findBy("Id_Visitor", person.Id_Person.ToString());
+                    List<Diary> diaries = DiariesDao.findBy("Id_Visitor", person.Id_Person);
 
                     if (diaries != null)
                     {
@@ -158,7 +158,7 @@ namespace TMA.DAO.EntityManager
 
                 foreach (Person person in persons)
                 {
-                    List<Diary> diaries = DiariesDao.findBy("Id_Visitor", person.Id_Person.ToString());
+                    List<Diary> diaries = DiariesDao.findBy("Id_Visitor", person.Id_Person);
 
                     if (diaries != null)
                     {
@@ -228,10 +228,10 @@ namespace TMA.DAO.EntityManager
             return diaries;
         }
 
-        public static List<Diary> findBy(int start, int limit, string field, float value)
+        public static List<Diary> findBy(int start, int limit, string field, float? value)
         {
             List<Diary> diaries = (List<Diary>)Session.CreateCriteria<Diary>()
-                .Add(Restrictions.Like(Projections.Cast(NHibernateUtil.Single, Projections.Property(field)), value))
+                .Add(Restrictions.Eq(field, value))
                 .SetFirstResult(start)
                 .SetMaxResults(limit)
                 .List<Diary>();
@@ -242,7 +242,7 @@ namespace TMA.DAO.EntityManager
         public static List<Diary> findBy(string field, float value)
         {
             List<Diary> diaries = (List<Diary>)Session.CreateCriteria<Diary>()
-                .Add(Restrictions.Like(Projections.Cast(NHibernateUtil.Double, Projections.Property(field)), value))
+                .Add(Restrictions.Eq(field, value))
                 .List<Diary>();
 
             return diaries;
