@@ -28,7 +28,6 @@
             }
         }
     });
-
 	
     var masterGridCombo = new Ext.grid.GridPanel({
         frame: false,

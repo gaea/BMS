@@ -75,6 +75,15 @@ function loadCombo(page, module, params, store, combo) {
     , null);
 }
 
+function loadCombo(page, module, params, store, combo, success, failure) {
+    loadData(page, module, params, store,
+        function(data) {
+            combo.bindStore(store);
+            success();
+        }
+    , failure());
+}
+
 function saveData(url, method, webParam, params, funcSucces, funcFailure) {
     upload(
         url,

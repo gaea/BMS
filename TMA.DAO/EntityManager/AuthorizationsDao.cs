@@ -73,6 +73,8 @@ namespace TMA.DAO.EntityManager
 
         public static List<Authorization> findAll(int start, int limit)
         {
+            Session.Clear();
+
             IList<Authorization> iAuthorizations = Session.CreateCriteria<Authorization>()
                 .Add(Restrictions.IsNull("Authorized"))
                 .SetFirstResult(start)

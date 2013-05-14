@@ -16,6 +16,8 @@ using TMA.DAO.EntityManager;
 using System.IO;
 using BMS.CONFIGURATION;
 using BMS.WEB.cls;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace BMS.WEB.pages.authorization
 {
@@ -41,9 +43,12 @@ namespace BMS.WEB.pages.authorization
                         case "List":
                             Response.Write(string.Concat(callback, this.List(start, limit)));
                             break;
-                        case "Save":
+                        case "Acept":
                             int Id_Authorization = Convert.ToInt32(Request.Params["Id_Authorization"]);
                             Response.Write(this.Acept(Id_Authorization));
+                            break;
+                        case "Save":
+                            Response.Write("({success: true, data:" + this.Save(Request.Params["objProperties"]) + "})");
                             break;
                         case "Find":
                             Response.Write(string.Concat(callback, this.Find(start, limit, field, value)));
@@ -55,6 +60,34 @@ namespace BMS.WEB.pages.authorization
                     Response.End();
                 }
             }
+        }
+
+        public string Save(string objProperties)
+        {
+            MessageResponse msg = new MessageResponse();
+            try
+            {
+                Dictionary<string, string> dicProperties = JsonConvert.DeserializeObject<Dictionary<string, string>>(objProperties);
+
+                TMA.MODEL.Entity.Authorization authorization = AuthorizationsDao.find(Convert.ToInt32(dicProperties["Id_Authorization"]));
+
+                authorization.Id_PersonEntry = dicProperties["Id_Person"];
+                authorization.Id_PersonAuthorizing = Convert.ToInt32(dicProperties["Id_Functionary"]);
+                authorization.StartDate = Convert.ToDateTime(dicProperties["StartDate"] + " " + dicProperties["StartHour"]);
+                authorization.EndDate = Convert.ToDateTime(dicProperties["EndDate"] + " " + dicProperties["EndHour"]);
+                authorization.Reason = dicProperties["Reason"];
+                
+                AuthorizationsDao.update(authorization);
+
+                msg.Message = ConfigManager.SaveSuccessMessage;
+            }
+            catch (Exception exception)
+            {
+                msg.Message = ConfigManager.SaveErrorMessage;
+                msg.Error = exception.ToString();
+            }
+
+            return serialize.Serialize(msg);
         }
 
         public string Find(int start, int limit, string field, string value)
