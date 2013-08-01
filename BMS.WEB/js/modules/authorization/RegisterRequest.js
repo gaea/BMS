@@ -26,7 +26,7 @@
             url: AspPage,
             reader: { root: 'Result', totalProperty: 'Total' },
             simpleSortMode: true,
-            extraParams: { accion: 'List' }
+            extraParams: { accion: 'List', field: 'Authorized', value: 'null' }
         },
         sorters: [{ property: 'StartDate', direction: 'ASC'}]
     });
@@ -59,7 +59,21 @@
     });
 
     function fixPendingAuthorization(val, meta, rec) {
-        return 'Pendiente';
+        var estado = '';
+
+        switch (val) {
+            case true:
+                estado = 'Aprobado';
+                break;
+            case false:
+                estado = 'Rechazado';
+                break;
+            case null:
+                estado = 'Pendiente';
+                break;
+        }
+
+        return estado;
     }
 
     var ingreso_funcionarios_funcionario_combo = new Ext.form.field.ComboBox({
@@ -214,9 +228,9 @@
 	                        'objProperties',
 	                        MasterForm.getForm().getValues(),
 	                        function(data) {
-                                masterStore.load();
-                                MasterWindow.hide();
-                                MasterForm.getForm().reset();
+	                            masterStore.load();
+	                            MasterWindow.hide();
+	                            MasterForm.getForm().reset();
 	                        },
 	                        null
 	                    );
@@ -240,6 +254,31 @@
             items: [
                 MasterForm
             ]
+        });
+
+        var master_buscar_array = [
+        ['null', 'Pendiente'],
+        ['true', 'Aprobado'],
+        ['false', 'Rechazado']
+    ];
+
+        var master_buscar_store = new Ext.data.ArrayStore({
+            fields: ['campo', 'display_campo'],
+            data: master_buscar_array
+        });
+
+        var master_buscar_combo = new Ext.form.ComboBox({
+            store: master_buscar_store,
+            hiddenName: 'campo',
+            valueField: 'campo',
+            displayField: 'display_campo',
+            typeAhead: true,
+            width: 150,
+            mode: 'local',
+            forceSelection: true,
+            triggerAction: 'all',
+            emptyText: 'Seleccione un estado',
+            selectOnFocus: true
         });
 
         var MasterGrid = new Ext.grid.GridPanel({
@@ -303,6 +342,23 @@
                 }
             }, '-',
             {
+                text: 'Rechazar',
+                iconCls: 'cancel',
+                handler: function() {
+                    var records = MasterGrid.getSelectionModel().getSelection();
+                    var Id_Authorization = records[0].get('Id_Authorization');
+                    uploadData(
+                        AspPage,
+                        'Rejected',
+                        { Id_Authorization: Id_Authorization },
+                        function(data) {
+                            Ext.Msg.alert('Mensaje', data.Message, function() { masterStore.load(); }, this);
+                        },
+                        function(data) { }
+                    );
+                }
+            }, '-',
+            {
                 text: 'Modificar',
                 iconCls: 'modify',
                 handler: function() {
@@ -324,6 +380,20 @@
                         Ext.getCmp('AuthorizationEndDate').setValue(fixDate(MasterRecord.get('EndDate')));
                         Ext.getCmp('AuthorizationEndHour').setValue(fixHour(MasterRecord.get('EndDate')));
                     }
+                }
+            }, '->',
+            {
+                xtype: 'label',
+                html: 'Estado:'
+            },
+                master_buscar_combo,
+            {
+                text: 'Buscar',
+                iconCls: 'search',
+                handler: function() {
+                    masterStore.getProxy().setExtraParam("field", "Authorized");
+                    masterStore.getProxy().setExtraParam("value", master_buscar_combo.getValue())
+                    masterStore.load();
                 }
             }
         ],

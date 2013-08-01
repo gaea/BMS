@@ -37,14 +37,19 @@ namespace BMS.WEB.pages.authorization
                     string field = Request.Params["field"];
                     string value = Request.Params["value"];
                     string callback = Request.Params["callback"];
+                    int Id_Authorization = 0;
 
                     switch (accion)
                     {
+                        case "Rejected":
+                            Id_Authorization = Convert.ToInt32(Request.Params["Id_Authorization"]);
+                            Response.Write(this.Rejected(Id_Authorization));
+                            break;
                         case "List":
-                            Response.Write(string.Concat(callback, this.List(start, limit)));
+                            Response.Write(string.Concat(callback, this.List(start, limit, field, value)));
                             break;
                         case "Acept":
-                            int Id_Authorization = Convert.ToInt32(Request.Params["Id_Authorization"]);
+                            Id_Authorization = Convert.ToInt32(Request.Params["Id_Authorization"]);
                             Response.Write(this.Acept(Id_Authorization));
                             break;
                         case "Save":
@@ -111,7 +116,7 @@ namespace BMS.WEB.pages.authorization
             return serialize.Serialize(msg);
         }
 
-        public string List(int start, int limit)
+        public string List(int start, int limit, string field, string value)
         {
             MessageResponse msg = new MessageResponse();
 
@@ -119,8 +124,8 @@ namespace BMS.WEB.pages.authorization
 
             try
             {
-                dataResponse.Result = AuthorizationsDao.findAll(start, limit);
-                dataResponse.Total = AuthorizationsDao.Count();
+                dataResponse.Result = AuthorizationsDao.findAll(start, limit, field, value);
+                dataResponse.Total = AuthorizationsDao.Count(field, value);
 
                 return dataResponse.ToJsonString();
             }
@@ -156,5 +161,27 @@ namespace BMS.WEB.pages.authorization
             return serialize.Serialize(msg);
         }
 
+        public string Rejected(int Id_Authorization)
+        {
+            ActionResponse msg = new ActionResponse();
+
+            try
+            {
+                TMA.MODEL.Entity.Authorization authorization = AuthorizationsDao.find(Id_Authorization);
+                authorization.Authorized = false;
+                AuthorizationsDao.update(authorization);
+                msg.Success = true;
+
+                msg.Data.Message = ConfigManager.SaveSuccessMessage;
+            }
+            catch (Exception ex)
+            {
+                msg.Success = false;
+                msg.Data.Message = ConfigManager.SaveErrorMessage;
+                msg.Data.Error = ex.ToString();
+            }
+
+            return serialize.Serialize(msg);
+        }
     }
 }

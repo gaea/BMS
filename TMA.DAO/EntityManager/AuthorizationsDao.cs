@@ -62,24 +62,51 @@ namespace TMA.DAO.EntityManager
             return authorization;
         }
 
-        public static int Count()
-        {
-            IList<Authorization> iAuthorizations = Session.CreateCriteria<Authorization>()
-                .Add(Restrictions.IsNull("Authorized"))
-                .List<Authorization>();
-
-            return iAuthorizations.Count;
-        }
-
-        public static List<Authorization> findAll(int start, int limit)
+        public static int Count(string field, string value)
         {
             Session.Clear();
 
-            IList<Authorization> iAuthorizations = Session.CreateCriteria<Authorization>()
-                .Add(Restrictions.IsNull("Authorized"))
-                .SetFirstResult(start)
-                .SetMaxResults(limit)
-                .List<Authorization>();
+            ICriteria criteria = Session.CreateCriteria<Authorization>();
+
+            if (field.Equals("Authorized"))
+            {
+                if (value.Equals("null"))
+                {
+                    criteria.Add(Restrictions.IsNull("Authorized"));
+                }
+                else
+                {
+                    criteria.Add(Restrictions.Eq("Authorized", Convert.ToBoolean(value)));
+                }
+            }
+
+            IList<Authorization> iAuthorizations = criteria.List<Authorization>();
+
+            return (iAuthorizations != null) ? iAuthorizations.Count : 0;
+        }
+
+        public static List<Authorization> findAll(int start, int limit, string field, string value)
+        {
+            Session.Clear();
+
+            ICriteria criteria = Session.CreateCriteria<Authorization>();
+
+            if (field.Equals("Authorized"))
+            { 
+                if (value.Equals("null"))
+                {
+                    criteria.Add(Restrictions.IsNull("Authorized"));
+                }
+                else
+                {
+                    criteria.Add(Restrictions.Eq("Authorized", Convert.ToBoolean(value)));
+                }
+            }
+
+            criteria.SetFirstResult(start);
+            criteria.SetMaxResults(limit);
+
+            IList<Authorization> iAuthorizations = criteria.List<Authorization>();
 
             return (iAuthorizations != null) ? new List<Authorization>(iAuthorizations) : new List<Authorization>();
         }
