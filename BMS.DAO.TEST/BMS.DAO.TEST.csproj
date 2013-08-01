@@ -50,10 +50,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BMS.DAO\BMS.DAO.csproj">
-      <Project>{3A3070F8-6CCB-4F77-9B8C-E25A917E13FD}</Project>
-      <Name>BMS.DAO</Name>
-    </ProjectReference>
     <ProjectReference Include="..\BMS.MODEL\BMS.MODEL.csproj">
       <Project>{74FB125B-9FBF-4A63-BE74-A395653E2828}</Project>
       <Name>BMS.MODEL</Name>

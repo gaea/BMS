@@ -76,6 +76,7 @@
   <ItemGroup>
     <Compile Include="CustomSessionFactory.cs" />
     <Compile Include="Dao.cs" />
+    <Compile Include="EntityManager\AuditEntryDao.cs" />
     <Compile Include="EntityManager\CitiesDao.cs" />
     <Compile Include="EntityManager\CompaniesDao.cs" />
     <Compile Include="EntityManager\ChargesDao.cs" />

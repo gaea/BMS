@@ -77,6 +77,13 @@
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="pages\audit\ConsultAuditEntry.aspx.cs">
+      <DependentUpon>ConsultAuditEntry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\audit\ConsultAuditEntry.aspx.designer.cs">
+      <DependentUpon>ConsultAuditEntry.aspx</DependentUpon>
+    </Compile>
     <Compile Include="pages\authorization\ConsultAuthorization.aspx.cs">
       <DependentUpon>ConsultAuthorization.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -203,6 +210,7 @@
     <Content Include="Desktop.aspx" />
     <Content Include="js\DesktopConfig.js" />
     <Content Include="js\entities\DiaryEntity.js" />
+    <Content Include="js\modules\audit\ConsultAuditEntry.js" />
     <Content Include="js\modules\login\Login.js" />
     <Content Include="js\modules\master_tables\Company.js" />
     <Content Include="js\modules\master_tables\Charge.js" />
@@ -227,6 +235,7 @@
     <Content Include="js\modules\person\ManagePerson.js" />
     <Content Include="js\modules\person\RegisterPerson.js" />
     <Content Include="Login.aspx" />
+    <Content Include="pages\audit\ConsultAuditEntry.aspx" />
     <Content Include="pages\authorization\ConsultAuthorization.aspx" />
     <Content Include="pages\diary\ConsultDiary.aspx" />
     <Content Include="pages\diary\RegisterDiary.aspx" />
