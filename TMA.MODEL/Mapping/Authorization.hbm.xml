@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="TMA.MODEL"
+                   namespace="TMA.MODEL.Entity">
+
+  <class name="Authorization" table="TWA.Tbl_Autorizaciones">
+
+    <id name="Id_Authorization" column="Id_Autorizacion" type ="int">
+      <generator class="increment" />
+    </id>
+    <property name="Id_PersonEntry" column="PersonaIngresa" type="string"/>
+    <property name="DocumentNumberEntryPerson" column="NumeroDocumento" type="string"/>
+    <property name="NameEntryPerson" column="NombrePersonaIngresa" type="string"/>
+    <property name="ChargeEntryPerson" column="CargoPersonaIngresa" type="string"/>
+    <property name="HeadquarterEntryPerson" column="SedePersonaIngresa" type="string"/>
+    <property name="CostCenterEntryPerson" column="CentroCostoPersonaIngresa" type="string"/>
+    <property name="CompanyEntryPerson" column="EmpresaPersonaIngresa" type="string"/>
+    <property name="Authorized" column="Autorizado" type="boolean"/>
+    <property name="StartDate" column="FechaInicial" type="datetime"/>
+    <property name="EndDate" column="FechaFinal" type="datetime"/>
+    <property name="RecordDate" column="FechaRegistro" type="datetime"/>
+    <property name="Id_PersonAuthorizing" column="PersonaAutoriza" type="int"/>
+    <property name="Id_EntryType" column="Id_TipoIngreso" type="int"/>
+    <property name="BiometricDeviceIP" column="DireccionIPDispositivo" type="string"/>
+    <property name="Reason" column="Motivo" type="string"/>
+    
+  </class>
+
+</hibernate-mapping>

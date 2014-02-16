@@ -1,0 +1,16 @@
+# Microsoft Developer Studio Project File - Database Project
+Begin DataProject = "TMA.DATABASE"
+   MSDTVersion = "80"
+   Begin Folder = "Change Scripts"
+   End
+   Begin Folder = "Create Scripts"
+      Script = "TMA.DB.sql"
+   End
+   Begin DBRefFolder = "Database References"
+   End
+   Begin Folder = "Queries"
+      Script = "TMA.QUERY.sql"
+      Script = "TWA.STORE_PROCEDURES.sql"
+      Script = "TWA.TABLES.sql"
+   End
+End

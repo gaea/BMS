@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="BMS.MODEL"
+                   namespace="BMS.MODEL.Entity">
+
+  <class name="Users" table="BMS.Users">
+    <id name="Id_User" column="Id_User" type ="int">
+      <generator class="identity"/>
+    </id>
+    <property name="Login" column="Login" type="string"/>
+    <property name="Password" column="Password" type="string"/>
+	<property name="Id_Role" column="Id_Role" type="int"/>
+  </class>
+
+</hibernate-mapping>

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="TMA.MODEL"
+                   namespace="TMA.MODEL.Entity">
+
+  <class name="AuditEntry" table="TWA.Tbl_AuditoriaIngreso">
+    <id name="Id" column="ID" type ="int">
+      <generator class="increment" />
+    </id>
+    <property name="EntryPerson" column="PersonaIngresa" type="int"/>
+    <property name="DocumentNumberEntryPerson" column="NumeroDocumento" type="string"/>
+    <property name="NameEntryPerson" column="NombrePersonaIngresa" type="string"/>
+    <property name="ChargeEntryPerson" column="CargoPersonaIngresa" type="string"/>
+    <property name="HeadquarterEntryPerson" column="SedePersonaIngresa" type="string"/>
+    <property name="CostCenterEntryPerson" column="CentroCostoPersonaIngresa" type="string"/>
+    <property name="CompanyEntryPerson" column="EmpresaPersonaIngresa" type="string"/>
+    <property name="RecordDate" column="FechaRegistro" type="datetime"/>
+    <property name="BiometricDeviceIP" column="DireccionIPDispositivo" type="string"/>
+    <property name="Reason" column="Motivo" type="string"/>
+  </class>
+
+</hibernate-mapping>

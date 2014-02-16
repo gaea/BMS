@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="TMA.MODEL"
+                   namespace="TMA.MODEL.Entity">
+
+  <class name="Device" table="TWA.Tbl_Dispositivos">
+    <id name="Id" column="ID" type ="int">
+      <generator class="increment" />
+    </id>
+    <property name="BiometricDeviceIP" column="DireccionIPDispositivo" type="string"/>
+    <property name="State" column="Estado" type="string"/>
+    <property name="RecordDate" column="FechaRegistro" type="datetime"/>
+    <property name="Observations" column="Observaciones" type="string"/>
+  </class>
+
+</hibernate-mapping>

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="TMA.MODEL"
+                   namespace="TMA.MODEL.Entity">
+
+	<class name="Charge" table="dbo.Tbl_Cargos">
+		<id name="Id_Charge" column="CodigoCargo" type="int">
+			<generator class="increment"/>
+		</id>
+		<property name="Name" column="Cargo" type="string" />
+    <property name="Id_UserCreateRegistration" column="UsuarioCrea" type="string"/>
+    <property name="DateCreateRegistration" column="FechaCrea" type="datetime"/>
+    <property name="Id_UserModifyRegistration" column="UsuarioModifica" type="string"/>
+    <property name="DateModifyRegistration" column="FechaModifica" type="datetime"/>
+	</class>
+
+</hibernate-mapping>
